@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VietLot AI 🎰 — Phân Tích Xổ Số Thông Minh</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ===== RESET & ROOT ===== */
+:root {
+  --bg-primary:   #07091a;
+  --bg-surface:   #0d1225;
+  --bg-card:      #131b35;
+  --bg-card2:     #192040;
+  --accent-purple:#7c6ff7;
+  --accent-cyan:  #00d4d0;
+  --accent-pink:  #ff6bb5;
+  --accent-orange:#ff7f50;
+  --accent-yellow:#ffcc44;
+  --accent-green: #4effa3;
+  --text-primary: #eef0fc;
+  --text-secondary:#8b96b8;
+  --text-muted:   #404d6a;
+  --border:       rgba(124,111,247,0.18);
+  --border-h:     rgba(124,111,247,0.45);
+  --r:16px; --rs:10px;
+  --tr: all 0.28s cubic-bezier(.4,0,.2,1);
+  --glow-p: 0 0 24px rgba(124,111,247,0.3);
+  --glow-c: 0 0 24px rgba(0,212,208,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:
+    radial-gradient(ellipse at 15% 25%, rgba(124,111,247,.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(0,212,208,.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(255,107,181,.03) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--bg-card2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent-purple)}
+
+/* ===== HEADER ===== */
+.header{
+  background:rgba(13,18,37,.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:200;
+  gap:12px;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{
+  width:42px;height:42px;
+  background:linear-gradient(135deg,var(--accent-purple),var(--accent-cyan));
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+  animation:logoGlow 3s ease-in-out infinite;
+}
+@keyframes logoGlow{
+  0%,100%{box-shadow:0 0 0 0 rgba(124,111,247,.5)}
+  50%{box-shadow:0 0 0 10px rgba(124,111,247,0)}
+}
+.logo-title{font-size:19px;font-weight:800;background:linear-gradient(120deg,#fff 30%,var(--accent-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:11px;color:var(--text-muted);margin-top:1px}
+.header-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.live-badge{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(78,255,163,.1);border:1px solid rgba(78,255,163,.3);
+  color:var(--accent-green);border-radius:20px;
+  padding:5px 12px;font-size:12px;font-weight:700;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-green);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.stat-chip{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:20px;padding:5px 14px;font-size:12px;color:var(--text-secondary);
+}
+.stat-chip b{color:var(--accent-cyan)}
+
+/* ===== LOTTERY NAV ===== */
+.lottery-nav{
+  background:var(--bg-surface);
+  border-bottom:1px solid var(--border);
+  display:flex;gap:2px;padding:0 20px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.lottery-nav::-webkit-scrollbar{display:none}
+.ltab{
+  flex-shrink:0;
+  padding:13px 18px;
+  cursor:pointer;
+  color:var(--text-secondary);
+  font-size:13.5px;font-weight:500;
+  border-bottom:2.5px solid transparent;
+  transition:var(--tr);
+  display:flex;align-items:center;gap:7px;
+  white-space:nowrap;
+}
+.ltab:hover{color:var(--text-primary)}
+.ltab.active{color:#fff;border-bottom-color:var(--accent-purple)}
+.ltab .tico{font-size:17px}
+
+/* ===== MAIN ===== */
+.main{max-width:1440px;margin:0 auto;padding:24px;position:relative;z-index:1}
+
+/* ===== SUB NAV ===== */
+.sub-nav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.stab{
+  padding:9px 20px;border-radius:24px;
+  cursor:pointer;font-size:13.5px;font-weight:500;
+  border:1px solid var(--border);color:var(--text-secondary);
+  background:var(--bg-card);transition:var(--tr);
+  display:flex;align-items:center;gap:8px;
+}
+.stab:hover{border-color:var(--border-h);color:var(--text-primary)}
+.stab.active{
+  background:linear-gradient(135deg,var(--accent-purple),#5040cc);
+  border-color:transparent;color:#fff;box-shadow:var(--glow-p);
+}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px;transition:var(--tr);
+}
+.card:hover{border-color:var(--border-h);box-shadow:var(--glow-p)}
+.card-title{
+  font-size:14.5px;font-weight:600;color:var(--text-primary);
+  display:flex;align-items:center;gap:8px;margin-bottom:16px;
+}
+
+/* ===== LOADING ===== */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;color:var(--text-secondary)}
+.spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--accent-purple);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.empty-icon{font-size:52px;margin-bottom:16px}
+
+/* ===== GRIDS ===== */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:900px){.g3{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}.main{padding:16px}.header{padding:12px 16px}.header-right .stat-chip{display:none}}
+
+/* ===== LATEST RESULT CARD ===== */
+.latest-card{
+  background:linear-gradient(145deg,var(--bg-card),var(--bg-card2));
+  border:1px solid rgba(124,111,247,.35);
+  border-radius:var(--r);padding:28px;margin-bottom:24px;
+  position:relative;overflow:hidden;
+}
+.latest-card::after{
+  content:'';position:absolute;
+  top:-80px;right:-80px;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(124,111,247,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.lc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;flex-wrap:wrap;gap:12px}
+.lc-meta{}
+.lc-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px}
+.lc-date{font-size:24px;font-weight:800;color:#fff;line-height:1}
+.lc-id{font-size:13px;color:var(--accent-cyan);margin-top:5px}
+.lc-badge{
+  background:linear-gradient(135deg,#f59e0b,#ef4444);
+  color:#fff;padding:8px 16px;border-radius:20px;
+  font-size:13px;font-weight:700;
+  display:flex;align-items:center;gap:7px;
+  animation:jackpotGlow 2.5s infinite;
+}
+@keyframes jackpotGlow{
+  0%,100%{box-shadow:0 0 8px rgba(245,158,11,.3)}
+  50%{box-shadow:0 0 24px rgba(245,158,11,.6)}
+}
+
+/* ===== NUMBER BALLS ===== */
+.balls-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ball{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:800;color:#fff;
+  background:linear-gradient(145deg,var(--accent-purple),#4d3cba);
+  box-shadow:0 4px 14px rgba(124,111,247,.4);
+  animation:ballPop .5s cubic-bezier(.34,1.56,.64,1) backwards;
+}
+.ball.sp{background:linear-gradient(145deg,#ef4444,#b91c1c);box-shadow:0 4px 14px rgba(239,68,68,.4)}
+.ball.kball{width:38px;height:38px;font-size:13px}
+@keyframes ballPop{from{transform:scale(0) rotate(-180deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.ball-sep{font-size:22px;color:var(--text-muted);margin:0 4px}
+
+/* mini balls for history */
+.mball{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;
+  background:linear-gradient(145deg,#2a3554,#374466);
+}
+.mball.sp{background:linear-gradient(145deg,#7f1d1d,#b91c1c)}
+
+/* ===== HISTORY ROWS ===== */
+.hist-list{display:flex;flex-direction:column;gap:10px}
+.hist-row{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--rs);padding:12px 18px;
+  display:flex;align-items:center;gap:16px;
+  transition:var(--tr);
+}
+.hist-row:hover{border-color:var(--border-h);background:var(--bg-card2)}
+.hdate{min-width:110px}
+.hdate-main{font-size:13.5px;font-weight:600;color:var(--text-primary)}
+.hdate-sub{font-size:11px;color:var(--text-muted);margin-top:2px}
+.hnums{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+
+/* ===== STATS CARDS ===== */
+.stat-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r);padding:18px 20px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.sc-top{display:flex;align-items:center;justify-content:space-between}
+.sc-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.sc-val{font-size:26px;font-weight:800;color:var(--text-primary)}
+.sc-lbl{font-size:12px;color:var(--text-secondary)}
+
+/* ===== PRIZE TABLE ===== */
+.ptable{width:100%;border-collapse:collapse}
+.ptable th{
+  text-align:left;padding:11px 16px;font-size:12px;font-weight:600;
+  color:var(--text-secondary);text-transform:uppercase;letter-spacing:.6px;
+  border-bottom:1px solid var(--border);
+}
+.ptable td{padding:11px 16px;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:middle}
+.ptable tr:hover td{background:var(--bg-card2)}
+.pbadge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11.5px;font-weight:700}
+.pj{background:rgba(245,158,11,.18);color:#f59e0b}
+.p1{background:rgba(239,68,68,.18);color:#ef4444}
+.p2{background:rgba(168,85,247,.18);color:#a855f7}
+.p3{background:rgba(59,130,246,.18);color:#3b82f6}
+.p4{background:rgba(34,197,94,.18);color:#22c55e}
+.p5{background:rgba(124,111,247,.18);color:var(--accent-purple)}
+.p6{background:rgba(0,212,208,.18);color:var(--accent-cyan)}
+.p7{background:rgba(255,107,181,.18);color:var(--accent-pink)}
+
+/* ===== BOT CARDS ===== */
+.bots-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;margin-bottom:24px}
+.bot-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px;
+  position:relative;overflow:hidden;transition:var(--tr);
+}
+.bot-card:hover{border-color:var(--border-h);transform:translateY(-2px)}
+.bot-stripe{position:absolute;top:0;left:0;right:0;height:3px}
+.bs-rand{background:linear-gradient(90deg,var(--accent-purple),#a78bfa)}
+.bs-hot{background:linear-gradient(90deg,var(--accent-orange),var(--accent-pink))}
+.bs-cold{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-green))}
+.bs-stat{background:linear-gradient(90deg,var(--accent-yellow),var(--accent-orange))}
+.bot-name{font-size:16px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:9px}
+.bot-desc{font-size:12.5px;color:var(--text-secondary);line-height:1.55;margin-bottom:14px}
+.bot-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.kpi{text-align:center;background:var(--bg-surface);border-radius:10px;padding:10px 6px}
+.kpi-val{font-size:18px;font-weight:800;line-height:1}
+.kpi-lbl{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.pos{color:#22c55e}.neg{color:#ef4444}.neu{color:var(--accent-cyan)}
+.bot-detail{background:var(--bg-surface);border-radius:10px;padding:12px;font-size:12.5px}
+.bot-detail-row{display:flex;justify-content:space-between;margin-bottom:6px}
+.bot-detail-row:last-child{margin-bottom:0}
+
+/* ===== BOT CONTROLS ===== */
+.bot-controls{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px;margin-bottom:24px;
+}
+.ctrl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:16px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.flbl{font-size:12.5px;color:var(--text-secondary);font-weight:500}
+.finp{
+  background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:var(--rs);color:var(--text-primary);
+  padding:9px 13px;font-size:13.5px;outline:none;transition:var(--tr);
+}
+.finp:focus{border-color:var(--accent-purple);box-shadow:var(--glow-p)}
+.btn{
+  padding:10px 22px;border-radius:var(--rs);
+  font-size:14px;font-weight:700;cursor:pointer;border:none;
+  transition:var(--tr);display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent-purple),#4d3cba);
+  color:#fff;box-shadow:var(--glow-p);
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 32px rgba(124,111,247,.5)}
+.btn-primary:active{transform:translateY(0)}
+
+/* ===== CHART ===== */
+.chart-wrap{position:relative;height:300px}
+
+/* ===== RANKING TABLE ===== */
+.rank-table{width:100%;border-collapse:collapse}
+.rank-table th{
+  text-align:left;padding:10px 14px;font-size:11.5px;font-weight:600;
+  color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;
+  border-bottom:1px solid var(--border);white-space:nowrap;
+}
+.rank-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+.rank-table tr:hover td{background:var(--bg-card2)}
+
+/* ===== KENO GRID ===== */
+.keno-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.knum{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:7px;font-size:12px;font-weight:600;
+  background:var(--bg-surface);border:1px solid var(--border);
+  color:var(--text-muted);transition:var(--tr);
+}
+.knum.drawn{
+  background:linear-gradient(135deg,var(--accent-green),#00b894);
+  border-color:transparent;color:#000;
+  box-shadow:0 2px 8px rgba(78,255,163,.35);
+  animation:kPop .35s cubic-bezier(.34,1.56,.64,1) backwards;
+}
+@keyframes kPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+@media(max-width:500px){.keno-grid{grid-template-columns:repeat(8,1fr)}}
+
+/* ===== 3D RESULT ===== */
+.grid3d{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prize3d-box{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--rs);padding:13px}
+.prize3d-name{font-size:11px;color:var(--text-secondary);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.prize3d-nums{display:flex;gap:7px;flex-wrap:wrap}
+.num3d{
+  background:var(--bg-card2);border:1px solid var(--border);
+  border-radius:8px;padding:5px 12px;
+  font-size:18px;font-weight:800;color:var(--text-primary);font-family:monospace;
+}
+
+/* ===== LOAD MORE ===== */
+.load-more{
+  width:100%;padding:13px;background:var(--bg-card);
+  border:1px dashed var(--border);border-radius:var(--rs);
+  color:var(--text-secondary);cursor:pointer;font-size:13.5px;
+  margin-top:12px;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.load-more:hover{border-color:var(--accent-purple);color:var(--accent-purple)}
+
+/* ===== TAB PANELS ===== */
+.tpanel{display:none}.tpanel.active{display:block}
+
+/* ===== COMING SOON ===== */
+.coming-soon{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 20px;text-align:center;gap:16px;
+}
+.cs-icon{font-size:64px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* ===== ANALYSIS FREQ BAR ===== */
+.freq-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.freq-num{width:32px;font-size:13px;font-weight:700;text-align:center;color:var(--text-primary)}
+.freq-track{flex:1;height:8px;background:var(--bg-surface);border-radius:4px;overflow:hidden}
+.freq-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent-purple),var(--accent-cyan));transition:width 1.2s ease}
+.freq-cnt{width:28px;font-size:11px;color:var(--text-muted);text-align:right}
+
+/* ===== NOTICE ===== */
+.notice{
+  background:rgba(255,204,68,.08);border:1px solid rgba(255,204,68,.25);
+  border-radius:var(--rs);padding:14px 18px;font-size:13px;color:var(--text-secondary);line-height:1.65;
+  margin-top:16px;
+}
+.notice strong{color:var(--accent-yellow)}
+
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;padding:32px 24px;
+  color:var(--text-muted);font-size:12.5px;
+  border-top:1px solid var(--border);margin-top:48px;
+}
+.footer a{color:var(--accent-cyan);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* ===== SECTION TITLE ===== */
+.stitle{
+  font-size:17px;font-weight:700;margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;color:var(--text-primary);
+}
+.stitle span{font-size:13px;color:var(--text-muted);font-weight:400}
+
+/* ===== TOOLTIP ===== */
+[data-tip]{position:relative;cursor:help}
+[data-tip]::after{
+  content:attr(data-tip);
+  position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
+  background:var(--bg-card2);border:1px solid var(--border);
+  color:var(--text-primary);padding:5px 11px;border-radius:8px;
+  font-size:11.5px;white-space:nowrap;opacity:0;pointer-events:none;
+  transition:opacity .2s;z-index:999;
+}
+[data-tip]:hover::after{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">🎰</div>
+    <div>
+      <div class="logo-title">VietLot AI</div>
+      <div class="logo-sub">Phân Tích Xổ Số Thông Minh</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge"><div class="live-dot"></div>LIVE</div>
+    <div class="stat-chip">Cập nhật: <b id="hdr-date">--</b></div>
+    <div class="stat-chip">Nguồn: <b>GitHub</b></div>
+  </div>
+</header>
+
+<!-- ===== LOTTERY TABS ===== -->
+<nav class="lottery-nav" id="lottery-nav">
+  <div class="ltab active" data-key="power655" onclick="switchLottery('power655')"><span class="tico">⚡</span>Power 6/55</div>
+  <div class="ltab" data-key="power645" onclick="switchLottery('power645')"><span class="tico">🌟</span>Mega 6/45</div>
+  <div class="ltab" data-key="power535" onclick="switchLottery('power535')"><span class="tico">🎯</span>Lotto 5/35</div>
+  <div class="ltab" data-key="max3d" onclick="switchLottery('max3d')"><span class="tico">🎰</span>Max3D</div>
+  <div class="ltab" data-key="max3dpro" onclick="switchLottery('max3dpro')"><span class="tico">💎</span>Max3D Pro</div>
+  <div class="ltab" data-key="keno" onclick="switchLottery('keno')"><span class="tico">🎲</span>Keno</div>
+  <div class="ltab" data-key="bingo18" onclick="switchLottery('bingo18')"><span class="tico">🎪</span>Bingo18</div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main class="main">
+
+  <!-- Sub-nav -->
+  <div class="sub-nav">
+    <div class="stab active" data-sub="results"  onclick="switchSub('results')"><i class="fa-solid fa-trophy"></i> Kết Quả</div>
+    <div class="stab"        data-sub="analysis" onclick="switchSub('analysis')"><i class="fa-solid fa-chart-line"></i> Phân Tích</div>
+    <div class="stab"        data-sub="prizes"   onclick="switchSub('prizes')"><i class="fa-solid fa-medal"></i> Cơ Cấu Giải Thưởng</div>
+    <div class="stab"        data-sub="aibot"    onclick="switchSub('aibot')"><i class="fa-solid fa-robot"></i> AI Bot</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="tpanel active" id="tp-results">
+    <div id="results-content">
+      <div class="loading"><div class="spinner"></div><p>Đang tải kết quả...</p></div>
+    </div>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="tpanel" id="tp-analysis">
+    <div id="analysis-content">
+      <div class="loading"><div class="spinner"></div><p>Đang tải dữ liệu phân tích...</p></div>
+    </div>
+  </div>
+
+  <!-- PRIZES -->
+  <div class="tpanel" id="tp-prizes">
+    <div id="prizes-content"></div>
+  </div>
+
+  <!-- AI BOT -->
+  <div class="tpanel" id="tp-aibot">
+    <div id="aibot-content">
+      <div class="loading"><div class="spinner"></div><p>Đang chờ dữ liệu...</p></div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>🎰 <strong style="color:var(--text-secondary)">VietLot AI</strong> — Dữ liệu tự động từ <a href="https://github.com/vietvudanh/vietlott-data" target="_blank">vietvudanh/vietlott-data</a></p>
+  <p style="margin-top:8px">⚠️ Chỉ mang tính giải trí & nghiên cứu. Không khuyến khích đánh bạc có hại.</p>
+</footer>
+
+<script>
+'use strict';
+
+/* ─────────────────────────────────────────
+   CONFIG
+───────────────────────────────────────── */
+const RAW = 'https://raw.githubusercontent.com/vietvudanh/vietlott-data/main/data/';
+
+const CFG = {
+  power655: { name:'Power 6/55', icon:'⚡', file:'power655.jsonl', type:'num', main:6, special:1, max:55, price:10000, color:'#ff6bb5', desc:'Chọn 6 số (1-55) + 1 số Power' },
+  power645: { name:'Mega 6/45',  icon:'🌟', file:'power645.jsonl', type:'num', main:6, special:0, max:45, price:10000, color:'#7c6ff7', desc:'Chọn 6 số từ 1-45' },
+  power535: { name:'Lotto 5/35', icon:'🎯', file:'power535.jsonl', type:'num', main:5, special:1, max:35, price:10000, color:'#00d4d0', desc:'Chọn 5 số (1-35) + 1 số đặc biệt' },
+  max3d:    { name:'Max3D',      icon:'🎰', file:'3d.jsonl',       type:'obj',               price:10000, color:'#ff7f50', desc:'Chọn 1 số có 3 chữ số (000-999)' },
+  max3dpro: { name:'Max3D Pro',  icon:'💎', file:'3d_pro.jsonl',   type:'obj',               price:10000, color:'#ffcc44', desc:'Phiên bản nâng cao Max3D' },
+  keno:     { name:'Keno',       icon:'🎲', file:'keno.jsonl',     type:'num', main:20,special:0, max:80, price:10000, color:'#4effa3', desc:'Rút 20 số từ 1-80' },
+  bingo18:  { name:'Bingo18',    icon:'🎪', file:'bingo18.jsonl',  type:'num', main:18,special:0, max:45, price:10000, color:'#a78bfa', desc:'18 quả cầu từ 1-45' },
+};
+
+const PRIZES = {
+  power655:[
+    {name:'Jackpot 1', cond:'6 số + Power',    val:'≥ 40 tỷ VND',       prob:'1 / 302,575,350', badge:'pj'},
+    {name:'Jackpot 2', cond:'6 số chính xác',  val:'≥ 10 tỷ VND',       prob:'1 / 5,245,786',   badge:'p1'},
+    {name:'Giải Nhất', cond:'5 số + Power',    val:'40,000,000 đ',       prob:'1 / 1,187,016',   badge:'p2'},
+    {name:'Giải Nhì',  cond:'5 số chính xác',  val:'500,000 đ',          prob:'1 / 20,724',      badge:'p3'},
+    {name:'Giải Ba',   cond:'4 số + Power',    val:'500,000 đ',          prob:'1 / 14,493',      badge:'p4'},
+    {name:'Giải Tư',   cond:'4 số chính xác',  val:'50,000 đ',           prob:'1 / 253',         badge:'p5'},
+    {name:'Giải Năm',  cond:'3 số + Power',    val:'50,000 đ',           prob:'1 / 188',         badge:'p6'},
+    {name:'Giải Sáu',  cond:'3 số chính xác',  val:'30,000 đ',           prob:'1 / 34',          badge:'p7'},
+    {name:'Giải Bảy',  cond:'2 số + Power',    val:'30,000 đ',           prob:'1 / 33',          badge:'p7'},
+  ],
+  power645:[
+    {name:'Jackpot',   cond:'6 số chính xác',  val:'≥ 12 tỷ VND',       prob:'1 / 8,145,060',   badge:'pj'},
+    {name:'Giải Nhất', cond:'5 số chính xác',  val:'10,000,000 đ',       prob:'1 / 34,808',      badge:'p1'},
+    {name:'Giải Nhì',  cond:'4 số chính xác',  val:'300,000 đ',          prob:'1 / 733',         badge:'p2'},
+    {name:'Giải Ba',   cond:'3 số chính xác',  val:'30,000 đ',           prob:'1 / 45',          badge:'p3'},
+  ],
+  power535:[
+    {name:'Jackpot 1', cond:'5 số + số ĐB',    val:'≥ 2 tỷ VND',        prob:'1 / 10,737,573',  badge:'pj'},
+    {name:'Jackpot 2', cond:'5 số chính xác',  val:'≥ 20 triệu VND',    prob:'1 / 324,632',     badge:'p1'},
+    {name:'Giải Nhất', cond:'4 số chính xác',  val:'1,000,000 đ',       prob:'1 / 2,195',       badge:'p2'},
+    {name:'Giải Nhì',  cond:'3 số chính xác',  val:'100,000 đ',         prob:'1 / 76',          badge:'p3'},
+    {name:'Giải Ba',   cond:'2 số + số ĐB',    val:'40,000 đ',          prob:'1 / 44',          badge:'p4'},
+  ],
+  max3d:[
+    {name:'Giải ĐB',   cond:'Khớp ĐB chính xác',   val:'1,000,000,000 đ', prob:'1 / 1,000',  badge:'pj'},
+    {name:'Giải Nhất', cond:'Khớp G1 chính xác',    val:'10,000,000 đ',    prob:'1 / 1,000',  badge:'p1'},
+    {name:'Giải Nhì',  cond:'Khớp G2 chính xác',    val:'1,000,000 đ',     prob:'1 / 1,000',  badge:'p2'},
+    {name:'Giải Ba',   cond:'Khớp G3 chính xác',    val:'100,000 đ',       prob:'1 / 1,000',  badge:'p3'},
+  ],
+  max3dpro:[
+    {name:'Giải ĐB',   cond:'Khớp ĐB chính xác',   val:'2,000,000,000 đ', prob:'1 / 1,000,000', badge:'pj'},
+    {name:'Giải Nhất', cond:'Khớp G1 chính xác',    val:'40,000,000 đ',    prob:'1 / 1,000',  badge:'p1'},
+    {name:'Giải Nhì',  cond:'Khớp G2 chính xác',    val:'4,000,000 đ',     prob:'1 / 1,000',  badge:'p2'},
+    {name:'Giải Ba',   cond:'Khớp G3 chính xác',    val:'400,000 đ',       prob:'1 / 1,000',  badge:'p3'},
+  ],
+  keno:[
+    {name:'Chọn 1',    cond:'1 số trùng',           val:'20,000 đ',        prob:'1 / 4',       badge:'p4'},
+    {name:'Chọn 2',    cond:'2 số trùng',           val:'50,000 đ',        prob:'~1 / 15',     badge:'p3'},
+    {name:'Chọn 3',    cond:'3 số trùng',           val:'150,000 đ',       prob:'~1 / 72',     badge:'p2'},
+    {name:'Chọn 4',    cond:'4 số trùng',           val:'600,000 đ',       prob:'~1 / 326',    badge:'p1'},
+    {name:'Chọn 5',    cond:'5 số trùng',           val:'3,000,000 đ',     prob:'~1 / 1,551',  badge:'pj'},
+    {name:'Chọn 6-10', cond:'Trùng tất cả',         val:'Đến hàng tỷ đ',  prob:'Rất thấp',    badge:'pj'},
+  ],
+  bingo18:[
+    {name:'Jackpot',   cond:'Loại đặc biệt',        val:'≥ 2 tỷ VND',     prob:'~1/6,900,000',badge:'pj'},
+    {name:'Giải Nhất', cond:'Loại 1',               val:'Biến động',       prob:'~1/45,000',   badge:'p1'},
+    {name:'Giải Nhì',  cond:'Loại 2',               val:'Biến động',       prob:'~1/2,200',    badge:'p2'},
+    {name:'Giải Ba',   cond:'Loại 3',               val:'Biến động',       prob:'~1/175',      badge:'p3'},
+    {name:'Giải Tư',   cond:'Loại 4',               val:'Biến động',       prob:'~1/29',       badge:'p4'},
+  ],
+};
+
+/* ─────────────────────────────────────────
+   STATE
+───────────────────────────────────────── */
+const S = {
+  lottery: 'power655',
+  sub: 'results',
+  cache: {},
+  loading: new Set(),
+  histPage: 20,
+  botChart: null,
+};
+
+/* ─────────────────────────────────────────
+   FETCH & PARSE
+───────────────────────────────────────── */
+async function loadData(key) {
+  if (S.cache[key]) return S.cache[key];
+  if (S.loading.has(key)) {
+    // wait until loaded
+    return new Promise(res => {
+      const t = setInterval(() => {
+        if (S.cache[key]) { clearInterval(t); res(S.cache[key]); }
+      }, 150);
+    });
+  }
+  S.loading.add(key);
+  try {
+    const r = await fetch(RAW + CFG[key].file);
+    if (!r.ok) throw new Error(r.status);
+    const txt = await r.text();
+    const rows = txt.trim().split('\n').filter(Boolean).map(l => JSON.parse(l));
+    rows.sort((a,b) => b.date.localeCompare(a.date));
+    S.cache[key] = rows;
+    const d = rows[0];
+    if (d) document.getElementById('hdr-date').textContent = fmtDate(d.date);
+    return rows;
+  } catch(e) {
+    console.error(key, e);
+    return null;
+  } finally {
+    S.loading.delete(key);
+  }
+}
+
+/* ─────────────────────────────────────────
+   UTILS
+───────────────────────────────────────── */
+function fmtDate(s){ const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; }
+function dow(s){ return ['CN','T2','T3','T4','T5','T6','T7'][new Date(s).getDay()]; }
+function fmtMoney(n){
+  if(n>=1e9) return (n/1e9).toFixed(1)+' tỷ';
+  if(n>=1e6) return (n/1e6).toFixed(1)+' triệu';
+  if(n>=1e3) return Math.round(n/1e3)+'K';
+  return n.toLocaleString('vi-VN');
+}
+function pad2(n){ return String(n).padStart(2,'0'); }
+
+/* ─────────────────────────────────────────
+   BALL RENDERERS
+───────────────────────────────────────── */
+function bigBall(n, sp=false, delay=0){
+  return `<div class="ball${sp?' sp':''}" style="animation-delay:${delay}s">${pad2(n)}</div>`;
+}
+function miniBall(n, sp=false){
+  return `<div class="mball${sp?' sp':''}">${pad2(n)}</div>`;
+}
+
+function renderLatestNumbers(item, cfg){
+  if(cfg.type==='obj') return renderObj3D(item.result, true);
+  if(!Array.isArray(item.result)) return '';
+  const res = item.result;
+  if(cfg.name==='Keno') return renderKenoGrid(res);
+  const mains = cfg.special ? res.slice(0, cfg.main) : res;
+  const sps   = cfg.special ? res.slice(cfg.main)    : [];
+  let h = '<div class="balls-row">';
+  mains.forEach((n,i)=> h += bigBall(n, false, i*0.07));
+  if(sps.length){ h += '<div class="ball-sep">+</div>'; sps.forEach((n,i)=> h += bigBall(n, true, (mains.length+i)*0.07)); }
+  return h + '</div>';
+}
+
+function renderHistNumbers(item, cfg){
+  if(cfg.type==='obj'){
+    const all = Object.values(item.result||{}).flat().slice(0,5);
+    return '<div class="hnums">' + all.map(n=>`<div class="mball" style="border-radius:6px;width:auto;padding:0 8px;font-family:monospace;font-size:12px">${n}</div>`).join('') + '</div>';
+  }
+  if(!Array.isArray(item.result)) return '';
+  const res = item.result;
+  const mains = cfg.special ? res.slice(0,cfg.main) : res;
+  const sps   = cfg.special ? res.slice(cfg.main) : [];
+  let h='<div class="hnums">';
+  mains.forEach(n=> h += miniBall(n,false));
+  sps.forEach(n=> h += miniBall(n,true));
+  return h+'</div>';
+}
+
+function renderKenoGrid(drawn){
+  let h='<div class="keno-grid">';
+  for(let i=1;i<=80;i++){
+    const d = drawn.includes(i);
+    h += `<div class="knum${d?' drawn':''}" ${d?`style="animation-delay:${(drawn.indexOf(i))*0.04}s"`:''}">${i}</div>`;
+  }
+  return h+'</div>';
+}
+
+function renderObj3D(result, big=true){
+  if(!result||typeof result!=='object') return '';
+  if(!big){
+    const all=Object.values(result).flat().slice(0,4);
+    return '<div class="hnums">'+all.map(n=>`<div class="mball" style="border-radius:6px;width:auto;padding:0 8px;font-family:monospace;font-size:12px">${n}</div>`).join('')+'</div>';
+  }
+  let h='<div class="grid3d">';
+  for(const [prize,nums] of Object.entries(result)){
+    h+=`<div class="prize3d-box">
+      <div class="prize3d-name">${prize}</div>
+      <div class="prize3d-nums">${(nums||[]).map(n=>`<div class="num3d">${n}</div>`).join('')}</div>
+    </div>`;
+  }
+  return h+'</div>';
+}
+
+/* ─────────────────────────────────────────
+   FREQUENCY ANALYSIS
+───────────────────────────────────────── */
+function getFreq(rows, cfg){
+  const f={};
+  rows.forEach(r=>{
+    if(!Array.isArray(r.result)) return;
+    const nums = cfg.special ? r.result.slice(0,cfg.main) : r.result;
+    nums.forEach(n=>{ f[n]=(f[n]||0)+1; });
+  });
+  return f;
+}
+
+function getHot(rows, cfg, n=5){
+  if(cfg.type==='obj') return [];
+  const f = getFreq(rows,cfg);
+  return Object.entries(f).sort((a,b)=>b[1]-a[1]).slice(0,n).map(e=>+e[0]);
+}
+
+function getCold(rows, cfg, n=5){
+  if(cfg.type==='obj') return [];
+  const f = getFreq(rows,cfg);
+  return Array.from({length:cfg.max},(_, i)=>i+1).sort((a,b)=>(f[a]||0)-(f[b]||0)).slice(0,n);
+}
+
+/* ─────────────────────────────────────────
+   RENDER: RESULTS
+───────────────────────────────────────── */
+async function renderResults(){
+  const el = document.getElementById('results-content');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div><p>Đang tải dữ liệu...</p></div>';
+  const rows = await loadData(S.lottery);
+  if(!rows){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">❌</div><p style="color:var(--text-secondary);margin-bottom:16px">Không thể tải dữ liệu.<br>Kiểm tra kết nối hoặc CORS.</p>
+    <button class="btn btn-primary" onclick="renderResults()"><i class="fa-solid fa-rotate-right"></i> Thử lại</button></div>`;
+    return;
+  }
+  const cfg = CFG[S.lottery];
+  const [latest, ...hist] = rows;
+  const hot  = getHot(rows, cfg);
+  const cold = getCold(rows, cfg);
+
+  let h='';
+
+  /* Latest card */
+  h+=`<div class="latest-card">
+    <div class="lc-header">
+      <div class="lc-meta">
+        <div class="lc-label">🏆 Kết Quả Mới Nhất</div>
+        <div class="lc-date">${dow(latest.date)}, ${fmtDate(latest.date)}</div>
+        <div class="lc-id">Kỳ #${latest.id} &nbsp;·&nbsp; ${cfg.name}</div>
+      </div>
+      <div class="lc-badge">🎯 ${cfg.desc}</div>
+    </div>
+    ${renderLatestNumbers(latest,cfg)}
+  </div>`;
+
+  /* Stat cards */
+  h+=`<div class="g3" style="margin-bottom:22px">
+    <div class="stat-card">
+      <div class="sc-top">
+        <div style="font-size:13px;color:var(--text-secondary)">📊 Tổng kỳ quay</div>
+        <div class="sc-icon" style="background:rgba(124,111,247,.15)">📋</div>
+      </div>
+      <div class="sc-val">${rows.length.toLocaleString()}</div>
+      <div class="sc-lbl">Từ ${fmtDate(rows[rows.length-1].date)} đến nay</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-top">
+        <div style="font-size:13px;color:var(--text-secondary)">🔥 Số cầu nóng</div>
+        <div class="sc-icon" style="background:rgba(255,127,80,.15)">🔥</div>
+      </div>
+      <div class="sc-val" style="color:#ff7f50;font-size:20px">${hot.slice(0,5).join(' · ')}</div>
+      <div class="sc-lbl">Top 5 số hay xuất hiện nhất</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-top">
+        <div style="font-size:13px;color:var(--text-secondary)">❄️ Số cầu lạnh</div>
+        <div class="sc-icon" style="background:rgba(0,212,208,.15)">❄️</div>
+      </div>
+      <div class="sc-val" style="color:var(--accent-cyan);font-size:20px">${cold.slice(0,5).join(' · ')}</div>
+      <div class="sc-lbl">Top 5 số lâu chưa xuất hiện</div>
+    </div>
+  </div>`;
+
+  /* History */
+  h+=`<div class="stitle"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-purple)"></i> Lịch Sử Kết Quả <span>(${rows.length} kỳ)</span></div>`;
+  h+='<div class="hist-list">';
+  hist.slice(0, S.histPage).forEach(item=>{
+    h+=`<div class="hist-row">
+      <div class="hdate">
+        <div class="hdate-main">${fmtDate(item.date)}</div>
+        <div class="hdate-sub">#${item.id} · ${dow(item.date)}</div>
+      </div>
+      ${renderHistNumbers(item,cfg)}
+    </div>`;
+  });
+  h+='</div>';
+
+  const remaining = hist.length - S.histPage;
+  if(remaining>0){
+    h+=`<button class="load-more" onclick="loadMoreHist()">
+      <i class="fa-solid fa-chevron-down"></i>
+      Tải thêm ${Math.min(20,remaining)} / còn ${remaining} kết quả
+    </button>`;
+  }
+
+  el.innerHTML=h;
+}
+
+function loadMoreHist(){ S.histPage+=20; renderResults(); }
+
+/* ─────────────────────────────────────────
+   RENDER: ANALYSIS
+───────────────────────────────────────── */
+async function renderAnalysis(){
+  const el = document.getElementById('analysis-content');
+  el.innerHTML='<div class="loading"><div class="spinner"></div><p>Đang phân tích dữ liệu...</p></div>';
+  const rows = await loadData(S.lottery);
+  const cfg  = CFG[S.lottery];
+
+  if(!rows || cfg.type==='obj'){
+    el.innerHTML=`<div class="coming-soon">
+      <div class="cs-icon">🔍</div>
+      <h2 style="font-size:22px;color:var(--text-primary)">Phân Tích Đang Phát Triển</h2>
+      <p style="color:var(--text-secondary);max-width:420px;line-height:1.7">
+        Mục phân tích sẽ được cập nhật sau khi bạn cung cấp thêm tiêu chí cụ thể.
+      </p>
+    </div>`;
+    return;
+  }
+
+  const freq  = getFreq(rows, cfg);
+  const total = rows.length;
+  const maxF  = Math.max(...Object.values(freq));
+  const nums  = Array.from({length:cfg.max},(_,i)=>i+1).sort((a,b)=>(freq[b]||0)-(freq[a]||0));
+  const top20 = nums.slice(0,20);
+  const bot20 = nums.slice(-20).reverse();
+
+  /* Last 30 draws */
+  const last30freq = getFreq(rows.slice(0,30), cfg);
+
+  let h=`<div class="g2" style="margin-bottom:22px">`;
+
+  /* Hot freq bars */
+  h+=`<div class="card">
+    <div class="card-title"><i class="fa-solid fa-fire" style="color:#ff7f50"></i> Top 20 Số Nóng Nhất</div>`;
+  top20.forEach(n=>{
+    const cnt = freq[n]||0;
+    const pct = Math.round(cnt/maxF*100);
+    h+=`<div class="freq-row">
+      <div class="freq-num">${pad2(n)}</div>
+      <div class="freq-track"><div class="freq-fill" style="width:${pct}%;background:linear-gradient(90deg,#ff7f50,#ff6bb5)"></div></div>
+      <div class="freq-cnt">${cnt}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  /* Cold freq bars */
+  h+=`<div class="card">
+    <div class="card-title"><i class="fa-solid fa-snowflake" style="color:var(--accent-cyan)"></i> Top 20 Số Lạnh Nhất</div>`;
+  bot20.forEach(n=>{
+    const cnt = freq[n]||0;
+    const pct = Math.round(cnt/maxF*100);
+    h+=`<div class="freq-row">
+      <div class="freq-num">${pad2(n)}</div>
+      <div class="freq-track"><div class="freq-fill" style="width:${pct}%;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-green))"></div></div>
+      <div class="freq-cnt">${cnt}</div>
+    </div>`;
+  });
+  h+=`</div></div>`;
+
+  /* Chart: frequency distribution */
+  h+=`<div class="card" style="margin-bottom:22px">
+    <div class="card-title"><i class="fa-solid fa-chart-bar" style="color:var(--accent-purple)"></i> Biểu Đồ Tần Suất Toàn Bộ (${total} kỳ)</div>
+    <div class="chart-wrap"><canvas id="freqChart"></canvas></div>
+  </div>`;
+
+  /* Last 30 draws heatmap */
+  h+=`<div class="card">
+    <div class="card-title"><i class="fa-solid fa-fire-flame-curved" style="color:#ffcc44"></i> Tần Suất 30 Kỳ Gần Nhất</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+  for(let i=1;i<=cfg.max;i++){
+    const cnt = last30freq[i]||0;
+    const heat = cnt===0?'var(--bg-surface)': cnt<=1?'rgba(124,111,247,.3)': cnt<=3?'rgba(124,111,247,.6)':'rgba(124,111,247,.95)';
+    h+=`<div data-tip="${i}: ${cnt} lần" style="width:42px;height:42px;border-radius:9px;background:${heat};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:${cnt?'#fff':'var(--text-muted)'}">
+      ${pad2(i)}</div>`;
+  }
+  h+=`</div></div>`;
+
+  el.innerHTML=h;
+
+  /* Draw freq chart */
+  setTimeout(()=>{
+    const ctx = document.getElementById('freqChart');
+    if(!ctx) return;
+    const labels = Array.from({length:cfg.max},(_,i)=>i+1);
+    const data   = labels.map(n=>freq[n]||0);
+    new Chart(ctx,{
+      type:'bar',
+      data:{
+        labels,
+        datasets:[{
+          label:'Tần suất',
+          data,
+          backgroundColor: data.map(v=>{
+            const ratio = v/maxF;
+            return `rgba(${Math.round(124+ratio*131)},${Math.round(111-ratio*44)},${Math.round(247-ratio*185)},0.75)`;
+          }),
+          borderRadius:4,
+          borderSkipped:false,
+        }]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{backgroundColor:'#192040',borderColor:'rgba(124,111,247,.3)',borderWidth:1,callbacks:{title:t=>`Số ${t[0].label}`,label:t=>` Xuất hiện: ${t.raw} lần`}}},
+        scales:{
+          x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#404d6a',font:{size:10},maxTicksLimit:20}},
+          y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#404d6a',font:{size:11}}}
+        }
+      }
+    });
+  },100);
+}
+
+/* ─────────────────────────────────────────
+   RENDER: PRIZES
+───────────────────────────────────────── */
+function renderPrizes(){
+  const el  = document.getElementById('prizes-content');
+  const cfg = CFG[S.lottery];
+  const pz  = PRIZES[S.lottery] || [];
+
+  let h=`<div class="card" style="margin-bottom:20px">
+    <div class="card-title">${cfg.icon} ${cfg.name} — Cơ Cấu Giải Thưởng</div>
+    <p style="color:var(--text-secondary);font-size:13.5px;margin-bottom:20px">${cfg.desc}</p>
+    <div style="overflow-x:auto">
+    <table class="ptable">
+      <thead><tr><th>Giải</th><th>Điều Kiện Trúng</th><th>Giá Trị</th><th>Xác Suất</th></tr></thead>
+      <tbody>
+        ${pz.map(p=>`<tr>
+          <td><span class="pbadge ${p.badge}">${p.name}</span></td>
+          <td style="color:var(--text-primary)">${p.cond}</td>
+          <td style="color:#22c55e;font-weight:700">${p.val}</td>
+          <td style="color:var(--text-muted);font-size:12.5px">${p.prob}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title"><i class="fa-solid fa-circle-info" style="color:var(--accent-cyan)"></i> Thông Tin Vé</div>
+      ${[['Giá vé','10,000 VND'],['Kênh mua','Đại lý & App Vietlott'],['Thuế thắng','10% nếu > 10 triệu'],['Tuổi tối thiểu','18 tuổi']].map(([k,v])=>
+        `<div style="display:flex;justify-content:space-between;padding:10px;background:var(--bg-surface);border-radius:9px;margin-bottom:8px;font-size:13.5px">
+          <span style="color:var(--text-secondary)">${k}</span>
+          <span style="color:var(--text-primary);font-weight:600">${v}</span>
+        </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="fa-solid fa-triangle-exclamation" style="color:#ffcc44"></i> Lưu Ý</div>
+      <div style="font-size:13.5px;color:var(--text-secondary);line-height:2">
+        ⚠️ Xổ số là giải trí, không phải đầu tư<br>
+        📊 Xác suất jackpot rất thấp<br>
+        💸 Chỉ chơi trong khả năng chi tiêu<br>
+        🤖 Bot AI chỉ mang tính mô phỏng & nghiên cứu<br>
+        📅 Giải thưởng có thể thay đổi theo quy định
+      </div>
+    </div>
+  </div>`;
+
+  el.innerHTML=h;
+}
+
+/* ─────────────────────────────────────────
+   RENDER: AI BOT
+───────────────────────────────────────── */
+async function renderAIBot(){
+  const el  = document.getElementById('aibot-content');
+  const cfg = CFG[S.lottery];
+  const rows= await loadData(S.lottery);
+
+  if(!rows){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">⏳</div>
+      <p style="color:var(--text-secondary);margin-bottom:16px">Vào tab <b style="color:var(--text-primary)">Kết Quả</b> để tải dữ liệu trước.</p>
+      <button class="btn btn-primary" onclick="switchSub('results')"><i class="fa-solid fa-trophy"></i> Đến Kết Quả</button>
+    </div>`;
+    return;
+  }
+  if(cfg.type==='obj'){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">🔧</div>
+      <h3 style="color:var(--text-primary);margin-bottom:8px">Chưa Hỗ Trợ</h3>
+      <p style="color:var(--text-secondary)">AI Bot hiện chỉ hỗ trợ xổ số chọn số (Power, Mega, Lotto, Keno, Bingo).</p></div>`;
+    return;
+  }
+
+  el.innerHTML=`
+  <div class="bot-controls">
+    <div class="card-title" style="font-size:17px"><i class="fa-solid fa-robot" style="color:var(--accent-purple)"></i> Cài Đặt Mô Phỏng</div>
+    <p style="color:var(--text-secondary);font-size:13px;margin-top:6px">Chạy 4 bot song song với chiến lược khác nhau, so sánh hiệu quả trên dữ liệu lịch sử thực.</p>
+    <div class="ctrl-grid">
+      <div class="fg">
+        <label class="flbl">💰 Vốn ban đầu (VND)</label>
+        <input type="number" class="finp" id="b-cap" value="2000000" min="100000" step="500000">
+      </div>
+      <div class="fg">
+        <label class="flbl">🎫 Số vé mỗi kỳ</label>
+        <input type="number" class="finp" id="b-tix" value="1" min="1" max="20">
+      </div>
+      <div class="fg">
+        <label class="flbl">📅 Số kỳ mô phỏng</label>
+        <input type="number" class="finp" id="b-drw" value="100" min="20" max="${Math.min(500,rows.length)}">
+      </div>
+      <div class="fg" style="justify-content:flex-end">
+        <button class="btn btn-primary" onclick="runBots()">
+          <i class="fa-solid fa-play"></i> Chạy Mô Phỏng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bot preview cards (before run) -->
+  <div class="bots-wrap" id="bot-preview">
+    ${['rand','hot','cold','stat'].map(t=>`
+    <div class="bot-card">
+      <div class="bot-stripe ${bsClass(t)}"></div>
+      <div class="bot-name">${bIcon(t)} ${bName(t)}</div>
+      <div class="bot-desc">${bDesc(t)}</div>
+      <div style="background:var(--bg-surface);border-radius:10px;padding:20px;text-align:center;color:var(--text-muted)">
+        <i class="fa-solid fa-play-circle" style="font-size:28px;margin-bottom:8px;display:block"></i>
+        <span style="font-size:12.5px">Nhấn "Chạy Mô Phỏng" để xem kết quả</span>
+      </div>
+    </div>`).join('')}
+  </div>
+
+  <div id="bot-results" style="display:none"></div>
+  `;
+}
+
+function bsClass(t){ return {rand:'bs-rand',hot:'bs-hot',cold:'bs-cold',stat:'bs-stat'}[t]; }
+function bIcon(t)  { return {rand:'🎲',hot:'🔥',cold:'❄️',stat:'📊'}[t]; }
+function bName(t)  { return {rand:'Bot Ngẫu Nhiên',hot:'Bot Cầu Nóng',cold:'Bot Cầu Lạnh',stat:'Bot Thống Kê'}[t]; }
+function bDesc(t)  { return {
+  rand:'Chọn số hoàn toàn ngẫu nhiên mỗi kỳ. Đây là baseline để so sánh với các chiến lược khác.',
+  hot: 'Ưu tiên chọn các số xuất hiện nhiều nhất trong 20 kỳ gần đây theo lý thuyết cầu nóng.',
+  cold:'Ưu tiên chọn các số lâu chưa xuất hiện nhất theo lý thuyết cầu lạnh — số phải về.',
+  stat:'Chọn số dựa trên tần suất toàn bộ lịch sử. Phân tích thống kê dài hạn.',
+}[t]; }
+
+/* ─────────────────────────────────────────
+   BOT SIMULATION
+───────────────────────────────────────── */
+function pickRandom(n, max){
+  const pool = Array.from({length:max},(_,i)=>i+1);
+  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]; }
+  return pool.slice(0,n);
+}
+
+function pickByFreq(n, max, rows, cfg, hot=true){
+  if(!rows.length) return pickRandom(n,max);
+  const f = getFreq(rows,cfg);
+  const sorted = Array.from({length:max},(_,i)=>i+1).sort((a,b)=> hot ? (f[b]||0)-(f[a]||0) : (f[a]||0)-(f[b]||0));
+  // slight randomization in top pool
+  const pool = sorted.slice(0, Math.min(n+6, max));
+  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]; }
+  return pool.slice(0,n);
+}
+
+function calcPrize(matched, key){
+  const t = {
+    power655:[[6,40000000000],[5,500000],[4,50000],[3,30000]],
+    power645:[[6,12000000000],[5,10000000],[4,300000],[3,30000]],
+    power535:[[5,2000000000],[4,1000000],[3,100000],[2,40000]],
+    keno:    [[15,10000000],[10,1000000],[7,200000],[5,50000],[3,30000]],
+    bingo18: [[10,2000000000],[8,500000],[6,100000],[4,30000]],
+  }[key]||[];
+  for(const [need,val] of t) if(matched>=need) return val;
+  return 0;
+}
+
+function runBots(){
+  const cap  = parseInt(document.getElementById('b-cap').value)||2000000;
+  const tix  = parseInt(document.getElementById('b-tix').value)||1;
+  const nDrw = parseInt(document.getElementById('b-drw').value)||100;
+  const rows = S.cache[S.lottery];
+  const cfg  = CFG[S.lottery];
+  if(!rows) return;
+
+  const sim = rows.slice(0, nDrw).reverse(); // oldest → newest
+
+  const types = ['rand','hot','cold','stat'];
+  const results = {};
+
+  types.forEach(type=>{
+    let bal = cap, spent=0, won=0, wins=0, bigWin=0;
+    const hist = [cap];
+
+    sim.forEach((draw, idx)=>{
+      if(bal<=0){ hist.push(0); return; }
+      const actual = Array.isArray(draw.result)
+        ? (cfg.special ? draw.result.slice(0,cfg.main) : draw.result)
+        : [];
+
+      let picked;
+      if(type==='rand') picked = pickRandom(cfg.main, cfg.max);
+      else if(type==='hot')  picked = pickByFreq(cfg.main, cfg.max, sim.slice(Math.max(0,idx-20),idx), cfg, true);
+      else if(type==='cold') picked = pickByFreq(cfg.main, cfg.max, sim.slice(Math.max(0,idx-20),idx), cfg, false);
+      else                   picked = pickByFreq(cfg.main, cfg.max, sim.slice(0,idx), cfg, true);
+
+      const matched = picked.filter(n=>actual.includes(n)).length;
+      const prize   = calcPrize(matched, S.lottery) * tix;
+      const cost    = cfg.price * tix;
+
+      bal    -= cost;
+      bal    += prize;
+      spent  += cost;
+      won    += prize;
+      if(prize>0) wins++;
+      if(prize>bigWin) bigWin=prize;
+      hist.push(bal);
+    });
+
+    results[type]={ bal, spent, won, wins, bigWin, hist, roi:((bal-cap)/cap*100).toFixed(1), wr:(wins/sim.length*100).toFixed(1) };
+  });
+
+  drawBotResults(results, sim, cap, tix, nDrw, cfg);
+}
+
+function drawBotResults(res, sim, cap, tix, nDrw, cfg){
+  const colors = {rand:'#7c6ff7',hot:'#ff7f50',cold:'#00d4d0',stat:'#ffcc44'};
+  const sorted = ['rand','hot','cold','stat'].sort((a,b)=>res[b].bal-res[a].bal);
+  const medals = ['🥇','🥈','🥉','4️⃣'];
+
+  let h='<div class="bots-wrap">';
+  sorted.forEach((t,rank)=>{
+    const r=res[t], roi=parseFloat(r.roi);
+    h+=`<div class="bot-card">
+      <div class="bot-stripe ${bsClass(t)}"></div>
+      <div class="bot-name">${bIcon(t)} ${bName(t)} <span style="font-size:18px;margin-left:auto">${medals[rank]}</span></div>
+      <div class="bot-desc">${bDesc(t)}</div>
+      <div class="bot-kpis">
+        <div class="kpi"><div class="kpi-val ${roi>0?'pos':roi<0?'neg':'neu'}">${roi>0?'+':''}${r.roi}%</div><div class="kpi-lbl">ROI</div></div>
+        <div class="kpi"><div class="kpi-val ${roi>0?'pos':roi<0?'neg':'neu'}">${fmtMoney(r.bal)}</div><div class="kpi-lbl">Số dư</div></div>
+        <div class="kpi"><div class="kpi-val neu">${r.wr}%</div><div class="kpi-lbl">Win Rate</div></div>
+      </div>
+      <div class="bot-detail">
+        <div class="bot-detail-row"><span style="color:var(--text-muted)">Đã chi</span><span style="color:#ef4444">${fmtMoney(r.spent)}</span></div>
+        <div class="bot-detail-row"><span style="color:var(--text-muted)">Đã thắng</span><span style="color:#22c55e">${fmtMoney(r.won)}</span></div>
+        <div class="bot-detail-row"><span style="color:var(--text-muted)">Lần thắng</span><span style="color:var(--accent-cyan)">${r.wins} lần / ${sim.length} kỳ</span></div>
+        <div class="bot-detail-row"><span style="color:var(--text-muted)">Thắng lớn nhất</span><span style="color:#ffcc44">${fmtMoney(r.bigWin)}</span></div>
+      </div>
+    </div>`;
+  });
+  h+='</div>';
+
+  /* Balance chart */
+  h+=`<div class="card" style="margin-bottom:22px">
+    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+      <div class="card-title" style="margin-bottom:0"><i class="fa-solid fa-chart-line" style="color:var(--accent-purple)"></i> Biến Động Số Dư Qua ${sim.length} Kỳ</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        ${['rand','hot','cold','stat'].map(t=>`
+          <div style="display:flex;align-items:center;gap:5px;font-size:12.5px">
+            <div style="width:12px;height:3px;border-radius:2px;background:${colors[t]}"></div>
+            <span style="color:var(--text-secondary)">${bName(t)}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="botChart"></canvas></div>
+  </div>`;
+
+  /* Ranking table */
+  h+=`<div class="card">
+    <div class="card-title"><i class="fa-solid fa-ranking-star" style="color:#ffcc44"></i> Bảng Xếp Hạng Chi Tiết</div>
+    <p style="color:var(--text-secondary);font-size:12.5px;margin-bottom:14px">Vốn: ${fmtMoney(cap)} · ${sim.length} kỳ · ${tix} vé/kỳ · Giá vé: ${fmtMoney(cfg.price)}/vé</p>
+    <div style="overflow-x:auto">
+    <table class="rank-table">
+      <thead><tr><th>Hạng</th><th>Bot</th><th>Số Dư Cuối</th><th>ROI</th><th>Win Rate</th><th>Đã Chi</th><th>Đã Thắng</th><th>Thắng Lớn Nhất</th></tr></thead>
+      <tbody>
+        ${sorted.map((t,i)=>{
+          const r=res[t],roi=parseFloat(r.roi);
+          return `<tr>
+            <td style="font-size:20px">${medals[i]}</td>
+            <td><strong style="color:var(--text-primary)">${bIcon(t)} ${bName(t)}</strong></td>
+            <td style="color:${roi>=0?'#22c55e':'#ef4444'};font-weight:700">${fmtMoney(r.bal)}</td>
+            <td><span style="color:${roi>=0?'#22c55e':'#ef4444'};font-weight:800">${roi>=0?'+':''}${r.roi}%</span></td>
+            <td style="color:var(--accent-cyan)">${r.wr}%</td>
+            <td style="color:#ef4444">${fmtMoney(r.spent)}</td>
+            <td style="color:#22c55e">${fmtMoney(r.won)}</td>
+            <td style="color:#ffcc44">${fmtMoney(r.bigWin)}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+    </div>
+    <div class="notice">
+      💡 <strong>Lưu ý:</strong> Kết quả mô phỏng dựa trên dữ liệu lịch sử và có yếu tố ngẫu nhiên trong cách chọn số.
+      Mỗi lần chạy có thể cho kết quả khác nhau. Đây chỉ là công cụ nghiên cứu chiến lược, <strong>không phải dự đoán hay cam kết kết quả thực tế.</strong>
+    </div>
+  </div>`;
+
+  document.getElementById('bot-preview').style.display='none';
+  const re = document.getElementById('bot-results');
+  re.innerHTML=h; re.style.display='block';
+
+  /* Draw chart */
+  setTimeout(()=>{
+    const ctx=document.getElementById('botChart');
+    if(!ctx) return;
+    if(S.botChart){ S.botChart.destroy(); S.botChart=null; }
+    const labels=['Start',...sim.map((_,i)=>`#${i+1}`)];
+    S.botChart=new Chart(ctx,{
+      type:'line',
+      data:{
+        labels,
+        datasets:['rand','hot','cold','stat'].map(t=>({
+          label:bName(t),
+          data:res[t].hist,
+          borderColor:colors[t],
+          backgroundColor:colors[t]+'18',
+          borderWidth:2,
+          pointRadius:0,
+          pointHoverRadius:4,
+          tension:.35,
+          fill:false,
+        }))
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        animation:{duration:800},
+        plugins:{
+          legend:{display:false},
+          tooltip:{
+            mode:'index',intersect:false,
+            backgroundColor:'#192040',borderColor:'rgba(124,111,247,.3)',borderWidth:1,
+            callbacks:{label:c=>` ${c.dataset.label}: ${fmtMoney(c.raw)}`}
+          }
+        },
+        scales:{
+          x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#404d6a',maxTicksLimit:12,font:{size:11}}},
+          y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#404d6a',font:{size:11},callback:v=>fmtMoney(v)}}
+        },
+        interaction:{mode:'index',intersect:false}
+      }
+    });
+  },100);
+}
+
+/* ─────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────── */
+function switchLottery(key){
+  if(S.lottery===key) return;
+  S.lottery=key;
+  S.histPage=20;
+  document.querySelectorAll('.ltab').forEach(t=>t.classList.toggle('active',t.dataset.key===key));
+  renderActive();
+}
+
+function switchSub(sub){
+  S.sub=sub;
+  document.querySelectorAll('.stab').forEach(t=>t.classList.toggle('active',t.dataset.sub===sub));
+  document.querySelectorAll('.tpanel').forEach(el=>el.classList.toggle('active',el.id==='tp-'+sub));
+  renderActive();
+}
+
+function renderActive(){
+  switch(S.sub){
+    case 'results':  renderResults();  break;
+    case 'analysis': renderAnalysis(); break;
+    case 'prizes':   renderPrizes();   break;
+    case 'aibot':    renderAIBot();    break;
+  }
+}
+
+/* ─────────────────────────────────────────
+   INIT
+───────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', ()=> renderResults());
+</script>
+</body>
+</html>
