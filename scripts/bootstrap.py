@@ -19,12 +19,13 @@ DATA.mkdir(exist_ok=True)
 SRC  = "https://raw.githubusercontent.com/vietvudanh/vietlott-data/master/data/"
 
 # Mapping: tên file nguồn → tên file đích của chúng ta
+# vietvudanh dùng: 3d.jsonl, 3d_pro.jsonl (KHÔNG phải max3d/max3dpro)
 FILE_MAP = [
     ("power655.jsonl",  "power655.jsonl"),
     ("power645.jsonl",  "power645.jsonl"),
     ("power535.jsonl",  "power535.jsonl"),
-    ("max3d.jsonl",     "3d.jsonl"),
-    ("max3dpro.jsonl",  "3d_pro.jsonl"),
+    ("3d.jsonl",        "3d.jsonl"),       # ← FIX: max3d.jsonl không tồn tại
+    ("3d_pro.jsonl",    "3d_pro.jsonl"),   # ← FIX: max3dpro.jsonl không tồn tại
     ("keno.jsonl",      "keno.jsonl"),
     ("bingo18.jsonl",   "bingo18.jsonl"),
 ]
@@ -97,15 +98,23 @@ def normalize_row(raw):
         if main:
             result = list(main) + list(special)
 
-    # Có thể là dict (Max3D format)
+    # Giữ nguyên dict (Max3D: {"Giải Đặc biệt": ["015","517"], ...})
     if isinstance(result, dict):
-        pass  # giữ nguyên dict
+        if not result:          # dict rỗng → bỏ qua
+            return None
+        # giữ nguyên, không convert
     elif isinstance(result, list):
-        # chuyển sang int nếu có thể
-        try:
-            result = [int(x) for x in result]
-        except Exception:
-            pass
+        if not result:          # list rỗng → bỏ qua
+            return None
+        # Số thường → int; số 3 chữ số (Max3D dạng list) → giữ string
+        first = result[0]
+        if isinstance(first, str) and len(first) == 3 and first.isdigit():
+            pass  # giữ list string ["023","145"...]
+        else:
+            try:
+                result = [int(x) for x in result]
+            except Exception:
+                pass  # giữ nguyên nếu không convert được
     else:
         return None
 
