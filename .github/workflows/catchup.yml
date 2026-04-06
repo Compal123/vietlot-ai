@@ -1,17 +1,17 @@
 name: 🔄 Catch-up dữ liệu còn thiếu (chạy thủ công)
 
-# Workflow chạy thủ công khi cần lấy bù dữ liệu bị thiếu.
-# Quét nhiều trang hơn bình thường để đảm bảo không bỏ sót kỳ nào.
+# Chạy thủ công khi cần lấy bù dữ liệu bị thiếu.
+# Quét nhiều trang hơn bình thường để đảm bảo đủ dữ liệu.
 
 on:
   workflow_dispatch:
     inputs:
       pages:
-        description: "Số trang quét mỗi game (mặc định 15 ≈ 3 tháng)"
+        description: "Số trang quét mỗi game (mặc định 15 ≈ 3 tháng data)"
         required: false
         default: "15"
       games:
-        description: "Games cần catch-up (trống = tất cả)"
+        description: "Games cần catch-up, cách nhau bằng space (trống = tất cả)"
         required: false
         default: ""
 
@@ -33,49 +33,21 @@ jobs:
       - name: 📦 Cài dependencies
         run: pip install -q -r requirements.txt
 
-      - name: 🔄 Chạy fetch với nhiều trang hơn
-        env:
-          PAGES: ${{ github.event.inputs.pages }}
-          GAMES: ${{ github.event.inputs.games }}
+      - name: 🔄 Fetch dữ liệu (nhiều trang)
         run: |
+          PAGES="${{ github.event.inputs.pages }}"
+          GAMES="${{ github.event.inputs.games }}"
           PAGES=${PAGES:-15}
-          echo "📄 Số trang: $PAGES"
 
-          # Patch fetch_data.py để dùng nhiều pages hơn
-          python - <<EOF
-          import subprocess, sys, os
+          echo "📄 Pages: $PAGES"
 
-          pages = int(os.environ.get("PAGES", 15))
-          games_input = os.environ.get("GAMES", "").strip()
-
-          # Import module và override số trang
-          import importlib.util, pathlib, json, time
-
-          spec = importlib.util.spec_from_file_location("fetch_data", "scripts/fetch_data.py")
-          fd   = importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(fd)
-
-          all_games = list(fd.GAMES.keys())
-          if games_input:
-              targets = [g.strip() for g in games_input.split() if g.strip() in fd.GAMES]
-              if not targets:
-                  print(f"❌ Không có game hợp lệ trong: {games_input}")
-                  sys.exit(1)
-          else:
-              targets = all_games
-
-          print(f"🎯 Games: {targets}")
-          print(f"📄 Pages: {pages}")
-
-          for g in targets:
-              fn = fd.GAMES[g]
-              import inspect
-              sig = inspect.signature(fn)
-              if "pages" in sig.parameters:
-                  fn(pages=pages)
-              else:
-                  fn()
-          EOF
+          if [ -z "$GAMES" ]; then
+            echo "🎯 Games: tất cả"
+            python scripts/fetch_data.py --pages $PAGES
+          else
+            echo "🎯 Games: $GAMES"
+            python scripts/fetch_data.py $GAMES --pages $PAGES
+          fi
 
       - name: 📝 Commit & Push
         run: |
@@ -90,11 +62,20 @@ jobs:
             git push
           fi
 
-      - name: 📊 Thống kê
+      - name: 📊 Thống kê kết quả
         run: |
           echo "=== Thống kê data/ sau catch-up ==="
           for f in data/*.jsonl; do
-            count=$(wc -l < "$f" 2>/dev/null || echo 0)
-            latest=$(head -1 "$f" 2>/dev/null | python3 -c "import sys,json; d=json.loads(sys.stdin.read()); print(d.get('date','?'))" 2>/dev/null || echo "?")
-            echo "  $(basename $f): $count bản ghi, mới nhất: $latest"
+            COUNT=$(wc -l < "$f" 2>/dev/null || echo 0)
+            LATEST=$(python3 -c "
+          import json
+          with open('$f') as fh:
+              line = fh.readline().strip()
+          if line:
+              d = json.loads(line)
+              print(d.get('date', '?'))
+          else:
+              print('trống')
+          " 2>/dev/null || echo "?")
+            echo "  $(basename $f): ${COUNT} bản ghi | mới nhất: ${LATEST}"
           done
