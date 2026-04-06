@@ -31,38 +31,10 @@ jobs:
           python-version: '3.11'
 
       - name: 📦 Cài dependencies
-        run: pip install -q -r requirements.txt
-
-      - name: 🔍 Kiểm tra VN proxy + Cloudflare cookie
         run: |
-          python3 - <<'PYEOF'
-          import requests, re, pandas as pd
-          from io import StringIO
-          print("=== Test VN proxy + Cloudflare cookie ===")
-          HEADERS_GET = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"}
-          # Lấy VN proxies
-          try:
-              resp = requests.get("https://free-proxy-list.net/", timeout=20, headers=HEADERS_GET)
-              df = pd.read_html(StringIO(resp.text))[0]
-              vn = df[df["Code"] == "VN"][["IP Address", "Port"]].head(5)
-              proxies = [f"{row['IP Address']}:{int(row['Port'])}" for _, row in vn.iterrows()]
-              print(f"VN proxies found: {proxies}")
-          except Exception as e:
-              print(f"Proxy list error: {e}")
-              proxies = []
-          # Test từng proxy
-          for p in proxies:
-              proxy = {"http": p, "https": p}
-              try:
-                  r = requests.get("https://vietlott.vn/ajaxpro/", headers=HEADERS_GET, proxies=proxy, timeout=12)
-                  m = re.search(r'document\.cookie\s*=\s*["\']([^"\']+)["\']', r.text)
-                  print(f"Proxy {p}: status={r.status_code}, cookie={'FOUND: '+m.group(1)[:30] if m else 'NOT FOUND'}")
-                  if m:
-                      print("✅ Proxy hoạt động!")
-                      break
-              except Exception as e:
-                  print(f"Proxy {p}: ERROR {e}")
-          PYEOF
+          pip install -q -r requirements.txt
+          pip install -q playwright
+          playwright install chromium --with-deps
 
       - name: 🔄 Fetch dữ liệu (nhiều trang)
         run: |
