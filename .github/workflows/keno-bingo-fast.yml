@@ -46,7 +46,13 @@ jobs:
         run: pip install -q -r requirements.txt
 
       - name: ⚡ Scrape Keno + Bingo18
-        run: python scripts/fetch_data.py keno bingo18
+        env:
+          USE_PROXY: "1"
+        run: |
+          DELAY=$(( RANDOM % 60 + 5 ))
+          echo "⏳ Random delay ${DELAY}s..."
+          sleep $DELAY
+          python scripts/fetch_data.py keno bingo18
 
       - name: 📝 Commit nếu có mới
         run: |
