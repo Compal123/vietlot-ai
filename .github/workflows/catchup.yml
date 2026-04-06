@@ -36,6 +36,52 @@ jobs:
           pip install -q playwright
           playwright install chromium --with-deps
 
+      - name: 🔍 DEBUG — Cloudflare response + Playwright cookies
+        run: |
+          python3 - <<'PYEOF'
+          import requests, re
+
+          # ── Test 1: Raw response từ GitHub Actions IP ──────────────────────
+          print("=== TEST 1: requests.get (python-requests UA) ===")
+          try:
+              r = requests.get("https://vietlott.vn/ajaxpro/", timeout=20)
+              print(f"Status: {r.status_code}")
+              print(f"Response (3000 chars):\n{r.text[:3000]}")
+              m = re.search(r'document\.cookie="(.*?)"', r.text)
+              print(f"\ndocument.cookie match: {'FOUND: '+m.group(1)[:50] if m else 'NOT FOUND'}")
+          except Exception as e:
+              print(f"Error: {e}")
+
+          # ── Test 2: Playwright ─────────────────────────────────────────────
+          print("\n=== TEST 2: Playwright ===")
+          try:
+              from playwright.sync_api import sync_playwright
+              with sync_playwright() as pw:
+                  browser = pw.chromium.launch(headless=True)
+                  ctx = browser.new_context()
+                  page = ctx.new_page()
+                  page.goto("https://vietlott.vn/", wait_until="domcontentloaded", timeout=40000)
+                  print(f"Page title after load: {page.title()}")
+                  # Chờ cf_clearance xuất hiện (tối đa 30s)
+                  try:
+                      page.wait_for_function(
+                          "() => document.cookie.includes('cf_clearance')",
+                          timeout=30000
+                      )
+                      print("cf_clearance: FOUND!")
+                  except Exception as e2:
+                      print(f"cf_clearance: NOT FOUND after 30s ({e2})")
+                  # In tất cả cookies
+                  cookies = ctx.cookies("https://vietlott.vn")
+                  print(f"All cookies ({len(cookies)}): {[(c['name'],c['value'][:10]) for c in cookies]}")
+                  # In page source snippet
+                  content = page.content()
+                  print(f"Page content snippet: {content[:500].replace(chr(10),' ')}")
+                  browser.close()
+          except Exception as e:
+              print(f"Playwright error: {e}")
+          PYEOF
+
       - name: 🔄 Fetch dữ liệu (nhiều trang)
         run: |
           PAGES="${{ github.event.inputs.pages }}"
