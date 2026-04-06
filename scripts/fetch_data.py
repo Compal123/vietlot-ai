@@ -4,8 +4,9 @@ VietLot AI — Data Fetcher
 Tự động lấy kết quả từ vietlott.vn và lưu vào data/ dưới dạng JSONL.
 Chạy: python scripts/fetch_data.py
 """
-import json, sys, time, pathlib
+import json, sys, time, pathlib, re, os
 from datetime import datetime, timezone
+from io import StringIO
 
 try:
     import requests
@@ -21,18 +22,21 @@ DATA = pathlib.Path("data")
 DATA.mkdir(exist_ok=True)
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0",
+    "Host": "vietlott.vn",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/117.0",
     "Accept": "*/*",
     "Accept-Language": "en-US,en;q=0.5",
+    "Accept-Encoding": "gzip, deflate, br",
     "Content-Type": "text/plain; charset=utf-8",
+    "Cache-Control": "no-cache",
     "X-AjaxPro-Method": "ServerSideDrawResult",
-    "X-Requested-With": "XMLHttpRequest",
     "Origin": "https://vietlott.vn",
-    "Referer": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/655",
     "Connection": "keep-alive",
+    "Referer": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/winning-number-655",
     "Sec-Fetch-Dest": "empty",
     "Sec-Fetch-Mode": "cors",
     "Sec-Fetch-Site": "same-origin",
+    "TE": "trailers",
 }
 
 BASE = "https://vietlott.vn/ajaxpro/"
@@ -48,6 +52,55 @@ RENDER = {
 
 sess = requests.Session()
 sess.headers.update(HEADERS)
+
+# ─── Cookie + Proxy Setup ─────────────────────────────────────────────────────
+def get_vietlott_cookie():
+    """Lấy session cookie từ vietlott.vn (bắt buộc để tránh 403)."""
+    try:
+        res = requests.get("https://vietlott.vn/ajaxpro/", timeout=15)
+        match = re.search(r'document\.cookie\s*=\s*"(.*?)"', res.text)
+        if match:
+            raw = match.group(1)
+            k, v = raw.split("=", 1)
+            sess.cookies.set(k.strip(), v.strip())
+            print(f"  🍪 Cookie OK: {k.strip()}")
+            return True
+        # Nếu không match → thử lấy cookie từ response headers
+        if res.cookies:
+            for c in res.cookies:
+                sess.cookies.set(c.name, c.value)
+            print(f"  🍪 Cookie từ header: {[c.name for c in res.cookies]}")
+            return True
+        print("  ⚠️  Không lấy được cookie (sẽ thử không cookie)")
+        return False
+    except Exception as e:
+        print(f"  ⚠️  Cookie lỗi: {e}")
+        return False
+
+def get_vn_proxies():
+    """Lấy danh sách proxy Việt Nam từ free-proxy-list.net."""
+    try:
+        import pandas as pd
+        resp = requests.get("https://free-proxy-list.net/", timeout=15)
+        resp.raise_for_status()
+        df = pd.read_html(StringIO(resp.text))[0]
+        vn = df[df["Code"] == "VN"][["IP Address", "Port"]].head(10)
+        proxies = [f"{row['IP Address']}:{row['Port']}" for _, row in vn.iterrows()]
+        print(f"  🌐 Tìm thấy {len(proxies)} VN proxy")
+        return proxies
+    except Exception as e:
+        print(f"  ⚠️  Không lấy được proxy: {e}")
+        return []
+
+# Proxy list (chỉ dùng khi cần)
+_proxies = None
+_use_proxy = os.environ.get("USE_PROXY", "").lower() in ("1", "true", "yes")
+
+def _get_proxies():
+    global _proxies
+    if _proxies is None:
+        _proxies = get_vn_proxies() if _use_proxy else []
+    return _proxies
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def ts():
@@ -89,18 +142,36 @@ def save(fname, db):
     return len(rows)
 
 def post_api(endpoint, body):
-    """POST to AjaxPro endpoint."""
+    """POST to AjaxPro endpoint, thử proxy VN nếu bị 403."""
+    url = BASE + endpoint
+    data = json.dumps(body, ensure_ascii=False)
+
+    # Thử không proxy trước
     try:
-        r = sess.post(
-            BASE + endpoint,
-            data=json.dumps(body, ensure_ascii=False),
-            timeout=25,
-        )
-        r.raise_for_status()
-        return r.json()
+        r = sess.post(url, data=data, timeout=25)
+        if r.ok:
+            return r.json()
+        if r.status_code != 403:
+            print(f"    ❌ HTTP {r.status_code}: {url}")
+            return None
+        print(f"    ⚠️  403 — thử proxy VN...")
     except Exception as e:
         print(f"    ❌ Request lỗi: {e}")
         return None
+
+    # Thử từng proxy VN
+    for proxy_str in _get_proxies():
+        proxy = {"http": proxy_str, "https": proxy_str}
+        try:
+            r = sess.post(url, data=data, timeout=20, proxies=proxy)
+            if r.ok:
+                print(f"    ✅ Proxy OK: {proxy_str}")
+                return r.json()
+        except Exception:
+            pass
+
+    print(f"    ❌ Tất cả proxy thất bại")
+    return None
 
 def get_html(resp):
     """Lấy HtmlContent từ response AjaxPro."""
@@ -435,6 +506,14 @@ def main():
     if pages_override:
         print(f"📄  Pages: {pages_override} (override)")
     print("=" * 55)
+
+    # Lấy cookie trước khi scrape (bắt buộc để tránh 403)
+    print("\n🍪 Khởi tạo session...")
+    get_vietlott_cookie()
+    if _use_proxy:
+        print("🌐 Proxy mode: ON")
+        _get_proxies()
+    time.sleep(1)
 
     import inspect
     grand_total = 0
