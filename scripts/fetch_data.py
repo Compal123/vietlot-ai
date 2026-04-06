@@ -11,6 +11,7 @@ from io import StringIO
 # ─── Cài dependencies (tự động nếu thiếu) ────────────────────────────────────
 def _ensure(*pkgs):
     import importlib
+    import importlib.util  # phải import explicit
     missing = [p for p in pkgs if importlib.util.find_spec(p.split(">=")[0].replace("-","_")) is None]
     if missing:
         subprocess.run([sys.executable, "-m", "pip", "install", "-q"] + missing, check=False)
@@ -60,20 +61,56 @@ _active_proxy: dict = {}
 _cookies: dict = {}
 
 def get_vn_proxies():
-    """Lấy danh sách proxy Việt Nam từ free-proxy-list.net."""
+    """Lấy danh sách VN proxy từ nhiều nguồn."""
+    import importlib.util
+    proxies = []
+
+    # Nguồn 1: geonode API (JSON, có filter theo country + lastChecked)
+    try:
+        resp = requests.get(
+            "https://proxylist.geonode.com/api/proxy-list"
+            "?limit=50&page=1&sort_by=lastChecked&sort_type=desc"
+            "&country=VN&protocols=http%2Chttps",
+            timeout=15, headers=HEADERS_GET
+        )
+        data = resp.json()
+        new = [f"{p['ip']}:{p['port']}" for p in data.get("data", [])]
+        proxies.extend(new)
+        print(f"  🌐 geonode: {len(new)} VN proxy")
+    except Exception as e:
+        print(f"  ⚠️  geonode: {e}")
+
+    # Nguồn 2: proxyscrape API
+    try:
+        resp = requests.get(
+            "https://api.proxyscrape.com/v2/?request=getproxies"
+            "&protocol=http&timeout=5000&country=VN&ssl=all&anonymity=all",
+            timeout=15, headers=HEADERS_GET
+        )
+        lines = [l.strip() for l in resp.text.splitlines() if ":" in l.strip()]
+        proxies.extend(lines[:30])
+        print(f"  🌐 proxyscrape: {len(lines[:30])} VN proxy")
+    except Exception as e:
+        print(f"  ⚠️  proxyscrape: {e}")
+
+    # Nguồn 3: free-proxy-list.net (backup)
     try:
         import pandas as pd
-        resp = requests.get("https://free-proxy-list.net/", timeout=20,
-                            headers=HEADERS_GET)
-        resp.raise_for_status()
+        resp = requests.get("https://free-proxy-list.net/", timeout=20, headers=HEADERS_GET)
         df = pd.read_html(StringIO(resp.text))[0]
         vn = df[df["Code"] == "VN"][["IP Address", "Port"]].head(20)
-        proxies = [f"{row['IP Address']}:{int(row['Port'])}" for _, row in vn.iterrows()]
-        print(f"  🌐 Tìm thấy {len(proxies)} VN proxy")
-        return proxies
+        new = [f"{row['IP Address']}:{int(row['Port'])}" for _, row in vn.iterrows()]
+        # Chỉ thêm proxy chưa có
+        new = [p for p in new if p not in proxies]
+        proxies.extend(new)
+        print(f"  🌐 free-proxy-list: {len(new)} VN proxy (mới)")
     except Exception as e:
-        print(f"  ⚠️  Không lấy được proxy list: {e}")
-        return []
+        print(f"  ⚠️  free-proxy-list: {e}")
+
+    # Loại bỏ duplicate
+    proxies = list(dict.fromkeys(proxies))
+    print(f"  🌐 Tổng: {len(proxies)} VN proxy để thử")
+    return proxies
 
 def _try_get_cookie(proxy: dict) -> dict:
     """GET vietlott.vn/ajaxpro/ qua proxy, extract cookie từ Cloudflare challenge."""
@@ -101,35 +138,72 @@ def _try_get_cookie(proxy: dict) -> dict:
         pass
     return {}
 
+def _init_via_playwright() -> bool:
+    """Dùng Playwright (browser thật) để lấy Cloudflare cookie — reliable nhất."""
+    global _cookies
+    try:
+        import importlib.util
+        if importlib.util.find_spec("playwright") is None:
+            return False
+        from playwright.sync_api import sync_playwright
+        print("  🎭 Playwright: khởi động Chromium...")
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=True)
+            ctx = browser.new_context(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+            )
+            page = ctx.new_page()
+            page.goto("https://vietlott.vn/", wait_until="networkidle", timeout=40000)
+            # Đợi thêm để Cloudflare xử lý xong
+            page.wait_for_timeout(3000)
+            cookies = ctx.cookies()
+            browser.close()
+        cf = {c["name"]: c["value"] for c in cookies}
+        if cf:
+            _cookies = cf
+            print(f"  ✅ Playwright OK — cookies: {list(cf.keys())}")
+            return True
+        print("  ⚠️  Playwright: không lấy được cookie")
+        return False
+    except Exception as e:
+        print(f"  ⚠️  Playwright error: {e}")
+        return False
+
 def init_session():
-    """Khởi tạo session: tìm VN proxy và lấy Cloudflare cookie."""
+    """Khởi tạo session:
+    1. Thử VN proxy + cookie extract (giống thanhnhu/vietlott)
+    2. Fallback: Playwright (browser thật, qua Cloudflare 100%)
+    3. Fallback cuối: direct (chỉ dùng khi local không bị block)
+    """
     global sess, _active_proxy, _cookies
     sess = requests.Session()
     sess.headers.update(HEADERS_POST)
 
-    # Luôn thử VN proxy (giống thanhnhu/vietlott — cách duy nhất qua Cloudflare trên GitHub Actions)
-    print("  🌐 Đang tìm VN proxy và Cloudflare cookie...")
+    # ── Bước 1: VN proxy ──────────────────────────────────────────────────────
+    print("  🌐 Bước 1: Tìm VN proxy + Cloudflare cookie...")
     proxy_list = get_vn_proxies()
-
     for p in proxy_list:
         proxy = {"http": p, "https": p}
         ck = _try_get_cookie(proxy)
         if ck:
             _active_proxy = proxy
             _cookies = {k: v for k, v in ck.items() if k != "__ok__"}
-            proxy_str = p
-            cookie_str = list(ck.keys())[0] if ck else "none"
-            print(f"  ✅ Proxy: {proxy_str} | Cookie: {cookie_str}")
+            print(f"  ✅ Proxy OK: {p} | Cookie: {list(ck.keys())[0] if ck else 'none'}")
             return
 
-    # Fallback: thử không dùng proxy (chỉ hoạt động khi chạy local không bị Cloudflare block)
-    print("  ⚠️  Không có VN proxy hoạt động — thử kết nối trực tiếp...")
+    # ── Bước 2: Playwright fallback ───────────────────────────────────────────
+    print("  🎭 Bước 2: VN proxy thất bại — thử Playwright...")
+    if _init_via_playwright():
+        return
+
+    # ── Bước 3: Direct (chỉ hoạt động khi không bị Cloudflare block) ─────────
+    print("  ⚠️  Bước 3: Thử kết nối trực tiếp (có thể thất bại trên GitHub Actions)...")
     ck = _try_get_cookie({})
     if ck:
         _cookies = {k: v for k, v in ck.items() if k != "__ok__"}
-        print(f"  ✅ Direct access OK, cookie: {list(ck.keys())}")
+        print(f"  ✅ Direct OK, cookie: {list(ck.keys())}")
     else:
-        print(f"  ⚠️  Không lấy được cookie — POST requests có thể bị 403")
+        print(f"  ❌ Tất cả cách đều thất bại — POST requests sẽ bị 403")
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def ts():
