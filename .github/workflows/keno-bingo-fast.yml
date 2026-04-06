@@ -1,0 +1,62 @@
+name: ⚡ Keno & Bingo18 (Cập nhật nhanh)
+
+# Keno quay mỗi 10 phút từ 6:00-22:00 VN
+# Bingo18 quay nhiều lần trong ngày
+# → Chạy mỗi 10 phút trong khung giờ hoạt động
+
+on:
+  schedule:
+    # 23:00 UTC → 22:00 UTC (= 06:00 → 05:00+1 VN) — bao phủ 6:00-22:00 VN
+    # Cron UTC: 23:00-00, 00-15:00 UTC = 06:00-22:00 VN (+7)
+    - cron: '*/10 23 * * *'   # 06:00-06:59 VN
+    - cron: '*/10 0 * * *'    # 07:00-07:59 VN
+    - cron: '*/10 1 * * *'    # 08:00-08:59 VN
+    - cron: '*/10 2 * * *'    # 09:00-09:59 VN
+    - cron: '*/10 3 * * *'    # 10:00-10:59 VN
+    - cron: '*/10 4 * * *'    # 11:00-11:59 VN
+    - cron: '*/10 5 * * *'    # 12:00-12:59 VN
+    - cron: '*/10 6 * * *'    # 13:00-13:59 VN
+    - cron: '*/10 7 * * *'    # 14:00-14:59 VN
+    - cron: '*/10 8 * * *'    # 15:00-15:59 VN
+    - cron: '*/10 9 * * *'    # 16:00-16:59 VN
+    - cron: '*/10 10 * * *'   # 17:00-17:59 VN
+    - cron: '*/10 11 * * *'   # 18:00-18:59 VN
+    - cron: '*/10 12 * * *'   # 19:00-19:59 VN
+    - cron: '*/10 13 * * *'   # 20:00-20:59 VN
+    - cron: '*/10 14 * * *'   # 21:00-21:59 VN
+    - cron: '*/10 15 * * *'   # 22:00-22:59 VN (cuối ngày)
+  workflow_dispatch:
+
+jobs:
+  update-fast:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 Cài dependencies
+        run: pip install -q requests beautifulsoup4 lxml
+
+      - name: ⚡ Scrape Keno + Bingo18
+        run: python scripts/fetch_data.py keno bingo18
+
+      - name: 📝 Commit nếu có mới
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/keno.jsonl data/bingo18.jsonl 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "⏭ Không có dữ liệu mới"
+          else
+            git commit -m "keno/bingo: $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
