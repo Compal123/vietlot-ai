@@ -15,26 +15,29 @@ def _ensure(*pkgs):
     if missing:
         subprocess.run([sys.executable, "-m", "pip", "install", "-q"] + missing, check=False)
 
-_ensure("requests", "beautifulsoup4", "lxml", "cloudscraper")
+_ensure("requests", "beautifulsoup4", "lxml", "pandas")
 
 import requests
 from bs4 import BeautifulSoup
-try:
-    import cloudscraper as _cs
-    _CLOUDSCRAPER_OK = True
-except Exception:
-    _CLOUDSCRAPER_OK = False
 
 # ─── Setup ────────────────────────────────────────────────────────────────────
 DATA = pathlib.Path("data")
 DATA.mkdir(exist_ok=True)
 
-# Headers cho AjaxPro POST (không dùng cho GET session)
-HEADERS = {
+# Headers cho GET (lấy cookie từ Cloudflare challenge page)
+HEADERS_GET = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7",
+}
+
+# Headers cho AjaxPro POST
+HEADERS_POST = {
     "Content-Type": "text/plain; charset=utf-8",
     "X-AjaxPro-Method": "ServerSideDrawResult",
     "Origin": "https://vietlott.vn",
     "Referer": "https://vietlott.vn/vi/trung-thuong/ket-qua-trung-thuong/winning-number-655",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
 }
 
 BASE = "https://vietlott.vn/ajaxpro/"
@@ -48,75 +51,85 @@ RENDER = {
     "pagemMode": 0,
 }
 
-# Session sẽ được khởi tạo trong init_session()
-sess = None
+sess = requests.Session()
+sess.headers.update(HEADERS_POST)
 
-# ─── Session Setup (Cloudflare bypass) ───────────────────────────────────────
+# ─── Session Setup (VN Proxy + Cookie, giống thanhnhu/vietlott) ──────────────
 _use_proxy = os.environ.get("USE_PROXY", "").lower() in ("1", "true", "yes")
 _active_proxy: dict = {}
-
-def _make_session():
-    """Tạo session: ưu tiên cloudscraper để bypass Cloudflare IUAM."""
-    if _CLOUDSCRAPER_OK:
-        s = _cs.create_scraper(
-            browser={"browser": "chrome", "platform": "windows", "mobile": False}
-        )
-        print("  ✅ cloudscraper mode (bypass Cloudflare)")
-    else:
-        s = requests.Session()
-        print("  ⚠️  requests mode (cloudscraper không có)")
-    s.headers.update(HEADERS)
-    return s
+_cookies: dict = {}
 
 def get_vn_proxies():
     """Lấy danh sách proxy Việt Nam từ free-proxy-list.net."""
     try:
         import pandas as pd
-        resp = requests.get("https://free-proxy-list.net/", timeout=20)
+        resp = requests.get("https://free-proxy-list.net/", timeout=20,
+                            headers=HEADERS_GET)
         resp.raise_for_status()
         df = pd.read_html(StringIO(resp.text))[0]
-        vn = df[df["Code"] == "VN"][["IP Address", "Port"]].head(15)
+        vn = df[df["Code"] == "VN"][["IP Address", "Port"]].head(20)
         proxies = [f"{row['IP Address']}:{int(row['Port'])}" for _, row in vn.iterrows()]
         print(f"  🌐 Tìm thấy {len(proxies)} VN proxy")
         return proxies
     except Exception as e:
-        print(f"  ⚠️  Không lấy được proxy: {e}")
+        print(f"  ⚠️  Không lấy được proxy list: {e}")
         return []
 
-def find_working_proxy(proxy_list: list) -> dict:
-    """Thử từng proxy, trả về proxy đầu tiên bypass được Cloudflare."""
-    for p in proxy_list:
-        proxy = {"http": p, "https": p}
-        try:
-            r = sess.get("https://vietlott.vn/", proxies=proxy, timeout=12)
-            if r.status_code == 200 and "Just a moment" not in r.text:
-                print(f"  ✅ Proxy OK: {p}")
-                return proxy
-        except Exception:
-            pass
-    print("  ⚠️  Không có proxy nào hoạt động")
+def _try_get_cookie(proxy: dict) -> dict:
+    """GET vietlott.vn/ajaxpro/ qua proxy, extract cookie từ Cloudflare challenge."""
+    try:
+        res = requests.get(
+            "https://vietlott.vn/ajaxpro/",
+            headers=HEADERS_GET,
+            proxies=proxy or None,
+            timeout=15,
+        )
+        # Cách 1: Cloudflare JS challenge có dạng: document.cookie="cf_clearance=..."
+        match = re.search(r'document\.cookie\s*=\s*["\']([^"\']+)["\']', res.text)
+        if match:
+            raw = match.group(1).split(";")[0].strip()
+            if "=" in raw:
+                k, v = raw.split("=", 1)
+                return {k.strip(): v.strip()}
+        # Cách 2: Set-Cookie header trả về trực tiếp
+        if res.cookies:
+            return dict(res.cookies)
+        # Cách 3: Không có challenge, trang trả về OK luôn
+        if res.status_code == 200 and "Just a moment" not in res.text:
+            return {"__ok__": "1"}
+    except Exception:
+        pass
     return {}
 
 def init_session():
-    """Khởi tạo cloudscraper session, xử lý Cloudflare challenge."""
-    global sess, _active_proxy
-    sess = _make_session()
+    """Khởi tạo session: tìm VN proxy và lấy Cloudflare cookie."""
+    global sess, _active_proxy, _cookies
+    sess = requests.Session()
+    sess.headers.update(HEADERS_POST)
 
-    if _use_proxy:
-        print("  🌐 Đang tìm VN proxy...")
-        proxies = get_vn_proxies()
-        _active_proxy = find_working_proxy(proxies)
+    # Luôn thử VN proxy (giống thanhnhu/vietlott — cách duy nhất qua Cloudflare trên GitHub Actions)
+    print("  🌐 Đang tìm VN proxy và Cloudflare cookie...")
+    proxy_list = get_vn_proxies()
 
-    # Test xem có qua được Cloudflare không
-    try:
-        r = sess.get("https://vietlott.vn/", timeout=20,
-                     proxies=_active_proxy or None)
-        if r.status_code == 200 and "Just a moment" not in r.text:
-            print(f"  ✅ Session OK (HTTP 200, Cloudflare passed)")
-        else:
-            print(f"  ⚠️  Session: HTTP {r.status_code} — {r.text[:80].strip()}")
-    except Exception as e:
-        print(f"  ⚠️  Session test lỗi: {e}")
+    for p in proxy_list:
+        proxy = {"http": p, "https": p}
+        ck = _try_get_cookie(proxy)
+        if ck:
+            _active_proxy = proxy
+            _cookies = {k: v for k, v in ck.items() if k != "__ok__"}
+            proxy_str = p
+            cookie_str = list(ck.keys())[0] if ck else "none"
+            print(f"  ✅ Proxy: {proxy_str} | Cookie: {cookie_str}")
+            return
+
+    # Fallback: thử không dùng proxy (chỉ hoạt động khi chạy local không bị Cloudflare block)
+    print("  ⚠️  Không có VN proxy hoạt động — thử kết nối trực tiếp...")
+    ck = _try_get_cookie({})
+    if ck:
+        _cookies = {k: v for k, v in ck.items() if k != "__ok__"}
+        print(f"  ✅ Direct access OK, cookie: {list(ck.keys())}")
+    else:
+        print(f"  ⚠️  Không lấy được cookie — POST requests có thể bị 403")
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def ts():
@@ -158,13 +171,14 @@ def save(fname, db):
     return len(rows)
 
 def post_api(endpoint, body):
-    """POST to AjaxPro endpoint."""
+    """POST to AjaxPro endpoint, dùng VN proxy + Cloudflare cookie."""
     url  = BASE + endpoint
     data = json.dumps(body, ensure_ascii=False)
-    proxy = _active_proxy or None
 
     try:
-        r = sess.post(url, data=data, timeout=25, proxies=proxy)
+        r = sess.post(url, data=data, timeout=25,
+                      proxies=_active_proxy or None,
+                      cookies=_cookies or None)
         if r.ok:
             return r.json()
         print(f"    ❌ HTTP {r.status_code}")
