@@ -54,53 +54,90 @@ sess = requests.Session()
 sess.headers.update(HEADERS)
 
 # ─── Cookie + Proxy Setup ─────────────────────────────────────────────────────
-def get_vietlott_cookie():
-    """Lấy session cookie từ vietlott.vn (bắt buộc để tránh 403)."""
-    try:
-        res = requests.get("https://vietlott.vn/ajaxpro/", timeout=15)
-        match = re.search(r'document\.cookie\s*=\s*"(.*?)"', res.text)
-        if match:
-            raw = match.group(1)
-            k, v = raw.split("=", 1)
-            sess.cookies.set(k.strip(), v.strip())
-            print(f"  🍪 Cookie OK: {k.strip()}")
-            return True
-        # Nếu không match → thử lấy cookie từ response headers
-        if res.cookies:
-            for c in res.cookies:
-                sess.cookies.set(c.name, c.value)
-            print(f"  🍪 Cookie từ header: {[c.name for c in res.cookies]}")
-            return True
-        print("  ⚠️  Không lấy được cookie (sẽ thử không cookie)")
-        return False
-    except Exception as e:
-        print(f"  ⚠️  Cookie lỗi: {e}")
-        return False
+_use_proxy = os.environ.get("USE_PROXY", "").lower() in ("1", "true", "yes")
+_proxies: list = []          # list of "ip:port" strings
+_active_proxy: dict = {}     # {"http":..., "https":...} của proxy đang dùng
 
 def get_vn_proxies():
     """Lấy danh sách proxy Việt Nam từ free-proxy-list.net."""
     try:
         import pandas as pd
-        resp = requests.get("https://free-proxy-list.net/", timeout=15)
+        resp = requests.get("https://free-proxy-list.net/", timeout=20)
         resp.raise_for_status()
         df = pd.read_html(StringIO(resp.text))[0]
-        vn = df[df["Code"] == "VN"][["IP Address", "Port"]].head(10)
-        proxies = [f"{row['IP Address']}:{row['Port']}" for _, row in vn.iterrows()]
-        print(f"  🌐 Tìm thấy {len(proxies)} VN proxy")
+        vn = df[df["Code"] == "VN"][["IP Address", "Port"]].head(15)
+        proxies = [f"{row['IP Address']}:{int(row['Port'])}" for _, row in vn.iterrows()]
+        print(f"  🌐 Tìm thấy {len(proxies)} VN proxy: {proxies[:3]}...")
         return proxies
     except Exception as e:
-        print(f"  ⚠️  Không lấy được proxy: {e}")
+        print(f"  ⚠️  Không lấy được proxy list: {e}")
         return []
 
-# Proxy list (chỉ dùng khi cần)
-_proxies = None
-_use_proxy = os.environ.get("USE_PROXY", "").lower() in ("1", "true", "yes")
+def find_working_proxy(proxy_list: list) -> dict:
+    """Thử từng proxy, trả về proxy đầu tiên kết nối được vietlott.vn."""
+    test_url = "https://vietlott.vn/ajaxpro/"
+    for p in proxy_list:
+        proxy = {"http": p, "https": p}
+        try:
+            r = requests.get(test_url, proxies=proxy, timeout=10)
+            if r.status_code < 500:
+                print(f"  ✅ Proxy hoạt động: {p} (HTTP {r.status_code})")
+                return proxy
+        except Exception:
+            pass
+    return {}
 
-def _get_proxies():
-    global _proxies
-    if _proxies is None:
-        _proxies = get_vn_proxies() if _use_proxy else []
-    return _proxies
+def get_vietlott_cookie(proxy: dict = {}):
+    """Lấy session cookie từ vietlott.vn."""
+    try:
+        res = requests.get(
+            "https://vietlott.vn/ajaxpro/",
+            headers={"User-Agent": HEADERS["User-Agent"]},
+            proxies=proxy or None,
+            timeout=20,
+        )
+        # Cách 1: cookie trong JS  document.cookie="KEY=VALUE"
+        match = re.search(r'document\.cookie\s*=\s*["\']([^"\']+)["\']', res.text)
+        if match:
+            raw = match.group(1).split(";")[0].strip()   # bỏ phần expires...
+            if "=" in raw:
+                k, v = raw.split("=", 1)
+                sess.cookies.set(k.strip(), v.strip())
+                print(f"  🍪 Cookie JS: {k.strip()}={v.strip()[:8]}...")
+                return True
+
+        # Cách 2: Set-Cookie header
+        if res.cookies:
+            for c in res.cookies:
+                sess.cookies.set(c.name, c.value)
+            names = [c.name for c in res.cookies]
+            print(f"  🍪 Cookie header: {names}")
+            return True
+
+        print(f"  ⚠️  Không tìm thấy cookie (status={res.status_code})")
+        return False
+    except Exception as e:
+        print(f"  ⚠️  Cookie request lỗi: {e}")
+        return False
+
+def init_session():
+    """Khởi tạo cookie và proxy (gọi 1 lần trước khi scrape)."""
+    global _proxies, _active_proxy
+
+    if _use_proxy:
+        print("  🌐 Proxy mode: ON — đang tìm VN proxy...")
+        _proxies = get_vn_proxies()
+        _active_proxy = find_working_proxy(_proxies)
+        if not _active_proxy:
+            print("  ⚠️  Không có proxy hoạt động, thử trực tiếp")
+
+    # Lấy cookie (qua proxy nếu có)
+    ok = get_vietlott_cookie(proxy=_active_proxy)
+    if not ok and _proxies and not _active_proxy:
+        # Thử tìm proxy và lấy cookie lại
+        _active_proxy = find_working_proxy(_proxies)
+        if _active_proxy:
+            get_vietlott_cookie(proxy=_active_proxy)
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def ts():
@@ -142,36 +179,20 @@ def save(fname, db):
     return len(rows)
 
 def post_api(endpoint, body):
-    """POST to AjaxPro endpoint, thử proxy VN nếu bị 403."""
-    url = BASE + endpoint
+    """POST to AjaxPro endpoint."""
+    url  = BASE + endpoint
     data = json.dumps(body, ensure_ascii=False)
+    proxy = _active_proxy or None
 
-    # Thử không proxy trước
     try:
-        r = sess.post(url, data=data, timeout=25)
+        r = sess.post(url, data=data, timeout=25, proxies=proxy)
         if r.ok:
             return r.json()
-        if r.status_code != 403:
-            print(f"    ❌ HTTP {r.status_code}: {url}")
-            return None
-        print(f"    ⚠️  403 — thử proxy VN...")
+        print(f"    ❌ HTTP {r.status_code}")
+        return None
     except Exception as e:
         print(f"    ❌ Request lỗi: {e}")
         return None
-
-    # Thử từng proxy VN
-    for proxy_str in _get_proxies():
-        proxy = {"http": proxy_str, "https": proxy_str}
-        try:
-            r = sess.post(url, data=data, timeout=20, proxies=proxy)
-            if r.ok:
-                print(f"    ✅ Proxy OK: {proxy_str}")
-                return r.json()
-        except Exception:
-            pass
-
-    print(f"    ❌ Tất cả proxy thất bại")
-    return None
 
 def get_html(resp):
     """Lấy HtmlContent từ response AjaxPro."""
@@ -507,12 +528,9 @@ def main():
         print(f"📄  Pages: {pages_override} (override)")
     print("=" * 55)
 
-    # Lấy cookie trước khi scrape (bắt buộc để tránh 403)
-    print("\n🍪 Khởi tạo session...")
-    get_vietlott_cookie()
-    if _use_proxy:
-        print("🌐 Proxy mode: ON")
-        _get_proxies()
+    # Khởi tạo cookie + proxy trước khi scrape
+    print("\n🔧 Khởi tạo session...")
+    init_session()
     time.sleep(1)
 
     import inspect
