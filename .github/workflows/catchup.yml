@@ -41,12 +41,16 @@ jobs:
 
           echo "📄 Pages: $PAGES"
 
+          DELAY=$(( RANDOM % 120 + 10 ))
+          echo "⏳ Random delay ${DELAY}s..."
+          sleep $DELAY
+
           if [ -z "$GAMES" ]; then
             echo "🎯 Games: tất cả"
-            python scripts/fetch_data.py --pages $PAGES
+            USE_PROXY=1 python scripts/fetch_data.py --pages $PAGES
           else
             echo "🎯 Games: $GAMES"
-            python scripts/fetch_data.py $GAMES --pages $PAGES
+            USE_PROXY=1 python scripts/fetch_data.py $GAMES --pages $PAGES
           fi
 
       - name: 📝 Commit & Push
