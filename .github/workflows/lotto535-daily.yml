@@ -26,7 +26,13 @@ jobs:
       - run: pip install -q -r requirements.txt
 
       - name: 🎯 Scrape Lotto 5/35
-        run: python scripts/fetch_data.py power535
+        env:
+          USE_PROXY: "1"
+        run: |
+          DELAY=$(( RANDOM % 60 + 5 ))
+          echo "⏳ Random delay ${DELAY}s..."
+          sleep $DELAY
+          python scripts/fetch_data.py power535
 
       - name: 📝 Commit & Push
         run: |
