@@ -144,7 +144,9 @@ def _get_cookie_direct() -> dict:
     return {}
 
 def _init_via_playwright() -> bool:
-    """Dùng Playwright (browser thật) để lấy Cloudflare cookie — reliable nhất."""
+    """Dùng Playwright (browser thật) để lấy Cloudflare cookie.
+    Chờ cf_clearance cookie xuất hiện sau khi JS challenge hoàn thành.
+    """
     global _cookies
     try:
         import importlib.util
@@ -154,17 +156,25 @@ def _init_via_playwright() -> bool:
         print("  🎭 Playwright: khởi động Chromium...")
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True)
-            ctx = browser.new_context(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-            )
+            ctx = browser.new_context()
             page = ctx.new_page()
-            page.goto("https://vietlott.vn/", wait_until="load", timeout=40000)
-            # Đợi thêm để Cloudflare xử lý xong challenge
-            page.wait_for_timeout(5000)
-            cookies = ctx.cookies()
+            # Load trang, dùng domcontentloaded thay vì networkidle/load
+            page.goto("https://vietlott.vn/", wait_until="domcontentloaded", timeout=40000)
+            print(f"  🎭 Title: {page.title()}")
+            # Chờ cf_clearance cookie (Cloudflare challenge solved)
+            try:
+                page.wait_for_function(
+                    "() => document.cookie.includes('cf_clearance')",
+                    timeout=30000
+                )
+                print("  🎭 cf_clearance detected!")
+            except Exception:
+                # Nếu không có cf_clearance, đợi thêm và lấy bất kỳ cookie nào
+                page.wait_for_timeout(5000)
+            cookies = ctx.cookies("https://vietlott.vn")
             browser.close()
-        cf = {c["name"]: c["value"] for c in cookies}
-        if cf:
+        if cookies:
+            cf = {c["name"]: c["value"] for c in cookies}
             _cookies = cf
             print(f"  ✅ Playwright OK — cookies: {list(cf.keys())}")
             return True
