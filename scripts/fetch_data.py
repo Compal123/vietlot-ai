@@ -112,31 +112,35 @@ def get_vn_proxies():
     print(f"  🌐 Tổng: {len(proxies)} VN proxy để thử")
     return proxies
 
-def _try_get_cookie(proxy: dict) -> dict:
-    """GET vietlott.vn/ajaxpro/ qua proxy, extract Cloudflare cookie.
-    Chỉ trả về thành công nếu lấy được cookie thực sự từ vietlott.vn.
-    Không chấp nhận 200 mà không có cookie (proxy có thể trả về trang lỗi của chính nó).
+def _extract_cookie(res) -> dict:
+    """Extract Cloudflare cookie từ response (dùng chung cho cả direct và proxy)."""
+    # Cách 1: Cloudflare JS challenge — document.cookie="cf_clearance=..."
+    match = re.search(r'document\.cookie="(.*?)"', res.text)
+    if match:
+        cookie_str = match.group(1)
+        k = cookie_str.split("=")[0]
+        v = cookie_str.split("=", 1)[1]
+        return {k: v}
+    # Cách 2: Set-Cookie header
+    if res.cookies:
+        return dict(res.cookies)
+    return {}
+
+def _get_cookie_direct() -> dict:
+    """GET vietlott.vn/ajaxpro/ TRỰC TIẾP, KHÔNG custom headers.
+    Dùng default 'python-requests/x.x.x' User-Agent —
+    Cloudflare trả về JS challenge cũ (có document.cookie=) thay vì Turnstile mới.
+    Đây là cách thanhnhu/vietlott dùng và update data thành công mỗi ngày.
     """
     try:
-        res = requests.get(
-            "https://vietlott.vn/ajaxpro/",
-            headers=HEADERS_GET,
-            proxies=proxy or None,
-            timeout=15,
-        )
-        # Cách 1: Cloudflare JS challenge có dạng: document.cookie="cf_clearance=..."
-        match = re.search(r'document\.cookie\s*=\s*["\']([^"\']+)["\']', res.text)
-        if match:
-            raw = match.group(1).split(";")[0].strip()
-            if "=" in raw:
-                k, v = raw.split("=", 1)
-                return {k.strip(): v.strip()}
-        # Cách 2: Set-Cookie header trả về trực tiếp (vietlott.vn đã xác thực)
-        if res.cookies:
-            return dict(res.cookies)
-        # Không lấy được cookie thực → không dùng proxy này cho POST
-    except Exception:
-        pass
+        res = requests.get("https://vietlott.vn/ajaxpro/", timeout=20)
+        ck = _extract_cookie(res)
+        if ck:
+            print(f"  ✅ Cookie direct: {list(ck.keys())}")
+            return ck
+        print(f"  ⚠️  Direct: status={res.status_code}, snippet={res.text[:120].replace(chr(10),' ')}")
+    except Exception as e:
+        print(f"  ⚠️  Direct GET lỗi: {e}")
     return {}
 
 def _init_via_playwright() -> bool:
@@ -154,9 +158,9 @@ def _init_via_playwright() -> bool:
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
             )
             page = ctx.new_page()
-            page.goto("https://vietlott.vn/", wait_until="networkidle", timeout=40000)
-            # Đợi thêm để Cloudflare xử lý xong
-            page.wait_for_timeout(3000)
+            page.goto("https://vietlott.vn/", wait_until="load", timeout=40000)
+            # Đợi thêm để Cloudflare xử lý xong challenge
+            page.wait_for_timeout(5000)
             cookies = ctx.cookies()
             browser.close()
         cf = {c["name"]: c["value"] for c in cookies}
@@ -171,42 +175,59 @@ def _init_via_playwright() -> bool:
         return False
 
 def init_session():
-    """Khởi tạo session:
-    1. Thử VN proxy + cookie extract (giống thanhnhu/vietlott)
-    2. Fallback: Playwright (browser thật, qua Cloudflare 100%)
-    3. Fallback cuối: direct (chỉ dùng khi local không bị block)
+    """Khởi tạo session theo đúng approach thanhnhu/vietlott:
+    1. GET cookie trực tiếp (không proxy, không custom UA = python-requests UA)
+       → Cloudflare trả về JS challenge cũ với document.cookie=
+    2. Lấy VN proxy để dùng cho POST requests (tránh bị block IP)
+    3. Fallback: thử lấy cookie qua VN proxy nếu direct thất bại
+    4. Fallback cuối: Playwright
     """
     global sess, _active_proxy, _cookies
     sess = requests.Session()
     sess.headers.update(HEADERS_POST)
 
-    # ── Bước 1: VN proxy ──────────────────────────────────────────────────────
-    print("  🌐 Bước 1: Tìm VN proxy + Cloudflare cookie...")
-    proxy_list = get_vn_proxies()
-    for i, p in enumerate(proxy_list):
-        proxy = {"http": p, "https": p}
-        print(f"  [{i+1}/{len(proxy_list)}] Thử proxy {p}...")
-        ck = _try_get_cookie(proxy)
-        if ck:
-            _active_proxy = proxy
-            _cookies = ck
-            print(f"  ✅ Proxy OK: {p} | Cookie: {list(ck.keys())}")
-            return
-        print(f"  ✗ {p}: không lấy được cookie")
+    # ── Bước 1: Cookie trực tiếp (no custom UA — đúng cách thanhnhu) ──────────
+    print("  🍪 Bước 1: GET cookie trực tiếp (python-requests UA)...")
+    ck = _get_cookie_direct()
+    if ck:
+        _cookies = ck
+        # Bước 1b: Tìm VN proxy cho POST
+        print("  🌐 Bước 1b: Tìm VN proxy để dùng cho POST...")
+        for p in get_vn_proxies():
+            try:
+                r = requests.get("https://httpbin.org/ip",
+                                  proxies={"http": p, "https": p}, timeout=8)
+                if r.ok:
+                    _active_proxy = {"http": p, "https": p}
+                    print(f"  ✅ VN proxy cho POST: {p}")
+                    return
+            except Exception:
+                pass
+        print("  ⚠️  Không có VN proxy — POST trực tiếp với cookie")
+        return
 
-    # ── Bước 2: Playwright fallback ───────────────────────────────────────────
-    print("  🎭 Bước 2: VN proxy thất bại — thử Playwright...")
+    # ── Bước 2: Thử cookie qua VN proxy (proxy IP khác GitHub Actions) ────────
+    print("  🌐 Bước 2: Direct thất bại — thử lấy cookie qua VN proxy...")
+    for i, p in enumerate(get_vn_proxies()[:10]):
+        try:
+            res = requests.get("https://vietlott.vn/ajaxpro/",
+                               proxies={"http": p, "https": p}, timeout=15)
+            ck = _extract_cookie(res)
+            if ck:
+                _cookies = ck
+                _active_proxy = {"http": p, "https": p}
+                print(f"  ✅ Proxy+cookie OK: {p} | {list(ck.keys())}")
+                return
+        except Exception:
+            pass
+        print(f"  ✗ [{i+1}] {p}")
+
+    # ── Bước 3: Playwright ────────────────────────────────────────────────────
+    print("  🎭 Bước 3: Thử Playwright (browser thật)...")
     if _init_via_playwright():
         return
 
-    # ── Bước 3: Direct (chỉ hoạt động khi không bị Cloudflare block) ─────────
-    print("  ⚠️  Bước 3: Thử kết nối trực tiếp (có thể thất bại trên GitHub Actions)...")
-    ck = _try_get_cookie({})
-    if ck:
-        _cookies = {k: v for k, v in ck.items() if k != "__ok__"}
-        print(f"  ✅ Direct OK, cookie: {list(ck.keys())}")
-    else:
-        print(f"  ❌ Tất cả cách đều thất bại — POST requests sẽ bị 403")
+    print("  ❌ Tất cả cách đều thất bại — POST requests sẽ bị 403")
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def ts():
