@@ -1,0 +1,42 @@
+name: 🎯 Lotto 5/35 (2 kỳ mỗi ngày)
+
+# Lotto 5/35 quay 2 lần/ngày:
+#   Kỳ chiều: 13:00 VN = 06:00 UTC → chạy 06:15 UTC
+#   Kỳ tối:   21:00 VN = 14:00 UTC → chạy 14:15 UTC
+
+on:
+  schedule:
+    - cron: '15 6 * * *'    # Kỳ chiều 13:15 VN
+    - cron: '15 14 * * *'   # Kỳ tối   21:15 VN
+  workflow_dispatch:
+
+jobs:
+  lotto535:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - run: pip install -q requests beautifulsoup4 lxml
+
+      - name: 🎯 Scrape Lotto 5/35
+        run: python scripts/fetch_data.py power535
+
+      - name: 📝 Commit & Push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/power535.jsonl 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "⏭ Không có dữ liệu mới"
+          else
+            git commit -m "lotto535: $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
