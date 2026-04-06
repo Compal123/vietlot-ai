@@ -22,9 +22,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
-      - run: pip install -q requests beautifulsoup4 lxml
+      - run: pip install -q -r requirements.txt
 
       - name: 🎯 Scrape Lotto 5/35
         run: python scripts/fetch_data.py power535
