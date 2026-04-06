@@ -1,0 +1,52 @@
+name: 📦 Bootstrap dữ liệu lịch sử (chạy thủ công 1 lần)
+
+# Workflow này chỉ chạy thủ công (workflow_dispatch).
+# Mục đích: tải toàn bộ dữ liệu lịch sử từ vietvudanh/vietlott-data
+# và merge vào data/ của repo này làm baseline.
+# Sau đó, các workflow định kỳ (update-data, keno-bingo-fast, lotto535-daily)
+# sẽ chỉ cần cập nhật thêm dữ liệu mới.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Cài dependencies
+        run: pip install -q -r requirements.txt
+
+      - name: 📦 Tải dữ liệu lịch sử
+        run: python scripts/bootstrap.py
+
+      - name: 📝 Commit & Push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "⏭ Không có dữ liệu mới"
+          else
+            COUNT=$(git diff --staged --stat | tail -1)
+            git commit -m "bootstrap: tải dữ liệu lịch sử từ vietvudanh ($COUNT)"
+            git push
+          fi
+
+      - name: ✅ Thống kê
+        run: |
+          echo "=== Thống kê data/ ==="
+          for f in data/*.jsonl; do
+            count=$(wc -l < "$f" 2>/dev/null || echo 0)
+            echo "  $f: $count bản ghi"
+          done
