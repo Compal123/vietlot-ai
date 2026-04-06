@@ -397,8 +397,31 @@ GAMES = {
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 def main():
-    # Nếu truyền tên game qua args: python fetch_data.py keno bingo18
-    targets = sys.argv[1:] if len(sys.argv) > 1 else list(GAMES.keys())
+    """
+    Cách dùng:
+      python fetch_data.py                      → tất cả game, pages mặc định
+      python fetch_data.py keno bingo18         → chỉ keno + bingo18
+      python fetch_data.py --pages 15           → tất cả game, 15 trang
+      python fetch_data.py power655 --pages 20  → power655, 20 trang
+    """
+    args = sys.argv[1:]
+
+    # Tách --pages N ra khỏi danh sách game
+    pages_override = None
+    filtered = []
+    i = 0
+    while i < len(args):
+        if args[i] == "--pages" and i + 1 < len(args):
+            try:
+                pages_override = int(args[i + 1])
+            except ValueError:
+                pass
+            i += 2
+        else:
+            filtered.append(args[i])
+            i += 1
+
+    targets = filtered if filtered else list(GAMES.keys())
     invalid = [g for g in targets if g not in GAMES]
     if invalid:
         print(f"❌ Game không hợp lệ: {invalid}")
@@ -409,11 +432,22 @@ def main():
     print(f"🎰  VietLot AI — Data Fetcher")
     print(f"⏰  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"🎯  Games: {', '.join(targets)}")
+    if pages_override:
+        print(f"📄  Pages: {pages_override} (override)")
     print("=" * 55)
 
+    import inspect
     grand_total = 0
     for g in targets:
-        grand_total += GAMES[g]()
+        fn = GAMES[g]
+        if pages_override is not None:
+            sig = inspect.signature(fn)
+            if "pages" in sig.parameters:
+                grand_total += fn(pages=pages_override)
+            else:
+                grand_total += fn()
+        else:
+            grand_total += fn()
 
     print(f"\n{'=' * 55}")
     print(f"🏆  Hoàn thành! Tổng mới: {grand_total} entries")
