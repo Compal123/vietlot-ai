@@ -574,20 +574,24 @@ const S = {
 /* ─────────────────────────────────────────
    FETCH & PARSE
 ───────────────────────────────────────── */
+// Lỗi 404 = file chưa tồn tại, phân biệt với lỗi mạng thật sự
+const ERR_NOT_FOUND = 'NOT_FOUND';
+
 async function loadData(key) {
   if (S.cache[key]) return S.cache[key];
   if (S.loading.has(key)) {
     // wait until loaded
     return new Promise(res => {
       const t = setInterval(() => {
-        if (S.cache[key]) { clearInterval(t); res(S.cache[key]); }
+        if (!S.loading.has(key)) { clearInterval(t); res(S.cache[key] || null); }
       }, 150);
     });
   }
   S.loading.add(key);
   try {
     const r = await fetch(RAW + CFG[key].file);
-    if (!r.ok) throw new Error(r.status);
+    if (r.status === 404) { S.cache[key] = ERR_NOT_FOUND; return ERR_NOT_FOUND; }
+    if (!r.ok) throw new Error('HTTP ' + r.status);
     const txt = await r.text();
     const rows = txt.trim().split('\n').filter(Boolean).map(l => JSON.parse(l));
     rows.sort((a,b) => b.date.localeCompare(a.date));
@@ -597,10 +601,31 @@ async function loadData(key) {
     return rows;
   } catch(e) {
     console.error(key, e);
-    return null;
+    return null;  // null = lỗi mạng / CORS thật sự
   } finally {
     S.loading.delete(key);
   }
+}
+
+function errHtml(rows, retryFn) {
+  if (rows === ERR_NOT_FOUND) {
+    return `<div class="empty-state">
+      <div class="empty-icon">⏳</div>
+      <p style="color:var(--text-secondary);margin-bottom:16px">
+        Chưa có dữ liệu cho loại xổ số này.<br>
+        <small>Dữ liệu sẽ tự động cập nhật sau kỳ quay tiếp theo.</small>
+      </p>
+      <button class="btn btn-primary" onclick="${retryFn}()"><i class="fa-solid fa-rotate-right"></i> Thử lại</button>
+    </div>`;
+  }
+  return `<div class="empty-state">
+    <div class="empty-icon">❌</div>
+    <p style="color:var(--text-secondary);margin-bottom:16px">
+      Không thể tải dữ liệu.<br>
+      <small>Kiểm tra kết nối mạng và thử lại.</small>
+    </p>
+    <button class="btn btn-primary" onclick="${retryFn}()"><i class="fa-solid fa-rotate-right"></i> Thử lại</button>
+  </div>`;
 }
 
 /* ─────────────────────────────────────────
@@ -711,9 +736,8 @@ async function renderResults(){
   const el = document.getElementById('results-content');
   el.innerHTML = '<div class="loading"><div class="spinner"></div><p>Đang tải dữ liệu...</p></div>';
   const rows = await loadData(S.lottery);
-  if(!rows){
-    el.innerHTML=`<div class="empty-state"><div class="empty-icon">❌</div><p style="color:var(--text-secondary);margin-bottom:16px">Không thể tải dữ liệu.<br>Kiểm tra kết nối hoặc CORS.</p>
-    <button class="btn btn-primary" onclick="renderResults()"><i class="fa-solid fa-rotate-right"></i> Thử lại</button></div>`;
+  if(!rows || rows === ERR_NOT_FOUND){
+    el.innerHTML = errHtml(rows, 'renderResults');
     return;
   }
   const cfg = CFG[S.lottery];
@@ -800,7 +824,11 @@ async function renderAnalysis(){
   const rows = await loadData(S.lottery);
   const cfg  = CFG[S.lottery];
 
-  if(!rows || cfg.type==='obj'){
+  if(!rows || rows === ERR_NOT_FOUND){
+    el.innerHTML = errHtml(rows, 'renderAnalysis');
+    return;
+  }
+  if(cfg.type==='obj'){
     el.innerHTML=`<div class="coming-soon">
       <div class="cs-icon">🔍</div>
       <h2 style="font-size:22px;color:var(--text-primary)">Phân Tích Đang Phát Triển</h2>
@@ -962,11 +990,8 @@ async function renderAIBot(){
   const cfg = CFG[S.lottery];
   const rows= await loadData(S.lottery);
 
-  if(!rows){
-    el.innerHTML=`<div class="empty-state"><div class="empty-icon">⏳</div>
-      <p style="color:var(--text-secondary);margin-bottom:16px">Vào tab <b style="color:var(--text-primary)">Kết Quả</b> để tải dữ liệu trước.</p>
-      <button class="btn btn-primary" onclick="switchSub('results')"><i class="fa-solid fa-trophy"></i> Đến Kết Quả</button>
-    </div>`;
+  if(!rows || rows === ERR_NOT_FOUND){
+    el.innerHTML = errHtml(rows, 'renderAIBot');
     return;
   }
   if(cfg.type==='obj'){
