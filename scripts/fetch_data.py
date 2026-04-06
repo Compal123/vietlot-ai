@@ -113,7 +113,10 @@ def get_vn_proxies():
     return proxies
 
 def _try_get_cookie(proxy: dict) -> dict:
-    """GET vietlott.vn/ajaxpro/ qua proxy, extract cookie từ Cloudflare challenge."""
+    """GET vietlott.vn/ajaxpro/ qua proxy, extract Cloudflare cookie.
+    Chỉ trả về thành công nếu lấy được cookie thực sự từ vietlott.vn.
+    Không chấp nhận 200 mà không có cookie (proxy có thể trả về trang lỗi của chính nó).
+    """
     try:
         res = requests.get(
             "https://vietlott.vn/ajaxpro/",
@@ -128,12 +131,10 @@ def _try_get_cookie(proxy: dict) -> dict:
             if "=" in raw:
                 k, v = raw.split("=", 1)
                 return {k.strip(): v.strip()}
-        # Cách 2: Set-Cookie header trả về trực tiếp
+        # Cách 2: Set-Cookie header trả về trực tiếp (vietlott.vn đã xác thực)
         if res.cookies:
             return dict(res.cookies)
-        # Cách 3: Không có challenge, trang trả về OK luôn
-        if res.status_code == 200 and "Just a moment" not in res.text:
-            return {"__ok__": "1"}
+        # Không lấy được cookie thực → không dùng proxy này cho POST
     except Exception:
         pass
     return {}
@@ -182,14 +183,16 @@ def init_session():
     # ── Bước 1: VN proxy ──────────────────────────────────────────────────────
     print("  🌐 Bước 1: Tìm VN proxy + Cloudflare cookie...")
     proxy_list = get_vn_proxies()
-    for p in proxy_list:
+    for i, p in enumerate(proxy_list):
         proxy = {"http": p, "https": p}
+        print(f"  [{i+1}/{len(proxy_list)}] Thử proxy {p}...")
         ck = _try_get_cookie(proxy)
         if ck:
             _active_proxy = proxy
-            _cookies = {k: v for k, v in ck.items() if k != "__ok__"}
-            print(f"  ✅ Proxy OK: {p} | Cookie: {list(ck.keys())[0] if ck else 'none'}")
+            _cookies = ck
+            print(f"  ✅ Proxy OK: {p} | Cookie: {list(ck.keys())}")
             return
+        print(f"  ✗ {p}: không lấy được cookie")
 
     # ── Bước 2: Playwright fallback ───────────────────────────────────────────
     print("  🎭 Bước 2: VN proxy thất bại — thử Playwright...")
