@@ -33,6 +33,23 @@ jobs:
       - name: 📦 Cài dependencies
         run: pip install -q -r requirements.txt
 
+      - name: 🔍 Kiểm tra kết nối vietlott.vn
+        run: |
+          python3 - <<'PYEOF'
+          import requests, re
+          print("=== Test kết nối vietlott.vn ===")
+          try:
+              r = requests.get("https://vietlott.vn/ajaxpro/", timeout=15,
+                  headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/117.0"})
+              print(f"Status: {r.status_code}")
+              snippet = r.text[:500].replace('\n',' ')
+              print(f"Response: {snippet}")
+              m = re.search(r'document\.cookie\s*=\s*["\']([^"\']+)["\']', r.text)
+              print(f"Cookie match: {m.group(1) if m else 'NOT FOUND'}")
+          except Exception as e:
+              print(f"Error: {e}")
+          PYEOF
+
       - name: 🔄 Fetch dữ liệu (nhiều trang)
         run: |
           PAGES="${{ github.event.inputs.pages }}"
