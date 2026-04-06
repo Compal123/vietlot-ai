@@ -16,18 +16,25 @@ except ImportError:
 DATA = pathlib.Path("data")
 DATA.mkdir(exist_ok=True)
 
-SRC  = "https://raw.githubusercontent.com/vietvudanh/vietlott-data/master/data/"
+# ── Nguồn 1: vietvudanh — đầy đủ 7 loại, nhưng delay 5-7 ngày ──
+SRC_VIETVUDANH = "https://raw.githubusercontent.com/vietvudanh/vietlott-data/master/data/"
+MAP_VIETVUDANH = [
+    ("power655.jsonl", "power655.jsonl"),
+    ("power645.jsonl", "power645.jsonl"),
+    ("power535.jsonl", "power535.jsonl"),
+    ("3d.jsonl",       "3d.jsonl"),
+    ("3d_pro.jsonl",   "3d_pro.jsonl"),
+    ("keno.jsonl",     "keno.jsonl"),
+    ("bingo18.jsonl",  "bingo18.jsonl"),
+]
 
-# Mapping: tên file nguồn → tên file đích của chúng ta
-# vietvudanh dùng: 3d.jsonl, 3d_pro.jsonl (KHÔNG phải max3d/max3dpro)
-FILE_MAP = [
-    ("power655.jsonl",  "power655.jsonl"),
-    ("power645.jsonl",  "power645.jsonl"),
-    ("power535.jsonl",  "power535.jsonl"),
-    ("3d.jsonl",        "3d.jsonl"),       # ← FIX: max3d.jsonl không tồn tại
-    ("3d_pro.jsonl",    "3d_pro.jsonl"),   # ← FIX: max3dpro.jsonl không tồn tại
-    ("keno.jsonl",      "keno.jsonl"),
-    ("bingo18.jsonl",   "bingo18.jsonl"),
+# ── Nguồn 2: thanhnhu — cập nhật hàng ngày, data mới hơn ──
+# Có power655, power645, keno (format tương thích, chỉ thêm field "page")
+SRC_THANHNHU = "https://raw.githubusercontent.com/thanhnhu/vietlott/master/data/"
+MAP_THANHNHU = [
+    ("power655.jsonl", "power655.jsonl"),
+    ("power645.jsonl", "power645.jsonl"),
+    ("keno.jsonl",     "keno.jsonl"),
 ]
 
 def load_local(fname):
@@ -125,11 +132,11 @@ def normalize_row(raw):
         "process_time": "bootstrap",
     }
 
-def fetch_and_merge(src_name, dst_name):
-    url = SRC + src_name
+def fetch_and_merge(base_url, src_name, dst_name):
+    url = base_url + src_name
     print(f"  ↓ {src_name} → {dst_name} ...", end=" ", flush=True)
     try:
-        r = requests.get(url, timeout=30)
+        r = requests.get(url, timeout=60)
         if r.status_code == 404:
             print(f"⚠️  404 — bỏ qua")
             return 0, 0
@@ -139,7 +146,6 @@ def fetch_and_merge(src_name, dst_name):
         return 0, 0
 
     local_db = load_local(dst_name)
-    before   = len(local_db)
     added    = 0
 
     for line in r.text.splitlines():
@@ -164,13 +170,22 @@ def fetch_and_merge(src_name, dst_name):
 
 def main():
     print("=" * 60)
-    print("📦  Bootstrap — Tải dữ liệu lịch sử từ vietvudanh")
-    print("🌐  Nguồn: github.com/vietvudanh/vietlott-data")
+    print("📦  Bootstrap — Tải dữ liệu từ nhiều nguồn")
     print("=" * 60)
 
     grand = 0
-    for src, dst in FILE_MAP:
-        added, _ = fetch_and_merge(src, dst)
+
+    # ── Nguồn 1: vietvudanh (lịch sử đầy đủ) ──
+    print(f"\n🗂  Nguồn 1: vietvudanh (đủ 7 loại, ~5 ngày trễ)")
+    for src, dst in MAP_VIETVUDANH:
+        added, _ = fetch_and_merge(SRC_VIETVUDANH, src, dst)
+        grand += added
+        time.sleep(0.5)
+
+    # ── Nguồn 2: thanhnhu (mới hơn, cập nhật hàng ngày) ──
+    print(f"\n🗂  Nguồn 2: thanhnhu (power655, power645, keno — hàng ngày)")
+    for src, dst in MAP_THANHNHU:
+        added, _ = fetch_and_merge(SRC_THANHNHU, src, dst)
         grand += added
         time.sleep(0.5)
 
