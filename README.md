@@ -91,46 +91,6 @@ vietlot-ai/
 
 ---
 
-## ⚙️ Cài đặt & Sử dụng
-
-### Yêu cầu
-
-- Python 3.11+
-- IP Việt Nam (hoặc VPN VN) để bypass Cloudflare
-
-### Cài đặt
-
-```bash
-git clone https://github.com/Compal123/vietlot-ai.git
-cd vietlot-ai
-pip install -r requirements.txt
-```
-
-### Chạy scrape thủ công
-
-```bash
-# Lấy tất cả game (3 trang gần nhất ≈ 2 tuần)
-python run_local.py
-
-# Chỉ lấy Keno và Bingo18
-python run_local.py keno bingo18
-
-# Lấy nhiều trang hơn (≈ 2 tháng)
-python run_local.py --pages 10
-
-# Dùng proxy VN (khi bị block)
-USE_PROXY=1 python scripts/fetch_data.py
-```
-
-### Khởi tạo dữ liệu lịch sử lần đầu
-
-```bash
-# Import toàn bộ lịch sử từ các nguồn mở
-python scripts/bootstrap.py
-```
-
----
-
 ## 🤖 GitHub Actions — Tự động hóa
 
 Dự án sử dụng **5 workflows** để cập nhật dữ liệu hoàn toàn tự động:
