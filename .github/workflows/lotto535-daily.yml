@@ -26,8 +26,6 @@ jobs:
       - run: pip install -q -r requirements.txt
 
       - name: 🎯 Scrape Lotto 5/35
-        env:
-          USE_PROXY: "1"
         run: |
           DELAY=$(( RANDOM % 60 + 5 ))
           echo "⏳ Random delay ${DELAY}s..."

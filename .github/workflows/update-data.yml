@@ -49,8 +49,6 @@ jobs:
           echo "Games sẽ scrape: $GAMES"
 
       - name: 🎰 Scrape games buổi tối
-        env:
-          USE_PROXY: "1"
         run: |
           DELAY=$(( RANDOM % 120 + 10 ))
           echo "⏳ Random delay ${DELAY}s..."
