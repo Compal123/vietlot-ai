@@ -9,7 +9,7 @@ Cách dùng:
   python scripts/fetch_data.py --pages 15           → tất cả game, 15 trang
   python scripts/fetch_data.py power655 --pages 20  → power655, 20 trang
 """
-import json, sys, time, pathlib
+import json, sys, time, pathlib, itertools, random
 from datetime import datetime, timezone
 
 # Fix encoding trên Windows terminal
@@ -29,7 +29,6 @@ DATA = ROOT / "data"
 DATA.mkdir(exist_ok=True)
 
 # ─── HTTP config ──────────────────────────────────────────────────────────────
-# Giống hệt vietvudanh/vietlott-data: headers đơn giản, không cần cookie/proxy
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0",
     "Accept": "*/*",
@@ -57,6 +56,50 @@ RENDER = {
 
 sess = requests.Session()
 sess.headers.update(HEADERS)
+
+# ─── Proxy pool (dùng khi IP bị chặn 403) ────────────────────────────────────
+_proxy_cycle = None
+_proxy_mode  = False   # True sau khi phát hiện 403
+
+def _load_proxies():
+    """Lấy VN proxy từ 2 nguồn miễn phí."""
+    global _proxy_cycle
+    proxies = []
+
+    # Nguồn 1: proxyscrape (nhanh, JSON đơn giản)
+    try:
+        r = requests.get(
+            "https://api.proxyscrape.com/v2/?request=getproxies"
+            "&protocol=http&timeout=5000&country=VN&ssl=all&anonymity=all",
+            timeout=12,
+        )
+        lines = [l.strip() for l in r.text.splitlines() if ":" in l.strip()]
+        proxies += lines
+        print(f"  proxyscrape: {len(lines)} proxy VN")
+    except Exception as e:
+        print(f"  proxyscrape lỗi: {e}")
+
+    # Nguồn 2: geonode (JSON, ưu tiên uptime cao)
+    try:
+        r = requests.get(
+            "https://proxylist.geonode.com/api/proxy-list"
+            "?limit=50&page=1&sort_by=lastChecked&sort_type=desc&country=VN&protocols=http",
+            timeout=12,
+        )
+        items = r.json().get("data", [])
+        lines = [f"{p['ip']}:{p['port']}" for p in items]
+        proxies += lines
+        print(f"  geonode: {len(lines)} proxy VN")
+    except Exception as e:
+        print(f"  geonode lỗi: {e}")
+
+    if proxies:
+        random.shuffle(proxies)   # Xáo trộn để không bị hit cùng 1 proxy
+        _proxy_cycle = itertools.cycle(proxies)
+        print(f"  Tổng: {len(proxies)} proxy sẵn sàng")
+        return True
+    print("  Không lấy được proxy nào!")
+    return False
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def ts():
@@ -98,15 +141,49 @@ def save(fname, db):
     return len(rows)
 
 def post_api(endpoint, body):
-    """POST thẳng tới AjaxPro endpoint — không cần cookie/proxy."""
-    url = BASE_URL + endpoint
-    try:
-        r = sess.post(url, data=json.dumps(body, ensure_ascii=False), timeout=25)
-        if r.ok:
-            return r.json()
-        print(f"    ❌ HTTP {r.status_code} — {url}")
-    except Exception as e:
-        print(f"    ❌ Request lỗi: {e}")
+    """POST tới AjaxPro endpoint.
+    - Thử direct trước (nhanh, dùng khi IP VN).
+    - Nếu 403: tự chuyển sang proxy mode và thử lại.
+    """
+    global _proxy_mode, _proxy_cycle
+    url  = BASE_URL + endpoint
+    data = json.dumps(body, ensure_ascii=False)
+
+    # ── Direct (không proxy) ──────────────────────────────────────────────────
+    if not _proxy_mode:
+        try:
+            r = sess.post(url, data=data, timeout=25)
+            if r.ok:
+                return r.json()
+            if r.status_code == 403:
+                print(f"    ⚠️  403 từ IP này — chuyển sang proxy mode...")
+                _proxy_mode = True
+                if _proxy_cycle is None:
+                    _load_proxies()
+            else:
+                print(f"    ❌ HTTP {r.status_code}")
+                return None
+        except Exception as e:
+            print(f"    ❌ Request lỗi: {e}")
+            return None
+
+    # ── Proxy mode ────────────────────────────────────────────────────────────
+    if _proxy_cycle is None:
+        return None
+
+    for attempt in range(10):
+        proxy_addr = next(_proxy_cycle)
+        proxy = {"http": f"http://{proxy_addr}", "https": f"http://{proxy_addr}"}
+        try:
+            r = sess.post(url, data=data, timeout=20, proxies=proxy)
+            if r.ok:
+                return r.json()
+            if r.status_code in (403, 407):
+                continue   # Proxy bị block, thử cái khác
+        except Exception:
+            continue       # Proxy chết, thử cái khác
+
+    print(f"    ❌ Hết proxy, bỏ qua endpoint này")
     return None
 
 def get_html(resp):
