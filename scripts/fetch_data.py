@@ -183,7 +183,7 @@ def post_api(endpoint, body):
         except Exception:
             continue       # Proxy chết, thử cái khác
 
-    print(f"    ❌ Hết proxy, bỏ qua endpoint này")
+    print(f"    ❌ Thử 10 proxy đều thất bại, bỏ qua")
     return None
 
 def get_html(resp):
@@ -258,8 +258,11 @@ def scrape_3d(endpoint, game_id, fname, pages=4):
         body = {
             "ORenderInfo": RENDER,
             "GameId": game_id,
+            "GameDrawId": "",
             "CheckMulti": 0,
             "PageIndex": pg,
+            "number01": "",
+            "number02": "",
         }
         html = get_html(post_api(endpoint, body))
         if not html:
