@@ -322,33 +322,32 @@ body::before{
 .rank-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
 .rank-table tr:hover td{background:var(--bg-card2)}
 
-/* ===== KENO GRID ===== */
-.keno-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
-.knum{
-  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-  border-radius:7px;font-size:12px;font-weight:600;
-  background:var(--bg-surface);border:1px solid var(--border);
-  color:var(--text-muted);transition:var(--tr);
-}
-.knum.drawn{
-  background:linear-gradient(135deg,var(--accent-green),#00b894);
-  border-color:transparent;color:#000;
-  box-shadow:0 2px 8px rgba(78,255,163,.35);
-  animation:kPop .35s cubic-bezier(.34,1.56,.64,1) backwards;
-}
+/* ===== KENO ===== */
 @keyframes kPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-@media(max-width:500px){.keno-grid{grid-template-columns:repeat(8,1fr)}}
 
-/* ===== 3D RESULT ===== */
-.grid3d{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.prize3d-box{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--rs);padding:13px}
-.prize3d-name{font-size:11px;color:var(--text-secondary);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.prize3d-nums{display:flex;gap:7px;flex-wrap:wrap}
-.num3d{
-  background:var(--bg-card2);border:1px solid var(--border);
-  border-radius:8px;padding:5px 12px;
-  font-size:18px;font-weight:800;color:var(--text-primary);font-family:monospace;
-}
+/* ===== 3D RESULT — Latest card ===== */
+.result3d-wrap{display:flex;flex-direction:column;gap:9px}
+.r3d-row{display:flex;align-items:center;gap:10px}
+.r3d-prize-tag{font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;flex-shrink:0;min-width:34px;text-align:center;letter-spacing:.5px}
+.r3d-nums{display:flex;gap:6px;flex-wrap:wrap}
+.r3d-num{border:1px solid;border-radius:8px;padding:4px 10px;font-size:16px;font-weight:800;font-family:monospace;background:var(--bg-card2)}
+
+/* Max3D history row */
+.h3d-wrap{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.h3d-tier{display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.03);border-radius:6px;padding:2px 5px}
+.h3d-label{font-size:8px;font-weight:800;letter-spacing:.5px;opacity:.7}
+.h3d-num{font-size:11px;font-weight:900;font-family:monospace;background:var(--bg-card2);border-radius:4px;padding:1px 5px}
+
+/* Keno latest */
+.keno-latest{display:flex;flex-direction:column;gap:12px}
+.keno-balls-row{display:flex;flex-wrap:wrap;gap:7px}
+.keno-ref-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.kref{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border-radius:5px;background:var(--bg-surface);color:var(--text-muted)}
+.kref.kref-hit{background:linear-gradient(135deg,var(--accent-green),#00b894);color:#07091a;font-weight:900;animation:kPop .5s ease both}
+
+/* Keno history compact chips */
+.keno-hist{display:flex;flex-wrap:wrap;gap:3px;max-width:340px}
+.keno-hist-n{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:linear-gradient(135deg,var(--accent-green),#00b894);color:#07091a}
 
 /* ===== LOAD MORE ===== */
 .load-more{
@@ -723,11 +722,19 @@ function miniBall(n, sp=false){
   return `<div class="mball${sp?' sp':''}">${pad2(n)}</div>`;
 }
 
+/* per-prize config for Max3D display */
+const PRIZE3D = {
+  'Giải Đặc biệt': { short:'ĐB', color:'var(--accent-pink)',   bg:'rgba(255,107,181,.12)', border:'rgba(255,107,181,.35)' },
+  'Giải Nhất':     { short:'G1', color:'var(--accent-cyan)',   bg:'rgba(0,212,208,.10)',   border:'rgba(0,212,208,.30)'   },
+  'Giải Nhì':      { short:'G2', color:'var(--accent-green)',  bg:'rgba(78,255,163,.10)',  border:'rgba(78,255,163,.30)'  },
+  'Giải Ba':       { short:'G3', color:'var(--accent-orange)', bg:'rgba(255,127,80,.10)',  border:'rgba(255,127,80,.28)'  },
+};
+
 function renderLatestNumbers(item, cfg){
-  if(cfg.type==='obj') return renderObj3D(item.result, true);
+  if(cfg.type==='obj') return renderObj3D(item.result);
   if(!Array.isArray(item.result)) return '';
   const res = item.result;
-  if(cfg.name==='Keno') return renderKenoGrid(res);
+  if(S.lottery==='keno') return renderKenoLatest(res);
   const mains = cfg.special ? res.slice(0, cfg.main) : res;
   const sps   = cfg.special ? res.slice(cfg.main)    : [];
   let h = '<div class="balls-row">';
@@ -737,12 +744,10 @@ function renderLatestNumbers(item, cfg){
 }
 
 function renderHistNumbers(item, cfg){
-  if(cfg.type==='obj'){
-    const all = Object.values(item.result||{}).flat().slice(0,5);
-    return '<div class="hnums">' + all.map(n=>`<div class="mball" style="border-radius:6px;width:auto;padding:0 8px;font-family:monospace;font-size:12px">${n}</div>`).join('') + '</div>';
-  }
+  if(cfg.type==='obj') return renderHist3D(item.result);
   if(!Array.isArray(item.result)) return '';
   const res = item.result;
+  if(S.lottery==='keno') return renderHistKeno(res);
   const mains = cfg.special ? res.slice(0,cfg.main) : res;
   const sps   = cfg.special ? res.slice(cfg.main) : [];
   let h='<div class="hnums">';
@@ -751,29 +756,57 @@ function renderHistNumbers(item, cfg){
   return h+'</div>';
 }
 
-function renderKenoGrid(drawn){
-  let h='<div class="keno-grid">';
-  for(let i=1;i<=80;i++){
-    const d = drawn.includes(i);
-    h += `<div class="knum${d?' drawn':''}" ${d?`style="animation-delay:${(drawn.indexOf(i))*0.04}s"`:''}">${i}</div>`;
+/* Max3D latest: compact prize-row layout */
+function renderObj3D(result){
+  if(!result||typeof result!=='object') return '';
+  let h='<div class="result3d-wrap">';
+  for(const [prize,nums] of Object.entries(result)){
+    const pc = PRIZE3D[prize] || { short:prize.replace('Giải ','G'), color:'var(--text-secondary)', bg:'rgba(255,255,255,.06)', border:'rgba(255,255,255,.15)' };
+    h+=`<div class="r3d-row">
+      <div class="r3d-prize-tag" style="background:${pc.bg};color:${pc.color};border-color:${pc.border}">${pc.short}</div>
+      <div class="r3d-nums">${(nums||[]).map(n=>`<div class="r3d-num" style="border-color:${pc.border};color:${pc.color}">${n}</div>`).join('')}</div>
+    </div>`;
   }
   return h+'</div>';
 }
 
-function renderObj3D(result, big=true){
+/* Max3D history: all prize tiers, compact */
+function renderHist3D(result){
   if(!result||typeof result!=='object') return '';
-  if(!big){
-    const all=Object.values(result).flat().slice(0,4);
-    return '<div class="hnums">'+all.map(n=>`<div class="mball" style="border-radius:6px;width:auto;padding:0 8px;font-family:monospace;font-size:12px">${n}</div>`).join('')+'</div>';
-  }
-  let h='<div class="grid3d">';
+  let h='<div class="h3d-wrap">';
   for(const [prize,nums] of Object.entries(result)){
-    h+=`<div class="prize3d-box">
-      <div class="prize3d-name">${prize}</div>
-      <div class="prize3d-nums">${(nums||[]).map(n=>`<div class="num3d">${n}</div>`).join('')}</div>
+    const pc = PRIZE3D[prize] || { short:'?', color:'var(--text-secondary)' };
+    if(!(nums||[]).length) continue;
+    h+=`<div class="h3d-tier">
+      <span class="h3d-label" style="color:${pc.color}">${pc.short}</span>
+      ${nums.map(n=>`<span class="h3d-num" style="color:${pc.color}">${n}</span>`).join('')}
     </div>`;
   }
   return h+'</div>';
+}
+
+/* Keno latest: drawn balls + compact reference grid */
+function renderKenoLatest(drawn){
+  let h='<div class="keno-latest">';
+  // 20 drawn balls
+  h+='<div class="keno-balls-row">';
+  drawn.forEach((n,i)=> h+=`<div class="ball kball" style="animation-delay:${i*0.04}s">${pad2(n)}</div>`);
+  h+='</div>';
+  // Compact 1-80 reference grid
+  h+='<div class="keno-ref-grid">';
+  for(let i=1;i<=80;i++){
+    const d=drawn.includes(i);
+    h+=`<div class="kref${d?' kref-hit':''}"${d?` style="animation-delay:${drawn.indexOf(i)*0.04}s"`:''}">${i}</div>`;
+  }
+  h+='</div></div>';
+  return h;
+}
+
+/* Keno history: compact mini chips */
+function renderHistKeno(drawn){
+  return '<div class="keno-hist">'
+    + (drawn||[]).map(n=>`<div class="keno-hist-n">${n}</div>`).join('')
+    + '</div>';
 }
 
 /* ─────────────────────────────────────────
@@ -833,31 +866,43 @@ async function renderResults(){
   </div>`;
 
   /* Stat cards */
+  let statCard2, statCard3;
+  if(cfg.type==='obj'){
+    // Max3D: compute top ĐB numbers
+    const dbFreq={};
+    rows.forEach(r=>{ ((r.result||{})['Giải Đặc biệt']||[]).forEach(n=>{ dbFreq[n]=(dbFreq[n]||0)+1; }); });
+    const dbSorted = Object.entries(dbFreq).sort((a,b)=>b[1]-a[1]);
+    const hotDb  = dbSorted.slice(0,4).map(([n])=>n).join(' · ');
+    const coldDb = dbSorted.slice(-4).map(([n])=>n).join(' · ');
+    statCard2=`<div class="stat-card">
+      <div class="sc-top"><div style="font-size:13px;color:var(--text-secondary)">🔥 ĐB hay ra</div><div class="sc-icon" style="background:rgba(255,107,181,.15)">🎯</div></div>
+      <div class="sc-val" style="color:var(--accent-pink);font-size:16px;letter-spacing:2px">${hotDb||'—'}</div>
+      <div class="sc-lbl">Top 4 số ĐB hay xuất hiện nhất</div>
+    </div>`;
+    statCard3=`<div class="stat-card">
+      <div class="sc-top"><div style="font-size:13px;color:var(--text-secondary)">❄️ ĐB ít ra</div><div class="sc-icon" style="background:rgba(0,212,208,.15)">📉</div></div>
+      <div class="sc-val" style="color:var(--accent-cyan);font-size:16px;letter-spacing:2px">${coldDb||'—'}</div>
+      <div class="sc-lbl">Top 4 số ĐB ít xuất hiện nhất</div>
+    </div>`;
+  } else {
+    statCard2=`<div class="stat-card">
+      <div class="sc-top"><div style="font-size:13px;color:var(--text-secondary)">🔥 Số cầu nóng</div><div class="sc-icon" style="background:rgba(255,127,80,.15)">🔥</div></div>
+      <div class="sc-val" style="color:#ff7f50;font-size:20px">${hot.slice(0,5).join(' · ')||'—'}</div>
+      <div class="sc-lbl">Top 5 số hay xuất hiện nhất</div>
+    </div>`;
+    statCard3=`<div class="stat-card">
+      <div class="sc-top"><div style="font-size:13px;color:var(--text-secondary)">❄️ Số cầu lạnh</div><div class="sc-icon" style="background:rgba(0,212,208,.15)">❄️</div></div>
+      <div class="sc-val" style="color:var(--accent-cyan);font-size:20px">${cold.slice(0,5).join(' · ')||'—'}</div>
+      <div class="sc-lbl">Top 5 số lâu chưa xuất hiện</div>
+    </div>`;
+  }
   h+=`<div class="g3" style="margin-bottom:22px">
     <div class="stat-card">
-      <div class="sc-top">
-        <div style="font-size:13px;color:var(--text-secondary)">📊 Tổng kỳ quay</div>
-        <div class="sc-icon" style="background:rgba(124,111,247,.15)">📋</div>
-      </div>
+      <div class="sc-top"><div style="font-size:13px;color:var(--text-secondary)">📊 Tổng kỳ quay</div><div class="sc-icon" style="background:rgba(124,111,247,.15)">📋</div></div>
       <div class="sc-val">${rows.length.toLocaleString()}</div>
       <div class="sc-lbl">Từ ${fmtDate(rows[rows.length-1].date)} đến nay</div>
     </div>
-    <div class="stat-card">
-      <div class="sc-top">
-        <div style="font-size:13px;color:var(--text-secondary)">🔥 Số cầu nóng</div>
-        <div class="sc-icon" style="background:rgba(255,127,80,.15)">🔥</div>
-      </div>
-      <div class="sc-val" style="color:#ff7f50;font-size:20px">${hot.slice(0,5).join(' · ')}</div>
-      <div class="sc-lbl">Top 5 số hay xuất hiện nhất</div>
-    </div>
-    <div class="stat-card">
-      <div class="sc-top">
-        <div style="font-size:13px;color:var(--text-secondary)">❄️ Số cầu lạnh</div>
-        <div class="sc-icon" style="background:rgba(0,212,208,.15)">❄️</div>
-      </div>
-      <div class="sc-val" style="color:var(--accent-cyan);font-size:20px">${cold.slice(0,5).join(' · ')}</div>
-      <div class="sc-lbl">Top 5 số lâu chưa xuất hiện</div>
-    </div>
+    ${statCard2}${statCard3}
   </div>`;
 
   /* History */
