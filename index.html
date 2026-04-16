@@ -339,15 +339,15 @@ body::before{
 .h3d-num{font-size:11px;font-weight:900;font-family:monospace;background:var(--bg-card2);border-radius:4px;padding:1px 5px}
 
 /* Keno latest */
-.keno-latest{display:flex;flex-direction:column;gap:12px}
-.keno-balls-row{display:flex;flex-wrap:wrap;gap:7px}
-.keno-ref-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
-.kref{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border-radius:5px;background:var(--bg-surface);color:var(--text-muted)}
-.kref.kref-hit{background:linear-gradient(135deg,var(--accent-green),#00b894);color:#07091a;font-weight:900;animation:kPop .5s ease both}
+.keno-latest{display:flex;flex-direction:column;gap:10px}
+.keno-balls-row{display:flex;flex-wrap:wrap;gap:6px}
+.keno-ref-grid{display:grid;grid-template-columns:repeat(10,30px);gap:3px}
+.kref{width:30px;height:22px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:4px;background:rgba(255,255,255,.05);color:var(--text-muted)}
+.kref.kref-hit{background:linear-gradient(135deg,var(--accent-green),#00b894);color:#07091a;font-weight:900;animation:kPop .4s ease both}
 
 /* Keno history compact chips */
 .keno-hist{display:flex;flex-wrap:wrap;gap:3px;max-width:340px}
-.keno-hist-n{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:linear-gradient(135deg,var(--accent-green),#00b894);color:#07091a}
+.keno-hist-n{width:22px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:linear-gradient(135deg,var(--accent-green),#00b894);color:#07091a}
 
 /* ===== LOAD MORE ===== */
 .load-more{
@@ -1134,8 +1134,9 @@ function anlPairList(draws, ac, k, n){
 }
 
 function anlRenderPairs(draws, ac, n){
+  const chips = ac.isKeno ? [15,25,40] : [10,20,30];
   return `<div class="anl-chips" id="anl-pair-chips">
-    ${[10,20,30].map(k=>`<button class="anl-chip ${k===n?'on-hot':''}" onclick="anlSetPairN(${k},this)">TOP ${k}</button>`).join('')}
+    ${chips.map(k=>`<button class="anl-chip ${k===n?'on-hot':''}" onclick="anlSetPairN(${k},this)">TOP ${k}</button>`).join('')}
   </div>
   <div class="anl-two-col">
     <div class="anl-col-card">
@@ -1153,7 +1154,7 @@ function anlSetPairN(n, btn){
   A.pairN=n;
   document.querySelectorAll('#anl-pair-chips .anl-chip').forEach(c=>c.classList.remove('on-hot'));
   btn.classList.add('on-hot');
-  const draws=S._anlDraws, ac=S._anlAc;
+  const draws=S._anlDrawsPairs||S._anlDraws, ac=S._anlAc;
   if(!draws||!ac) return;
   const e2=document.getElementById('anl-pair2');
   const e3=document.getElementById('anl-pair3');
@@ -1179,26 +1180,40 @@ function anlRenderNextDraw(draws, ac){
   const corr = anlCompNextDraw(draws);
   const lastDraw = draws[0];
   const chron = [...draws].reverse();
-  const lastBalls = (lastDraw.nums||[]).map(n=>anlBall(n,ac.color,22)).join('');
+  const maxPreds = ac.isKeno ? 5 : 8;
+  const maxEvids = ac.isKeno ? 3 : 999;
 
+  // For Keno: rank trigger numbers by total correlation strength, show top 10
+  let triggerNums = lastDraw.nums||[];
+  if(ac.isKeno){
+    triggerNums = [...triggerNums].sort((a,b)=>{
+      const sa = corr[a] ? Object.values(corr[a]).reduce((x,y)=>x+y,0) : 0;
+      const sb = corr[b] ? Object.values(corr[b]).reduce((x,y)=>x+y,0) : 0;
+      return sb - sa;
+    }).slice(0,10);
+  }
+
+  const lastBalls = (lastDraw.nums||[]).map(n=>anlBall(n,ac.color,22)).join('');
   let h = `<div class="anl-ndp-last">
     <span class="anl-ndp-label">KỲ GẦN NHẤT (${fmtDate(lastDraw.date)}):</span>
     ${lastBalls}
   </div>
-  <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:8px">DỰ BÁO KỲ TIẾP THEO</div>
+  <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:8px">
+    DỰ BÁO KỲ TIẾP THEO${ac.isKeno?' <span style="font-weight:400;opacity:.65">(top 10 số có tương quan mạnh nhất)</span>':''}
+  </div>
   <div class="anl-ndp-cards">`;
 
-  (lastDraw.nums||[]).forEach(tn=>{
+  triggerNums.forEach(tn=>{
     const preds = corr[tn];
     if(!preds){
       h+=`<div class="anl-ndp-card"><div class="anl-ndp-trigger">${anlBall(tn,ac.color,22)}<span class="anl-ndp-arrow">→</span><span class="anl-ndp-none">Chưa đủ dữ liệu</span></div></div>`;
       return;
     }
-    const sorted = Object.entries(preds).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    const sorted = Object.entries(preds).sort((a,b)=>b[1]-a[1]).slice(0,maxPreds);
     const total = Object.values(preds).reduce((a,b)=>a+b,0);
     const predBalls = sorted.map(([n,c])=>`<div class="anl-ndp-pred">${anlBall(+n,ac.color,22)}<span class="anl-ndp-pred-pct">${Math.round(c/total*100)}%</span></div>`).join('');
     const evids=[];
-    for(let i=0;i<chron.length-1;i++){
+    for(let i=0;i<chron.length-1&&evids.length<maxEvids;i++){
       if((chron[i].nums||[]).includes(tn)){
         const match=sorted.slice(0,3).map(([n])=>+n).filter(n=>(chron[i+1].nums||[]).includes(n));
         if(match.length) evids.push(`• Kỳ ${fmtDate(chron[i].date)}: có ${pad2(tn)} → kỳ ${fmtDate(chron[i+1].date)}: có ${match.map(n=>pad2(n)).join(', ')}`);
@@ -1490,8 +1505,9 @@ async function renderAnalysis(){
 
   const ac = getACFG(S.lottery);
   const draws = anlAdaptRows(rows, ac);
-  S._anlDraws = draws;
-  S._anlAc    = ac;
+  S._anlDraws      = draws;
+  S._anlAc         = ac;
+  S._anlDrawsPairs = ac.isKeno ? draws.slice(0, 1000) : draws;
 
   if(draws.length < 2){
     el.innerHTML=`<div class="empty-state"><div class="empty-icon">📭</div><p style="color:var(--text-secondary)">Chưa đủ dữ liệu để phân tích.<br><small>Cần ít nhất 2 kỳ.</small></p></div>`;
@@ -1544,25 +1560,31 @@ async function renderAnalysis(){
     <div class="anl-body open" id="anl-hc-body">${anlRenderHotCold(draws, ac, A.hotColdN)}</div>
   </div>`;
 
-  if(!ac.isKeno){
-    h += `<div class="anl-card">
-      <div class="anl-head" onclick="toggleAnl(this)">
-        <div><div class="anl-htitle">🤝 CẶP SỐ ĐỒNG HÀNH</div>
-          <div class="anl-hsub">Những cặp / bộ 3 số hay xuất hiện cùng nhau</div></div>
-        <span class="anl-arrow">▶</span>
-      </div>
-      <div class="anl-body">${anlRenderPairs(draws, ac, A.pairN)}</div>
-    </div>`;
+  // For Keno: sample last 1000 draws to keep pair computation fast
+  const drawsForPairs = ac.isKeno ? draws.slice(0, 1000) : draws;
+  const drawsForNdp   = ac.isKeno ? draws.slice(0, 500)  : draws;
+  const kenoNote      = ac.isKeno ? ` <span style="font-size:10px;color:var(--text-muted);font-weight:400">(${drawsForPairs.length} kỳ gần nhất)</span>` : '';
+  const kenoNoteNdp   = ac.isKeno ? ` <span style="font-size:10px;color:var(--text-muted);font-weight:400">(${drawsForNdp.length} kỳ gần nhất)</span>` : '';
+  // Reset pair chip default for Keno
+  const pairDefault = ac.isKeno ? 15 : A.pairN;
 
-    h += `<div class="anl-card">
-      <div class="anl-head" onclick="toggleAnl(this)">
-        <div><div class="anl-htitle">🔮 DỰ BÁO KỲ SAU</div>
-          <div class="anl-hsub">Số A xuất hiện → kỳ sau thường có số nào?</div></div>
-        <span class="anl-arrow">▶</span>
-      </div>
-      <div class="anl-body">${anlRenderNextDraw(draws, ac)}</div>
-    </div>`;
-  }
+  h += `<div class="anl-card">
+    <div class="anl-head" onclick="toggleAnl(this)">
+      <div><div class="anl-htitle">🤝 CẶP SỐ ĐỒNG HÀNH${kenoNote}</div>
+        <div class="anl-hsub">Những cặp / bộ 3 số hay xuất hiện cùng nhau trong cùng 1 kỳ</div></div>
+      <span class="anl-arrow">▶</span>
+    </div>
+    <div class="anl-body">${anlRenderPairs(drawsForPairs, ac, pairDefault)}</div>
+  </div>`;
+
+  h += `<div class="anl-card">
+    <div class="anl-head" onclick="toggleAnl(this)">
+      <div><div class="anl-htitle">🔮 DỰ BÁO KỲ SAU${kenoNoteNdp}</div>
+        <div class="anl-hsub">Số A xuất hiện kỳ này → kỳ sau thường kèm số nào?</div></div>
+      <span class="anl-arrow">▶</span>
+    </div>
+    <div class="anl-body">${anlRenderNextDraw(drawsForNdp, ac)}</div>
+  </div>`;
 
   if(ac.hasSpec){
     const specTitle = ac.key==='power655' ? 'TƯƠNG QUAN SỐ PHỤ' : 'TƯƠNG QUAN SỐ CAM';
