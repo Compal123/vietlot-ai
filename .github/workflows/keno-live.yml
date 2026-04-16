@@ -1,0 +1,40 @@
+name: 🎰 Keno Live (mỗi 30 phút)
+
+# Keno quay mỗi ~8 phút từ ~06:00-22:00 VN
+# Chạy mỗi 30 phút → mỗi lần lấy 5-6 kỳ gần nhất
+# Ngoài giờ quay → không có data mới → skip commit (OK)
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # mỗi 30 phút
+  workflow_dispatch:
+
+jobs:
+  keno-live:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install -q requests beautifulsoup4 lxml
+
+      - name: 🎰 Fetch Keno Live
+        run: python scripts/fetch_keno_live.py
+
+      - name: 📝 Commit & Push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/keno.jsonl
+          if git diff --staged --quiet; then
+            echo "⏭ Không có kỳ mới"
+          else
+            git commit -m "keno: $(date +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
