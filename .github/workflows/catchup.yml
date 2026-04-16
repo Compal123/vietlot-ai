@@ -1,17 +1,18 @@
 name: 🔄 Catch-up dữ liệu còn thiếu (chạy thủ công)
 
-# Chạy thủ công khi cần lấy bù dữ liệu bị thiếu.
-# Quét nhiều trang hơn bình thường để đảm bảo đủ dữ liệu.
-
 on:
   workflow_dispatch:
     inputs:
-      pages:
-        description: "Số trang quét mỗi game (mặc định 15 ≈ 3 tháng data)"
+      days:
+        description: "Số ngày cần bù (mặc định 30)"
         required: false
-        default: "15"
+        default: "30"
       games:
         description: "Games cần catch-up, cách nhau bằng space (trống = tất cả)"
+        required: false
+        default: ""
+      from_date:
+        description: "Hoặc nhập ngày bắt đầu cụ thể (YYYY-MM-DD)"
         required: false
         default: ""
 
@@ -22,35 +23,36 @@ jobs:
       contents: write
 
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 🐍 Python 3.11
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: 📦 Cài dependencies
-        run: pip install -q -r requirements.txt
+      - run: pip install -q -r requirements.txt
 
-      - name: 🔄 Fetch dữ liệu (nhiều trang)
+      - name: 🔄 Fetch dữ liệu còn thiếu
         run: |
-          PAGES="${{ github.event.inputs.pages }}"
           GAMES="${{ github.event.inputs.games }}"
-          PAGES=${PAGES:-15}
+          FROM="${{ github.event.inputs.from_date }}"
+          DAYS="${{ github.event.inputs.days }}"
 
-          echo "📄 Pages: $PAGES"
-
-          DELAY=$(( RANDOM % 60 + 5 ))
+          DELAY=$(( RANDOM % 30 + 5 ))
           echo "⏳ Random delay ${DELAY}s..."
           sleep $DELAY
 
-          if [ -z "$GAMES" ]; then
-            echo "🎯 Games: tất cả"
-            python scripts/fetch_data.py --pages $PAGES
+          if [ -n "$FROM" ]; then
+            echo "📅 Từ ngày: $FROM"
+            CMD="python scripts/fetch_ketqua.py --from $FROM"
           else
-            echo "🎯 Games: $GAMES"
-            python scripts/fetch_data.py $GAMES --pages $PAGES
+            echo "📅 ${DAYS} ngày gần nhất"
+            CMD="python scripts/fetch_ketqua.py --days ${DAYS:-30}"
+          fi
+
+          if [ -n "$GAMES" ]; then
+            $CMD $GAMES
+          else
+            $CMD
           fi
 
       - name: 📝 Commit & Push
@@ -61,25 +63,20 @@ jobs:
           if git diff --staged --quiet; then
             echo "⏭ Không có dữ liệu mới"
           else
-            SUMMARY=$(git diff --staged --stat | tail -1)
-            git commit -m "catchup: bổ sung dữ liệu còn thiếu ($SUMMARY)"
+            git commit -m "catchup: bổ sung dữ liệu còn thiếu $(date +'%Y-%m-%d')"
             git push
           fi
 
-      - name: 📊 Thống kê kết quả
+      - name: 📊 Thống kê
         run: |
-          echo "=== Thống kê data/ sau catch-up ==="
+          echo "=== Thống kê data/ ==="
           for f in data/*.jsonl; do
             COUNT=$(wc -l < "$f" 2>/dev/null || echo 0)
             LATEST=$(python3 -c "
           import json
           with open('$f') as fh:
               line = fh.readline().strip()
-          if line:
-              d = json.loads(line)
-              print(d.get('date', '?'))
-          else:
-              print('trống')
+          print(json.loads(line).get('date','?') if line else 'trống')
           " 2>/dev/null || echo "?")
             echo "  $(basename $f): ${COUNT} bản ghi | mới nhất: ${LATEST}"
           done

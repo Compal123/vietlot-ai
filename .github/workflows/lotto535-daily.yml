@@ -1,13 +1,11 @@
 name: 🎯 Lotto 5/35 (2 kỳ mỗi ngày)
 
-# Lotto 5/35 quay 2 lần/ngày:
-#   Kỳ chiều: 13:00 VN = 06:00 UTC → chạy 06:15 UTC
-#   Kỳ tối:   21:00 VN = 14:00 UTC → chạy 14:15 UTC
+# Lotto 5/35 quay 2 lần/ngày: 13:00 và 21:00 VN
+# Chạy sau 21:15 VN (14:15 UTC) để lấy cả 2 kỳ trong ngày
 
 on:
   schedule:
-    - cron: '15 6 * * *'    # Kỳ chiều 13:15 VN
-    - cron: '15 14 * * *'   # Kỳ tối   21:15 VN
+    - cron: '15 14 * * *'   # 21:15 VN
   workflow_dispatch:
 
 jobs:
@@ -25,12 +23,12 @@ jobs:
 
       - run: pip install -q -r requirements.txt
 
-      - name: 🎯 Scrape Lotto 5/35
+      - name: 🎯 Fetch Lotto 5/35
         run: |
-          DELAY=$(( RANDOM % 60 + 5 ))
+          DELAY=$(( RANDOM % 30 + 5 ))
           echo "⏳ Random delay ${DELAY}s..."
           sleep $DELAY
-          python scripts/fetch_data.py power535
+          python scripts/fetch_ketqua.py power535
 
       - name: 📝 Commit & Push
         run: |

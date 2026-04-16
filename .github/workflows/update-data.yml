@@ -1,22 +1,16 @@
-name: 🎰 Xổ Số Buổi Tối (18:25 VN hàng ngày)
+name: 🎰 Cập nhật dữ liệu hàng ngày
 
-# Lịch quay tối (18:00-18:15 VN = 11:00-11:15 UTC):
-#  Thứ 2 (Mon): Max3D
-#  Thứ 3 (Tue): Power 6/55 + Max3D Pro
-#  Thứ 4 (Wed): Mega 6/45 + Max3D
-#  Thứ 5 (Thu): Power 6/55 + Max3D Pro
-#  Thứ 6 (Fri): Mega 6/45 + Max3D
-#  Thứ 7 (Sat): Power 6/55 + Max3D Pro
-#  Chủ nhật:   Mega 6/45
-# → Chạy 11:25 UTC mỗi ngày, tự detect ngày để scrape đúng game
+# Chạy 18:30 VN (11:30 UTC) mỗi ngày
+# Lấy kết quả Power655, Power645, Lotto535, Max3D, Max3D Pro
+# từ ketquadientoan.com — không cần proxy, không bị block
 
 on:
   schedule:
-    - cron: '25 11 * * *'   # 18:25 VN hàng ngày
+    - cron: '30 11 * * *'   # 18:30 VN hàng ngày
   workflow_dispatch:
 
 jobs:
-  evening-draw:
+  update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,30 +24,12 @@ jobs:
 
       - run: pip install -q -r requirements.txt
 
-      - name: 🎯 Xác định game theo ngày
-        id: pick
+      - name: 🎰 Fetch kết quả mới
         run: |
-          # DOW: 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
-          DOW=$(date -u +%w)
-          echo "Hôm nay DOW=$DOW ($(date -u +'%A'))"
-          case $DOW in
-            0) GAMES="power645"                    ;; # Chủ nhật
-            1) GAMES="max3d"                       ;; # Thứ 2
-            2) GAMES="power655 max3dpro"            ;; # Thứ 3
-            3) GAMES="power645 max3d"              ;; # Thứ 4
-            4) GAMES="power655 max3dpro"            ;; # Thứ 5
-            5) GAMES="power645 max3d"              ;; # Thứ 6
-            6) GAMES="power655 max3dpro"            ;; # Thứ 7
-          esac
-          echo "GAMES=$GAMES" >> $GITHUB_OUTPUT
-          echo "Games sẽ scrape: $GAMES"
-
-      - name: 🎰 Scrape games buổi tối
-        run: |
-          DELAY=$(( RANDOM % 120 + 10 ))
+          DELAY=$(( RANDOM % 60 + 5 ))
           echo "⏳ Random delay ${DELAY}s..."
           sleep $DELAY
-          python scripts/fetch_data.py ${{ steps.pick.outputs.GAMES }}
+          python scripts/fetch_ketqua.py
 
       - name: 📝 Commit & Push
         run: |
@@ -63,6 +39,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "⏭ Không có dữ liệu mới"
           else
-            git commit -m "evening [${{ steps.pick.outputs.GAMES }}]: $(date +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "data: cập nhật $(date +'%Y-%m-%d %H:%M UTC')"
             git push
           fi
