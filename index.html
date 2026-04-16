@@ -412,6 +412,87 @@ body::before{
   transition:opacity .2s;z-index:999;
 }
 [data-tip]:hover::after{opacity:1}
+
+/* ===== ANALYSIS V2 ===== */
+.anl-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:16px;overflow:hidden}
+.anl-head{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:14px 18px;user-select:none;transition:background .15s}
+.anl-head:hover{background:rgba(124,111,247,.05)}
+.anl-htitle{font-size:14px;font-weight:700;color:var(--accent-yellow);letter-spacing:.5px}
+.anl-hsub{font-size:11.5px;color:var(--text-muted);margin-top:3px}
+.anl-arrow{font-size:13px;color:var(--text-muted);transition:transform .2s;flex-shrink:0}
+.anl-body{padding:16px 18px;display:none}
+.anl-body.open{display:block}
+.anl-fgrid{display:flex;flex-wrap:wrap;gap:5px;padding:10px;background:rgba(255,255,255,.014);border-radius:10px;margin-top:8px}
+.anl-fb{display:flex;flex-direction:column;align-items:center;gap:2px}
+.anl-fball{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px}
+.anl-fball.hot{outline:2px solid var(--accent-yellow);box-shadow:0 0 8px rgba(255,204,68,.5)}
+.anl-fball.cold{outline:2px solid var(--accent-cyan);box-shadow:0 0 7px rgba(0,212,208,.4)}
+.anl-fbar-w{width:30px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.anl-fbar-f{height:100%;border-radius:2px}
+.anl-fct{font-size:9px;color:var(--text-muted);font-weight:700}
+.anl-two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+@media(max-width:580px){.anl-two-col{grid-template-columns:1fr}}
+.anl-col-card{background:rgba(255,255,255,.022);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 13px}
+.anl-col-title{font-size:12px;font-weight:700;margin-bottom:8px}
+.anl-bigballs{display:flex;flex-wrap:wrap;gap:8px}
+.anl-bignum{display:flex;flex-direction:column;align-items:center;gap:2px}
+.anl-bignum .rank{font-size:9px;color:var(--text-muted);font-weight:700}
+.anl-bignum .cnt{font-size:9px;font-weight:700}
+.anl-chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.anl-chip{font-size:12px;font-weight:700;padding:4px 13px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .15s}
+.anl-chip:hover{border-color:var(--accent-purple);color:var(--text-secondary)}
+.anl-chip.on-hot{border-color:var(--accent-yellow);color:var(--accent-yellow);background:rgba(255,204,68,.07)}
+.anl-chip.on{border-color:var(--accent-pink);color:var(--accent-pink);background:rgba(255,107,181,.07)}
+.anl-pair-item{display:flex;align-items:center;gap:7px;padding:6px 9px;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid rgba(255,255,255,.05);margin-bottom:5px}
+.anl-pair-balls{display:flex;gap:4px;align-items:center;flex-shrink:0}
+.anl-pair-bar-wrap{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.anl-pair-bar-fill{height:100%;border-radius:2px}
+.anl-pair-cnt{font-size:11px;font-weight:900;color:var(--accent-yellow);min-width:22px;text-align:right}
+.anl-pair-pct{font-size:10px;color:var(--text-muted);min-width:28px;text-align:right}
+.anl-ndp-last{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:12px;padding:9px 12px;background:rgba(255,204,68,.04);border:1px solid rgba(255,204,68,.16);border-radius:9px}
+.anl-ndp-label{font-size:10px;color:var(--text-muted);font-weight:700;letter-spacing:1px;margin-right:4px}
+.anl-ndp-cards{display:flex;flex-direction:column;gap:7px}
+.anl-ndp-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:9px 12px}
+.anl-ndp-trigger{display:flex;align-items:center;gap:7px;margin-bottom:7px;flex-wrap:wrap}
+.anl-ndp-arrow{color:var(--text-muted);font-size:12px}
+.anl-ndp-preds{display:flex;flex-wrap:wrap;gap:5px}
+.anl-ndp-pred{display:flex;flex-direction:column;align-items:center;gap:2px}
+.anl-ndp-pred-pct{font-size:9px;color:var(--text-muted);font-weight:700}
+.anl-ndp-none{font-size:12px;color:var(--text-muted);padding:7px 0;font-style:italic}
+.anl-evid-btn{font-size:10px;color:var(--text-muted);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:2px 8px;border-radius:20px;cursor:pointer;margin-left:auto;transition:all .14s}
+.anl-evid-btn:hover{color:var(--text-primary);border-color:rgba(255,255,255,.25)}
+.anl-evid-box{display:none;margin-top:7px;padding:7px 9px;background:rgba(0,0,0,.2);border-radius:7px;font-size:11px;color:var(--text-secondary);line-height:1.7}
+.anl-evid-box.open{display:block}
+.anl-spec-item{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:9px;padding:9px 12px;margin-bottom:7px}
+.anl-spec-trigger{display:flex;align-items:center;gap:7px;margin-bottom:7px;flex-wrap:wrap}
+.anl-m3-list{display:flex;flex-direction:column;gap:5px}
+.anl-m3-item{display:flex;align-items:center;gap:8px;padding:5px 9px;background:rgba(255,255,255,.02);border-radius:8px}
+.anl-m3-tag{font-size:14px;font-weight:900;width:42px;text-align:center;border-radius:8px;padding:3px 0;flex-shrink:0;font-family:monospace}
+.anl-m3-tiers{display:flex;gap:4px;flex-shrink:0}
+.anl-m3-dot{width:8px;height:8px;border-radius:50%;opacity:.7}
+.anl-m3-bar-wrap{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.anl-m3-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent-pink),var(--accent-yellow))}
+.anl-m3-cnt{font-size:11px;color:var(--accent-yellow);font-weight:900;min-width:28px;text-align:right}
+.anl-pat-list{display:flex;flex-direction:column;gap:8px}
+.anl-pat-item{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:10px 13px;transition:border-color .2s}
+.anl-pat-item.streak{border-color:rgba(255,204,68,.35);background:rgba(255,204,68,.04)}
+.anl-pat-item.dead{opacity:.45}
+.anl-pat-header{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.anl-pat-rule{font-size:12px;font-weight:700;color:var(--text-secondary)}
+.anl-pat-rate-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.anl-pat-bar-wrap{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.anl-pat-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent-pink),var(--accent-yellow));transition:width .4s}
+.anl-pat-pct{font-size:12px;font-weight:900;color:var(--accent-yellow);min-width:34px;text-align:right}
+.anl-streak-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(255,204,68,.18);color:var(--accent-yellow);border:1px solid rgba(255,204,68,.3)}
+.anl-pat-hist{display:flex;gap:3px;flex-wrap:wrap;margin-top:6px}
+.anl-pat-dot{width:14px;height:14px;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+.anl-pat-dot.hit{background:rgba(255,204,68,.3);color:var(--accent-yellow);border:1px solid rgba(255,204,68,.5)}
+.anl-pat-dot.miss{background:rgba(255,255,255,.06);color:var(--text-muted);border:1px solid rgba(255,255,255,.1)}
+.anl-prize-tag{font-size:10px;font-weight:900;padding:2px 7px;border-radius:20px}
+.anl-ptag-db{background:rgba(255,107,181,.2);color:var(--accent-pink)}
+.anl-ptag-nhat{background:rgba(0,212,208,.2);color:var(--accent-cyan)}
+.anl-ptag-nhi{background:rgba(78,255,163,.2);color:var(--accent-green)}
+.anl-ptag-ba{background:rgba(255,127,80,.2);color:var(--accent-orange)}
 </style>
 </head>
 <body>
@@ -440,7 +521,6 @@ body::before{
   <div class="ltab" data-key="max3d" onclick="switchLottery('max3d')"><span class="tico">🎰</span>Max3D</div>
   <div class="ltab" data-key="max3dpro" onclick="switchLottery('max3dpro')"><span class="tico">💎</span>Max3D Pro</div>
   <div class="ltab" data-key="keno" onclick="switchLottery('keno')"><span class="tico">🎲</span>Keno</div>
-  <div class="ltab" data-key="bingo18" onclick="switchLottery('bingo18')"><span class="tico">🎪</span>Bingo18</div>
 </nav>
 
 <!-- ===== MAIN ===== -->
@@ -502,7 +582,6 @@ const CFG = {
   max3d:    { name:'Max3D',      icon:'🎰', file:'3d.jsonl',       type:'obj',               price:10000, color:'#ff7f50', desc:'Chọn 1 số có 3 chữ số (000-999)' },
   max3dpro: { name:'Max3D Pro',  icon:'💎', file:'3d_pro.jsonl',   type:'obj',               price:10000, color:'#ffcc44', desc:'Phiên bản nâng cao Max3D' },
   keno:     { name:'Keno',       icon:'🎲', file:'keno.jsonl',     type:'num', main:20,special:0, max:80, price:10000, color:'#4effa3', desc:'Rút 20 số từ 1-80' },
-  bingo18:  { name:'Bingo18',    icon:'🎪', file:'bingo18.jsonl',  type:'num', main:18,special:0, max:45, price:10000, color:'#a78bfa', desc:'18 quả cầu từ 1-45' },
 };
 
 const PRIZES = {
@@ -549,13 +628,6 @@ const PRIZES = {
     {name:'Chọn 4',    cond:'4 số trùng',           val:'600,000 đ',       prob:'~1 / 326',    badge:'p1'},
     {name:'Chọn 5',    cond:'5 số trùng',           val:'3,000,000 đ',     prob:'~1 / 1,551',  badge:'pj'},
     {name:'Chọn 6-10', cond:'Trùng tất cả',         val:'Đến hàng tỷ đ',  prob:'Rất thấp',    badge:'pj'},
-  ],
-  bingo18:[
-    {name:'Jackpot',   cond:'Loại đặc biệt',        val:'≥ 2 tỷ VND',     prob:'~1/6,900,000',badge:'pj'},
-    {name:'Giải Nhất', cond:'Loại 1',               val:'Biến động',       prob:'~1/45,000',   badge:'p1'},
-    {name:'Giải Nhì',  cond:'Loại 2',               val:'Biến động',       prob:'~1/2,200',    badge:'p2'},
-    {name:'Giải Ba',   cond:'Loại 3',               val:'Biến động',       prob:'~1/175',      badge:'p3'},
-    {name:'Giải Tư',   cond:'Loại 4',               val:'Biến động',       prob:'~1/29',       badge:'p4'},
   ],
 };
 
@@ -816,120 +888,650 @@ async function renderResults(){
 function loadMoreHist(){ S.histPage+=20; renderResults(); }
 
 /* ─────────────────────────────────────────
-   RENDER: ANALYSIS
+   ANALYSIS ENGINE V2
+───────────────────────────────────────── */
+
+// Analysis sub-state (persists UI preferences across re-renders)
+const A = { hotColdN: 7, pairN: 20, patWindow: 10 };
+
+function pad3(n){ return String(n).padStart(3,'0'); }
+
+function getACFG(key){
+  const c = CFG[key];
+  const specNames = { power655:'Số Phụ', power535:'Số Cam' };
+  return {
+    key, name:c.name, color:c.color, max:c.max,
+    pick: c.main || 20,
+    hasSpec: (c.special||0) > 0,
+    specMax: c.max,
+    specName: specNames[key] || '',
+    isMax3d: c.type === 'obj',
+    isKeno: key === 'keno',
+  };
+}
+
+function anlAdaptRows(rows, ac){
+  if(ac.isMax3d){
+    return rows.map(r=>{
+      const res = r.result || {};
+      const db = (res['Giải Đặc biệt']||[]).map(n=>pad3(n));
+      if(!db.length) return null;
+      return {
+        date:r.date, id:r.id,
+        db,
+        nhat:(res['Giải Nhất']||[]).map(n=>pad3(n)),
+        nhi: (res['Giải Nhì'] ||[]).map(n=>pad3(n)),
+        ba:  (res['Giải Ba']  ||[]).map(n=>pad3(n)),
+      };
+    }).filter(Boolean);
+  }
+  return rows.map(r=>{
+    if(!Array.isArray(r.result)) return null;
+    const nums = ac.hasSpec ? r.result.slice(0, ac.pick) : r.result.slice();
+    const spec = ac.hasSpec ? (r.result[ac.pick] ?? null) : null;
+    return { date:r.date, id:r.id, nums, spec };
+  }).filter(Boolean);
+}
+
+function anlBall(n, color, size=26, isSpec=false){
+  const txt = typeof n === 'string' ? n : pad2(n);
+  const br = txt.length > 2 ? '7px' : '50%';
+  const fs = size <= 24 ? '10px' : size <= 30 ? '11px' : '13px';
+  return `<div style="width:${size}px;height:${size}px;min-width:${size}px;border-radius:${br};
+    background:${isSpec?'var(--accent-orange)':color};display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:${fs};flex-shrink:0;color:#fff;
+    ${isSpec?'box-shadow:0 0 0 2px #ff7f50,0 0 8px rgba(255,127,80,.4);':''}">
+    ${txt}</div>`;
+}
+
+function toggleAnl(hdr){
+  const body = hdr.nextElementSibling;
+  const arr = hdr.querySelector('.anl-arrow');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open');
+  if(arr) arr.textContent = isOpen ? '▶' : '▼';
+}
+
+/* ── Hot / Cold ── */
+function anlCompFreq(draws, ac){
+  const mf={}, sf={};
+  for(let i=1;i<=ac.max;i++) mf[i]=0;
+  if(ac.hasSpec) for(let i=1;i<=ac.specMax;i++) sf[i]=0;
+  draws.forEach(r=>{
+    (r.nums||[]).forEach(n=>{ mf[n]=(mf[n]||0)+1; });
+    if(ac.hasSpec && r.spec!=null) sf[r.spec]=(sf[r.spec]||0)+1;
+  });
+  return {mf, sf};
+}
+
+function anlGetLastSeen(draws, num){
+  for(let i=0;i<draws.length;i++) if((draws[i].nums||[]).includes(num)) return i;
+  return -1;
+}
+
+function anlRenderHotCold(draws, ac, n){
+  const {mf, sf} = anlCompFreq(draws, ac);
+  const maxM = Math.max(1, ...Object.values(mf));
+  const sorted = Object.entries(mf).map(([num,f])=>({n:+num,f})).sort((a,b)=>b.f-a.f);
+
+  let h = `<div class="anl-chips" id="anl-hc-chips">
+    ${[7,10,15].map(k=>`<button class="anl-chip ${k===n?'on-hot':''}" onclick="anlSetHotColdN(${k},this)">TOP ${k}</button>`).join('')}
+  </div>`;
+
+  // Big hot / cold balls
+  h += `<div class="anl-two-col">
+    <div class="anl-col-card">
+      <div class="anl-col-title" style="color:var(--accent-yellow)">🔥 Số Nóng Nhất</div>
+      <div class="anl-bigballs">
+        ${sorted.slice(0,n).map(({n:num,f},i)=>`<div class="anl-bignum">
+          <span class="rank">#${i+1}</span>
+          ${anlBall(num, ac.color, 36)}
+          <span class="cnt" style="color:var(--accent-yellow)">${f}x</span>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="anl-col-card">
+      <div class="anl-col-title" style="color:var(--accent-cyan)">❄️ Số Lạnh Nhất</div>
+      <div class="anl-bigballs">
+        ${sorted.slice(-n).reverse().map(({n:num,f},i)=>{
+          const ago = anlGetLastSeen(draws, num);
+          const lbl = ago>=0 ? `${draws.length-1-ago}kỳ` : 'Chưa ra';
+          return `<div class="anl-bignum">
+            <span class="rank">#${i+1}</span>
+            ${anlBall(num, ac.color, 36)}
+            <span class="cnt" style="color:var(--accent-cyan)">${lbl}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  // Full freq grid
+  h += `<div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:6px">TẤT CẢ SỐ CHÍNH (1–${ac.max})</div>
+  <div class="anl-fgrid">`;
+  for(let i=1;i<=ac.max;i++){
+    const f=mf[i]||0;
+    const isHot = f>=Math.max(2, draws.length*.14);
+    const isCold = f===0||(f<=1&&draws.length>5);
+    const pct = Math.round(f/maxM*100);
+    h += `<div class="anl-fb">
+      <div class="anl-fball ${isHot?'hot':isCold?'cold':''}" style="background:${ac.color};opacity:${isCold?.5:1}">${pad2(i)}</div>
+      <div class="anl-fbar-w"><div class="anl-fbar-f" style="width:${pct}%;background:${isHot?ac.color:'var(--accent-cyan)'}"></div></div>
+      <div class="anl-fct">${f}x</div>
+    </div>`;
+  }
+  h += '</div>';
+
+  // Special number freq
+  if(ac.hasSpec){
+    const maxS = Math.max(1, ...Object.values(sf));
+    h += `<div style="margin-top:14px">
+      <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:6px">${ac.specName.toUpperCase()} (1–${ac.specMax})</div>
+      <div class="anl-fgrid">`;
+    for(let i=1;i<=ac.specMax;i++){
+      const f=sf[i]||0;
+      const pct = Math.round(f/maxS*100);
+      h += `<div class="anl-fb">
+        <div class="anl-fball" style="background:var(--accent-orange)">${pad2(i)}</div>
+        <div class="anl-fbar-w"><div class="anl-fbar-f" style="width:${pct}%;background:var(--accent-orange)"></div></div>
+        <div class="anl-fct">${f}x</div>
+      </div>`;
+    }
+    h += '</div></div>';
+  }
+  return h;
+}
+
+function anlSetHotColdN(n, btn){
+  A.hotColdN = n;
+  document.querySelectorAll('#anl-hc-chips .anl-chip').forEach(c=>c.classList.remove('on-hot'));
+  btn.classList.add('on-hot');
+  const el = document.getElementById('anl-hc-body');
+  if(!el) return;
+  const draws=S._anlDraws, ac=S._anlAc;
+  if(!draws||!ac) return;
+  el.innerHTML = ac.isMax3d ? anlRenderMax3d(draws, ac) : anlRenderHotCold(draws, ac, n);
+}
+
+/* ── Pairs ── */
+function anlCompPairs(draws, k){
+  const cnt={};
+  draws.forEach(r=>{
+    const nums=r.nums||[];
+    if(k===2){
+      for(let i=0;i<nums.length;i++) for(let j=i+1;j<nums.length;j++){
+        const key=nums[i]+'-'+nums[j]; cnt[key]=(cnt[key]||0)+1;
+      }
+    } else {
+      for(let i=0;i<nums.length;i++) for(let j=i+1;j<nums.length;j++) for(let l=j+1;l<nums.length;l++){
+        const key=nums[i]+'-'+nums[j]+'-'+nums[l]; cnt[key]=(cnt[key]||0)+1;
+      }
+    }
+  });
+  return Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
+}
+
+function anlPairList(draws, ac, k, n){
+  const pairs = anlCompPairs(draws,k).slice(0,n);
+  const maxC = pairs[0]?pairs[0][1]:1;
+  const totalD = draws.length;
+  if(!pairs.length) return '<div class="anl-ndp-none">Cần thêm dữ liệu</div>';
+  return pairs.map(([key,cnt])=>{
+    const nums = key.split('-').map(Number);
+    const balls = nums.map(n=>anlBall(n,ac.color,22)).join(`<span style="color:var(--text-muted);font-size:10px;margin:0 1px">+</span>`);
+    return `<div class="anl-pair-item">
+      <div class="anl-pair-balls">${balls}</div>
+      <div class="anl-pair-bar-wrap"><div class="anl-pair-bar-fill" style="width:${Math.round(cnt/maxC*100)}%;background:${ac.color}88"></div></div>
+      <span class="anl-pair-cnt">${cnt}</span>
+      <span class="anl-pair-pct">${Math.round(cnt/totalD*100)}%</span>
+    </div>`;
+  }).join('');
+}
+
+function anlRenderPairs(draws, ac, n){
+  return `<div class="anl-chips" id="anl-pair-chips">
+    ${[10,20,30].map(k=>`<button class="anl-chip ${k===n?'on-hot':''}" onclick="anlSetPairN(${k},this)">TOP ${k}</button>`).join('')}
+  </div>
+  <div class="anl-two-col">
+    <div class="anl-col-card">
+      <div class="anl-col-title" style="color:var(--accent-yellow)">2 Số Cùng Kỳ</div>
+      <div id="anl-pair2">${anlPairList(draws,ac,2,n)}</div>
+    </div>
+    <div class="anl-col-card">
+      <div class="anl-col-title" style="color:var(--accent-orange)">3 Số Cùng Kỳ</div>
+      <div id="anl-pair3">${anlPairList(draws,ac,3,n)}</div>
+    </div>
+  </div>`;
+}
+
+function anlSetPairN(n, btn){
+  A.pairN=n;
+  document.querySelectorAll('#anl-pair-chips .anl-chip').forEach(c=>c.classList.remove('on-hot'));
+  btn.classList.add('on-hot');
+  const draws=S._anlDraws, ac=S._anlAc;
+  if(!draws||!ac) return;
+  const e2=document.getElementById('anl-pair2');
+  const e3=document.getElementById('anl-pair3');
+  if(e2) e2.innerHTML=anlPairList(draws,ac,2,n);
+  if(e3) e3.innerHTML=anlPairList(draws,ac,3,n);
+}
+
+/* ── Next Draw ── */
+function anlCompNextDraw(draws){
+  const chron=[...draws].reverse();
+  const corr={};
+  for(let i=0;i<chron.length-1;i++){
+    (chron[i].nums||[]).forEach(x=>{
+      if(!corr[x]) corr[x]={};
+      (chron[i+1].nums||[]).forEach(y=>{ corr[x][y]=(corr[x][y]||0)+1; });
+    });
+  }
+  return corr;
+}
+
+function anlRenderNextDraw(draws, ac){
+  if(draws.length<4) return '<div class="anl-ndp-none">Cần ít nhất 4 kỳ để phân tích dự báo</div>';
+  const corr = anlCompNextDraw(draws);
+  const lastDraw = draws[0];
+  const chron = [...draws].reverse();
+  const lastBalls = (lastDraw.nums||[]).map(n=>anlBall(n,ac.color,22)).join('');
+
+  let h = `<div class="anl-ndp-last">
+    <span class="anl-ndp-label">KỲ GẦN NHẤT (${fmtDate(lastDraw.date)}):</span>
+    ${lastBalls}
+  </div>
+  <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:8px">DỰ BÁO KỲ TIẾP THEO</div>
+  <div class="anl-ndp-cards">`;
+
+  (lastDraw.nums||[]).forEach(tn=>{
+    const preds = corr[tn];
+    if(!preds){
+      h+=`<div class="anl-ndp-card"><div class="anl-ndp-trigger">${anlBall(tn,ac.color,22)}<span class="anl-ndp-arrow">→</span><span class="anl-ndp-none">Chưa đủ dữ liệu</span></div></div>`;
+      return;
+    }
+    const sorted = Object.entries(preds).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    const total = Object.values(preds).reduce((a,b)=>a+b,0);
+    const predBalls = sorted.map(([n,c])=>`<div class="anl-ndp-pred">${anlBall(+n,ac.color,22)}<span class="anl-ndp-pred-pct">${Math.round(c/total*100)}%</span></div>`).join('');
+    const evids=[];
+    for(let i=0;i<chron.length-1;i++){
+      if((chron[i].nums||[]).includes(tn)){
+        const match=sorted.slice(0,3).map(([n])=>+n).filter(n=>(chron[i+1].nums||[]).includes(n));
+        if(match.length) evids.push(`• Kỳ ${fmtDate(chron[i].date)}: có ${pad2(tn)} → kỳ ${fmtDate(chron[i+1].date)}: có ${match.map(n=>pad2(n)).join(', ')}`);
+      }
+    }
+    h+=`<div class="anl-ndp-card">
+      <div class="anl-ndp-trigger">
+        ${anlBall(tn,ac.color,22)}
+        <span class="anl-ndp-arrow">→ kỳ sau thường có:</span>
+        <button class="anl-evid-btn" onclick="anlToggleEvid(this)">📜 Dẫn chứng</button>
+      </div>
+      <div class="anl-ndp-preds">${predBalls}</div>
+      <div class="anl-evid-box">${evids.length?evids.join('<br>'):'Chưa có dẫn chứng đủ mạnh'}</div>
+    </div>`;
+  });
+  h += '</div>';
+  return h;
+}
+
+function anlToggleEvid(btn){
+  const box=btn.closest('.anl-ndp-card,.anl-spec-item').querySelector('.anl-evid-box');
+  box.classList.toggle('open');
+  btn.textContent=box.classList.contains('open')?'▲ Ẩn':'📜 Dẫn chứng';
+}
+
+/* ── Special Correlation ── */
+function anlRenderSpecCorr(draws, ac){
+  if(draws.length<4) return '<div class="anl-ndp-none">Cần ít nhất 4 kỳ</div>';
+  const chron=[...draws].reverse();
+  const corr={};
+  for(let i=0;i<chron.length-1;i++){
+    const x=chron[i].spec;
+    if(x==null) continue;
+    if(!corr[x]) corr[x]={};
+    (chron[i+1].nums||[]).forEach(y=>{ corr[x][y]=(corr[x][y]||0)+1; });
+  }
+  const recent=[...new Set(draws.slice(0,8).map(r=>r.spec).filter(x=>x!=null))].slice(0,5);
+  if(!recent.length) return '<div class="anl-ndp-none">Chưa đủ dữ liệu</div>';
+
+  return recent.map(sv=>{
+    const preds=corr[sv];
+    if(!preds) return `<div class="anl-spec-item"><div class="anl-spec-trigger">${anlBall(sv,'var(--accent-orange)',22)}<span style="font-size:10px;color:var(--text-muted);font-weight:700">${ac.specName}</span><span class="anl-ndp-arrow">→ Chưa đủ dữ liệu</span></div></div>`;
+    const sorted=Object.entries(preds).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    const total=Object.values(preds).reduce((a,b)=>a+b,0);
+    const evids=[];
+    for(let i=0;i<chron.length-1;i++){
+      if(chron[i].spec===sv){
+        const match=sorted.slice(0,3).map(([n])=>+n).filter(n=>(chron[i+1].nums||[]).includes(n));
+        if(match.length) evids.push(`• Kỳ ${fmtDate(chron[i].date)}: ${ac.specName}=${pad2(sv)} → có ${match.map(n=>pad2(n)).join(', ')}`);
+      }
+    }
+    const balls=sorted.map(([n,c])=>`<div class="anl-ndp-pred">${anlBall(+n,ac.color,22)}<span class="anl-ndp-pred-pct">${Math.round(c/total*100)}%</span></div>`).join('');
+    return `<div class="anl-spec-item">
+      <div class="anl-spec-trigger">
+        <span style="font-size:10px;color:var(--text-muted);font-weight:700;letter-spacing:1px">${ac.specName}</span>
+        ${anlBall(sv,'var(--accent-orange)',22)}
+        <span class="anl-ndp-arrow">→ kỳ sau thường có:</span>
+        <button class="anl-evid-btn" onclick="anlToggleEvid(this)">📜 Dẫn chứng</button>
+      </div>
+      <div class="anl-ndp-preds">${balls}</div>
+      <div class="anl-evid-box">${evids.length?evids.join('<br>'):'Chưa có dẫn chứng đủ mạnh'}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ── Max3D Frequency Analysis ── */
+function anlCompMax3dFreq(draws){
+  const freq={db:{},nhat:{},nhi:{},ba:{},all:{}};
+  const add=(cat,n)=>{ freq[cat][n]=(freq[cat][n]||0)+1; freq.all[n]=(freq.all[n]||0)+1; };
+  draws.forEach(r=>{
+    (r.db  ||[]).forEach(n=>add('db',  n));
+    (r.nhat||[]).forEach(n=>add('nhat',n));
+    (r.nhi ||[]).forEach(n=>add('nhi', n));
+    (r.ba  ||[]).forEach(n=>add('ba',  n));
+  });
+  return freq;
+}
+
+function anlRenderMax3d(draws, ac){
+  const freq = anlCompMax3dFreq(draws);
+  const allEntries = Object.entries(freq.all).sort((a,b)=>b[1]-a[1]);
+  const maxF = allEntries[0]?allEntries[0][1]:1;
+  const tierColor = { db:'var(--accent-pink)', nhat:'var(--accent-cyan)', nhi:'var(--accent-green)', ba:'var(--accent-orange)' };
+
+  const coldEntries = [...allEntries].sort((a,b)=>a[1]-b[1]).slice(0, A.hotColdN);
+
+  let h = `<div class="anl-chips" id="anl-hc-chips">
+    ${[7,10,15].map(k=>`<button class="anl-chip ${k===A.hotColdN?'on-hot':''}" onclick="anlSetHotColdN(${k},this)">TOP ${k}</button>`).join('')}
+  </div>
+  <div class="anl-two-col">
+    <div class="anl-col-card">
+      <div class="anl-col-title" style="color:var(--accent-yellow)">🔥 Số Nóng Nhất</div>
+      <div class="anl-bigballs">
+        ${allEntries.slice(0,A.hotColdN).map(([n,f],i)=>`<div class="anl-bignum">
+          <span class="rank">#${i+1}</span>
+          <div style="background:linear-gradient(135deg,var(--accent-pink),var(--accent-purple));border-radius:8px;padding:3px 7px;font-family:monospace;font-size:13px;font-weight:900;outline:2px solid var(--accent-yellow);box-shadow:0 0 10px rgba(255,204,68,.28)">${n}</div>
+          <span class="cnt" style="color:var(--accent-yellow)">${f}x</span>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="anl-col-card">
+      <div class="anl-col-title" style="color:var(--accent-cyan)">❄️ Số Lạnh Nhất</div>
+      <div class="anl-bigballs">
+        ${coldEntries.map(([n,f],i)=>`<div class="anl-bignum">
+          <span class="rank">#${i+1}</span>
+          <div style="background:linear-gradient(135deg,var(--accent-pink),var(--accent-purple));border-radius:8px;padding:3px 7px;font-family:monospace;font-size:13px;font-weight:900;opacity:.55;outline:2px solid var(--accent-cyan);box-shadow:0 0 8px rgba(0,212,208,.22)">${n}</div>
+          <span class="cnt" style="color:var(--accent-cyan)">${f}x</span>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  h += `<div style="font-size:12px;color:var(--text-muted);font-weight:700;margin:14px 0 6px">TOP SỐ XUẤT HIỆN NHIỀU NHẤT (top 50)</div>
+  <div class="anl-m3-list">
+    ${allEntries.slice(0,50).map(([n,f])=>{
+      const pct=Math.round(f/maxF*100);
+      const tiers=['db','nhat','nhi','ba'].map(t=>`<div class="anl-m3-dot" style="background:${tierColor[t]};opacity:${freq[t][n]?1:.18}"></div>`).join('');
+      return `<div class="anl-m3-item">
+        <div class="anl-m3-tag" style="background:linear-gradient(135deg,var(--accent-pink),var(--accent-purple));color:#fff">${n}</div>
+        <div class="anl-m3-tiers">${tiers}</div>
+        <div class="anl-m3-bar-wrap"><div class="anl-m3-bar-fill" style="width:${pct}%"></div></div>
+        <span class="anl-m3-cnt">${f}x</span>
+      </div>`;
+    }).join('')}
+    ${!allEntries.length?'<div class="anl-ndp-none">Chưa đủ dữ liệu</div>':''}
+  </div>
+  <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+    ${[['db','ĐB'],['nhat','Nhất'],['nhi','Nhì'],['ba','Ba']].map(([k,l])=>
+      `<span style="font-size:10px;color:var(--text-muted);display:flex;align-items:center;gap:4px">
+        <span style="width:8px;height:8px;border-radius:50%;background:${tierColor[k]};display:inline-block"></span>${l}
+      </span>`).join('')}
+  </div>`;
+
+  return h;
+}
+
+/* ── Max3D Pattern Analysis ── */
+function anlGetDigit(str3, pos){
+  const s=String(str3).padStart(3,'0');
+  return parseInt(s[pos==='h'?0:pos==='t'?1:2]);
+}
+
+function anlGetDbDigits(draw){
+  const digits=new Set();
+  (draw.db||[]).forEach(n=>{ const s=String(n).padStart(3,'0'); [0,1,2].forEach(i=>digits.add(parseInt(s[i]))); });
+  return digits;
+}
+
+function anlBuildFormulas(){
+  const fmls=[];
+  const prizes=[
+    {key:'db',  label:'ĐB',   count:2, cls:'anl-ptag-db'},
+    {key:'nhat',label:'Nhất', count:4, cls:'anl-ptag-nhat'},
+    {key:'nhi', label:'Nhì',  count:6, cls:'anl-ptag-nhi'},
+    {key:'ba',  label:'Ba',   count:8, cls:'anl-ptag-ba'},
+  ];
+  prizes.forEach(pz=>{
+    for(let ni=1;ni<=pz.count;ni++){
+      [{pos:'h',label:'hàng trăm'},{pos:'t',label:'hàng chục'},{pos:'u',label:'đơn vị'}].forEach(({pos,label})=>{
+        fmls.push({ prize:pz.key, prizeLbl:pz.label, prizeCls:pz.cls, numIdx:ni, pos, posLbl:label, id:`${pz.key}_${ni}_${pos}` });
+      });
+    }
+  });
+  return fmls;
+}
+
+function anlEvalFormulas(draws, win){
+  const formulas=anlBuildFormulas();
+  const usable=draws.slice(0,win+1);
+  const results={};
+  formulas.forEach(f=>{ results[f.id]=[]; });
+  for(let i=0;i<usable.length-1;i++){
+    const target=usable[i], source=usable[i+1];
+    formulas.forEach(f=>{
+      const srcArr=source[f.prize]||[];
+      if(f.numIdx>srcArr.length) return;
+      const digit=anlGetDigit(srcArr[f.numIdx-1], f.pos);
+      const hit=anlGetDbDigits(target).has(digit);
+      results[f.id].push({date:source.date, targetDate:target.date, extracted:digit, hit});
+    });
+  }
+  return {formulas, results};
+}
+
+function anlStreak(arr){ let s=0; for(const r of arr){ if(r.hit) s++; else break; } return s; }
+
+function anlRenderPatternAnalysis(draws, patWin){
+  const el=document.getElementById('anl-pat-section');
+  if(!el) return;
+  if(draws.length<3){ el.innerHTML='<div class="anl-ndp-none">Cần ít nhất 3 kỳ để phân tích công thức</div>'; return; }
+
+  const {formulas, results}=anlEvalFormulas(draws, patWin);
+  const scored=formulas.map(f=>{
+    const res=results[f.id];
+    if(!res.length) return null;
+    const hits=res.filter(r=>r.hit).length;
+    const total=res.length, rate=hits/total, st=anlStreak(res);
+    const srcArr=draws[0][f.prize]||[];
+    let nextDigit=null;
+    if(f.numIdx<=srcArr.length) nextDigit=anlGetDigit(srcArr[f.numIdx-1], f.pos);
+    return {...f, hits, total, rate, streak:st, nextDigit, res};
+  }).filter(Boolean);
+
+  scored.sort((a,b)=>b.streak-a.streak||b.rate-a.rate||b.hits-a.hits);
+  const top=scored.slice(0,40);
+  if(!top.length){ el.innerHTML='<div class="anl-ndp-none">Chưa đủ dữ liệu</div>'; return; }
+
+  const posClr={h:'var(--accent-yellow)',t:'var(--accent-cyan)',u:'var(--accent-green)'};
+  const posSymbol={h:'100s',t:'10s',u:'1s'};
+  const hotCount=scored.filter(f=>f.streak>=2).length;
+  const avg=Math.round(scored.slice(0,20).reduce((a,b)=>a+b.rate,0)/Math.min(scored.length,20)*100);
+
+  let h=`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+    <div style="background:rgba(255,204,68,.06);border:1px solid rgba(255,204,68,.2);border-radius:10px;padding:9px 14px;min-width:100px">
+      <div style="font-size:9px;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:3px;font-weight:700">ĐANG STREAK</div>
+      <div style="font-size:1.5rem;font-weight:900;color:var(--accent-yellow)">${hotCount}</div>
+      <div style="font-size:10px;color:var(--text-muted)">công thức (streak ≥ 2)</div>
+    </div>
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:9px 14px;min-width:100px">
+      <div style="font-size:9px;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:3px;font-weight:700">TB CHÍNH XÁC</div>
+      <div style="font-size:1.5rem;font-weight:900;color:var(--accent-cyan)">${avg}%</div>
+      <div style="font-size:10px;color:var(--text-muted)">top 20 công thức</div>
+    </div>
+    <div style="background:rgba(255,107,181,.06);border:1px solid rgba(255,107,181,.2);border-radius:10px;padding:9px 14px;flex:1;min-width:160px">
+      <div style="font-size:9px;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:3px;font-weight:700">CÁCH ĐỌC KẾT QUẢ</div>
+      <div style="font-size:11.5px;color:var(--text-secondary);line-height:1.7">
+        🏅 Công thức <strong style="color:var(--accent-yellow)">viền vàng</strong> = đang streak ≥ 2 kỳ liên tiếp<br>
+        Chữ số dự báo → kiểm tra có trong ĐB kỳ tới không<br>
+        ✓ = đúng &nbsp;·&nbsp; ✗ = sai &nbsp;·&nbsp; Đọc từ trái (gần nhất) sang phải
+      </div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">
+    Đang phân tích <strong style="color:var(--text-secondary)">${Math.min(patWin,draws.length-1)}</strong> cặp kỳ gần nhất ·
+    Hiển thị top 40 công thức theo streak · <strong style="color:var(--accent-yellow)">Dự đoán áp dụng cho kỳ tiếp theo</strong>
+  </div>
+  <div class="anl-pat-list">`;
+
+  top.forEach(f=>{
+    const isHot=f.streak>=2, isDead=f.streak===0&&f.rate<.3&&f.total>=3;
+    const pct=Math.round(f.rate*100);
+    const streakBadge=f.streak>=2?`<span class="anl-streak-badge">🔥 Streak ${f.streak}</span>`:'';
+    const predTag=f.nextDigit!==null
+      ?`<div style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;background:${posClr[f.pos]};color:${f.pos==='t'?'#fff':'#07091a'};box-shadow:0 2px 8px rgba(0,0,0,.3)">${f.nextDigit}</div>`
+      :`<span style="font-size:11px;color:var(--text-muted)">–</span>`;
+    const dots=f.res.slice(0,10).map(r=>`<div class="anl-pat-dot ${r.hit?'hit':'miss'}" title="${fmtDate(r.date)}→${fmtDate(r.targetDate)}: ${r.extracted}">${r.hit?'✓':'✗'}</div>`).join('');
+
+    h+=`<div class="anl-pat-item ${isHot?'streak':isDead?'dead':''}">
+      <div class="anl-pat-header">
+        <span class="anl-prize-tag ${f.prizeCls}">${f.prizeLbl}</span>
+        <span class="anl-pat-rule">Số #${f.numIdx} · ${posSymbol[f.pos]}</span>
+        ${streakBadge}
+        <span style="font-size:10px;color:var(--text-muted);margin-left:auto">${f.hits}/${f.total} kỳ</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px">
+        <div style="font-size:10px;color:var(--text-muted)">Kỳ sau ĐB chứa chữ số:</div>
+        ${predTag}
+        <div style="flex:1"></div>
+        <div style="font-size:10px;color:var(--text-muted)">Độ chính xác</div>
+        <div class="anl-pat-pct">${pct}%</div>
+      </div>
+      <div class="anl-pat-rate-row">
+        <div class="anl-pat-bar-wrap"><div class="anl-pat-bar-fill" style="width:${pct}%;${isDead?'background:rgba(255,255,255,.15)':''}"></div></div>
+      </div>
+      <div class="anl-pat-hist">${dots}</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:5px">Lấy <em>${f.posLbl}</em> của số thứ <em>${f.numIdx}</em> giải <em>${f.prizeLbl}</em> kỳ trước → dự báo chữ số trong <strong style="color:var(--text-secondary)">ĐB kỳ sau</strong></div>
+    </div>`;
+  });
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+function anlSetPatWindow(n, btn){
+  A.patWindow=n;
+  document.querySelectorAll('#anl-pat-chips .anl-chip').forEach(c=>c.classList.remove('on'));
+  btn.classList.add('on');
+  const draws=S._anlDraws;
+  if(draws) anlRenderPatternAnalysis(draws, n);
+}
+
+/* ─────────────────────────────────────────
+   RENDER: ANALYSIS  (main entry)
 ───────────────────────────────────────── */
 async function renderAnalysis(){
   const el = document.getElementById('analysis-content');
   el.innerHTML='<div class="loading"><div class="spinner"></div><p>Đang phân tích dữ liệu...</p></div>';
   const rows = await loadData(S.lottery);
-  const cfg  = CFG[S.lottery];
+  if(!rows || rows === ERR_NOT_FOUND){ el.innerHTML=errHtml(rows,'renderAnalysis'); return; }
 
-  if(!rows || rows === ERR_NOT_FOUND){
-    el.innerHTML = errHtml(rows, 'renderAnalysis');
-    return;
-  }
-  if(cfg.type==='obj'){
-    el.innerHTML=`<div class="coming-soon">
-      <div class="cs-icon">🔍</div>
-      <h2 style="font-size:22px;color:var(--text-primary)">Phân Tích Đang Phát Triển</h2>
-      <p style="color:var(--text-secondary);max-width:420px;line-height:1.7">
-        Mục phân tích sẽ được cập nhật sau khi bạn cung cấp thêm tiêu chí cụ thể.
-      </p>
-    </div>`;
+  const ac = getACFG(S.lottery);
+  const draws = anlAdaptRows(rows, ac);
+  S._anlDraws = draws;
+  S._anlAc    = ac;
+
+  if(draws.length < 2){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">📭</div><p style="color:var(--text-secondary)">Chưa đủ dữ liệu để phân tích.<br><small>Cần ít nhất 2 kỳ.</small></p></div>`;
     return;
   }
 
-  const freq  = getFreq(rows, cfg);
-  const total = rows.length;
-  const maxF  = Math.max(...Object.values(freq));
-  const nums  = Array.from({length:cfg.max},(_,i)=>i+1).sort((a,b)=>(freq[b]||0)-(freq[a]||0));
-  const top20 = nums.slice(0,20);
-  const bot20 = nums.slice(-20).reverse();
+  let h = '';
 
-  /* Last 30 draws */
-  const last30freq = getFreq(rows.slice(0,30), cfg);
-
-  let h=`<div class="g2" style="margin-bottom:22px">`;
-
-  /* Hot freq bars */
-  h+=`<div class="card">
-    <div class="card-title"><i class="fa-solid fa-fire" style="color:#ff7f50"></i> Top 20 Số Nóng Nhất</div>`;
-  top20.forEach(n=>{
-    const cnt = freq[n]||0;
-    const pct = Math.round(cnt/maxF*100);
-    h+=`<div class="freq-row">
-      <div class="freq-num">${pad2(n)}</div>
-      <div class="freq-track"><div class="freq-fill" style="width:${pct}%;background:linear-gradient(90deg,#ff7f50,#ff6bb5)"></div></div>
-      <div class="freq-cnt">${cnt}</div>
+  if(ac.isMax3d){
+    /* Max3D / Max3D Pro */
+    h += `<div class="anl-card">
+      <div class="anl-head" onclick="toggleAnl(this)">
+        <div><div class="anl-htitle">🔥 SỐ NÓNG &nbsp;&amp;&nbsp; ❄️ SỐ LẠNH</div>
+          <div class="anl-hsub">Top số 3 chữ số hay/ít xuất hiện nhất · ${draws.length} kỳ</div></div>
+        <span class="anl-arrow">▼</span>
+      </div>
+      <div class="anl-body open" id="anl-hc-body">${anlRenderMax3d(draws, ac)}</div>
     </div>`;
-  });
-  h+=`</div>`;
 
-  /* Cold freq bars */
-  h+=`<div class="card">
-    <div class="card-title"><i class="fa-solid fa-snowflake" style="color:var(--accent-cyan)"></i> Top 20 Số Lạnh Nhất</div>`;
-  bot20.forEach(n=>{
-    const cnt = freq[n]||0;
-    const pct = Math.round(cnt/maxF*100);
-    h+=`<div class="freq-row">
-      <div class="freq-num">${pad2(n)}</div>
-      <div class="freq-track"><div class="freq-fill" style="width:${pct}%;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-green))"></div></div>
-      <div class="freq-cnt">${cnt}</div>
+    h += `<div class="anl-card">
+      <div class="anl-head" onclick="toggleAnl(this)">
+        <div><div class="anl-htitle">🧮 PHÂN TÍCH CÔNG THỨC TRÍCH SỐ</div>
+          <div class="anl-hsub">Lấy 1 chữ số từ kỳ trước → kiểm tra xuất hiện trong ĐB kỳ sau · Tìm công thức đang streak</div></div>
+        <span class="anl-arrow">▶</span>
+      </div>
+      <div class="anl-body">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+          <div class="anl-chips" id="anl-pat-chips">
+            ${[10,20,30].map(k=>`<button class="anl-chip ${k===A.patWindow?'on':''}" onclick="anlSetPatWindow(${k},this)">${k} KỲ</button>`).join('')}
+          </div>
+          <span style="font-size:10px;color:var(--text-muted);margin-left:auto">🏆=streak · ✓/✗=lịch sử gần nhất</span>
+        </div>
+        <div id="anl-pat-section"></div>
+      </div>
     </div>`;
-  });
-  h+=`</div></div>`;
 
-  /* Chart: frequency distribution */
-  h+=`<div class="card" style="margin-bottom:22px">
-    <div class="card-title"><i class="fa-solid fa-chart-bar" style="color:var(--accent-purple)"></i> Biểu Đồ Tần Suất Toàn Bộ (${total} kỳ)</div>
-    <div class="chart-wrap"><canvas id="freqChart"></canvas></div>
+    el.innerHTML = h;
+    anlRenderPatternAnalysis(draws, A.patWindow);
+    return;
+  }
+
+  /* Standard games: Power 6/55, Mega 6/45, Lotto 5/35, Keno */
+
+  h += `<div class="anl-card">
+    <div class="anl-head" onclick="toggleAnl(this)">
+      <div><div class="anl-htitle">🔥 SỐ NÓNG &nbsp;&amp;&nbsp; ❄️ SỐ LẠNH</div>
+        <div class="anl-hsub">Số xuất hiện nhiều nhất và ít nhất · ${draws.length} kỳ${ac.hasSpec?' · Kèm '+ac.specName:''}</div></div>
+      <span class="anl-arrow">▼</span>
+    </div>
+    <div class="anl-body open" id="anl-hc-body">${anlRenderHotCold(draws, ac, A.hotColdN)}</div>
   </div>`;
 
-  /* Last 30 draws heatmap */
-  h+=`<div class="card">
-    <div class="card-title"><i class="fa-solid fa-fire-flame-curved" style="color:#ffcc44"></i> Tần Suất 30 Kỳ Gần Nhất</div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;">`;
-  for(let i=1;i<=cfg.max;i++){
-    const cnt = last30freq[i]||0;
-    const heat = cnt===0?'var(--bg-surface)': cnt<=1?'rgba(124,111,247,.3)': cnt<=3?'rgba(124,111,247,.6)':'rgba(124,111,247,.95)';
-    h+=`<div data-tip="${i}: ${cnt} lần" style="width:42px;height:42px;border-radius:9px;background:${heat};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:${cnt?'#fff':'var(--text-muted)'}">
-      ${pad2(i)}</div>`;
+  if(!ac.isKeno){
+    h += `<div class="anl-card">
+      <div class="anl-head" onclick="toggleAnl(this)">
+        <div><div class="anl-htitle">🤝 CẶP SỐ ĐỒNG HÀNH</div>
+          <div class="anl-hsub">Những cặp / bộ 3 số hay xuất hiện cùng nhau</div></div>
+        <span class="anl-arrow">▶</span>
+      </div>
+      <div class="anl-body">${anlRenderPairs(draws, ac, A.pairN)}</div>
+    </div>`;
+
+    h += `<div class="anl-card">
+      <div class="anl-head" onclick="toggleAnl(this)">
+        <div><div class="anl-htitle">🔮 DỰ BÁO KỲ SAU</div>
+          <div class="anl-hsub">Số A xuất hiện → kỳ sau thường có số nào?</div></div>
+        <span class="anl-arrow">▶</span>
+      </div>
+      <div class="anl-body">${anlRenderNextDraw(draws, ac)}</div>
+    </div>`;
   }
-  h+=`</div></div>`;
 
-  el.innerHTML=h;
+  if(ac.hasSpec){
+    const specTitle = ac.key==='power655' ? 'TƯƠNG QUAN SỐ PHỤ' : 'TƯƠNG QUAN SỐ CAM';
+    h += `<div class="anl-card">
+      <div class="anl-head" onclick="toggleAnl(this)">
+        <div><div class="anl-htitle">🎯 ${specTitle}</div>
+          <div class="anl-hsub">${ac.specName} xuất hiện → kỳ sau thường có số nào?</div></div>
+        <span class="anl-arrow">▶</span>
+      </div>
+      <div class="anl-body">${anlRenderSpecCorr(draws, ac)}</div>
+    </div>`;
+  }
 
-  /* Draw freq chart */
-  setTimeout(()=>{
-    const ctx = document.getElementById('freqChart');
-    if(!ctx) return;
-    const labels = Array.from({length:cfg.max},(_,i)=>i+1);
-    const data   = labels.map(n=>freq[n]||0);
-    new Chart(ctx,{
-      type:'bar',
-      data:{
-        labels,
-        datasets:[{
-          label:'Tần suất',
-          data,
-          backgroundColor: data.map(v=>{
-            const ratio = v/maxF;
-            return `rgba(${Math.round(124+ratio*131)},${Math.round(111-ratio*44)},${Math.round(247-ratio*185)},0.75)`;
-          }),
-          borderRadius:4,
-          borderSkipped:false,
-        }]
-      },
-      options:{
-        responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{display:false},tooltip:{backgroundColor:'#192040',borderColor:'rgba(124,111,247,.3)',borderWidth:1,callbacks:{title:t=>`Số ${t[0].label}`,label:t=>` Xuất hiện: ${t.raw} lần`}}},
-        scales:{
-          x:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#404d6a',font:{size:10},maxTicksLimit:20}},
-          y:{grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#404d6a',font:{size:11}}}
-        }
-      }
-    });
-  },100);
+  el.innerHTML = h;
 }
 
 /* ─────────────────────────────────────────
@@ -997,7 +1599,7 @@ async function renderAIBot(){
   if(cfg.type==='obj'){
     el.innerHTML=`<div class="empty-state"><div class="empty-icon">🔧</div>
       <h3 style="color:var(--text-primary);margin-bottom:8px">Chưa Hỗ Trợ</h3>
-      <p style="color:var(--text-secondary)">AI Bot hiện chỉ hỗ trợ xổ số chọn số (Power, Mega, Lotto, Keno, Bingo).</p></div>`;
+      <p style="color:var(--text-secondary)">AI Bot hiện chỉ hỗ trợ xổ số chọn số (Power, Mega, Lotto, Keno).</p></div>`;
     return;
   }
 
@@ -1079,7 +1681,6 @@ function calcPrize(matched, key){
     power645:[[6,12000000000],[5,10000000],[4,300000],[3,30000]],
     power535:[[5,2000000000],[4,1000000],[3,100000],[2,40000]],
     keno:    [[15,10000000],[10,1000000],[7,200000],[5,50000],[3,30000]],
-    bingo18: [[10,2000000000],[8,500000],[6,100000],[4,30000]],
   }[key]||[];
   for(const [need,val] of t) if(matched>=need) return val;
   return 0;
