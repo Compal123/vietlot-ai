@@ -507,8 +507,14 @@ body::before{
   </div>
   <div class="header-right">
     <div class="live-badge"><div class="live-dot"></div>LIVE</div>
-    <div class="stat-chip">Cập nhật: <b id="hdr-date">--</b></div>
-    <div class="stat-chip">Nguồn: <b>GitHub</b></div>
+    <div class="stat-chip">Kỳ mới nhất: <b id="hdr-date">--</b></div>
+    <div class="stat-chip" id="chip-fetch-time" style="display:none">Tải lúc: <b id="hdr-fetch-time">--</b></div>
+    <button id="btn-refresh" onclick="refreshData()" title="Làm mới dữ liệu" style="
+      background:rgba(78,255,163,.12);border:1.5px solid rgba(78,255,163,.35);
+      color:#4effa3;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;
+      cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px">
+      🔄 Làm mới
+    </button>
   </div>
 </header>
 
@@ -648,19 +654,21 @@ const S = {
 // Lỗi 404 = file chưa tồn tại, phân biệt với lỗi mạng thật sự
 const ERR_NOT_FOUND = 'NOT_FOUND';
 
-async function loadData(key) {
-  if (S.cache[key]) return S.cache[key];
-  if (S.loading.has(key)) {
-    // wait until loaded
+async function loadData(key, forceRefresh = false) {
+  if (!forceRefresh && S.cache[key]) return S.cache[key];
+  if (!forceRefresh && S.loading.has(key)) {
     return new Promise(res => {
       const t = setInterval(() => {
         if (!S.loading.has(key)) { clearInterval(t); res(S.cache[key] || null); }
       }, 150);
     });
   }
+  if (forceRefresh) delete S.cache[key];
   S.loading.add(key);
+  // ?cb= busts browser cache & GitHub CDN edge cache
+  const url = RAW + CFG[key].file + '?cb=' + Date.now();
   try {
-    const r = await fetch(RAW + CFG[key].file);
+    const r = await fetch(url, { cache: 'no-store' });
     if (r.status === 404) { S.cache[key] = ERR_NOT_FOUND; return ERR_NOT_FOUND; }
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const txt = await r.text();
@@ -669,13 +677,28 @@ async function loadData(key) {
     S.cache[key] = rows;
     const d = rows[0];
     if (d) document.getElementById('hdr-date').textContent = fmtDate(d.date);
+    // Show fetch time
+    const now = new Date();
+    const hhmm = now.toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    const fetchEl = document.getElementById('hdr-fetch-time');
+    if (fetchEl) fetchEl.textContent = hhmm;
+    const chipEl = document.getElementById('chip-fetch-time');
+    if (chipEl) chipEl.style.display = '';
     return rows;
   } catch(e) {
     console.error(key, e);
-    return null;  // null = lỗi mạng / CORS thật sự
+    return null;
   } finally {
     S.loading.delete(key);
   }
+}
+
+async function refreshData() {
+  const btn = document.getElementById('btn-refresh');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
+  delete S.cache[S.lottery];
+  await renderAll();
+  if (btn) { btn.disabled = false; btn.textContent = '🔄'; }
 }
 
 function errHtml(rows, retryFn) {
@@ -1981,7 +2004,18 @@ function renderActive(){
 /* ─────────────────────────────────────────
    INIT
 ───────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', ()=> renderResults());
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderResults();
+  // Auto-refresh Keno mỗi 8 phút (Keno quay mỗi ~8 phút)
+  setInterval(()=>{
+    const isKeno = S.lottery === 'keno';
+    const isActive = !document.hidden; // chỉ refresh khi tab đang mở
+    if (isKeno && isActive) {
+      delete S.cache['keno'];
+      renderAll();
+    }
+  }, 8 * 60 * 1000); // 8 phút
+});
 </script>
 </body>
 </html>
