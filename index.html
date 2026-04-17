@@ -595,15 +595,11 @@ const CFG = {
 // jackpot:true = giải tích lũy, thay đổi mỗi kỳ → hiển thị cảnh báo riêng
 const PRIZES = {
   power655:[
-    {name:'Jackpot 1', cond:'6 số chính + số Power',          val:'≥ 30 tỷ',        prob:'1 / 302,575,350', badge:'pj', jackpot:true},
-    {name:'Jackpot 2', cond:'6 số chính (không cần Power)',    val:'≥ 3 tỷ',         prob:'1 / 5,245,786',   badge:'p1', jackpot:true},
-    {name:'Giải Nhất', cond:'5 số chính + số Power',          val:'40,000,000 đ',   prob:'1 / 1,187,016',   badge:'p2'},
-    {name:'Giải Nhì',  cond:'5 số chính (không Power)',        val:'500,000 đ',      prob:'1 / 20,724',      badge:'p3'},
-    {name:'Giải Ba',   cond:'4 số chính + số Power',          val:'500,000 đ',      prob:'1 / 14,493',      badge:'p4'},
-    {name:'Giải Tư',   cond:'4 số chính (không Power)',        val:'50,000 đ',       prob:'1 / 253',         badge:'p5'},
-    {name:'Giải Năm',  cond:'3 số chính + số Power',          val:'50,000 đ',       prob:'1 / 188',         badge:'p6'},
-    {name:'Giải Sáu',  cond:'3 số chính (không Power)',        val:'30,000 đ',       prob:'1 / 34',          badge:'p7'},
-    {name:'Giải Bảy',  cond:'2 số chính + số Power',          val:'30,000 đ',       prob:'1 / 33',          badge:'p7'},
+    {name:'Jackpot 1', cond:'Trúng 6 số chính',               val:'≥ 30 tỷ',        prob:'1 / 302,575,350', badge:'pj', jackpot:true},
+    {name:'Jackpot 2', cond:'Trúng 5 số chính + số phụ',      val:'≥ 3 tỷ',         prob:'1 / 5,245,786',   badge:'p1', jackpot:true},
+    {name:'Giải Nhất', cond:'Trúng 5 số chính',               val:'40,000,000 đ',   prob:'1 / 1,187,016',   badge:'p2'},
+    {name:'Giải Nhì',  cond:'Trúng 4 số chính',               val:'500,000 đ',      prob:'1 / 14,493',      badge:'p3'},
+    {name:'Giải Ba',   cond:'Trúng 3 số chính',               val:'50,000 đ',       prob:'1 / 253',         badge:'p4'},
   ],
   power645:[
     {name:'Jackpot',   cond:'6 số chính xác',                 val:'≥ 12 tỷ',        prob:'1 / 8,145,060',   badge:'pj', jackpot:true},
@@ -612,12 +608,13 @@ const PRIZES = {
     {name:'Giải Ba',   cond:'3 số chính xác',                 val:'30,000 đ',       prob:'1 / 45',          badge:'p3'},
   ],
   power535:[
-    {name:'Jackpot',   cond:'5 số chính + số Đặc Biệt',       val:'≥ 6 tỷ',         prob:'1 / 10,737,573',  badge:'pj', jackpot:true},
-    {name:'Giải Nhất', cond:'5 số chính (không cần ĐB)',       val:'10,000,000 đ',   prob:'1 / 324,632',     badge:'p1'},
-    {name:'Giải Nhì',  cond:'4 số chính + số Đặc Biệt',       val:'500,000 đ',      prob:'1 / 4,096',       badge:'p2'},
-    {name:'Giải Ba',   cond:'4 số chính (không ĐB)',           val:'100,000 đ',      prob:'1 / 682',         badge:'p3'},
-    {name:'Giải Tư',   cond:'3 số chính + số Đặc Biệt',       val:'30,000 đ',       prob:'1 / 113',         badge:'p4'},
-    {name:'Giải KK',   cond:'2 số chính + số Đặc Biệt',       val:'10,000 đ',       prob:'1 / 44',          badge:'p5'},
+    {name:'Độc Đắc',   cond:'Trúng 5 số chính + số Đặc Biệt', val:'≥ 6 tỷ',         prob:'1 / 10,737,573',  badge:'pj', jackpot:true},
+    {name:'Giải Nhất', cond:'Trúng 5 số chính',               val:'10,000,000 đ',   prob:'1 / 324,632',     badge:'p1'},
+    {name:'Giải Nhì',  cond:'Trúng 4 số chính + số Đặc Biệt', val:'5,000,000 đ',    prob:'1 / 4,096',       badge:'p2'},
+    {name:'Giải Ba',   cond:'Trúng 4 số chính',               val:'500,000 đ',      prob:'1 / 682',         badge:'p3'},
+    {name:'Giải Tư',   cond:'Trúng 3 số chính + số Đặc Biệt', val:'100,000 đ',      prob:'1 / 113',         badge:'p4'},
+    {name:'Giải Năm',  cond:'Trúng 3 số chính',               val:'30,000 đ',       prob:'1 / 34',          badge:'p5'},
+    {name:'Khuyến Khích',cond:'2 số chính, hoặc 1/0 số chính + số Đặc Biệt', val:'10,000 đ', prob:'1 / 8', badge:'p6'},
   ],
   max3d:[
     // === Giải 2 bộ (chỉ khi chơi 2 bộ) ===
