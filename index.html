@@ -423,15 +423,15 @@ body::before{
 .anl-body.open{display:block}
 .anl-fgrid{display:flex;flex-wrap:wrap;gap:5px;padding:10px;background:rgba(255,255,255,.014);border-radius:10px;margin-top:8px}
 .anl-fb{display:flex;flex-direction:column;align-items:center;gap:2px}
-.anl-fball{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px}
-.anl-fball.hot{outline:2px solid var(--accent-yellow);box-shadow:0 0 8px rgba(255,204,68,.5)}
-.anl-fball.cold{outline:2px solid var(--accent-cyan);box-shadow:0 0 7px rgba(0,212,208,.4)}
+.anl-fball{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:#07091a}
 .anl-fbar-w{width:30px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
 .anl-fbar-f{height:100%;border-radius:2px}
-.anl-fct{font-size:9px;color:var(--text-muted);font-weight:700}
+.anl-fct{font-size:9px;font-weight:700}
 .anl-two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
 @media(max-width:580px){.anl-two-col{grid-template-columns:1fr}}
-.anl-col-card{background:rgba(255,255,255,.022);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 13px}
+.anl-col-card{background:rgba(255,255,255,.022);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px 13px;border-top-width:2px}
+.anl-hot-card{border-top-color:#ff6b3550!important}
+.anl-cold-card{border-top-color:#74b9ff50!important}
 .anl-col-title{font-size:12px;font-weight:700;margin-bottom:8px}
 .anl-bigballs{display:flex;flex-wrap:wrap;gap:8px}
 .anl-bignum{display:flex;flex-direction:column;align-items:center;gap:2px}
@@ -446,7 +446,7 @@ body::before{
 .anl-pair-balls{display:flex;gap:4px;align-items:center;flex-shrink:0}
 .anl-pair-bar-wrap{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
 .anl-pair-bar-fill{height:100%;border-radius:2px}
-.anl-pair-cnt{font-size:11px;font-weight:900;color:var(--accent-yellow);min-width:22px;text-align:right}
+.anl-pair-cnt{font-size:11px;font-weight:900;min-width:22px;text-align:right}
 .anl-pair-pct{font-size:10px;color:var(--text-muted);min-width:28px;text-align:right}
 .anl-ndp-last{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:12px;padding:9px 12px;background:rgba(255,204,68,.04);border:1px solid rgba(255,204,68,.16);border-radius:9px}
 .anl-ndp-label{font-size:10px;color:var(--text-muted);font-weight:700;letter-spacing:1px;margin-right:4px}
@@ -982,11 +982,30 @@ function anlBall(n, color, size=26, isSpec=false){
   const txt = typeof n === 'string' ? n : pad2(n);
   const br = txt.length > 2 ? '7px' : '50%';
   const fs = size <= 24 ? '10px' : size <= 30 ? '11px' : '13px';
+  const textCol = (color==='#ffcc44'||color==='#ffd32a'||color==='#f9ca24') ? '#1a1a2e' : '#fff';
   return `<div style="width:${size}px;height:${size}px;min-width:${size}px;border-radius:${br};
     background:${isSpec?'var(--accent-orange)':color};display:flex;align-items:center;justify-content:center;
-    font-weight:900;font-size:${fs};flex-shrink:0;color:#fff;
+    font-weight:900;font-size:${fs};flex-shrink:0;color:${isSpec?'#fff':textCol};
     ${isSpec?'box-shadow:0 0 0 2px #ff7f50,0 0 8px rgba(255,127,80,.4);':''}">
     ${txt}</div>`;
+}
+
+/* Returns a warm "fire" color based on rank (0=hottest) */
+function anlHotColor(rank, total){
+  const t = rank / Math.max(1, total - 1);
+  if(t < 0.25) return '#ff4757';   // red — very hot
+  if(t < 0.55) return '#ff6b35';   // orange
+  return '#ffcc44';                  // gold — warm
+}
+
+/* Returns a heatmap color 0..1 (1=hot, 0=cold) */
+function anlFreqColor(pct){
+  if(pct >= 0.80) return '#ff4757';
+  if(pct >= 0.65) return '#ff6b35';
+  if(pct >= 0.45) return '#ffcc44';
+  if(pct >= 0.25) return '#a29bfe';
+  if(pct >= 0.10) return '#74b9ff';
+  return '#55aeff';
 }
 
 function toggleAnl(hdr){
@@ -1025,44 +1044,45 @@ function anlRenderHotCold(draws, ac, n){
 
   // Big hot / cold balls
   h += `<div class="anl-two-col">
-    <div class="anl-col-card">
-      <div class="anl-col-title" style="color:var(--accent-yellow)">🔥 Số Nóng Nhất</div>
+    <div class="anl-col-card anl-hot-card">
+      <div class="anl-col-title" style="color:#ff6b35">🔥 Số Nóng Nhất</div>
       <div class="anl-bigballs">
         ${sorted.slice(0,n).map(({n:num,f},i)=>`<div class="anl-bignum">
           <span class="rank">#${i+1}</span>
-          ${anlBall(num, ac.color, 36)}
-          <span class="cnt" style="color:var(--accent-yellow)">${f}x</span>
+          ${anlBall(num, anlHotColor(i,n), 36)}
+          <span class="cnt" style="color:${anlHotColor(i,n)}">${f}x</span>
         </div>`).join('')}
       </div>
     </div>
-    <div class="anl-col-card">
-      <div class="anl-col-title" style="color:var(--accent-cyan)">❄️ Số Lạnh Nhất</div>
+    <div class="anl-col-card anl-cold-card">
+      <div class="anl-col-title" style="color:#74b9ff">❄️ Số Lạnh Nhất</div>
       <div class="anl-bigballs">
         ${sorted.slice(-n).reverse().map(({n:num,f},i)=>{
           const ago = anlGetLastSeen(draws, num);
-          const lbl = ago>=0 ? `${draws.length-1-ago}kỳ` : 'Chưa ra';
+          const lbl = ago>=0 ? `${ago}kỳ trước` : 'Chưa ra';
+          const cBlue = i===0?'#74b9ff':i===1?'#89c4ff':'#a8d8ff';
           return `<div class="anl-bignum">
             <span class="rank">#${i+1}</span>
-            ${anlBall(num, ac.color, 36)}
-            <span class="cnt" style="color:var(--accent-cyan)">${lbl}</span>
+            ${anlBall(num, cBlue, 36)}
+            <span class="cnt" style="color:${cBlue}">${lbl}</span>
           </div>`;
         }).join('')}
       </div>
     </div>
   </div>`;
 
-  // Full freq grid
+  // Full freq grid — heatmap coloring
   h += `<div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-bottom:6px">TẤT CẢ SỐ CHÍNH (1–${ac.max})</div>
   <div class="anl-fgrid">`;
   for(let i=1;i<=ac.max;i++){
     const f=mf[i]||0;
-    const isHot = f>=Math.max(2, draws.length*.14);
-    const isCold = f===0||(f<=1&&draws.length>5);
-    const pct = Math.round(f/maxM*100);
+    const ratio = f/maxM;
+    const col = anlFreqColor(ratio);
+    const pct = Math.round(ratio*100);
     h += `<div class="anl-fb">
-      <div class="anl-fball ${isHot?'hot':isCold?'cold':''}" style="background:${ac.color};opacity:${isCold?.5:1}">${pad2(i)}</div>
-      <div class="anl-fbar-w"><div class="anl-fbar-f" style="width:${pct}%;background:${isHot?ac.color:'var(--accent-cyan)'}"></div></div>
-      <div class="anl-fct">${f}x</div>
+      <div class="anl-fball" style="background:${col}">${pad2(i)}</div>
+      <div class="anl-fbar-w"><div class="anl-fbar-f" style="width:${pct}%;background:${col}"></div></div>
+      <div class="anl-fct" style="color:${col}">${f}x</div>
     </div>`;
   }
   h += '</div>';
@@ -1116,18 +1136,23 @@ function anlCompPairs(draws, k){
   return Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
 }
 
+// pairColor: color theme per pair type
+const ANL_PAIR_COLORS = { 2:'#ff6bb5', 3:'#a29bfe' }; // pink for 2, purple for 3
+
 function anlPairList(draws, ac, k, n){
   const pairs = anlCompPairs(draws,k).slice(0,n);
   const maxC = pairs[0]?pairs[0][1]:1;
   const totalD = draws.length;
+  const col = ANL_PAIR_COLORS[k] || ac.color;
   if(!pairs.length) return '<div class="anl-ndp-none">Cần thêm dữ liệu</div>';
-  return pairs.map(([key,cnt])=>{
+  return pairs.map(([key,cnt],idx)=>{
     const nums = key.split('-').map(Number);
-    const balls = nums.map(n=>anlBall(n,ac.color,22)).join(`<span style="color:var(--text-muted);font-size:10px;margin:0 1px">+</span>`);
+    const balls = nums.map(n=>anlBall(n,col,22)).join(`<span style="color:var(--text-muted);font-size:10px;margin:0 1px">+</span>`);
+    const barPct = Math.round(cnt/maxC*100);
     return `<div class="anl-pair-item">
       <div class="anl-pair-balls">${balls}</div>
-      <div class="anl-pair-bar-wrap"><div class="anl-pair-bar-fill" style="width:${Math.round(cnt/maxC*100)}%;background:${ac.color}88"></div></div>
-      <span class="anl-pair-cnt">${cnt}</span>
+      <div class="anl-pair-bar-wrap"><div class="anl-pair-bar-fill" style="width:${barPct}%;background:linear-gradient(90deg,${col},${col}99)"></div></div>
+      <span class="anl-pair-cnt" style="color:${col}">${cnt}</span>
       <span class="anl-pair-pct">${Math.round(cnt/totalD*100)}%</span>
     </div>`;
   }).join('');
@@ -1139,12 +1164,12 @@ function anlRenderPairs(draws, ac, n){
     ${chips.map(k=>`<button class="anl-chip ${k===n?'on-hot':''}" onclick="anlSetPairN(${k},this)">TOP ${k}</button>`).join('')}
   </div>
   <div class="anl-two-col">
-    <div class="anl-col-card">
-      <div class="anl-col-title" style="color:var(--accent-yellow)">2 Số Cùng Kỳ</div>
+    <div class="anl-col-card" style="border-top:2px solid #ff6bb540">
+      <div class="anl-col-title" style="color:#ff6bb5">💗 2 Số Cùng Kỳ</div>
       <div id="anl-pair2">${anlPairList(draws,ac,2,n)}</div>
     </div>
-    <div class="anl-col-card">
-      <div class="anl-col-title" style="color:var(--accent-orange)">3 Số Cùng Kỳ</div>
+    <div class="anl-col-card" style="border-top:2px solid #a29bfe40">
+      <div class="anl-col-title" style="color:#a29bfe">🔮 3 Số Cùng Kỳ</div>
       <div id="anl-pair3">${anlPairList(draws,ac,3,n)}</div>
     </div>
   </div>`;
@@ -1211,7 +1236,13 @@ function anlRenderNextDraw(draws, ac){
     }
     const sorted = Object.entries(preds).sort((a,b)=>b[1]-a[1]).slice(0,maxPreds);
     const total = Object.values(preds).reduce((a,b)=>a+b,0);
-    const predBalls = sorted.map(([n,c])=>`<div class="anl-ndp-pred">${anlBall(+n,ac.color,22)}<span class="anl-ndp-pred-pct">${Math.round(c/total*100)}%</span></div>`).join('');
+    // Prediction balls: gradient cyan→purple by rank (top=cyan, lower=purple)
+    const predColors = ['#00d4d0','#00bcd4','#4e9fff','#74b9ff','#a29bfe','#7c6ff7','#b39ddb','#90a4ae'];
+    const predBalls = sorted.map(([n,c],pi)=>{
+      const pc = predColors[pi] || predColors[predColors.length-1];
+      const pct = Math.round(c/total*100);
+      return `<div class="anl-ndp-pred">${anlBall(+n,pc,22)}<span class="anl-ndp-pred-pct" style="color:${pc}">${pct}%</span></div>`;
+    }).join('');
     const evids=[];
     for(let i=0;i<chron.length-1&&evids.length<maxEvids;i++){
       if((chron[i].nums||[]).includes(tn)){
