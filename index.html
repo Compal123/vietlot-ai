@@ -1058,12 +1058,14 @@ function pad3(n){ return String(n).padStart(3,'0'); }
 
 function getACFG(key){
   const c = CFG[key];
-  const specNames = { power655:'Số Phụ', power535:'Số Cam' };
+  const specNames   = { power655:'Số Phụ', power535:'Số Cam' };
+  // Số Cam Lotto 5/35 chỉ từ 1-12 (quay riêng), Power 6/55 dùng cùng pool 1-55
+  const specMaxMap  = { power535: 12 };
   return {
     key, name:c.name, color:c.color, max:c.max,
     pick: c.main || 20,
     hasSpec: (c.special||0) > 0,
-    specMax: c.max,
+    specMax: specMaxMap[key] ?? c.max,
     specName: specNames[key] || '',
     isMax3d: c.type === 'obj',
     isKeno: key === 'keno',
@@ -2333,12 +2335,12 @@ function predComputeScores(draws, ac){
   const sc = {};
   for(let i=1;i<=MAX;i++) sc[i]={hot:0,gap:draws.length,corr:0};
 
-  // 1. Hot: tần suất có trọng số theo độ gần đây
+  // 1. Hot: tần suất có trọng số theo độ gần đây (chỉ số chính)
   for(let di=0;di<WINDOW;di++){
     const w = (WINDOW-di)/WINDOW;
     (draws[di].nums||[]).forEach(n=>{ if(n>=1&&n<=MAX) sc[n].hot+=w; });
   }
-  // 2. Gap: bao nhiêu kỳ chưa xuất hiện
+  // 2. Gap: bao nhiêu kỳ số chính chưa xuất hiện
   for(let i=1;i<=MAX;i++){
     for(let di=0;di<draws.length;di++){
       if((draws[di].nums||[]).includes(i)){ sc[i].gap=di; break; }
@@ -2353,17 +2355,43 @@ function predComputeScores(draws, ac){
     });
   });
   // Normalize → 0..1
-  function norm(key){
-    const mx=Math.max(1,...Object.values(sc).map(s=>s[key]));
-    for(let i=1;i<=MAX;i++) sc[i][key+'N']=sc[i][key]/mx;
+  function norm(obj, key, max){
+    const mx=Math.max(1,...Object.values(obj).map(s=>s[key]));
+    for(let i=1;i<=max;i++) if(obj[i]) obj[i][key+'N']=obj[i][key]/mx;
   }
-  norm('hot'); norm('gap'); norm('corr');
-  // AI combined
+  norm(sc,'hot',MAX); norm(sc,'gap',MAX); norm(sc,'corr',MAX);
+  // AI combined (số chính)
   for(let i=1;i<=MAX;i++)
     sc[i].ai = 0.38*sc[i].hotN + 0.27*sc[i].gapN + 0.35*sc[i].corrN;
   const mxAi=Math.max(1,...Object.values(sc).map(s=>s.ai));
   for(let i=1;i<=MAX;i++) sc[i].aiN=sc[i].ai/mxAi;
-  return sc;
+
+  // ── Số đặc biệt riêng (vd: Số Cam Lotto 5/35 chỉ 1-12) ──
+  let specSc = null;
+  if(ac.hasSpec){
+    const SM = ac.specMax;
+    specSc = {};
+    for(let i=1;i<=SM;i++) specSc[i]={hot:0,gap:draws.length};
+    // Tần suất Số Cam/Phụ trong lịch sử
+    for(let di=0;di<WINDOW;di++){
+      const w=(WINDOW-di)/WINDOW;
+      const s=draws[di].spec;
+      if(s!=null&&s>=1&&s<=SM) specSc[s].hot+=w;
+    }
+    // Gap Số Cam/Phụ
+    for(let i=1;i<=SM;i++){
+      for(let di=0;di<draws.length;di++){
+        if(draws[di].spec===i){ specSc[i].gap=di; break; }
+      }
+    }
+    norm(specSc,'hot',SM); norm(specSc,'gap',SM);
+    for(let i=1;i<=SM;i++)
+      specSc[i].ai = 0.55*specSc[i].hotN + 0.45*specSc[i].gapN;
+    const mxS=Math.max(1,...Object.values(specSc).map(s=>s.ai));
+    for(let i=1;i<=SM;i++) specSc[i].aiN=specSc[i].ai/mxS;
+  }
+
+  return {sc, specSc};
 }
 
 function predPickTop(sc, max, count, key){
@@ -2405,19 +2433,49 @@ function predStratCard(title, icon, cls, color, desc, nums, sc, key){
 }
 
 /* ── Featured AI card ── */
-function predAIMainCard(nums, sc, ac, specNums){
+function predAIMainCard(nums, sc, ac, specNums, specSc){
   const balls=nums.map(n=>{
     const sn=sc[n].aiN;
     const col=sn>0.8?'#00d4d0':sn>0.6?'#4e9fff':sn>0.4?'#a29bfe':'#7c6ff7';
     return predBall(n,col,40,Math.round(sn*100));
   }).join('');
   const avgAI=Math.round(nums.reduce((s,n)=>s+sc[n].aiN,0)/nums.length*100);
-  const specHTML=specNums&&specNums.length?`
-    <div class="pred-spec">
-      <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap">${ac.specName}:</span>
-      ${specNums.map(n=>anlBall(n,'#ffcc44',32,true)).join('')}
-      <span style="font-size:11px;color:var(--text-muted)">(AI gợi ý)</span>
-    </div>`:'';
+
+  // Số đặc biệt: hiển thị top 3 gợi ý + mini heatmap 1-specMax
+  let specHTML='';
+  if(specNums&&specNums.length&&specSc){
+    const SM=ac.specMax;
+    // Top 3 số tốt nhất
+    const top3=Array.from({length:SM},(_,i)=>i+1).sort((a,b)=>specSc[b].ai-specSc[a].ai).slice(0,3);
+    const specBalls=top3.map((n,i)=>{
+      const sn=specSc[n].aiN;
+      const col=i===0?'#ffcc44':i===1?'#ffa500':'#ff8c00';
+      return `<div class="pred-ball-wrap">${anlBall(n,col,30,true)}<span class="pred-ball-pct" style="color:${col}">${Math.round(sn*100)}%</span></div>`;
+    }).join('');
+    // Mini heatmap 1-specMax
+    const cells=Array.from({length:SM},(_,i)=>{
+      const n=i+1; const sn=specSc[n].aiN||0;
+      const bg=sn>0.7?'rgba(255,204,68,.85)':sn>0.4?'rgba(255,165,0,.6)':'rgba(255,255,255,.1)';
+      const txt=sn>0.4?'#1a1a2e':'var(--text-muted)';
+      return `<div style="border-radius:5px;background:${bg};color:${txt};font-size:10px;font-weight:800;
+        padding:4px 2px;text-align:center;font-family:monospace" title="${ac.specName} ${n}: ${Math.round(sn*100)}%">${n<10?'0'+n:n}</div>`;
+    }).join('');
+    specHTML=`<div style="background:rgba(255,204,68,.06);border:1px solid rgba(255,204,68,.25);border-radius:10px;padding:12px;margin-bottom:10px">
+      <div style="font-size:11px;font-weight:800;color:#ffcc44;letter-spacing:.5px;margin-bottom:8px">
+        ${ac.specName} (1–${SM}) — Phân tích riêng từ lịch sử ${ac.specName.toLowerCase()}
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px">Top gợi ý:</div>
+          <div style="display:flex;gap:6px">${specBalls}</div>
+        </div>
+        <div style="flex:1;min-width:160px">
+          <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px">Toàn bộ 1–${SM}:</div>
+          <div style="display:grid;grid-template-columns:repeat(${SM<=6?SM:6},1fr);gap:3px">${cells}</div>
+        </div>
+      </div>
+    </div>`;
+  }
   return `<div class="pred-card ai-main" style="grid-column:1/-1">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
       <div style="display:flex;align-items:center;gap:10px">
@@ -2474,7 +2532,7 @@ function predHeatmap(sc, max, aiNums){
 
 /* ── Number-based games (Power, Mega, Lotto, Keno) ── */
 function predRenderNum(draws, ac){
-  const sc  = predComputeScores(draws, ac);
+  const {sc, specSc} = predComputeScores(draws, ac);
   const MAX = ac.max, PICK = ac.pick;
 
   const aiNums   = predPickTop(sc,MAX,PICK,'ai');
@@ -2482,11 +2540,11 @@ function predRenderNum(draws, ac){
   const coldNums = predPickTop(sc,MAX,PICK,'gap');
   const corrNums = predPickTop(sc,MAX,PICK,'corr');
 
-  // Special number: pick best AI from numbers NOT in main set
+  // Số đặc biệt: dùng specSc riêng (đúng range, scored từ lịch sử spec thật)
   let specNums=[];
-  if(ac.hasSpec){
-    const mainSet=new Set(aiNums);
-    specNums=[predPickTop(sc,MAX,PICK+3,'ai').find(n=>!mainSet.has(n))||1];
+  if(ac.hasSpec && specSc){
+    specNums=[Array.from({length:ac.specMax},(_,i)=>i+1)
+      .sort((a,b)=>specSc[b].ai-specSc[a].ai)[0]];
   }
 
   // Store for save button
@@ -2523,7 +2581,7 @@ function predRenderNum(draws, ac){
 
   ${kenoNote}
   <div class="pred-grid">
-    ${predAIMainCard(aiNums, sc, ac, specNums)}
+    ${predAIMainCard(aiNums, sc, ac, specNums, specSc)}
     ${predStratCard('Cầu Nóng','🔥','hot','#ff4757','Số xuất hiện nhiều nhất trong 50 kỳ gần đây — theo xu hướng đang nóng',hotNums,sc,'hot')}
     ${predStratCard('Cầu Nguội','❄️','cold','#74b9ff','Số lâu chưa xuất hiện nhất — theo lý thuyết cầu nguội đến kỳ phải về',coldNums,sc,'gap')}
     ${predStratCard('Tương Quan','🔗','corr','#a29bfe','Số có xu hướng xuất hiện sau bộ số của kỳ vừa rồi',corrNums,sc,'corr')}
