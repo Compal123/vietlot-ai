@@ -2533,7 +2533,9 @@ function predHeatmap(sc, max, aiNums){
 /* ── Number-based games (Power, Mega, Lotto, Keno) ── */
 function predRenderNum(draws, ac){
   const {sc, specSc} = predComputeScores(draws, ac);
-  const MAX = ac.max, PICK = ac.pick;
+  const MAX = ac.max;
+  // Keno: quay 20 số nhưng người chơi chỉ chọn 10 (Bao 10)
+  const PICK = ac.isKeno ? 10 : ac.pick;
 
   const aiNums   = predPickTop(sc,MAX,PICK,'ai');
   const hotNums  = predPickTop(sc,MAX,PICK,'hot');
@@ -2559,7 +2561,7 @@ function predRenderNum(draws, ac){
   const lastSpecHTML=lastSpec?`<span style="font-size:11px;color:var(--text-muted);margin-left:6px">+</span>${anlBall(lastSpec,'#ffcc44',26,true)}`:'';
 
   const kenoNote=ac.isKeno?`<div style="font-size:12px;color:var(--accent-yellow);background:rgba(255,204,68,.08);padding:8px 12px;border-radius:8px;margin-bottom:14px">
-    💡 Keno: AI gợi ý <b>Bao ${PICK}</b> với ${PICK} số bên dưới. Bạn có thể chọn bao khác (5-10 số) tùy chiến lược.
+    💡 Keno: AI phân tích và gợi ý <b>Bao 10</b> — 10 số có điểm tổng hợp cao nhất từ 1–80.
   </div>`:'';
 
   return `
