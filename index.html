@@ -361,6 +361,29 @@ body::before{
 /* ===== TAB PANELS ===== */
 .tpanel{display:none}.tpanel.active{display:block}
 
+/* ===== AI PREDICT ===== */
+.pred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:20px}
+.pred-card{background:var(--bg-card2);border-radius:14px;padding:16px;border:1px solid var(--border);position:relative;overflow:hidden}
+.pred-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pred-card.hot::before{background:linear-gradient(90deg,#ff4757,#ff6b35)}
+.pred-card.cold::before{background:linear-gradient(90deg,#74b9ff,#a29bfe)}
+.pred-card.corr::before{background:linear-gradient(90deg,#a29bfe,#7c6ff7)}
+.pred-card.ai-main{border:1.5px solid rgba(0,212,208,.5);background:linear-gradient(135deg,rgba(0,212,208,.05),rgba(78,159,255,.06))}
+.pred-card.ai-main::before{background:linear-gradient(90deg,#00d4d0,#4e9fff,#a29bfe);height:3px}
+.pred-card-hd{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.pred-card-title{font-weight:800;font-size:14px}
+.pred-card-desc{font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.6}
+.pred-balls{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.pred-ball-wrap{display:flex;flex-direction:column;align-items:center;gap:2px}
+.pred-ball-pct{font-size:9px;color:var(--text-muted);font-weight:700}
+.pred-conf{height:5px;border-radius:5px;background:var(--bg-surface);overflow:hidden;margin-top:6px}
+.pred-conf-fill{height:100%;border-radius:5px;transition:width .7s ease}
+.pred-heatmap{display:grid;gap:4px}
+.pred-hcell{border-radius:6px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;cursor:default;transition:transform .1s;font-family:monospace}
+.pred-hcell:hover{transform:scale(1.2);z-index:1;position:relative}
+.pred-spec{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 12px;background:var(--bg-surface);border-radius:9px;flex-wrap:wrap}
+.pred-warn{background:rgba(255,204,68,.08);border:1px solid rgba(255,204,68,.25);border-radius:8px;padding:9px 12px;font-size:12px;color:#ffcc44;margin-top:12px}
+
 /* ===== COMING SOON ===== */
 .coming-soon{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -537,6 +560,7 @@ body::before{
     <div class="stab"        data-sub="analysis" onclick="switchSub('analysis')"><i class="fa-solid fa-chart-line"></i> Phân Tích</div>
     <div class="stab"        data-sub="prizes"   onclick="switchSub('prizes')"><i class="fa-solid fa-medal"></i> Cơ Cấu Giải Thưởng</div>
     <div class="stab"        data-sub="aibot"    onclick="switchSub('aibot')"><i class="fa-solid fa-robot"></i> AI Bot</div>
+    <div class="stab"        data-sub="predict"  onclick="switchSub('predict')"><i class="fa-solid fa-brain"></i> AI Dự Đoán</div>
   </div>
 
   <!-- RESULTS -->
@@ -562,6 +586,13 @@ body::before{
   <div class="tpanel" id="tp-aibot">
     <div id="aibot-content">
       <div class="loading"><div class="spinner"></div><p>Đang chờ dữ liệu...</p></div>
+    </div>
+  </div>
+
+  <!-- AI PREDICT -->
+  <div class="tpanel" id="tp-predict">
+    <div id="predict-content">
+      <div class="loading"><div class="spinner"></div><p>Đang phân tích dữ liệu...</p></div>
     </div>
   </div>
 
@@ -2138,6 +2169,291 @@ function switchLottery(key){
   renderActive();
 }
 
+/* ═══════════════════════════════════════════
+   AI PREDICT — DỰ ĐOÁN SỐ KỲ TỚI
+═══════════════════════════════════════════ */
+
+/* ── Scoring engine ── */
+function predComputeScores(draws, ac){
+  const MAX = ac.max, WINDOW = Math.min(50, draws.length);
+  const sc = {};
+  for(let i=1;i<=MAX;i++) sc[i]={hot:0,gap:draws.length,corr:0};
+
+  // 1. Hot: tần suất có trọng số theo độ gần đây
+  for(let di=0;di<WINDOW;di++){
+    const w = (WINDOW-di)/WINDOW;
+    (draws[di].nums||[]).forEach(n=>{ if(n>=1&&n<=MAX) sc[n].hot+=w; });
+  }
+  // 2. Gap: bao nhiêu kỳ chưa xuất hiện
+  for(let i=1;i<=MAX;i++){
+    for(let di=0;di<draws.length;di++){
+      if((draws[di].nums||[]).includes(i)){ sc[i].gap=di; break; }
+    }
+  }
+  // 3. Correlation: tương quan với bộ số kỳ trước
+  const lastNums = draws[0]?.nums||[];
+  const corrMap = anlCompNextDraw(draws);
+  lastNums.forEach(ln=>{
+    Object.entries(corrMap[ln]||{}).forEach(([n,v])=>{
+      const ni=+n; if(ni>=1&&ni<=MAX) sc[ni].corr+=v;
+    });
+  });
+  // Normalize → 0..1
+  function norm(key){
+    const mx=Math.max(1,...Object.values(sc).map(s=>s[key]));
+    for(let i=1;i<=MAX;i++) sc[i][key+'N']=sc[i][key]/mx;
+  }
+  norm('hot'); norm('gap'); norm('corr');
+  // AI combined
+  for(let i=1;i<=MAX;i++)
+    sc[i].ai = 0.38*sc[i].hotN + 0.27*sc[i].gapN + 0.35*sc[i].corrN;
+  const mxAi=Math.max(1,...Object.values(sc).map(s=>s.ai));
+  for(let i=1;i<=MAX;i++) sc[i].aiN=sc[i].ai/mxAi;
+  return sc;
+}
+
+function predPickTop(sc, max, count, key){
+  return Array.from({length:max},(_,i)=>i+1)
+    .sort((a,b)=>sc[b][key]-sc[a][key]).slice(0,count);
+}
+
+/* ── Ball with score pct label ── */
+function predBall(n, color, size=34, pct=null){
+  const txt = n<10?'0'+n:String(n);
+  const textCol=(color==='#ffcc44'||color==='#ffd32a')? '#1a1a2e':'#fff';
+  const ball=`<div style="width:${size}px;height:${size}px;min-width:${size}px;border-radius:50%;background:${color};
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:${size<=28?'10px':'13px'};
+    color:${textCol};box-shadow:0 3px 10px rgba(0,0,0,.3);flex-shrink:0">${txt}</div>`;
+  if(pct===null) return ball;
+  return `<div class="pred-ball-wrap">${ball}<span class="pred-ball-pct">${pct}%</span></div>`;
+}
+
+/* ── Strategy card (Hot / Cold / Corr) ── */
+function predStratCard(title, icon, cls, color, desc, nums, sc, key){
+  const balls = nums.map(n=>{
+    const sn=(sc[n][key+'N']||0);
+    const col=key==='gap'?'#74b9ff':key==='corr'?'#a29bfe':anlHotColor(nums.indexOf(n),nums.length);
+    return predBall(n,col,32,Math.round(sn*100));
+  }).join('');
+  const avgConf=Math.round(nums.reduce((s,n)=>s+(sc[n][key+'N']||0),0)/nums.length*100);
+  return `<div class="pred-card ${cls}">
+    <div class="pred-card-hd">
+      <span style="font-size:20px">${icon}</span>
+      <span class="pred-card-title" style="color:${color}">${title}</span>
+    </div>
+    <div class="pred-card-desc">${desc}</div>
+    <div class="pred-balls">${balls}</div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px">
+      <span>Độ tin cậy</span><span style="font-weight:700;color:${color}">${avgConf}%</span>
+    </div>
+    <div class="pred-conf"><div class="pred-conf-fill" style="width:${avgConf}%;background:${color}"></div></div>
+  </div>`;
+}
+
+/* ── Featured AI card ── */
+function predAIMainCard(nums, sc, ac, specNums){
+  const balls=nums.map(n=>{
+    const sn=sc[n].aiN;
+    const col=sn>0.8?'#00d4d0':sn>0.6?'#4e9fff':sn>0.4?'#a29bfe':'#7c6ff7';
+    return predBall(n,col,40,Math.round(sn*100));
+  }).join('');
+  const avgAI=Math.round(nums.reduce((s,n)=>s+sc[n].aiN,0)/nums.length*100);
+  const specHTML=specNums&&specNums.length?`
+    <div class="pred-spec">
+      <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap">${ac.specName}:</span>
+      ${specNums.map(n=>anlBall(n,'#ffcc44',32,true)).join('')}
+      <span style="font-size:11px;color:var(--text-muted)">(AI gợi ý)</span>
+    </div>`:'';
+  return `<div class="pred-card ai-main" style="grid-column:1/-1">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:28px">🤖</span>
+        <div>
+          <div style="font-weight:800;font-size:16px;color:var(--accent-cyan)">AI Tổng Hợp — Bộ Số Gợi Ý Kỳ Tới</div>
+          <div style="font-size:12px;color:var(--text-muted)">Kết hợp: 38% Cầu Nóng + 27% Cầu Nguội + 35% Tương Quan</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:20px;font-weight:900;color:var(--accent-cyan)">${avgAI}%</div>
+        <div style="font-size:11px;color:var(--text-muted)">Điểm tổng hợp</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:16px;background:var(--bg-surface);border-radius:12px;margin-bottom:10px">
+      ${balls}
+    </div>
+    ${specHTML}
+    <div class="pred-warn">⚠️ Đây là gợi ý dựa trên phân tích thống kê — không đảm bảo trúng thưởng. Xổ số là hoàn toàn ngẫu nhiên. Hãy chơi có trách nhiệm!</div>
+  </div>`;
+}
+
+/* ── Score heatmap ── */
+function predHeatmap(sc, max, aiNums){
+  const aiSet=new Set(aiNums);
+  const cols=max<=35?7:max<=45?9:max<=55?11:10;
+  const cells=Array.from({length:max},(_,i)=>{
+    const n=i+1;
+    const sn=sc[n].aiN||0;
+    const isSelected=aiSet.has(n);
+    const bg=isSelected
+      ? 'rgba(0,212,208,.85)'
+      : `rgba(${Math.round(50+180*sn)},${Math.round(80-40*sn)},${Math.round(220*(1-sn*.7))},${.25+sn*.65})`;
+    const txt=isSelected?'#fff':sn>0.5?'#fff':'var(--text-secondary)';
+    const ring=isSelected?'box-shadow:0 0 0 2px #00d4d0;':'';
+    return `<div class="pred-hcell" style="background:${bg};color:${txt};${ring}"
+      title="Số ${n}: điểm AI ${Math.round(sn*100)}%${isSelected?' ★ AI chọn':''}">${n<10?'0'+n:n}</div>`;
+  }).join('');
+  return `<div class="card">
+    <div class="card-title">🗺️ Bản Đồ Điểm AI — ${max} Số</div>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px">
+      Màu <span style="color:#00d4d0;font-weight:700">xanh cyan</span> = AI đã chọn &nbsp;|&nbsp;
+      Màu <span style="color:#ff6b35;font-weight:700">cam-đỏ</span> = điểm cao &nbsp;|&nbsp;
+      Màu <span style="color:#7c6ff7;font-weight:700">tím</span> = điểm thấp. Hover xem điểm.
+    </p>
+    <div class="pred-heatmap" style="grid-template-columns:repeat(${cols},1fr)">${cells}</div>
+  </div>`;
+}
+
+/* ── Number-based games (Power, Mega, Lotto, Keno) ── */
+function predRenderNum(draws, ac){
+  const sc  = predComputeScores(draws, ac);
+  const MAX = ac.max, PICK = ac.pick;
+
+  const aiNums   = predPickTop(sc,MAX,PICK,'ai');
+  const hotNums  = predPickTop(sc,MAX,PICK,'hot');
+  const coldNums = predPickTop(sc,MAX,PICK,'gap');
+  const corrNums = predPickTop(sc,MAX,PICK,'corr');
+
+  // Special number: pick best AI from numbers NOT in main set
+  let specNums=[];
+  if(ac.hasSpec){
+    const mainSet=new Set(aiNums);
+    specNums=[predPickTop(sc,MAX,PICK+3,'ai').find(n=>!mainSet.has(n))||1];
+  }
+
+  const lastNums=draws[0]?.nums||[];
+  const lastBalls=lastNums.map(n=>anlBall(n,ac.color,26)).join('');
+  const lastSpec=draws[0]?.spec;
+  const lastSpecHTML=lastSpec?`<span style="font-size:11px;color:var(--text-muted);margin-left:6px">+</span>${anlBall(lastSpec,'#ffcc44',26,true)}`:'';
+
+  const kenoNote=ac.isKeno?`<div style="font-size:12px;color:var(--accent-yellow);background:rgba(255,204,68,.08);padding:8px 12px;border-radius:8px;margin-bottom:14px">
+    💡 Keno: AI gợi ý <b>Bao ${PICK}</b> với ${PICK} số bên dưới. Bạn có thể chọn bao khác (5-10 số) tùy chiến lược.
+  </div>`:'';
+
+  return `
+  <div class="card" style="margin-bottom:16px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div>
+        <div class="card-title">🤖 AI Dự Đoán Kỳ Tới — ${ac.name}</div>
+        <p style="color:var(--text-secondary);font-size:13px;margin-top:4px">
+          Phân tích <b>${draws.length} kỳ</b> lịch sử. Gần nhất: <b>${fmtDate(draws[0]?.date||'')}</b>
+        </p>
+      </div>
+      <button class="btn btn-secondary" style="font-size:12px;padding:6px 14px" onclick="renderPredict()">🔄 Tải lại</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding:10px 14px;background:var(--bg-surface);border-radius:10px">
+      <span style="font-size:12px;color:var(--text-muted);font-weight:700;white-space:nowrap">Kỳ vừa rồi:</span>
+      ${lastBalls}${lastSpecHTML}
+    </div>
+  </div>
+
+  ${kenoNote}
+  <div class="pred-grid">
+    ${predAIMainCard(aiNums, sc, ac, specNums)}
+    ${predStratCard('Cầu Nóng','🔥','hot','#ff4757','Số xuất hiện nhiều nhất trong 50 kỳ gần đây — theo xu hướng đang nóng',hotNums,sc,'hot')}
+    ${predStratCard('Cầu Nguội','❄️','cold','#74b9ff','Số lâu chưa xuất hiện nhất — theo lý thuyết cầu nguội đến kỳ phải về',coldNums,sc,'gap')}
+    ${predStratCard('Tương Quan','🔗','corr','#a29bfe','Số có xu hướng xuất hiện sau bộ số của kỳ vừa rồi',corrNums,sc,'corr')}
+  </div>
+
+  ${predHeatmap(sc, MAX, aiNums)}
+  `;
+}
+
+/* ── Max3D / Max3D Pro ── */
+function predRenderMax3d(draws, ac){
+  const freq={db:{},all:{}};
+  draws.forEach(d=>{
+    (d.db||[]).forEach(n=>{ freq.db[n]=(freq.db[n]||0)+1; freq.all[n]=(freq.all[n]||0)+1; });
+    ['nhat','nhi','ba'].forEach(k=>(d[k]||[]).forEach(n=>{ freq.all[n]=(freq.all[n]||0)+1; }));
+  });
+  const sortedDB=Object.entries(freq.db).sort((a,b)=>b[1]-a[1]);
+  const sortedAll=Object.entries(freq.all).sort((a,b)=>b[1]-a[1]);
+  const recent20=new Set(draws.slice(0,20).flatMap(d=>d.db||[]));
+
+  const topRows=sortedDB.slice(0,15).map(([n,c],i)=>{
+    const pct=(c/draws.length*100).toFixed(1);
+    const col=i<3?'#ff4757':i<7?'#ff6b35':'#74b9ff';
+    return `<tr><td style="font-family:monospace;font-weight:800;font-size:15px;color:${col}">${n}</td>
+      <td style="color:var(--text-primary)">${c}×</td>
+      <td style="color:var(--text-muted);font-size:12px">${pct}%</td>
+      <td><div style="background:var(--bg-surface);border-radius:4px;height:7px;overflow:hidden;width:80px">
+        <div style="width:${Math.min(100,+pct*4)}%;height:100%;background:${col};border-radius:4px"></div></div></td>
+    </tr>`;
+  }).join('');
+
+  const absentNums=sortedDB.filter(([n])=>!recent20.has(n)).slice(0,8)
+    .map(([n])=>`<span style="background:rgba(116,185,255,.15);border:1px solid rgba(116,185,255,.3);border-radius:8px;padding:4px 10px;font-family:monospace;font-weight:800;font-size:14px;color:#74b9ff">${n}</span>`).join('');
+
+  const aiPicks=sortedAll.slice(0,5)
+    .map(([n])=>`<span style="background:rgba(0,212,208,.15);border:1px solid rgba(0,212,208,.3);border-radius:8px;padding:5px 12px;font-family:monospace;font-weight:800;font-size:15px;color:#00d4d0">${n}</span>`).join('');
+
+  return `
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">🤖 AI Dự Đoán Kỳ Tới — ${ac.name}</div>
+    <p style="color:var(--text-secondary);font-size:13px">Phân tích tần suất <b>${draws.length} kỳ</b> lịch sử</p>
+  </div>
+
+  <div class="card ai-main" style="margin-bottom:16px;border:1.5px solid rgba(0,212,208,.4)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <span style="font-size:26px">🤖</span>
+      <div>
+        <div style="font-weight:800;font-size:15px;color:var(--accent-cyan)">AI Gợi Ý — Top 5 Số 3 Chữ Số</div>
+        <div style="font-size:12px;color:var(--text-muted)">Dựa trên tần suất xuất hiện ở tất cả các giải</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:16px;background:var(--bg-surface);border-radius:12px;margin-bottom:10px">
+      ${aiPicks}
+    </div>
+    <div class="pred-warn">⚠️ Max3D quay 1,000 số ngẫu nhiên mỗi kỳ — xác suất cao hơn. Gợi ý chỉ mang tính tham khảo!</div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">🔥 Top 15 Số ĐB Nóng Nhất</div>
+      <div style="overflow-x:auto"><table class="ptable">
+        <thead><tr><th>Số ĐB</th><th>Xuất hiện</th><th>Tỷ lệ</th><th>Biểu đồ</th></tr></thead>
+        <tbody>${topRows}</tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="card-title">❄️ Số ĐB Lâu Chưa Ra</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Không có trong 20 kỳ gần nhất:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">${absentNums||'<span style="color:var(--text-muted)">Không có</span>'}</div>
+    </div>
+  </div>`;
+}
+
+/* ── Main render ── */
+async function renderPredict(){
+  const el=document.getElementById('predict-content');
+  if(!el) return;
+  el.innerHTML='<div class="loading"><div class="spinner"></div><p>AI đang phân tích dữ liệu...</p></div>';
+
+  const rows=await loadData(S.lottery);
+  if(!rows||rows===ERR_NOT_FOUND){ el.innerHTML=errHtml(rows,'renderPredict'); return; }
+
+  const ac=getACFG(S.lottery);
+  const adapted=anlAdaptRows(rows,ac).filter(Boolean);
+
+  if(adapted.length<10){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">📊</div>
+      <h3 style="color:var(--text-primary)">Chưa đủ dữ liệu</h3>
+      <p style="color:var(--text-secondary)">Cần ít nhất 10 kỳ để AI phân tích. Hiện có ${adapted.length} kỳ.</p></div>`;
+    return;
+  }
+
+  el.innerHTML=ac.isMax3d ? predRenderMax3d(adapted,ac) : predRenderNum(adapted,ac);
+}
+
 function switchSub(sub){
   S.sub=sub;
   document.querySelectorAll('.stab').forEach(t=>t.classList.toggle('active',t.dataset.sub===sub));
@@ -2151,6 +2467,7 @@ function renderActive(){
     case 'analysis': renderAnalysis(); break;
     case 'prizes':   renderPrizes();   break;
     case 'aibot':    renderAIBot();    break;
+    case 'predict':  renderPredict();  break;
   }
 }
 
