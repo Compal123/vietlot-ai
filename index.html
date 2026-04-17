@@ -745,18 +745,8 @@ async function loadData(key, forceRefresh = false) {
     const rows = txt.trim().split('\n').filter(Boolean).map(l => JSON.parse(l));
     rows.sort((a,b) => b.date.localeCompare(a.date));
     S.cache[key] = rows;
-    // Keno: fetch live in background to fill any gap from GitHub Actions delay
-    if (key === 'keno') {
-      _mergeKenoLive(rows).then(({rows: merged, added}) => {
-        if (added > 0) {
-          S.cache['keno'] = merged;
-          _updateKenoLiveBadge(added, merged);
-          if (S.lottery === 'keno') renderActive();
-        } else {
-          _updateKenoLiveBadge(0, merged);
-        }
-      }).catch(() => {});
-    }
+    // Keno: check data freshness and warn if stale
+    if (key === 'keno') _updateKenoFreshness(rows);
     const d = rows[0];
     if (d) document.getElementById('hdr-date').textContent = fmtDate(d.date);
     // Show fetch time
@@ -775,78 +765,30 @@ async function loadData(key, forceRefresh = false) {
   }
 }
 
-// ─── Keno Live Direct Fetch (bypass GitHub Actions delay) ────────────────────
-// Browser tự fetch thẳng từ nguồn → không cần chờ cron chạy
-const _KENO_SRC   = 'https://www.ketquadientoan.com/ajax/fullviewtructiep.php?loaixs=keno';
-const _CORS_PROXY = ['https://corsproxy.io/?','https://api.allorigins.win/raw?url='];
-let   _kenoLiveTs = 0; // last successful live fetch timestamp
-
-function _parseKenoHTML(html){
-  const doc = new DOMParser().parseFromString(html,'text/html');
-  const out = []; let cur = null;
-  doc.querySelectorAll('tr').forEach(tr=>{
-    const tds=[...tr.querySelectorAll('td')];
-    if(!tds.length) return;
-    const first=tds[0].textContent.trim();
-    if(/^#\d{5,6}$/.test(first)){
-      const id=first.slice(1).padStart(6,'0');
-      const dt=(tds[1]?.textContent||'').replace(/\s+/g,' ').trim();
-      const dm=dt.match(/(\d{2})\/(\d{2})\/(\d{2,4})/);
-      const tm=dt.match(/(\d{1,2}:\d{2})/);
-      let date='',time='';
-      if(dm){let[,d,m,y]=dm;if(y.length===2)y='20'+y;date=`${y}-${m}-${d}`;}
-      if(tm) time=tm[1].padStart(5,'0');
-      const nums=tds.slice(2).map(td=>+td.textContent.trim()).filter(n=>n>=1&&n<=80);
-      cur={id,date,time,result:nums}; out.push(cur);
-    } else if(cur){
-      cur.result.push(...tds.map(td=>+td.textContent.trim()).filter(n=>n>=1&&n<=80));
-    }
-  });
-  return out.filter(d=>d.result.length===20);
-}
-
-async function _fetchKenoLive(){
-  for(const proxy of _CORS_PROXY){
-    try{
-      const ctrl=new AbortController();
-      const tid=setTimeout(()=>ctrl.abort(),8000);
-      const r=await fetch(proxy+encodeURIComponent(_KENO_SRC),{cache:'no-store',signal:ctrl.signal});
-      clearTimeout(tid);
-      if(!r.ok) continue;
-      const draws=_parseKenoHTML(await r.text());
-      if(draws.length){ _kenoLiveTs=Date.now(); return draws; }
-    }catch(e){/* thử proxy tiếp */}
+// ─── Keno Freshness Indicator ─────────────────────────────────────────────────
+// Hiển thị badge cảnh báo nếu kỳ Keno mới nhất > 20 phút (bị GitHub Actions delay)
+function _updateKenoFreshness(rows){
+  const el = document.getElementById('keno-live-badge');
+  if (!el) return;
+  if (!rows || !rows.length) { el.style.display='none'; return; }
+  const latest = rows[0];
+  if (!latest.time || !latest.date) { el.style.display='none'; return; }
+  // Parse thời gian kỳ mới nhất (VN time)
+  const [h,m] = latest.time.split(':').map(Number);
+  const [y,mo,d] = latest.date.split('-').map(Number);
+  const latestTs = new Date(y, mo-1, d, h, m, 0).getTime();
+  const nowVN = Date.now() + (7*3600*1000) - new Date().getTimezoneOffset()*60000;
+  const ageMin = Math.round((Date.now() - latestTs) / 60000);
+  if (S.lottery !== 'keno') { el.style.display='none'; return; }
+  if (ageMin > 20) {
+    el.textContent = `⏳ Kỳ mới nhất cách đây ${ageMin} phút`;
+    el.style.color = ageMin > 60 ? '#ff6b6b' : '#ffd166';
+    el.style.display = 'inline-flex';
+  } else {
+    el.textContent = `🟢 Keno cập nhật ${ageMin < 2 ? 'vừa xong' : ageMin+'p trước'}`;
+    el.style.color = '#4effa3';
+    el.style.display = 'inline-flex';
   }
-  return [];
-}
-
-async function _mergeKenoLive(rows){
-  const fresh=await _fetchKenoLive();
-  if(!fresh.length) return {rows,added:0};
-  const db={};
-  rows.forEach(r=>db[r.id]=r);
-  let added=0;
-  fresh.forEach(d=>{if(!db[d.id]){db[d.id]=d;added++;}
-    else if(!db[d.id].time&&d.time) db[d.id].time=d.time; // enrich missing time
-  });
-  if(!added) return {rows,added:0};
-  const merged=Object.values(db).sort((a,b)=>{
-    const ka=a.date+(a.time||''), kb=b.date+(b.time||'');
-    return kb.localeCompare(ka);
-  });
-  return {rows:merged,added};
-}
-
-function _updateKenoLiveBadge(added,draws){
-  const el=document.getElementById('keno-live-badge');
-  if(!el) return;
-  const latest=draws[0];
-  const t=latest?.time||'';
-  el.innerHTML=added>0
-    ? `🟢 Live +${added} kỳ mới ${t?'| '+t:''}`
-    : `🟢 Live kỳ #${latest?.id||'?'} ${t}`;
-  // Only show badge when user is on Keno tab
-  el.style.display = S.lottery==='keno' ? 'inline-flex' : 'none';
 }
 
 // ─── Jackpot live loader ───────────────────────────────────────────────────
@@ -2255,9 +2197,13 @@ function switchLottery(key){
   S.lottery=key;
   S.histPage=20;
   document.querySelectorAll('.ltab').forEach(t=>t.classList.toggle('active',t.dataset.key===key));
-  // Show/hide keno live badge based on tab
-  const badge = document.getElementById('keno-live-badge');
-  if (badge) badge.style.display = (key === 'keno' && badge.innerHTML) ? 'inline-flex' : 'none';
+  // Update keno freshness badge visibility on tab switch
+  if (key === 'keno' && S.cache['keno'] && Array.isArray(S.cache['keno'])) {
+    _updateKenoFreshness(S.cache['keno']);
+  } else {
+    const badge = document.getElementById('keno-live-badge');
+    if (badge) badge.style.display = 'none';
+  }
   renderActive();
 }
 
@@ -2807,6 +2753,13 @@ function renderActive(){
 ───────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', ()=>{
   renderResults();
+  // Cập nhật freshness badge mỗi phút (tính age mà không refetch)
+  setInterval(()=>{
+    if (S.lottery === 'keno' && S.cache['keno'] && Array.isArray(S.cache['keno'])) {
+      _updateKenoFreshness(S.cache['keno']);
+    }
+  }, 60 * 1000); // 1 phút
+
   // Auto-refresh Keno mỗi 8 phút (Keno quay mỗi ~8 phút)
   setInterval(()=>{
     const isKeno = S.lottery === 'keno';

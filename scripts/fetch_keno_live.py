@@ -86,8 +86,8 @@ def parse_keno_html(html):
             continue
 
         first = tds[0].get_text(strip=True)
-        if re.match(r"#\d{5,6}", first):
-            draw_id = first.lstrip("#").zfill(6)
+        if re.match(r"#\d{5,7}", first):
+            draw_id = first.lstrip("#").zfill(7)
             # Date/time in second td: "DD/MM/YY" and "HH:MM" in separate divs
             dt_td = tds[1] if len(tds) > 1 else None
             if dt_td:

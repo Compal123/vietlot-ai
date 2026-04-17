@@ -4,6 +4,9 @@ name: 🎰 Keno Live (mỗi 5 phút)
 # GitHub đảm bảo schedule tối thiểu mỗi 5 phút (chạy 1 phút không tin được)
 # → Chạy mỗi 5 phút, bắt đầu 06:05 VN đến 22:00 VN
 # → Keno quay 8 phút, ta chạy 5 phút → không bao giờ bỏ sót kỳ nào
+# → Kết hợp cả 2 nguồn:
+#    1. ketquadientoan.com  → ~6 kỳ mới nhất (nhanh, không bị block)
+#    2. vietlott.vn API     → ALL kỳ hôm nay + hôm qua (backfill mọi gap)
 
 on:
   schedule:
@@ -28,8 +31,12 @@ jobs:
 
       - run: pip install -q requests beautifulsoup4 lxml
 
-      - name: 🎰 Fetch Keno Live
+      - name: 🎰 Fetch Keno Live (ketquadientoan.com — ~6 kỳ mới nhất)
         run: python scripts/fetch_keno_live.py
+
+      - name: 🔄 Backfill hôm nay + hôm qua (vietlott.vn — toàn bộ kỳ)
+        run: python scripts/fetch_keno_vietlott.py --days 2
+        continue-on-error: true   # vietlott.vn đôi khi block GitHub Actions IP
 
       - name: 📝 Commit & Push
         run: |
@@ -39,7 +46,13 @@ jobs:
           if git diff --staged --quiet; then
             echo "⏭ Không có kỳ mới"
           else
-            git commit -m "keno: $(date +'%Y-%m-%d %H:%M UTC')"
+            LATEST=$(python3 -c "
+import json
+with open('data/keno.jsonl') as f:
+    d = json.loads(f.readline())
+print(f\"#{d.get('id','?')} {d.get('date','?')} {d.get('time','')}\")
+" 2>/dev/null || echo "?")
+            git commit -m "keno: ${LATEST} ($(date +'%H:%M UTC'))"
             git pull --rebase origin main
             git push
           fi
