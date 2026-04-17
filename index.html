@@ -644,19 +644,32 @@ const PRIZES = {
 };
 
 // Bảng giải Keno theo số chọn (chọn 1–10) × số trúng
-// [chọn, trúng, giải_vnd]  — vé 10,000đ
+// [chọn, trúng, giải_vnd]  — vé 10,000đ — theo bảng chính thức Vietlott
+// (*) trúng 0 cho chọn 8/9/10 = thưởng an ủi 10,000đ
 const KENO_PRIZES = [
-  [1,1, 20000],
-  [2,2, 50000],
-  [3,2, 10000],[3,3, 150000],
-  [4,3, 30000],[4,4, 600000],
-  [5,3, 20000],[5,4, 200000],[5,5, 3000000],
-  [6,4, 60000],[6,5, 800000],[6,6, 12000000],
-  [7,4, 30000],[7,5, 250000],[7,6, 3600000],[7,7, 50000000],
-  [8,0, 20000],[8,5, 100000],[8,6, 1200000],[8,7, 12000000],[8,8, 200000000],
-  [9,0, 20000],[9,5, 40000], [9,6, 300000], [9,7, 4000000],[9,8, 40000000],[9,9, 800000000],
-  [10,0,20000],[10,5,20000], [10,6,60000],  [10,7,400000],[10,8,6000000],[10,9,60000000],[10,10,2000000000],
+  // Chơi 1
+  [1,1,  20000],
+  // Chơi 2
+  [2,2,  90000],
+  // Chơi 3
+  [3,2,  20000],[3,3,  150000],
+  // Chơi 4
+  [4,2,  10000],[4,3,  200000],[4,4,  400000],
+  // Chơi 5
+  [5,3,  50000],[5,4,  150000],[5,5,  4400000],
+  // Chơi 6
+  [6,3,  10000],[6,4,  40000], [6,5,  450000], [6,6,  12500000],
+  // Chơi 7
+  [7,3,  10000],[7,4,  20000], [7,5,  100000], [7,6,  1200000],[7,7,  40000000],
+  // Chơi 8 (trúng 0 = an ủi 10k)
+  [8,0,  10000],[8,3,  10000], [8,4,  10000],  [8,5,  50000],  [8,6,  500000],[8,7,  5000000],[8,8,  200000000],
+  // Chơi 9 (trúng 0 = an ủi 10k)
+  [9,0,  10000],[9,4,  10000], [9,5,  30000],  [9,6,  150000], [9,7,  1500000],[9,8,  12000000],[9,9,  800000000],
+  // Chơi 10 (trúng 0 = an ủi 10k)
+  [10,0, 10000],[10,5, 20000], [10,6, 80000],  [10,7, 710000], [10,8, 8000000],[10,9, 150000000],[10,10,2000000000],
 ];
+// Giải jackpot tích lũy trong Keno (có dấu * trong bảng gốc)
+const KENO_JACKPOT_ROWS = new Set(['8,8','9,9','10,10']);
 
 /* ─────────────────────────────────────────
    STATE
@@ -1687,13 +1700,22 @@ function renderPrizes(){
   const isKeno = S.lottery === 'keno';
 
   // Jackpot warning banner (nếu có giải tích lũy)
-  const hasJackpot = pz.some(p=>p.jackpot);
+  const hasJackpot = isKeno ? true : pz.some(p=>p.jackpot);
+  const jackpotLink = isKeno
+    ? 'https://vietlott.vn/vi/choi/keno'
+    : (S.lottery==='power655' ? 'https://vietlott.vn/vi/choi/power-6-55'
+     : S.lottery==='power645' ? 'https://vietlott.vn/vi/choi/mega-6-45'
+     : S.lottery==='power535' ? 'https://vietlott.vn/vi/choi/lotto-5-35'
+     : 'https://vietlott.vn');
+  const jackpotNote = isKeno
+    ? 'Chọn 8 trúng 8, Chọn 9 trúng 9, Chọn 10 trúng 10 là <b>Jackpot tích lũy</b> (🔥) — giá trị thay đổi mỗi kỳ.'
+    : '<b>Giải Jackpot tích lũy</b> — Giá trị thay đổi mỗi kỳ, không cố định.';
   const jackpotBanner = hasJackpot ? `
     <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,204,68,.08);
       border:1px solid rgba(255,204,68,.3);border-radius:10px;margin-bottom:16px;font-size:13px">
       <span style="font-size:18px">⚡</span>
-      <span style="color:var(--accent-yellow)"><b>Giải Jackpot tích lũy</b> — Giá trị thay đổi mỗi kỳ, không cố định.<br>
-      <a href="https://vietlott.vn" target="_blank" rel="noopener"
+      <span style="color:var(--accent-yellow)">${jackpotNote}<br>
+      <a href="${jackpotLink}" target="_blank" rel="noopener"
          style="color:var(--accent-cyan);text-decoration:underline">Kiểm tra jackpot hiện tại tại vietlott.vn ↗</a></span>
     </div>` : '';
 
@@ -1725,11 +1747,18 @@ function renderPrizes(){
           CHỌN ${cho} SỐ
         </td>
       </tr>
-      ${rows.map(({trung,giai})=>`<tr>
-        <td style="padding-left:20px;color:var(--text-muted);font-size:12px">Trúng ${trung} số</td>
-        <td colspan="2" style="color:#22c55e;font-weight:700">${fmtMoney(giai)}</td>
-        <td></td>
-      </tr>`).join('')}
+      ${rows.map(({trung,giai})=>{
+        const isJP = KENO_JACKPOT_ROWS.has(`${cho},${trung}`);
+        const valStyle = isJP ? 'color:#ffcc44;font-weight:800' : 'color:#22c55e;font-weight:700';
+        const label = trung===0 ? 'Trúng 0 số (an ủi)' : `Trúng ${trung} số`;
+        const valText = isJP ? `🔥 ${fmtMoney(giai)} <span style="font-size:11px;color:var(--text-muted)">(tích lũy*)</span>` : fmtMoney(giai);
+        const rowBg = isJP ? 'background:rgba(255,204,68,.07)' : '';
+        return `<tr style="${rowBg}">
+          <td style="padding-left:20px;color:var(--text-muted);font-size:12px">${label}</td>
+          <td colspan="2" style="${valStyle}">${valText}</td>
+          <td></td>
+        </tr>`;
+      }).join('')}
     `).join('');
   } else {
     prizeBody = pz.map(prizeRow).join('');
