@@ -620,25 +620,32 @@ const PRIZES = {
     {name:'Giải KK',   cond:'2 số chính + số Đặc Biệt',       val:'10,000 đ',       prob:'1 / 44',          badge:'p5'},
   ],
   max3d:[
-    // Chơi 1 bộ 3 số — giải theo từng bộ quay
-    {name:'Giải ĐB',   cond:'Khớp chính xác 1 trong 2 số ĐB quay',    val:'1,000,000 đ',  prob:'2 / 1,000',   badge:'p1'},
-    {name:'Giải Nhất', cond:'Khớp chính xác 1 trong 4 số G1 quay',    val:'350,000 đ',    prob:'4 / 1,000',   badge:'p2'},
-    {name:'Giải Nhì',  cond:'Khớp chính xác 1 trong 6 số G2 quay',    val:'210,000 đ',    prob:'6 / 1,000',   badge:'p3'},
-    {name:'Giải Ba',   cond:'Khớp chính xác 1 trong 8 số G3 quay',    val:'100,000 đ',    prob:'8 / 1,000',   badge:'p4'},
-    // Chơi 2 bộ — giải đặc biệt khi cả 2 bộ cùng khớp ĐB
-    {name:'🏆 ĐB 2 Bộ',cond:'Cả 2 bộ cùng khớp 2 số ĐB (chỉ vé 2 bộ)',val:'1,000,000,000 đ',prob:'1/1,000,000',badge:'pj'},
+    // === Giải 2 bộ (chỉ khi chơi 2 bộ) ===
+    {name:'🏆 ĐB 2 Bộ',    cond:'Trùng 2 bộ Đặc Biệt đúng thứ tự',                         val:'1,000,000,000 đ', prob:'1 / 1,000,000', badge:'pj'},
+    {name:'Nhất 2 Bộ',     cond:'Trùng bất kỳ 2 trong 4 bộ giải Nhất',                      val:'40,000,000 đ',    prob:'',              badge:'p1'},
+    {name:'Nhì 2 Bộ',      cond:'Trùng bất kỳ 2 trong 6 bộ giải Nhì',                       val:'10,000,000 đ',    prob:'',              badge:'p2'},
+    {name:'Ba 2 Bộ',       cond:'Trùng bất kỳ 2 trong 8 bộ giải Ba',                        val:'5,000,000 đ',     prob:'',              badge:'p3'},
+    {name:'2 Bộ Bất Kỳ',   cond:'Trùng 2 bộ bất kỳ của giải ĐB, Nhất, Nhì hoặc Ba',        val:'1,000,000 đ',     prob:'',              badge:'p4'},
+    // === Giải 1 bộ đúng thứ tự ===
+    {name:'Giải ĐB',       cond:'Trùng 1 trong 2 bộ Đặc Biệt đúng thứ tự các số',          val:'1,000,000 đ',     prob:'2 / 1,000',     badge:'p4'},
+    {name:'Giải Nhất',     cond:'Trùng 1 trong 4 bộ Nhất đúng thứ tự các số',               val:'350,000 đ',       prob:'4 / 1,000',     badge:'p5'},
+    {name:'Giải Nhì',      cond:'Trùng 1 trong 6 bộ Nhì đúng thứ tự các số',                val:'210,000 đ',       prob:'6 / 1,000',     badge:'p6'},
+    // === Giải 1 bộ bất kỳ (đảo số) ===
+    {name:'ĐB Bất Kỳ',     cond:'Trùng 1 bộ Đặc Biệt bất kỳ (đảo số)',                     val:'150,000 đ',       prob:'',              badge:'p6'},
+    {name:'Giải Ba',       cond:'Trùng 1 trong 8 bộ Ba đúng thứ tự các số',                 val:'100,000 đ',       prob:'8 / 1,000',     badge:'p7'},
+    {name:'Nhất/Nhì/Ba BK',cond:'Trùng 1 bộ Nhất, Nhì hoặc Ba bất kỳ (đảo số)',            val:'40,000 đ',        prob:'',              badge:'p7'},
   ],
   max3dpro:[
-    // Người chơi chọn 2 bộ 3 số (000-999)
-    {name:'Giải ĐB',      cond:'2 bộ chọn khớp cả 2 số ĐB (đúng thứ tự)',    val:'2,000,000,000 đ', prob:'1 / 1,000,000',  badge:'pj'},
-    {name:'Giải ĐB Đảo',  cond:'2 bộ chọn khớp cả 2 số ĐB (đảo thứ tự)',     val:'400,000,000 đ',   prob:'1 / 500,000',    badge:'p1'},
-    {name:'Giải Nhất',    cond:'2 bộ cùng khớp 2 trong 4 số G1',              val:'30,000,000 đ',    prob:'6 / 1,000,000',  badge:'p2'},
-    {name:'Giải Nhì',     cond:'2 bộ cùng khớp 2 trong 6 số G2',              val:'10,000,000 đ',    prob:'15 / 1,000,000', badge:'p3'},
-    {name:'Giải Ba',      cond:'2 bộ cùng khớp 2 trong 8 số G3',              val:'4,000,000 đ',     prob:'28 / 1,000,000', badge:'p4'},
-    {name:'Giải Tư',      cond:'1 bộ chọn khớp 1 trong 2 số ĐB',              val:'1,000,000 đ',     prob:'2 / 1,000',      badge:'p5'},
-    {name:'Giải Năm',     cond:'1 bộ chọn khớp 1 trong 4 số G1',              val:'350,000 đ',       prob:'4 / 1,000',      badge:'p6'},
-    {name:'Giải Sáu',     cond:'1 bộ chọn khớp 1 trong 6 số G2',              val:'210,000 đ',       prob:'6 / 1,000',      badge:'p7'},
-    {name:'Giải Bảy',     cond:'1 bộ chọn khớp 1 trong 8 số G3',              val:'100,000 đ',       prob:'8 / 1,000',      badge:'p7'},
+    // === Giải 2 bộ ===
+    {name:'Giải ĐB',       cond:'2 bộ chọn khớp cả 2 số ĐB (đúng thứ tự)',                 val:'2,000,000,000 đ', prob:'1 / 1,000,000', badge:'pj'},
+    {name:'ĐB Phụ',        cond:'2 bộ chọn khớp cả 2 số ĐB (đảo thứ tự)',                  val:'400,000,000 đ',   prob:'1 / 500,000',   badge:'p1'},
+    {name:'Giải Nhất',     cond:'Trùng bất kỳ 2 trong 4 bộ giải Nhất',                      val:'30,000,000 đ',    prob:'',              badge:'p2'},
+    {name:'Giải Nhì',      cond:'Trùng bất kỳ 2 trong 6 bộ giải Nhì',                       val:'10,000,000 đ',    prob:'',              badge:'p3'},
+    {name:'Giải Ba',       cond:'Trùng bất kỳ 2 trong 8 bộ giải Ba',                        val:'4,000,000 đ',     prob:'',              badge:'p4'},
+    // === Giải 1 bộ ===
+    {name:'Giải Tư',       cond:'Trùng 02 bộ bất kỳ của giải ĐB, Nhất, Nhì hoặc Ba',       val:'1,000,000 đ',     prob:'',              badge:'p5'},
+    {name:'Giải Năm',      cond:'Trùng 01 bộ bất kỳ của giải Đặc Biệt',                     val:'100,000 đ',       prob:'',              badge:'p6'},
+    {name:'Giải Sáu',      cond:'Trùng 01 bộ bất kỳ của giải Nhất, Nhì hoặc Ba',            val:'40,000 đ',        prob:'',              badge:'p7'},
   ],
   keno: [], // Keno dùng KENO_PRIZES riêng — xem renderPrizes
 };
