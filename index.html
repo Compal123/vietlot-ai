@@ -731,6 +731,29 @@ async function loadData(key, forceRefresh = false) {
   }
 }
 
+// ─── Jackpot live loader ───────────────────────────────────────────────────
+let _jackpotCache = null;
+let _jackpotFetchTime = 0;
+async function loadJackpots(force = false) {
+  const AGE = 10 * 60 * 1000; // cache 10 phút
+  if (!force && _jackpotCache && Date.now() - _jackpotFetchTime < AGE) return _jackpotCache;
+  try {
+    const r = await fetch(RAW + 'jackpots.json?cb=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return null;
+    _jackpotCache = await r.json();
+    _jackpotFetchTime = Date.now();
+    return _jackpotCache;
+  } catch(e) {
+    return null;
+  }
+}
+function fmtJackpot(val) {
+  if (!val || val === 0) return null;
+  if (val >= 1e9) return (val / 1e9).toFixed(1).replace(/\.0$/, '') + ' tỷ';
+  if (val >= 1e6) return Math.round(val / 1e6) + ' triệu';
+  return val.toLocaleString('vi-VN') + ' đ';
+}
+
 async function refreshData() {
   const btn = document.getElementById('btn-refresh');
   if (btn) { btn.disabled = true; btn.textContent = '⏳'; }
@@ -1696,42 +1719,69 @@ async function renderAnalysis(){
 /* ─────────────────────────────────────────
    RENDER: PRIZES
 ───────────────────────────────────────── */
-function renderPrizes(){
+async function renderPrizes(){
   const el  = document.getElementById('prizes-content');
   const cfg = CFG[S.lottery];
   const pz  = PRIZES[S.lottery] || [];
   const isKeno = S.lottery === 'keno';
 
+  // Load jackpot live values
+  const jpData = await loadJackpots();
+  const jpGame = jpData ? (jpData[S.lottery] || {}) : {};
+  // Inject live values into prize array (clone to avoid mutating PRIZES)
+  const pzLive = pz.map(p => {
+    if (!p.jackpot) return p;
+    let liveVal = null;
+    if (p.name === 'Jackpot 1' || p.name === 'Jackpot')   liveVal = jpGame.jackpot1 || jpGame.jackpot;
+    if (p.name === 'Jackpot 2')                            liveVal = jpGame.jackpot2;
+    if (p.name === 'Độc Đắc')                              liveVal = jpGame.jackpot;
+    const fmtLive = liveVal ? fmtJackpot(liveVal) : null;
+    return { ...p, liveVal: fmtLive };
+  });
+
   // Jackpot warning banner (nếu có giải tích lũy)
-  const hasJackpot = isKeno ? false : pz.some(p=>p.jackpot);
-  const jackpotLink = isKeno
-    ? 'https://vietlott.vn/vi/choi/keno'
-    : (S.lottery==='power655' ? 'https://vietlott.vn/vi/choi/power-6-55'
+  const hasJackpot = isKeno ? false : pzLive.some(p=>p.jackpot);
+  const jackpotLink = S.lottery==='power655' ? 'https://vietlott.vn/vi/choi/power-6-55'
      : S.lottery==='power645' ? 'https://vietlott.vn/vi/choi/mega-6-45'
      : S.lottery==='power535' ? 'https://vietlott.vn/vi/choi/lotto-5-35'
-     : 'https://vietlott.vn');
-  const jackpotNote = isKeno
-    ? 'Chọn 8 trúng 8, Chọn 9 trúng 9, Chọn 10 trúng 10 là <b>Jackpot tích lũy</b> (🔥) — giá trị thay đổi mỗi kỳ.'
-    : '<b>Giải Jackpot tích lũy</b> — Giá trị thay đổi mỗi kỳ, không cố định.';
+     : 'https://vietlott.vn';
+
+  // Build live jackpot chips for banner
+  const jpChips = pzLive.filter(p=>p.jackpot && p.liveVal).map(p=>
+    `<span style="background:rgba(255,204,68,.15);border:1px solid rgba(255,204,68,.4);
+      border-radius:8px;padding:3px 10px;font-size:13px;font-weight:800;color:#ffcc44">
+      🔥 ${p.name}: ${p.liveVal}
+    </span>`
+  ).join(' ');
+  const jpUpdated = jpData && jpData.updated
+    ? `<span style="font-size:11px;color:var(--text-muted)">Cập nhật: ${new Date(jpData.updated).toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'})}</span>`
+    : '';
+
   const jackpotBanner = hasJackpot ? `
-    <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,204,68,.08);
-      border:1px solid rgba(255,204,68,.3);border-radius:10px;margin-bottom:16px;font-size:13px">
-      <span style="font-size:18px">⚡</span>
-      <span style="color:var(--accent-yellow)">${jackpotNote}<br>
-      <a href="${jackpotLink}" target="_blank" rel="noopener"
-         style="color:var(--accent-cyan);text-decoration:underline">Kiểm tra jackpot hiện tại tại vietlott.vn ↗</a></span>
+    <div style="padding:10px 14px;background:rgba(255,204,68,.06);
+      border:1px solid rgba(255,204,68,.3);border-radius:10px;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:${jpChips?'8px':'0'}">
+        <span style="font-size:18px">⚡</span>
+        <span style="color:var(--accent-yellow);font-size:13px"><b>Jackpot tích lũy</b> — thay đổi mỗi kỳ.</span>
+        <a href="${jackpotLink}" target="_blank" rel="noopener"
+           style="color:var(--accent-cyan);font-size:12px;text-decoration:underline;margin-left:auto">vietlott.vn ↗</a>
+      </div>
+      ${jpChips ? `<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">${jpChips} ${jpUpdated}</div>` : ''}
     </div>` : '';
 
   // Prize table rows — jackpot rows get special styling
   function prizeRow(p){
     const valStyle = p.jackpot
-      ? 'color:#ffcc44;font-weight:800;animation:jackpotGlow 2.5s infinite'
+      ? 'color:#ffcc44;font-weight:800'
       : 'color:#22c55e;font-weight:700';
-    const valText = p.jackpot ? `🔥 ${p.val} <span style="font-size:10px;opacity:.7">(tích lũy)</span>` : p.val;
+    const live = p.liveVal
+      ? `<span style="display:block;font-size:15px;color:#ffcc44;font-weight:800">🔥 ${p.liveVal}</span>
+         <span style="font-size:11px;color:var(--text-muted)">tối thiểu ${p.val}</span>`
+      : (p.jackpot ? `🔥 ${p.val} <span style="font-size:10px;opacity:.7">(tích lũy)</span>` : p.val);
     return `<tr ${p.jackpot?'style="background:rgba(255,204,68,.04)"':''}>
       <td><span class="pbadge ${p.badge}">${p.name}</span></td>
       <td style="color:var(--text-primary)">${p.cond}</td>
-      <td style="${valStyle}">${valText}</td>
+      <td style="${valStyle}">${live}</td>
       <td style="color:var(--text-muted);font-size:12.5px">${p.prob}</td>
     </tr>`;
   }
@@ -1764,7 +1814,7 @@ function renderPrizes(){
       }).join('')}
     `).join('');
   } else {
-    prizeBody = pz.map(prizeRow).join('');
+    prizeBody = pzLive.map(prizeRow).join('');
   }
 
   const tableHeaders = isKeno

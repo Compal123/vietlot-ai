@@ -50,14 +50,18 @@ jobs:
           done
           echo "FOUND=$FOUND" >> $GITHUB_ENV
 
+      - name: 💰 Fetch Jackpot tích lũy
+        run: python scripts/fetch_jackpots.py
+
       - name: 📝 Commit & Push
         run: |
-          if [ "$FOUND" = "1" ]; then
-            git config user.name  "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "⏭ Không có dữ liệu mới"
+          else
             git commit -m "data: cập nhật $(date +'%Y-%m-%d %H:%M UTC')"
             git pull --rebase origin main
             git push
-          else
-            echo "⏭ Không có dữ liệu mới sau 3 lần thử"
           fi
