@@ -1,12 +1,17 @@
 name: 🎰 Cập nhật dữ liệu hàng ngày
 
-# Chạy 18:30 VN (11:30 UTC) mỗi ngày
-# Lấy kết quả Power655, Power645, Lotto535, Max3D, Max3D Pro
-# từ ketquadientoan.com — không cần proxy, không bị block
+# Lịch quay (giờ VN):
+#   Power 6/55  : Thứ 3, 5, 7 — 18:00
+#   Mega 6/45   : Thứ 4, 6, CN — 18:00
+#   Max3D       : Thứ 2, 4, 6  — 18:00
+#   Max3D Pro   : Thứ 3, 5, 7  — 18:00
+#
+# → Chạy lúc 19:05 VN (12:05 UTC) — 65 phút sau giờ quay
+# → Tự động thử lại ngay tối đa 3 lần nếu chưa có kết quả
 
 on:
   schedule:
-    - cron: '30 11 * * *'   # 18:30 VN hàng ngày
+    - cron: '5 12 * * *'   # 19:05 VN hàng ngày
   workflow_dispatch:
 
 jobs:
@@ -24,21 +29,35 @@ jobs:
 
       - run: pip install -q -r requirements.txt
 
-      - name: 🎰 Fetch kết quả mới
+      - name: 🎰 Fetch kết quả (tự động thử lại tối đa 3 lần)
         run: |
-          DELAY=$(( RANDOM % 60 + 5 ))
-          echo "⏳ Random delay ${DELAY}s..."
-          sleep $DELAY
-          python scripts/fetch_ketqua.py
+          FOUND=0
+          for attempt in 1 2 3; do
+            echo "🔄 Lần thử $attempt/3..."
+            python scripts/fetch_ketqua.py
+            git add data/
+            if ! git diff --staged --quiet; then
+              echo "✅ Có dữ liệu mới ở lần thử $attempt"
+              FOUND=1
+              break
+            fi
+            # Unstage để lần sau stage lại sạch
+            git restore --staged data/ 2>/dev/null || git reset HEAD data/ 2>/dev/null || true
+            if [ $attempt -lt 3 ]; then
+              echo "⏳ Chưa có kết quả, thử lại sau 30s..."
+              sleep 30
+            fi
+          done
+          echo "FOUND=$FOUND" >> $GITHUB_ENV
 
       - name: 📝 Commit & Push
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
-          if git diff --staged --quiet; then
-            echo "⏭ Không có dữ liệu mới"
-          else
+          if [ "$FOUND" = "1" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
             git commit -m "data: cập nhật $(date +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main
             git push
+          else
+            echo "⏭ Không có dữ liệu mới sau 3 lần thử"
           fi

@@ -1,13 +1,14 @@
-name: 🎰 Keno Live (mỗi 5 phút)
+name: 🎰 Keno Live (mỗi 8 phút)
 
-# Keno quay mỗi ~8 phút từ ~06:00-22:00 VN
-# Chạy mỗi 5 phút → bắt kỳ mới trong vòng 5 phút
-# Ngoài giờ quay → không có data mới → skip commit
-# Repo public → không giới hạn phút GitHub Actions
+# Keno quay mỗi ~8 phút từ 06:00–22:00 VN (ICT = UTC+7)
+# → Chạy từ 06:10 VN, mỗi 8 phút (offset +10 để kết quả kịp cập nhật)
+# → 06:10, 06:18, 06:26 ... 21:58, 22:06 VN
+# → Dừng sau 22:00 VN — không chạy ban đêm, tiết kiệm Actions minutes
 
 on:
   schedule:
-    - cron: '*/5 * * * *'    # mỗi 5 phút
+    - cron: '10-58/8 23 * * *'   # 06:10–06:58 VN  (23:10–23:58 UTC)
+    - cron: '10-58/8 0-15 * * *' # 07:10–22:58 VN  (00:10–15:58 UTC)
   workflow_dispatch:
 
 jobs:
@@ -22,7 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'   # cache pip packages → nhanh hơn (~30s/run)
+          cache: 'pip'
 
       - run: pip install -q requests beautifulsoup4 lxml
 
@@ -38,5 +39,6 @@ jobs:
             echo "⏭ Không có kỳ mới"
           else
             git commit -m "keno: $(date +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main
             git push
           fi

@@ -1,11 +1,14 @@
 name: 🎯 Lotto 5/35 (2 kỳ mỗi ngày)
 
-# Lotto 5/35 quay 2 lần/ngày: 13:00 và 21:00 VN
-# Chạy sau 21:15 VN (14:15 UTC) để lấy cả 2 kỳ trong ngày
+# Lotto 5/35 quay 2 lần/ngày:
+#   Kỳ chiều : 13:00 VN → chạy lúc 13:05 VN (06:05 UTC)
+#   Kỳ tối   : 21:00 VN → chạy lúc 21:05 VN (14:05 UTC)
+# → Tự động thử lại ngay tối đa 3 lần nếu chưa có kết quả
 
 on:
   schedule:
-    - cron: '15 14 * * *'   # 21:15 VN
+    - cron: '5 6 * * *'    # 13:05 VN — kỳ chiều
+    - cron: '5 14 * * *'   # 21:05 VN — kỳ tối
   workflow_dispatch:
 
 jobs:
@@ -23,21 +26,34 @@ jobs:
 
       - run: pip install -q -r requirements.txt
 
-      - name: 🎯 Fetch Lotto 5/35
+      - name: 🎯 Fetch Lotto 5/35 (tự động thử lại tối đa 3 lần)
         run: |
-          DELAY=$(( RANDOM % 30 + 5 ))
-          echo "⏳ Random delay ${DELAY}s..."
-          sleep $DELAY
-          python scripts/fetch_ketqua.py power535
+          FOUND=0
+          for attempt in 1 2 3; do
+            echo "🔄 Lần thử $attempt/3..."
+            python scripts/fetch_ketqua.py power535
+            git add data/power535.jsonl 2>/dev/null || true
+            if ! git diff --staged --quiet; then
+              echo "✅ Có dữ liệu mới ở lần thử $attempt"
+              FOUND=1
+              break
+            fi
+            git restore --staged data/ 2>/dev/null || git reset HEAD data/ 2>/dev/null || true
+            if [ $attempt -lt 3 ]; then
+              echo "⏳ Chưa có kết quả, thử lại sau 30s..."
+              sleep 30
+            fi
+          done
+          echo "FOUND=$FOUND" >> $GITHUB_ENV
 
       - name: 📝 Commit & Push
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/power535.jsonl 2>/dev/null || true
-          if git diff --staged --quiet; then
-            echo "⏭ Không có dữ liệu mới"
-          else
+          if [ "$FOUND" = "1" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
             git commit -m "lotto535: $(date +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main
             git push
+          else
+            echo "⏭ Không có dữ liệu mới sau 3 lần thử"
           fi
