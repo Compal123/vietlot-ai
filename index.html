@@ -592,52 +592,71 @@ const CFG = {
   keno:     { name:'Keno',       icon:'🎲', file:'keno.jsonl',     type:'num', main:20,special:0, max:80, price:10000, color:'#4effa3', desc:'Rút 20 số từ 1-80' },
 };
 
+// jackpot:true = giải tích lũy, thay đổi mỗi kỳ → hiển thị cảnh báo riêng
 const PRIZES = {
   power655:[
-    {name:'Jackpot 1', cond:'6 số + Power',    val:'≥ 40 tỷ VND',       prob:'1 / 302,575,350', badge:'pj'},
-    {name:'Jackpot 2', cond:'6 số chính xác',  val:'≥ 10 tỷ VND',       prob:'1 / 5,245,786',   badge:'p1'},
-    {name:'Giải Nhất', cond:'5 số + Power',    val:'40,000,000 đ',       prob:'1 / 1,187,016',   badge:'p2'},
-    {name:'Giải Nhì',  cond:'5 số chính xác',  val:'500,000 đ',          prob:'1 / 20,724',      badge:'p3'},
-    {name:'Giải Ba',   cond:'4 số + Power',    val:'500,000 đ',          prob:'1 / 14,493',      badge:'p4'},
-    {name:'Giải Tư',   cond:'4 số chính xác',  val:'50,000 đ',           prob:'1 / 253',         badge:'p5'},
-    {name:'Giải Năm',  cond:'3 số + Power',    val:'50,000 đ',           prob:'1 / 188',         badge:'p6'},
-    {name:'Giải Sáu',  cond:'3 số chính xác',  val:'30,000 đ',           prob:'1 / 34',          badge:'p7'},
-    {name:'Giải Bảy',  cond:'2 số + Power',    val:'30,000 đ',           prob:'1 / 33',          badge:'p7'},
+    {name:'Jackpot 1', cond:'6 số chính + số Power',          val:'≥ 30 tỷ',        prob:'1 / 302,575,350', badge:'pj', jackpot:true},
+    {name:'Jackpot 2', cond:'6 số chính (không cần Power)',    val:'≥ 3 tỷ',         prob:'1 / 5,245,786',   badge:'p1', jackpot:true},
+    {name:'Giải Nhất', cond:'5 số chính + số Power',          val:'40,000,000 đ',   prob:'1 / 1,187,016',   badge:'p2'},
+    {name:'Giải Nhì',  cond:'5 số chính (không Power)',        val:'500,000 đ',      prob:'1 / 20,724',      badge:'p3'},
+    {name:'Giải Ba',   cond:'4 số chính + số Power',          val:'500,000 đ',      prob:'1 / 14,493',      badge:'p4'},
+    {name:'Giải Tư',   cond:'4 số chính (không Power)',        val:'50,000 đ',       prob:'1 / 253',         badge:'p5'},
+    {name:'Giải Năm',  cond:'3 số chính + số Power',          val:'50,000 đ',       prob:'1 / 188',         badge:'p6'},
+    {name:'Giải Sáu',  cond:'3 số chính (không Power)',        val:'30,000 đ',       prob:'1 / 34',          badge:'p7'},
+    {name:'Giải Bảy',  cond:'2 số chính + số Power',          val:'30,000 đ',       prob:'1 / 33',          badge:'p7'},
   ],
   power645:[
-    {name:'Jackpot',   cond:'6 số chính xác',  val:'≥ 12 tỷ VND',       prob:'1 / 8,145,060',   badge:'pj'},
-    {name:'Giải Nhất', cond:'5 số chính xác',  val:'10,000,000 đ',       prob:'1 / 34,808',      badge:'p1'},
-    {name:'Giải Nhì',  cond:'4 số chính xác',  val:'300,000 đ',          prob:'1 / 733',         badge:'p2'},
-    {name:'Giải Ba',   cond:'3 số chính xác',  val:'30,000 đ',           prob:'1 / 45',          badge:'p3'},
+    {name:'Jackpot',   cond:'6 số chính xác',                 val:'≥ 12 tỷ',        prob:'1 / 8,145,060',   badge:'pj', jackpot:true},
+    {name:'Giải Nhất', cond:'5 số chính xác',                 val:'10,000,000 đ',   prob:'1 / 34,808',      badge:'p1'},
+    {name:'Giải Nhì',  cond:'4 số chính xác',                 val:'300,000 đ',      prob:'1 / 733',         badge:'p2'},
+    {name:'Giải Ba',   cond:'3 số chính xác',                 val:'30,000 đ',       prob:'1 / 45',          badge:'p3'},
   ],
   power535:[
-    {name:'Jackpot 1', cond:'5 số + số ĐB',    val:'≥ 2 tỷ VND',        prob:'1 / 10,737,573',  badge:'pj'},
-    {name:'Jackpot 2', cond:'5 số chính xác',  val:'≥ 20 triệu VND',    prob:'1 / 324,632',     badge:'p1'},
-    {name:'Giải Nhất', cond:'4 số chính xác',  val:'1,000,000 đ',       prob:'1 / 2,195',       badge:'p2'},
-    {name:'Giải Nhì',  cond:'3 số chính xác',  val:'100,000 đ',         prob:'1 / 76',          badge:'p3'},
-    {name:'Giải Ba',   cond:'2 số + số ĐB',    val:'40,000 đ',          prob:'1 / 44',          badge:'p4'},
+    {name:'Jackpot',   cond:'5 số chính + số Đặc Biệt',       val:'≥ 6 tỷ',         prob:'1 / 10,737,573',  badge:'pj', jackpot:true},
+    {name:'Giải Nhất', cond:'5 số chính (không cần ĐB)',       val:'10,000,000 đ',   prob:'1 / 324,632',     badge:'p1'},
+    {name:'Giải Nhì',  cond:'4 số chính + số Đặc Biệt',       val:'500,000 đ',      prob:'1 / 4,096',       badge:'p2'},
+    {name:'Giải Ba',   cond:'4 số chính (không ĐB)',           val:'100,000 đ',      prob:'1 / 682',         badge:'p3'},
+    {name:'Giải Tư',   cond:'3 số chính + số Đặc Biệt',       val:'30,000 đ',       prob:'1 / 113',         badge:'p4'},
+    {name:'Giải KK',   cond:'2 số chính + số Đặc Biệt',       val:'10,000 đ',       prob:'1 / 44',          badge:'p5'},
   ],
   max3d:[
-    {name:'Giải ĐB',   cond:'Khớp ĐB chính xác',   val:'1,000,000,000 đ', prob:'1 / 1,000',  badge:'pj'},
-    {name:'Giải Nhất', cond:'Khớp G1 chính xác',    val:'10,000,000 đ',    prob:'1 / 1,000',  badge:'p1'},
-    {name:'Giải Nhì',  cond:'Khớp G2 chính xác',    val:'1,000,000 đ',     prob:'1 / 1,000',  badge:'p2'},
-    {name:'Giải Ba',   cond:'Khớp G3 chính xác',    val:'100,000 đ',       prob:'1 / 1,000',  badge:'p3'},
+    // Chơi 1 bộ 3 số — giải theo từng bộ quay
+    {name:'Giải ĐB',   cond:'Khớp chính xác 1 trong 2 số ĐB quay',    val:'1,000,000 đ',  prob:'2 / 1,000',   badge:'p1'},
+    {name:'Giải Nhất', cond:'Khớp chính xác 1 trong 4 số G1 quay',    val:'350,000 đ',    prob:'4 / 1,000',   badge:'p2'},
+    {name:'Giải Nhì',  cond:'Khớp chính xác 1 trong 6 số G2 quay',    val:'210,000 đ',    prob:'6 / 1,000',   badge:'p3'},
+    {name:'Giải Ba',   cond:'Khớp chính xác 1 trong 8 số G3 quay',    val:'100,000 đ',    prob:'8 / 1,000',   badge:'p4'},
+    // Chơi 2 bộ — giải đặc biệt khi cả 2 bộ cùng khớp ĐB
+    {name:'🏆 ĐB 2 Bộ',cond:'Cả 2 bộ cùng khớp 2 số ĐB (chỉ vé 2 bộ)',val:'1,000,000,000 đ',prob:'1/1,000,000',badge:'pj'},
   ],
   max3dpro:[
-    {name:'Giải ĐB',   cond:'Khớp ĐB chính xác',   val:'2,000,000,000 đ', prob:'1 / 1,000,000', badge:'pj'},
-    {name:'Giải Nhất', cond:'Khớp G1 chính xác',    val:'40,000,000 đ',    prob:'1 / 1,000',  badge:'p1'},
-    {name:'Giải Nhì',  cond:'Khớp G2 chính xác',    val:'4,000,000 đ',     prob:'1 / 1,000',  badge:'p2'},
-    {name:'Giải Ba',   cond:'Khớp G3 chính xác',    val:'400,000 đ',       prob:'1 / 1,000',  badge:'p3'},
+    // Người chơi chọn 2 bộ 3 số (000-999)
+    {name:'Giải ĐB',      cond:'2 bộ chọn khớp cả 2 số ĐB (đúng thứ tự)',    val:'2,000,000,000 đ', prob:'1 / 1,000,000',  badge:'pj'},
+    {name:'Giải ĐB Đảo',  cond:'2 bộ chọn khớp cả 2 số ĐB (đảo thứ tự)',     val:'400,000,000 đ',   prob:'1 / 500,000',    badge:'p1'},
+    {name:'Giải Nhất',    cond:'2 bộ cùng khớp 2 trong 4 số G1',              val:'30,000,000 đ',    prob:'6 / 1,000,000',  badge:'p2'},
+    {name:'Giải Nhì',     cond:'2 bộ cùng khớp 2 trong 6 số G2',              val:'10,000,000 đ',    prob:'15 / 1,000,000', badge:'p3'},
+    {name:'Giải Ba',      cond:'2 bộ cùng khớp 2 trong 8 số G3',              val:'4,000,000 đ',     prob:'28 / 1,000,000', badge:'p4'},
+    {name:'Giải Tư',      cond:'1 bộ chọn khớp 1 trong 2 số ĐB',              val:'1,000,000 đ',     prob:'2 / 1,000',      badge:'p5'},
+    {name:'Giải Năm',     cond:'1 bộ chọn khớp 1 trong 4 số G1',              val:'350,000 đ',       prob:'4 / 1,000',      badge:'p6'},
+    {name:'Giải Sáu',     cond:'1 bộ chọn khớp 1 trong 6 số G2',              val:'210,000 đ',       prob:'6 / 1,000',      badge:'p7'},
+    {name:'Giải Bảy',     cond:'1 bộ chọn khớp 1 trong 8 số G3',              val:'100,000 đ',       prob:'8 / 1,000',      badge:'p7'},
   ],
-  keno:[
-    {name:'Chọn 1',    cond:'1 số trùng',           val:'20,000 đ',        prob:'1 / 4',       badge:'p4'},
-    {name:'Chọn 2',    cond:'2 số trùng',           val:'50,000 đ',        prob:'~1 / 15',     badge:'p3'},
-    {name:'Chọn 3',    cond:'3 số trùng',           val:'150,000 đ',       prob:'~1 / 72',     badge:'p2'},
-    {name:'Chọn 4',    cond:'4 số trùng',           val:'600,000 đ',       prob:'~1 / 326',    badge:'p1'},
-    {name:'Chọn 5',    cond:'5 số trùng',           val:'3,000,000 đ',     prob:'~1 / 1,551',  badge:'pj'},
-    {name:'Chọn 6-10', cond:'Trùng tất cả',         val:'Đến hàng tỷ đ',  prob:'Rất thấp',    badge:'pj'},
-  ],
+  keno: [], // Keno dùng KENO_PRIZES riêng — xem renderPrizes
 };
+
+// Bảng giải Keno theo số chọn (chọn 1–10) × số trúng
+// [chọn, trúng, giải_vnd]  — vé 10,000đ
+const KENO_PRIZES = [
+  [1,1, 20000],
+  [2,2, 50000],
+  [3,2, 10000],[3,3, 150000],
+  [4,3, 30000],[4,4, 600000],
+  [5,3, 20000],[5,4, 200000],[5,5, 3000000],
+  [6,4, 60000],[6,5, 800000],[6,6, 12000000],
+  [7,4, 30000],[7,5, 250000],[7,6, 3600000],[7,7, 50000000],
+  [8,0, 20000],[8,5, 100000],[8,6, 1200000],[8,7, 12000000],[8,8, 200000000],
+  [9,0, 20000],[9,5, 40000], [9,6, 300000], [9,7, 4000000],[9,8, 40000000],[9,9, 800000000],
+  [10,0,20000],[10,5,20000], [10,6,60000],  [10,7,400000],[10,8,6000000],[10,9,60000000],[10,10,2000000000],
+];
 
 /* ─────────────────────────────────────────
    STATE
@@ -1665,21 +1684,70 @@ function renderPrizes(){
   const el  = document.getElementById('prizes-content');
   const cfg = CFG[S.lottery];
   const pz  = PRIZES[S.lottery] || [];
+  const isKeno = S.lottery === 'keno';
+
+  // Jackpot warning banner (nếu có giải tích lũy)
+  const hasJackpot = pz.some(p=>p.jackpot);
+  const jackpotBanner = hasJackpot ? `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,204,68,.08);
+      border:1px solid rgba(255,204,68,.3);border-radius:10px;margin-bottom:16px;font-size:13px">
+      <span style="font-size:18px">⚡</span>
+      <span style="color:var(--accent-yellow)"><b>Giải Jackpot tích lũy</b> — Giá trị thay đổi mỗi kỳ, không cố định.<br>
+      <a href="https://vietlott.vn" target="_blank" rel="noopener"
+         style="color:var(--accent-cyan);text-decoration:underline">Kiểm tra jackpot hiện tại tại vietlott.vn ↗</a></span>
+    </div>` : '';
+
+  // Prize table rows — jackpot rows get special styling
+  function prizeRow(p){
+    const valStyle = p.jackpot
+      ? 'color:#ffcc44;font-weight:800;animation:jackpotGlow 2.5s infinite'
+      : 'color:#22c55e;font-weight:700';
+    const valText = p.jackpot ? `🔥 ${p.val} <span style="font-size:10px;opacity:.7">(tích lũy)</span>` : p.val;
+    return `<tr ${p.jackpot?'style="background:rgba(255,204,68,.04)"':''}>
+      <td><span class="pbadge ${p.badge}">${p.name}</span></td>
+      <td style="color:var(--text-primary)">${p.cond}</td>
+      <td style="${valStyle}">${valText}</td>
+      <td style="color:var(--text-muted);font-size:12.5px">${p.prob}</td>
+    </tr>`;
+  }
+
+  // Keno: 2D table by selection count
+  let prizeBody = '';
+  if(isKeno){
+    const groups = {};
+    KENO_PRIZES.forEach(([cho,trung,giai])=>{
+      if(!groups[cho]) groups[cho]=[];
+      groups[cho].push({trung,giai});
+    });
+    prizeBody = Object.entries(groups).map(([cho,rows])=>`
+      <tr style="background:rgba(78,255,163,.05)">
+        <td colspan="4" style="font-weight:800;color:var(--accent-green);padding:8px 12px;font-size:12px;letter-spacing:.5px">
+          CHỌN ${cho} SỐ
+        </td>
+      </tr>
+      ${rows.map(({trung,giai})=>`<tr>
+        <td style="padding-left:20px;color:var(--text-muted);font-size:12px">Trúng ${trung} số</td>
+        <td colspan="2" style="color:#22c55e;font-weight:700">${fmtMoney(giai)}</td>
+        <td></td>
+      </tr>`).join('')}
+    `).join('');
+  } else {
+    prizeBody = pz.map(prizeRow).join('');
+  }
+
+  const tableHeaders = isKeno
+    ? '<th>Mức chọn</th><th colspan="2">Giải thưởng</th><th></th>'
+    : '<th>Giải</th><th>Điều Kiện Trúng</th><th>Giá Trị</th><th>Xác Suất</th>';
 
   let h=`<div class="card" style="margin-bottom:20px">
     <div class="card-title">${cfg.icon} ${cfg.name} — Cơ Cấu Giải Thưởng</div>
-    <p style="color:var(--text-secondary);font-size:13.5px;margin-bottom:20px">${cfg.desc}</p>
+    <p style="color:var(--text-secondary);font-size:13.5px;margin-bottom:16px">${cfg.desc}</p>
+    ${jackpotBanner}
+    ${isKeno?'<p style="font-size:12px;color:var(--text-muted);margin-bottom:10px">Giá vé 10,000đ • Rút 20 số từ 1–80 mỗi kỳ. Bảng bên dưới theo số bạn chọn:</p>':''}
     <div style="overflow-x:auto">
     <table class="ptable">
-      <thead><tr><th>Giải</th><th>Điều Kiện Trúng</th><th>Giá Trị</th><th>Xác Suất</th></tr></thead>
-      <tbody>
-        ${pz.map(p=>`<tr>
-          <td><span class="pbadge ${p.badge}">${p.name}</span></td>
-          <td style="color:var(--text-primary)">${p.cond}</td>
-          <td style="color:#22c55e;font-weight:700">${p.val}</td>
-          <td style="color:var(--text-muted);font-size:12.5px">${p.prob}</td>
-        </tr>`).join('')}
-      </tbody>
+      <thead><tr>${tableHeaders}</tr></thead>
+      <tbody>${prizeBody}</tbody>
     </table>
     </div>
   </div>
