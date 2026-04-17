@@ -1,0 +1,47 @@
+name: 📄 Deploy GitHub Pages
+
+# Deploy mỗi 1 phút trong giờ Keno hoạt động (06:10–22:00 VN)
+# + deploy ngay khi có push mới lên main (từ keno-live, update-data, v.v.)
+# Yêu cầu: Settings > Pages > Source = "GitHub Actions"
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '10-59 23 * * *'  # 06:10–06:59 VN
+    - cron: '* 0-14 * * *'    # 07:00–21:59 VN
+    - cron: '0 15 * * *'      # 22:00 VN (lần cuối)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Chỉ chạy 1 deployment tại 1 thời điểm, hủy run đang chờ nếu có run mới hơn
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: 📦 Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'   # toàn bộ repo (index.html + data/)
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,14 +1,16 @@
-name: 🎰 Keno Live (mỗi 8 phút)
+name: 🎰 Keno Live (mỗi 1 phút)
 
 # Keno quay mỗi ~8 phút từ 06:00–22:00 VN (ICT = UTC+7)
-# → Chạy từ 06:10 VN, mỗi 8 phút (offset +10 để kết quả kịp cập nhật)
-# → 06:10, 06:18, 06:26 ... 21:58, 22:06 VN
-# → Dừng sau 22:00 VN — không chạy ban đêm, tiết kiệm Actions minutes
+# → Chạy mỗi 1 phút, bắt đầu 06:10 VN đến 22:00 VN
+# → 06:10–06:59 VN : cron '10-59 23 * * *'
+# → 07:00–21:59 VN : cron '* 0-14 * * *'
+# → 22:00 VN (chạy lần cuối) : cron '0 15 * * *'
 
 on:
   schedule:
-    - cron: '10-58/8 23 * * *'   # 06:10–06:58 VN  (23:10–23:58 UTC)
-    - cron: '10-58/8 0-15 * * *' # 07:10–22:58 VN  (00:10–15:58 UTC)
+    - cron: '10-59 23 * * *'  # 06:10–06:59 VN
+    - cron: '* 0-14 * * *'    # 07:00–21:59 VN
+    - cron: '0 15 * * *'      # 22:00 VN (lần cuối)
   workflow_dispatch:
 
 jobs:
