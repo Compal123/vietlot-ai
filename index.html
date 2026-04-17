@@ -578,7 +578,10 @@ body::before{
 /* ─────────────────────────────────────────
    CONFIG
 ───────────────────────────────────────── */
-const RAW = 'https://raw.githubusercontent.com/compal123/vietlot-ai/main/data/';
+// Dùng Pages URL thay vì raw.githubusercontent.com
+// → Pages redeploy mỗi 1 phút → data luôn mới sau mỗi kỳ Keno
+// → Không bị CDN cache 5 phút như raw.githubusercontent.com
+const RAW = 'https://compal123.github.io/vietlot-ai/data/';
 
 const CFG = {
   power655: { name:'Power 6/55', icon:'⚡', file:'power655.jsonl', type:'num', main:6, special:1, max:55, price:10000, color:'#ff6bb5', desc:'Chọn 6 số (1-55) + 1 số Power' },

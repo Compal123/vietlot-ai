@@ -3,6 +3,10 @@ name: 📄 Deploy GitHub Pages
 # Deploy mỗi 1 phút trong giờ Keno hoạt động (06:10–22:00 VN)
 # + deploy ngay khi có push mới lên main (từ keno-live, update-data, v.v.)
 # Yêu cầu: Settings > Pages > Source = "GitHub Actions"
+#
+# Sau khi deploy, index.html sẽ fetch data từ:
+#   https://compal123.github.io/vietlot-ai/data/keno.jsonl
+# → mỗi Pages deploy = data mới, không bị CDN cache như raw.githubusercontent.com
 
 on:
   push:
@@ -18,7 +22,7 @@ permissions:
   pages: write
   id-token: write
 
-# Chỉ chạy 1 deployment tại 1 thời điểm, hủy run đang chờ nếu có run mới hơn
+# Hủy run đang chờ nếu có run mới hơn → luôn deploy version mới nhất
 concurrency:
   group: github-pages
   cancel-in-progress: true
@@ -31,16 +35,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: 📥 Checkout
+      - name: 📥 Checkout (chỉ lấy file cần thiết)
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            index.html
+            data
 
       - name: ⚙️ Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: 📦 Upload artifact
+      - name: 📦 Upload artifact (index.html + data/)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'   # toàn bộ repo (index.html + data/)
+          path: '.'
 
       - name: 🚀 Deploy to GitHub Pages
         id: deployment
