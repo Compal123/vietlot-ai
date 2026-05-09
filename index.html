@@ -994,6 +994,40 @@ async function renderResults(){
   const hot  = getHot(rows, cfg);
   const cold = getCold(rows, cfg);
 
+  /* ── Jackpot live data ── */
+  const jpData = await loadJackpots();
+  const jpGame = (jpData && jpData[S.lottery]) || {};
+  const jpEntries = (PRIZES[S.lottery]||[])
+    .filter(p=>p.jackpot)
+    .map(p=>{
+      let raw=null;
+      if(p.name==='Jackpot 1'||p.name==='Jackpot') raw=jpGame.jackpot1||jpGame.jackpot;
+      if(p.name==='Jackpot 2') raw=jpGame.jackpot2;
+      if(p.name==='Độc Đắc') raw=jpGame.jackpot;
+      return raw?{name:p.name,fmt:fmtJackpot(raw)}:null;
+    }).filter(Boolean);
+  const jpUpdStr = jpData?.updated
+    ? new Date(jpData.updated).toLocaleString('vi-VN',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit'})
+    : '';
+  const jpBanner = jpEntries.length?`
+    <div style="margin-top:14px;padding:10px 14px;background:rgba(255,204,68,.07);
+      border:1px solid rgba(255,204,68,.28);border-radius:10px;
+      display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+      <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap">💰 Jackpot kỳ tới:</span>
+      ${jpEntries.map(j=>`<span style="background:rgba(255,204,68,.15);border:1px solid rgba(255,204,68,.4);
+        border-radius:8px;padding:4px 12px;font-size:14px;font-weight:800;color:#ffcc44">
+        🔥 ${j.name}: ${j.fmt}</span>`).join('')}
+      ${jpUpdStr?`<span style="font-size:11px;color:var(--text-muted);margin-left:auto">cập nhật ${jpUpdStr}</span>`:''}
+    </div>`:'';
+  const jpStatCard = jpEntries.length?`<div class="stat-card" style="border-color:rgba(255,204,68,.35);background:rgba(255,204,68,.04)">
+    <div class="sc-top"><div style="font-size:13px;color:var(--text-secondary)">💰 Jackpot tích lũy</div><div class="sc-icon" style="background:rgba(255,204,68,.15)">🔥</div></div>
+    ${jpEntries.map(j=>`<div style="display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:3px">
+      <span style="font-size:11px;color:var(--text-muted);white-space:nowrap">${j.name}:</span>
+      <span style="font-size:${jpEntries.length>1?'15':'20'}px;font-weight:900;color:#ffcc44">${j.fmt}</span>
+    </div>`).join('')}
+    <div class="sc-lbl">${jpUpdStr?`Cập nhật ${jpUpdStr}`:'Thay đổi mỗi kỳ'}</div>
+  </div>`:'';
+
   let h='';
 
   /* Latest card */
@@ -1007,6 +1041,7 @@ async function renderResults(){
       <div class="lc-badge">🎯 ${cfg.desc}</div>
     </div>
     ${renderLatestNumbers(latest,cfg)}
+    ${jpBanner}
   </div>`;
 
   /* Stat cards */
@@ -1040,7 +1075,8 @@ async function renderResults(){
       <div class="sc-lbl">Top 5 số lâu chưa xuất hiện</div>
     </div>`;
   }
-  h+=`<div class="g3" style="margin-bottom:22px">
+  h+=`<div class="${jpStatCard?'g4':'g3'}" style="margin-bottom:22px">
+    ${jpStatCard}
     <div class="stat-card">
       <div class="sc-top"><div style="font-size:13px;color:var(--text-secondary)">📊 Tổng kỳ quay</div><div class="sc-icon" style="background:rgba(124,111,247,.15)">📋</div></div>
       <div class="sc-val">${rows.length.toLocaleString()}</div>
@@ -2254,6 +2290,67 @@ function predRefreshHistory(){
   if(el&&_predCurrent) el.innerHTML=predRenderHistory(_predCurrent.lottery);
 }
 
+/* ── Auto-save predictions for ALL lottery types ── */
+async function predAutoSaveAll(statusElId){
+  const currentKey=S.lottery; // chụp lottery đang xem trước khi async
+  // Ưu tiên lottery đang xem → cập nhật history ngay lập tức
+  const keys=[currentKey,...Object.keys(CFG).filter(k=>k!==currentKey)];
+  let saved=0,skipped=0,errors=0;
+  const statusEl=statusElId?document.getElementById(statusElId):null;
+  if(statusEl) statusEl.innerHTML=`<span style="color:var(--text-muted)">⏳ Đang tự động lưu tất cả loại...</span>`;
+
+  for(const key of keys){
+    try{
+      const rows=await loadData(key);
+      if(!rows||rows===ERR_NOT_FOUND){errors++;continue;}
+      const ac=getACFG(key);
+      const adapted=anlAdaptRows(rows,ac).filter(Boolean);
+      if(adapted.length<10){skipped++;continue;}
+      const lastDrawId=adapted[0]?.id||'';
+      const lastDrawDate=adapted[0]?.date||'';
+      // Đọc lại mỗi vòng để có trạng thái mới nhất
+      const all=predHistLoad();
+      if(lastDrawId&&all.some(e=>e.lottery===key&&e.lastDrawId===lastDrawId)){skipped++;continue;}
+      let strategies={ai:[],hot:[],cold:[],corr:[]},spec=null;
+      if(!ac.isMax3d){
+        const{sc,specSc}=predComputeScores(adapted,ac);
+        const PICK=ac.isKeno?10:ac.pick;
+        strategies={
+          ai:  predPickTop(sc,ac.max,PICK,'ai'),
+          hot: predPickTop(sc,ac.max,PICK,'hot'),
+          cold:predPickTop(sc,ac.max,PICK,'gap'),
+          corr:predPickTop(sc,ac.max,PICK,'corr'),
+        };
+        if(ac.hasSpec&&specSc)
+          spec=Array.from({length:ac.specMax},(_,i)=>i+1).sort((a,b)=>specSc[b].ai-specSc[a].ai)[0];
+      }
+      all.unshift({
+        id:`${key}_${Date.now()}`,
+        lottery:key,
+        savedAt:new Date().toISOString(),
+        strategies,spec,lastDrawDate,lastDrawId,
+      });
+      if(all.length>300) all.splice(300);
+      predHistSave(all); // lưu ngay sau mỗi loại
+      saved++;
+      // Cập nhật DOM lịch sử ngay nếu đây là lottery đang xem
+      if(key===currentKey){
+        const histEl=document.getElementById('pred-history');
+        if(histEl) histEl.innerHTML=predRenderHistory(currentKey);
+      }
+    }catch(err){errors++;}
+  }
+  if(statusEl){
+    const col=saved>0?'var(--accent-green)':'var(--accent-cyan)';
+    const txt=saved>0
+      ?`✅ Tự động lưu <b>${saved}</b> loại mới · ${skipped} đã có`
+      :`✅ Tất cả đã cập nhật · ${skipped} đã có`;
+    const err=errors>0?` · <span style="color:#ef4444">${errors} lỗi</span>`:'';
+    statusEl.innerHTML=`<span style="color:${col}">${txt}${err}</span>`;
+  }
+  return{saved,skipped,errors};
+}
+
 /* ── Enrich entry with actual result ── */
 function predEnrichEntry(entry){
   const rows=S.cache[entry.lottery];
@@ -2728,7 +2825,20 @@ async function renderPredict(){
     return;
   }
 
-  el.innerHTML=ac.isMax3d ? predRenderMax3d(adapted,ac) : predRenderNum(adapted,ac);
+  const banner=`<div style="background:rgba(78,255,163,.06);border:1px solid rgba(78,255,163,.22);
+    border-radius:10px;padding:8px 14px;margin-bottom:14px;font-size:12.5px;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+    <i class="fa-solid fa-robot" style="color:var(--accent-green)"></i>
+    <span id="pred-autosave-status" style="color:var(--text-muted)">⏳ Đang tự động lưu tất cả loại xổ số...</span>
+    <button onclick="predAutoSaveAll('pred-autosave-status')"
+      style="margin-left:auto;background:none;border:1px solid rgba(78,255,163,.3);border-radius:6px;
+      color:var(--accent-green);font-size:11px;padding:3px 10px;cursor:pointer">🔄 Làm mới</button>
+  </div>`;
+
+  el.innerHTML=banner+(ac.isMax3d?predRenderMax3d(adapted,ac):predRenderNum(adapted,ac));
+
+  // Tự động lưu tất cả loại xổ số ở background
+  predAutoSaveAll('pred-autosave-status');
 }
 
 function switchSub(sub){
