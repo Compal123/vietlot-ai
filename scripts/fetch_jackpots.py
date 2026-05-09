@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 """
-VietLot AI — Fetch Jackpot tích lũy từ ketquadientoan.com
-=========================================================
-Lấy giá trị jackpot hiện tại của:
-  - Power 6/55  → jackpot1, jackpot2
-  - Mega 6/45   → jackpot
-  - Lotto 5/35  → jackpot (Độc Đắc)
+VietLot AI — Fetch Jackpot tích lũy
+=====================================
+Nguồn 1 (chính): vietlott.vn — trang game chính thức, luôn hiển thị jackpot hiện tại
+Nguồn 2 (backup): ketquadientoan.com — trang kết quả gần nhất
 
 Lưu vào data/jackpots.json:
 {
-  "updated": "2026-04-17T10:30:00+07:00",
+  "updated": "2026-05-09T20:26:38+07:00",
   "power655": {"jackpot1": 91889389200, "jackpot2": 3454813850},
-  "power645": {"jackpot": 14929490000},
-  "power535": {"jackpot": 22370500000}
+  "power645": {"jackpot": 15047545500},
+  "power535": {"jackpot": 7776732500}
 }
 """
 import json, re, pathlib, sys
@@ -35,86 +33,129 @@ DATA = ROOT / "data"
 DATA.mkdir(exist_ok=True)
 OUT  = DATA / "jackpots.json"
 
-BASE = "https://www.ketquadientoan.com"
 VN_TZ = timezone(timedelta(hours=7))
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                  "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+                  "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
-    "Accept-Language": "vi-VN,vi;q=0.9",
+    "Accept-Language": "vi-VN,vi;q=0.9,en;q=0.8",
 }
 sess = requests.Session()
 sess.headers.update(HEADERS)
 
 # ─── Game config ──────────────────────────────────────────────────────────────
 GAMES = {
-    "power655": {"slug": "power-655",  "keys": ["jackpot1", "jackpot2"], "days": {1,3,5}},  # Tue Thu Sat
-    "power645": {"slug": "mega-6-45",  "keys": ["jackpot"],              "days": {2,4,6}},  # Wed Fri Sun
-    "power535": {"slug": "lotto-535",  "keys": ["jackpot"],              "days": None},     # daily
+    "power655": {
+        "vietlott_url": "https://vietlott.vn/vi/trung-thuong/ket-qua-quay-so/power-6-55",
+        "kqdt_slug":    "power-655",
+        "kqdt_days":    {1, 3, 5},   # Tue Thu Sat (Python weekday Mon=0)
+        "keys":         ["jackpot1", "jackpot2"],
+    },
+    "power645": {
+        "vietlott_url": "https://vietlott.vn/vi/trung-thuong/ket-qua-quay-so/mega-6-45",
+        "kqdt_slug":    "mega-6-45",
+        "kqdt_days":    {2, 4, 6},   # Wed Fri Sun
+        "keys":         ["jackpot"],
+    },
+    "power535": {
+        "vietlott_url": "https://vietlott.vn/vi/trung-thuong/ket-qua-quay-so/lotto-5-35",
+        "kqdt_slug":    "lotto-535",
+        "kqdt_days":    None,        # daily
+        "keys":         ["jackpot"],
+    },
 }
 
-# ─── Parser ───────────────────────────────────────────────────────────────────
+# ─── Money parser ─────────────────────────────────────────────────────────────
 def _parse_vnd(text):
-    """'91.889.389.200 đồng' → 91889389200"""
-    text = text.replace("đồng", "").replace(",", "").replace(".", "").strip()
-    m = re.search(r"\d+", text)
-    return int(m.group()) if m else 0
+    """'91.889.389.200 đồng' or '91,889,389,200' → 91889389200"""
+    text = re.sub(r"[đồng\s]", "", text)
+    text = text.replace(",", "").replace(".", "")
+    m = re.search(r"\d{6,}", text)   # ít nhất 6 chữ số (~100k đ trở lên)
+    v = int(m.group()) if m else 0
+    return v if v >= 1_000_000 else 0  # bỏ qua số quá nhỏ
 
-def _draw_dates_near(draw_days, today, forward=3, backward=7):
-    """Trả về danh sách ngày quay gần nhất: kỳ tới trước, rồi kỳ đã qua."""
-    future, past = [], []
-    for delta in range(1, forward * 7 + 1):
-        d = today + timedelta(days=delta)
-        if draw_days is None or d.weekday() in draw_days:
-            future.append(d)
-        if len(future) >= forward:
-            break
-    for delta in range(0, backward * 7 + 1):
+# ─── SOURCE 1: vietlott.vn ────────────────────────────────────────────────────
+def _fetch_vietlott(game_id, url):
+    """Scrape jackpot từ trang chính thức vietlott.vn."""
+    try:
+        r = sess.get(url, timeout=25)
+        if not r.ok:
+            print(f"  vietlott.vn HTTP {r.status_code}")
+            return {}
+        r.encoding = "utf-8"
+        soup = BeautifulSoup(r.text, "lxml")
+        result = {}
+
+        # Cách 1: tìm trong <table> — vietlott thường dùng table giải thưởng
+        for tr in soup.find_all("tr"):
+            tds = tr.find_all("td")
+            if len(tds) < 2:
+                continue
+            label = tds[0].get_text(" ", strip=True).lower()
+            money_td = tds[-1].get_text(" ", strip=True)
+            val = _parse_vnd(money_td)
+            if not val:
+                continue
+            if game_id == "power655":
+                if re.search(r"jackpot\s*1", label): result["jackpot1"] = val
+                elif re.search(r"jackpot\s*2", label): result["jackpot2"] = val
+            else:
+                if re.search(r"jackpot|độc\s*đắc", label): result["jackpot"] = val
+
+        # Cách 2: regex trên toàn bộ text (fallback)
+        if not result:
+            text = soup.get_text(" ", strip=True)
+            result = _regex_extract(text, game_id)
+
+        if result:
+            print(f"  ✅ [vietlott.vn] {game_id}: {result}")
+        return result
+    except Exception as e:
+        print(f"  vietlott.vn lỗi: {e}")
+        return {}
+
+# ─── SOURCE 2: ketquadientoan.com (fallback) ──────────────────────────────────
+def _kqdt_draw_dates(draw_days, today, n_past=7):
+    """Trả về n_past kỳ quay gần nhất (ngược về quá khứ)."""
+    result = []
+    for delta in range(0, 30):
         d = today - timedelta(days=delta)
         if draw_days is None or d.weekday() in draw_days:
-            past.append(d)
-        if len(past) >= backward:
+            result.append(d)
+        if len(result) >= n_past:
             break
-    # Ưu tiên: kỳ tới → kỳ đã qua (để lấy jackpot mới nhất)
-    return future + past
+    return result
 
-def fetch_jackpot(game_id, slug, draw_days):
-    """Fetch jackpot — thử kỳ tới trước để lấy giá trị tích lũy hiện tại."""
+def _fetch_kqdt(game_id, slug, draw_days):
+    """Fallback: scrape ketquadientoan.com theo ngày quay gần nhất."""
     today = datetime.now(VN_TZ).date()
-    candidates = _draw_dates_near(draw_days, today)
-    for d in candidates:
-        url = f"{BASE}/ket-qua-xo-so-dien-toan-{slug}/{d.strftime('%d-%m-%Y')}.html"
+    base  = "https://www.ketquadientoan.com"
+    for d in _kqdt_draw_dates(draw_days, today):
+        url = f"{base}/ket-qua-xo-so-dien-toan-{slug}/{d.strftime('%d-%m-%Y')}.html"
         try:
             r = sess.get(url, timeout=20)
             if r.status_code == 404:
                 continue
             if not r.ok:
-                print(f"  HTTP {r.status_code}: {url}")
                 continue
             r.encoding = "utf-8"
             soup = BeautifulSoup(r.text, "lxml")
-            result = _extract_jackpots(soup, game_id)
+            result = _extract_kqdt(soup, game_id)
             if result:
-                label = "kỳ tới" if d > today else ("hôm nay" if d == today else f"kỳ {d}")
-                print(f"  ✅ {game_id}: {result} ({label})")
+                print(f"  ✅ [ketquadientoan.com {d}] {game_id}: {result}")
                 return result
         except Exception as e:
-            print(f"  Lỗi {url}: {e}")
+            print(f"  kqdt lỗi {d}: {e}")
     return {}
 
-def _extract_jackpots(soup, game_id):
-    """Parse jackpot từ bảng 'Giá trị giải' trên trang."""
+def _extract_kqdt(soup, game_id):
     result = {}
-
-    # Cách 1: tìm text "Jackpot 1", "Jackpot 2" trong table rows
-    # Cấu trúc: <td>Jackpot 1</td><td>...</td><td>...</td><td>91.889.389.200 đồng</td>
     for tr in soup.find_all("tr"):
         tds = tr.find_all("td")
         if not tds:
             continue
         first = tds[0].get_text(strip=True).lower()
-
         if game_id == "power655":
             if "jackpot 1" in first or "jackpot1" in first:
                 val = _find_money_in_tds(tds)
@@ -123,70 +164,57 @@ def _extract_jackpots(soup, game_id):
                 val = _find_money_in_tds(tds)
                 if val: result["jackpot2"] = val
         else:
-            # Mega / Lotto: tìm dòng "Jackpot" hoặc "Độc đắc"
-            if "jackpot" in first or "độc đắc" in first or "doc dac" in first:
+            if "jackpot" in first or "độc đắc" in first:
                 val = _find_money_in_tds(tds)
                 if val: result["jackpot"] = val
-
-    # Cách 2: nếu chưa tìm được, dùng regex trên toàn bộ text
     if not result:
-        text = soup.get_text(" ", strip=True)
-        result = _regex_extract(text, game_id)
-
+        result = _regex_extract(soup.get_text(" ", strip=True), game_id)
     return result
 
 def _find_money_in_tds(tds):
-    """Tìm giá trị tiền trong các <td>, ưu tiên td cuối cùng."""
     for td in reversed(tds):
-        t = td.get_text(strip=True)
-        if re.search(r"\d[\d.,]{4,}", t):  # ít nhất 5 chữ số
-            return _parse_vnd(t)
+        v = _parse_vnd(td.get_text(strip=True))
+        if v: return v
     return 0
 
+# ─── Regex fallback ───────────────────────────────────────────────────────────
 def _regex_extract(text, game_id):
-    """Fallback: dùng regex tìm pattern 'Jackpot X: 91.889.389.200'."""
     result = {}
-    patterns = {
-        "jackpot1": [
-            r"[Jj]ackpot\s*1[:\s]+([0-9][0-9.,]+)\s*đ",
-            r"[Jj]ackpot\s+1[:\s]+([0-9][0-9.,]+)",
-        ],
-        "jackpot2": [
-            r"[Jj]ackpot\s*2[:\s]+([0-9][0-9.,]+)\s*đ",
-            r"[Jj]ackpot\s+2[:\s]+([0-9][0-9.,]+)",
-        ],
-        "jackpot": [
-            r"[Jj]ackpot[:\s]+([0-9][0-9.,]+)\s*đ",
-            r"[Đđ]ộc\s*[Đđ]ắc[:\s]+([0-9][0-9.,]+)\s*đ",
-            r"[Jj]ackpot[:\s]+([0-9][0-9.,]+)",
+    pats = {
+        "jackpot1": [r"[Jj]ackpot\s*1[^0-9]{0,10}([0-9][0-9.,]{5,})"],
+        "jackpot2": [r"[Jj]ackpot\s*2[^0-9]{0,10}([0-9][0-9.,]{5,})"],
+        "jackpot":  [
+            r"[Jj]ackpot[^0-9]{0,10}([0-9][0-9.,]{5,})",
+            r"[Đđ]ộc\s*[Đđ]ắc[^0-9]{0,10}([0-9][0-9.,]{5,})",
         ],
     }
-
-    if game_id == "power655":
-        keys = ["jackpot1", "jackpot2"]
-    else:
-        keys = ["jackpot"]
-
+    keys = ["jackpot1", "jackpot2"] if game_id == "power655" else ["jackpot"]
     for key in keys:
-        for pat in patterns.get(key, []):
+        for pat in pats.get(key, []):
             m = re.search(pat, text)
             if m:
-                result[key] = _parse_vnd(m.group(1))
-                break
-
+                v = _parse_vnd(m.group(1))
+                if v: result[key] = v; break
     return result
+
+# ─── Main fetch ───────────────────────────────────────────────────────────────
+def fetch_jackpot(game_id, cfg):
+    # Thử vietlott.vn trước (luôn có jackpot hiện tại)
+    result = _fetch_vietlott(game_id, cfg["vietlott_url"])
+    if result:
+        return result
+    print(f"  ⚠️  vietlott.vn không có dữ liệu, thử ketquadientoan.com...")
+    return _fetch_kqdt(game_id, cfg["kqdt_slug"], cfg["kqdt_days"])
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 def main():
-    print("🎰 Đang lấy jackpot tích lũy...")
+    print("🎰 Đang lấy jackpot tích lũy (vietlott.vn → ketquadientoan.com)...")
     now_str = datetime.now(VN_TZ).isoformat(timespec="seconds")
-
     data = {"updated": now_str}
 
     for game_id, cfg in GAMES.items():
         print(f"\n📊 {game_id}...")
-        jp = fetch_jackpot(game_id, cfg["slug"], cfg["days"])
-        data[game_id] = jp
+        data[game_id] = fetch_jackpot(game_id, cfg)
 
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\n✅ Đã lưu → {OUT}")
