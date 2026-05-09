@@ -1,19 +1,20 @@
-name: 🎰 Keno Live (mỗi 5 phút)
+name: 🎰 Keno Live (mỗi 10 phút)
 
 # Keno quay mỗi ~8 phút từ 06:00–22:00 VN (ICT = UTC+7)
-# GitHub đảm bảo schedule tối thiểu mỗi 5 phút (chạy 1 phút không tin được)
-# → Chạy mỗi 5 phút, bắt đầu 06:05 VN đến 22:00 VN
-# → Keno quay 8 phút, ta chạy 5 phút → không bao giờ bỏ sót kỳ nào
-# → Kết hợp cả 2 nguồn:
-#    1. ketquadientoan.com  → ~6 kỳ mới nhất (nhanh, không bị block)
-#    2. vietlott.vn API     → ALL kỳ hôm nay + hôm qua (backfill mọi gap)
+# → Chạy mỗi 10 phút — live endpoint trả ~5 kỳ (~40 phút) nên 10 phút đủ bắt hết
+# → concurrency: cancel-in-progress — tránh race condition ghi đè keno.jsonl
+# → Source: ketquadientoan.com (không bị block từ GitHub Actions)
 
 on:
   schedule:
-    - cron: '5,10,15,20,25,30,35,40,45,50,55 23 * * *'          # 06:05–06:55 VN (23:xx UTC)
-    - cron: '0,5,10,15,20,25,30,35,40,45,50,55 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14 * * *'  # 07:00–21:55 VN
-    - cron: '0 15 * * *'                                          # 22:00 VN - lần cuối
+    - cron: '*/10 23 * * *'          # 06:xx VN (23 UTC hôm trước)
+    - cron: '*/10 0-14 * * *'        # 07:xx–21:xx VN (00–14 UTC)
+    - cron: '0 15 * * *'             # 22:00 VN — lần cuối
   workflow_dispatch:
+
+concurrency:
+  group: keno-live
+  cancel-in-progress: true
 
 jobs:
   keno-live:
@@ -23,6 +24,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - uses: actions/setup-python@v5
         with:
@@ -31,28 +34,33 @@ jobs:
 
       - run: pip install -q requests beautifulsoup4 lxml
 
-      - name: 🎰 Fetch Keno Live (ketquadientoan.com — ~6 kỳ mới nhất)
+      - name: 🎰 Fetch Keno Live (ketquadientoan.com)
         run: python scripts/fetch_keno_live.py
 
-      - name: 🔄 Backfill hôm nay + hôm qua (vietlott.vn — toàn bộ kỳ)
-        run: python scripts/fetch_keno_vietlott.py --days 2
-        continue-on-error: true   # vietlott.vn đôi khi block GitHub Actions IP
-
-      - name: 📝 Commit & Push
+      - name: 📝 Commit & Push (với retry)
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/keno.jsonl
           if git diff --staged --quiet; then
             echo "⏭ Không có kỳ mới"
-          else
-            LATEST=$(python3 -c "
+            exit 0
+          fi
+          LATEST=$(python3 -c "
 import json
 with open('data/keno.jsonl') as f:
     d = json.loads(f.readline())
 print(f\"#{d.get('id','?')} {d.get('date','?')} {d.get('time','')}\")
 " 2>/dev/null || echo "?")
-            git commit -m "keno: ${LATEST} ($(date +'%H:%M UTC'))"
-            git pull --rebase origin main
-            git push
-          fi
+          git commit -m "keno: ${LATEST} ($(date +'%H:%M UTC'))"
+
+          # Retry push tối đa 3 lần để xử lý conflict từ run song song
+          for attempt in 1 2 3; do
+            git pull --rebase origin main -- data/keno.jsonl 2>/dev/null || git pull --rebase origin main || true
+            if git push origin main; then
+              echo "✅ Push thành công lần $attempt"
+              break
+            fi
+            echo "⚠️ Push thất bại lần $attempt, thử lại..."
+            sleep $((attempt * 5))
+          done

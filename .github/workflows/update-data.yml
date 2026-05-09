@@ -50,6 +50,10 @@ jobs:
           done
           echo "FOUND=$FOUND" >> $GITHUB_ENV
 
+      - name: 🎰 Fetch Keno (backup hàng ngày — bắt các kỳ live workflow bỏ sót)
+        run: python scripts/fetch_keno_live.py
+        continue-on-error: true
+
       - name: 💰 Fetch Jackpot tích lũy
         run: python scripts/fetch_jackpots.py
 
