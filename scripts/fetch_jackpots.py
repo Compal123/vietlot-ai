@@ -49,9 +49,9 @@ sess.headers.update(HEADERS)
 
 # ─── Game config ──────────────────────────────────────────────────────────────
 GAMES = {
-    "power655": {"slug": "power-655",  "keys": ["jackpot1", "jackpot2"]},
-    "power645": {"slug": "mega-6-45",  "keys": ["jackpot"]},
-    "power535": {"slug": "lotto-535",  "keys": ["jackpot"]},
+    "power655": {"slug": "power-655",  "keys": ["jackpot1", "jackpot2"], "days": {1,3,5}},  # Tue Thu Sat
+    "power645": {"slug": "mega-6-45",  "keys": ["jackpot"],              "days": {2,4,6}},  # Wed Fri Sun
+    "power535": {"slug": "lotto-535",  "keys": ["jackpot"],              "days": None},     # daily
 }
 
 # ─── Parser ───────────────────────────────────────────────────────────────────
@@ -61,11 +61,29 @@ def _parse_vnd(text):
     m = re.search(r"\d+", text)
     return int(m.group()) if m else 0
 
-def fetch_jackpot(game_id, slug):
-    """Fetch trang hôm nay (hoặc hôm qua nếu 404), trả về dict jackpot."""
-    now = datetime.now(VN_TZ)
-    for delta in [0, -1, -2, -3]:  # thử hôm nay → 3 ngày trước
-        d = now.date() if delta == 0 else (now + timedelta(days=delta)).date()
+def _draw_dates_near(draw_days, today, forward=3, backward=7):
+    """Trả về danh sách ngày quay gần nhất: kỳ tới trước, rồi kỳ đã qua."""
+    future, past = [], []
+    for delta in range(1, forward * 7 + 1):
+        d = today + timedelta(days=delta)
+        if draw_days is None or d.weekday() in draw_days:
+            future.append(d)
+        if len(future) >= forward:
+            break
+    for delta in range(0, backward * 7 + 1):
+        d = today - timedelta(days=delta)
+        if draw_days is None or d.weekday() in draw_days:
+            past.append(d)
+        if len(past) >= backward:
+            break
+    # Ưu tiên: kỳ tới → kỳ đã qua (để lấy jackpot mới nhất)
+    return future + past
+
+def fetch_jackpot(game_id, slug, draw_days):
+    """Fetch jackpot — thử kỳ tới trước để lấy giá trị tích lũy hiện tại."""
+    today = datetime.now(VN_TZ).date()
+    candidates = _draw_dates_near(draw_days, today)
+    for d in candidates:
         url = f"{BASE}/ket-qua-xo-so-dien-toan-{slug}/{d.strftime('%d-%m-%Y')}.html"
         try:
             r = sess.get(url, timeout=20)
@@ -78,7 +96,8 @@ def fetch_jackpot(game_id, slug):
             soup = BeautifulSoup(r.text, "lxml")
             result = _extract_jackpots(soup, game_id)
             if result:
-                print(f"  ✅ {game_id}: {result} (từ {d})")
+                label = "kỳ tới" if d > today else ("hôm nay" if d == today else f"kỳ {d}")
+                print(f"  ✅ {game_id}: {result} ({label})")
                 return result
         except Exception as e:
             print(f"  Lỗi {url}: {e}")
@@ -166,7 +185,7 @@ def main():
 
     for game_id, cfg in GAMES.items():
         print(f"\n📊 {game_id}...")
-        jp = fetch_jackpot(game_id, cfg["slug"])
+        jp = fetch_jackpot(game_id, cfg["slug"], cfg["days"])
         data[game_id] = jp
 
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
