@@ -1245,7 +1245,7 @@ function anlAdaptRows(rows, ac){
         db,
         nhat:(res['Giải Nhất']||[]).map(n=>pad3(n)),
         nhi: (res['Giải Nhì'] ||[]).map(n=>pad3(n)),
-        ba:  (res['Giải Ba']  ||[]).map(n=>pad3(n)),
+        ba:  (res['Giải Ba']||res['Giải ba']||[]).map(n=>pad3(n)),
       };
     }).filter(Boolean);
   }
@@ -2526,6 +2526,16 @@ async function predAutoSaveAll(statusElId){
         };
         if(ac.hasSpec&&specSc)
           spec=Array.from({length:ac.specMax},(_,i)=>i+1).sort((a,b)=>specSc[b].ai-specSc[a].ai)[0];
+      } else {
+        // Max3D: tính top5 số phổ biến nhất qua tất cả giải để lưu vào lịch sử
+        const freq3d={};
+        adapted.forEach(d=>{
+          [...(d.db||[]),...(d.nhat||[]),...(d.nhi||[]),...(d.ba||[])].forEach(n=>{
+            freq3d[n]=(freq3d[n]||0)+1;
+          });
+        });
+        const top5=Object.entries(freq3d).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([n])=>n);
+        strategies={ai:top5,hot:top5,cold:[],corr:[]};
       }
       all.unshift({
         id:`${key}_${Date.now()}`,
@@ -2564,7 +2574,24 @@ function predEnrichEntry(entry){
   const resultRow = lastId>0
     ? rows.find(r=>parseInt(r.id||'0')>lastId)
     : rows.find(r=>r.date>entry.lastDrawDate);
-  if(!resultRow||!Array.isArray(resultRow.result)) return entry;
+  if(!resultRow) return entry;
+
+  // Max3D / Max3D Pro: result là object
+  if(ac.isMax3d){
+    const res=resultRow.result||{};
+    const db=(res['Giải Đặc biệt']||[]).map(n=>pad3(n));
+    const allNums=[...db,
+      ...(res['Giải Nhất']||[]),...(res['Giải Nhì']||[]),
+      ...(res['Giải Ba']||res['Giải ba']||[])].map(n=>pad3(n));
+    const aiSet=new Set(entry.strategies.ai||[]);
+    const matched=allNums.filter(n=>aiSet.has(n)).length;
+    return {...entry,
+      _res:{nums:db, allNums, date:resultRow.date, id:resultRow.id},
+      _m:{ai:matched, hot:matched, cold:0, corr:0, specMatch:null},
+    };
+  }
+
+  if(!Array.isArray(resultRow.result)) return entry;
   const drawNums=ac.hasSpec?resultRow.result.slice(0,ac.pick):resultRow.result.slice();
   const drawSpec=ac.hasSpec?resultRow.result[ac.pick]:null;
   const countM=arr=>(arr||[]).filter(n=>drawNums.includes(n)).length;
@@ -2589,9 +2616,9 @@ function predRenderHistEntry(e,ac){
   const pick=(e.strategies.ai||[]).length;
   const dt=new Date(e.savedAt);
   const dtStr=dt.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
-  // AI predicted balls
-  const resSet=e._res?new Set(e._res.nums):new Set();
-  const aiBalls=(e.strategies.ai||[]).map(n=>anlBall(n,resSet.has(n)?'#00d4d0':'#4e9fff',24)).join('');
+  // AI predicted balls — với Max3D: highlight nếu xuất hiện ở bất kỳ giải nào
+  const resMatchSet=e._res?new Set(e._res.allNums||e._res.nums):new Set();
+  const aiBalls=(e.strategies.ai||[]).map(n=>anlBall(n,resMatchSet.has(n)?'#00d4d0':'#4e9fff',24)).join('');
   // Result section
   let resHTML=`<div style="color:var(--text-muted);font-size:12px;font-style:italic;padding:6px 0">⏳ Chưa có kỳ quay tiếp theo</div>`;
   let statsHTML='';
@@ -2599,12 +2626,14 @@ function predRenderHistEntry(e,ac){
     const aiSet=new Set(e.strategies.ai||[]);
     const resBalls=e._res.nums.map(n=>anlBall(n,aiSet.has(n)?'#00d4d0':'rgba(255,255,255,.15)',24)).join('');
     resHTML=`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px">${resBalls}</div>
-      <div style="font-size:11px;color:var(--text-muted)">Kỳ #${e._res.id} — ${fmtDate(e._res.date)}</div>`;
+      <div style="font-size:11px;color:var(--text-muted)">${ac.isMax3d?'ĐB kỳ':''} #${e._res.id} — ${fmtDate(e._res.date)}</div>`;
+    const totalPool=ac.isMax3d?(e._res.allNums||e._res.nums).length:pick;
     statsHTML=`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
       ${predMatchTag(e._m.ai,pick,'🤖 AI')}
-      ${predMatchTag(e._m.hot,pick,'🔥 Nóng')}
-      ${predMatchTag(e._m.cold,pick,'❄️ Nguội')}
-      ${predMatchTag(e._m.corr,pick,'🔗 T.Quan')}
+      ${!ac.isMax3d?predMatchTag(e._m.hot,pick,'🔥 Nóng'):''}
+      ${!ac.isMax3d?predMatchTag(e._m.cold,pick,'❄️ Nguội'):''}
+      ${!ac.isMax3d?predMatchTag(e._m.corr,pick,'🔗 T.Quan'):''}
+      ${ac.isMax3d?`<span style="font-size:11px;color:var(--text-muted);font-style:italic">so với ${totalPool} số trong kỳ</span>`:''}
       ${e._m.specMatch!==null?`<span style="font-size:11px;background:rgba(255,204,68,.1);border:1px solid rgba(255,204,68,.4);border-radius:6px;padding:2px 7px;color:#ffcc44;font-weight:700">Số phụ: ${e._m.specMatch?'✅':'❌'}</span>`:''}
     </div>`;
   }
@@ -2651,9 +2680,9 @@ function predRenderHistory(lottery){
     background:var(--bg-surface);border-radius:10px;margin-bottom:14px;font-size:12px;align-items:center">
     <span style="font-weight:700;color:var(--text-muted)">TB ${withRes.length} kỳ đã có KQ:</span>
     <span style="color:#4e9fff">🤖 AI <b>${avgM('ai')}/${pick}</b></span>
-    <span style="color:#ff4757">🔥 Nóng <b>${avgM('hot')}/${pick}</b></span>
-    <span style="color:#74b9ff">❄️ Nguội <b>${avgM('cold')}/${pick}</b></span>
-    <span style="color:#a29bfe">🔗 T.Quan <b>${avgM('corr')}/${pick}</b></span>
+    ${!ac.isMax3d?`<span style="color:#ff4757">🔥 Nóng <b>${avgM('hot')}/${pick}</b></span>`:''}
+    ${!ac.isMax3d?`<span style="color:#74b9ff">❄️ Nguội <b>${avgM('cold')}/${pick}</b></span>`:''}
+    ${!ac.isMax3d?`<span style="color:#a29bfe">🔗 T.Quan <b>${avgM('corr')}/${pick}</b></span>`:''}
   </div>`:'';
 
   return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
