@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """
-VietLot AI — Chạy cục bộ: Scrape + Upload lên GitHub
-=====================================================
-Chạy script này trên máy của bạn (IP Việt Nam) để:
-  1. Lấy kết quả mới nhất từ vietlott.vn
-  2. Upload data lên GitHub tự động
+VietLot AI — Chạy cục bộ: Scrape + Push lên GitHub
+====================================================
+Chạy script này trên máy của bạn để:
+  1. Lấy kết quả mới nhất từ ketquadientoan.com
+  2. Push data lên GitHub tự động (cần đã cấu hình git)
 
 Cách dùng:
   python run_local.py                    → tất cả game
-  python run_local.py keno               → chỉ keno
-  python run_local.py --pages 20         → tất cả game, nhiều trang hơn
+  python run_local.py power535           → chỉ lotto 5/35
+  python run_local.py --days 14          → tất cả game, 14 ngày gần nhất
+  python run_local.py power655 --days 30 → power655, 30 ngày
 """
 import sys, pathlib, subprocess, time, json
 from datetime import datetime
@@ -17,13 +18,8 @@ from datetime import datetime
 ROOT = pathlib.Path(__file__).parent
 
 # ─── Cấu hình ────────────────────────────────────────────────────────────────
-# Game nào chạy mặc định nếu không truyền args
 DEFAULT_GAMES = []   # [] = tất cả game
-
-# Số trang mặc định (mỗi trang ~5 kỳ):
-#   2 trang  ≈ 2 tuần gần nhất  (nhanh, dùng cho cron ngắn)
-#  10 trang  ≈ 2 tháng          (dùng khi thiếu nhiều)
-DEFAULT_PAGES = 3
+DEFAULT_DAYS  = 7    # số ngày lấy về mặc định
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────
 def banner(text):
@@ -56,14 +52,14 @@ def count_data():
 def main():
     args = sys.argv[1:]
 
-    # Parse --pages N
-    pages = DEFAULT_PAGES
+    # Parse --days N
+    days = DEFAULT_DAYS
     games_args = []
     i = 0
     while i < len(args):
-        if args[i] == "--pages" and i + 1 < len(args):
+        if args[i] == "--days" and i + 1 < len(args):
             try:
-                pages = int(args[i + 1])
+                days = int(args[i + 1])
             except ValueError:
                 pass
             i += 2
@@ -74,7 +70,7 @@ def main():
     games = games_args if games_args else DEFAULT_GAMES
 
     banner(f"🎰 VietLot AI — Local Runner  {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    print(f"  📄 Pages  : {pages}")
+    print(f"  📄 Days   : {days}")
     print(f"  🎯 Games  : {'tất cả' if not games else ' '.join(games)}")
     print(f"  📁 Data   : {ROOT / 'data'}")
 
@@ -82,11 +78,11 @@ def main():
     before = count_data()
 
     # ── 2. Chạy scraper ──
-    banner("⏳ Bước 1/2 — Scrape từ vietlott.vn")
-    fetch_cmd = [sys.executable, str(ROOT / "scripts" / "fetch_data.py")]
+    banner("⏳ Bước 1/3 — Scrape kết quả từ ketquadientoan.com")
+    fetch_cmd = [sys.executable, str(ROOT / "scripts" / "fetch_ketqua.py")]
     if games:
         fetch_cmd += games
-    fetch_cmd += ["--pages", str(pages)]
+    fetch_cmd += ["--days", str(days)]
 
     t0 = time.time()
     result = run(fetch_cmd)
@@ -101,30 +97,45 @@ def main():
     # ── 3. Thống kê sau khi chạy ──
     after = count_data()
     total_new = 0
+    total_updated = 0
     print("\n  📊 Kết quả:")
     for fname in sorted(set(list(before.keys()) + list(after.keys()))):
         b = before.get(fname, {}).get("count", 0)
         a = after.get(fname, {}).get("count", 0)
         lat = after.get(fname, {}).get("latest", "?")
         new = a - b
-        total_new += new
+        total_new += max(new, 0)
         mark = f"  +{new} mới" if new > 0 else "  (không đổi)"
         print(f"    {fname:<20} {a:>5} bản ghi | mới nhất: {lat}{mark}")
 
-    if total_new == 0:
-        print("\n  ℹ️  Không có dữ liệu mới — bỏ qua upload.")
+    # ── 4. Fetch Jackpot ──
+    banner("💰 Bước 2/3 — Fetch Jackpot tích lũy")
+    jp_cmd = [sys.executable, str(ROOT / "scripts" / "fetch_jackpots.py")]
+    run(jp_cmd)
+
+    # ── 5. Push lên GitHub ──
+    banner("☁️  Bước 3/3 — Push lên GitHub")
+    run(["git", "add", "data/"])
+    diff = subprocess.run(["git", "diff", "--staged", "--quiet"])
+    if diff.returncode == 0:
+        print("\n  ℹ️  Không có thay đổi — bỏ qua push.")
         banner("✅ Xong (không có dữ liệu mới)")
         return
 
-    # ── 4. Upload lên GitHub ──
-    banner(f"☁️  Bước 2/2 — Upload {total_new} bản ghi mới lên GitHub")
-    upload_cmd = [sys.executable, str(ROOT / "upload_to_github.py"), "--data"]
-    result = run(upload_cmd)
-    if result.returncode != 0:
-        print(f"\n❌ Upload thất bại (exit {result.returncode})")
-        sys.exit(1)
+    # Commit
+    msg = f"data: cập nhật local {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+    run(["git", "commit", "-m", msg])
 
-    banner(f"✅ Hoàn thành! +{total_new} bản ghi mới đã lên GitHub")
+    # Pull rebase rồi push
+    for attempt in range(1, 4):
+        pull = subprocess.run(["git", "pull", "--rebase", "origin", "main"])
+        push = subprocess.run(["git", "push", "origin", "main"])
+        if push.returncode == 0:
+            break
+        print(f"  ⚠️  Push thất bại lần {attempt}, thử lại...")
+        time.sleep(5)
+
+    banner(f"✅ Hoàn thành! Đã push lên GitHub")
 
 if __name__ == "__main__":
     main()

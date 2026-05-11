@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-cd /d "C:\Users\hacke\OneDrive\Máy tính\Claude Code\vietlot-ai"
+cd /d "%~dp0"
 
 echo ================================================
 echo  VietLot AI - Keno Backfill (vietlott.vn)

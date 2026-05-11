@@ -1,18 +1,16 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/VietLot-AI-7c6ff7?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyek0xMSAxN0g5VjdoMnYxMHptNCAwaC0yVjdoMnYxMHoiLz48L3N2Zz4=" alt="VietLot AI">
-
 # 🎰 VietLot AI
 
-**Nghiên cứu thống kê xổ số Việt Nam — Dữ liệu lịch sử & phân tích tần suất**
+**Thu thập & phân tích thống kê xổ số Vietlott — Tự động, mã nguồn mở**
 
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/Compal123/vietlot-ai/update-data.yml?style=flat-square&logo=github-actions&label=Auto%20Update)](https://github.com/Compal123/vietlot-ai/actions)
-[![Data](https://img.shields.io/badge/Data-155k%2B%20bản%20ghi-00d4d0?style=flat-square&logo=databricks)](./data)
-[![Games](https://img.shields.io/badge/Xổ%20số-6%20loại-ff6bb5?style=flat-square&logo=dice-d6)](./data)
+[![Auto Update](https://img.shields.io/github/actions/workflow/status/Compal123/vietlot-ai/update-data.yml?style=flat-square&logo=github-actions&label=Auto%20Update&color=4effa3)](https://github.com/Compal123/vietlot-ai/actions)
+[![Keno Live](https://img.shields.io/github/actions/workflow/status/Compal123/vietlot-ai/keno-live.yml?style=flat-square&logo=github-actions&label=Keno%20Live&color=00d4d0)](https://github.com/Compal123/vietlot-ai/actions)
+[![Records](https://img.shields.io/badge/Dữ%20liệu-160k%2B%20kỳ%20quay-ff6bb5?style=flat-square&logo=databricks)](./data)
 [![Python](https://img.shields.io/badge/Python-3.11-4effa3?style=flat-square&logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-ffcc44?style=flat-square)](LICENSE)
 
-[🌐 **Xem Dashboard**](https://compal123.github.io/vietlot-ai/) · [📊 **Dữ liệu**](./data) · [🐛 **Báo lỗi**](https://github.com/Compal123/vietlot-ai/issues)
+[🌐 **Mở Dashboard**](https://compal123.github.io/vietlot-ai/) &nbsp;·&nbsp; [📊 **Xem Dữ liệu**](./data) &nbsp;·&nbsp; [🐛 **Báo lỗi**](https://github.com/Compal123/vietlot-ai/issues)
 
 </div>
 
@@ -20,43 +18,49 @@
 
 ## 📌 Giới thiệu
 
-**VietLot AI** là dự án mã nguồn mở tập trung vào việc thu thập, lưu trữ và phân tích thống kê kết quả xổ số Vietlott. Dữ liệu được cập nhật tự động hàng ngày qua GitHub Actions.
+**VietLot AI** là dự án mã nguồn mở thu thập và phân tích thống kê kết quả xổ số Vietlott. Dữ liệu được cập nhật **tự động nhiều lần mỗi ngày** qua GitHub Actions — không cần server, không cần cài đặt.
 
-**Mục tiêu nghiên cứu:**
-- 🔄 **Thu thập tự động** kết quả xổ số mỗi ngày, không cần server
-- 🗃️ **Lưu trữ lịch sử** hàng chục nghìn kỳ quay dưới dạng JSONL
-- 📊 **Phân tích tần suất** — số nóng/lạnh, cặp số, xu hướng theo thời gian
-- 🌐 **Dashboard trực quan** chạy ngay trên GitHub Pages, không cần cài đặt
+| Tính năng | Chi tiết |
+|-----------|---------|
+| 🔄 **Tự động hoàn toàn** | GitHub Actions cập nhật kết quả + jackpot mỗi 5–10 phút |
+| 🗃️ **160,000+ kỳ quay** | Lịch sử đầy đủ từ khi ra mắt từng loại |
+| 👥 **Số người trúng** | Thống kê người trúng từng giải theo kỳ |
+| 📊 **Phân tích nâng cao** | Tần suất, streak số nóng/lạnh, cặp số đồng xuất hiện |
+| 🌐 **Dashboard không cần server** | Chạy 100% trên GitHub Pages / trình duyệt |
 
-> ⚠️ **Tuyên bố miễn trách nhiệm**: Dự án này chỉ mang tính **thống kê và nghiên cứu dữ liệu**. Kết quả xổ số là **hoàn toàn ngẫu nhiên** — không có hệ thống hay AI nào có thể dự đoán chính xác. Dự án không liên kết với Vietlott hay bất kỳ tổ chức nào.
+> ⚠️ **Tuyên bố miễn trách nhiệm**: Dự án chỉ mang tính **thống kê và nghiên cứu**. Kết quả xổ số là **hoàn toàn ngẫu nhiên** — không có hệ thống hay AI nào dự đoán được. Không liên kết với Vietlott hay bất kỳ tổ chức nào.
 
 ---
 
 ## 🎮 Các loại xổ số được hỗ trợ
 
-| # | Tên | File | Tần suất quay | Kết quả |
-|---|-----|------|--------------|---------|
-| 1 | **Power 6/55** | `power655.jsonl` | Thứ 3, 5, 7 (18:00) | 6 số từ 1–55 |
-| 2 | **Mega 6/45** | `power645.jsonl` | Thứ 4, 6, CN (18:00) | 6 số từ 1–45 |
-| 3 | **Lotto 5/35** | `power535.jsonl` | Hàng ngày (13:00 & 21:00) | 5 số từ 1–35 |
-| 4 | **Max3D** | `3d.jsonl` | Thứ 2, 4, 6 (18:00) | Nhiều giải (3 chữ số) |
-| 5 | **Max3D Pro** | `3d_pro.jsonl` | Thứ 3, 5, 7 (18:00) | Nhiều giải (3 chữ số) |
-| 6 | **Keno** | `keno.jsonl` | Mỗi ~8 phút (6:00–22:00) | 20 số từ 1–80 |
+| # | Tên | File | Lịch quay | Kết quả |
+|---|-----|------|----------|---------|
+| 1 | **Power 6/55** | `power655.jsonl` | Thứ 3, 5, 7 — 18:00 | 6 số (1–55) + Jackpot 1 & 2 |
+| 2 | **Mega 6/45** | `power645.jsonl` | Thứ 4, 6, CN — 18:00 | 6 số (1–45) + Jackpot |
+| 3 | **Lotto 5/35** | `power535.jsonl` | Hàng ngày — 13:00 & 21:00 | 5 số (1–35) + Độc Đắc |
+| 4 | **Max3D** | `3d.jsonl` | Thứ 2, 4, 6 — 18:00 | 4 giải × 3 chữ số |
+| 5 | **Max3D Pro** | `3d_pro.jsonl` | Thứ 3, 5, 7 — 18:00 | 8 giải × 3 chữ số |
+| 6 | **Keno** | `keno.jsonl` | Mỗi ~8 phút (06:00–22:00) | 20 số (1–80) |
 
 ---
 
 ## 🌐 Dashboard
 
-Truy cập trực tiếp tại: **[https://compal123.github.io/vietlot-ai/](https://compal123.github.io/vietlot-ai/)**
+👉 **[https://compal123.github.io/vietlot-ai/](https://compal123.github.io/vietlot-ai/)**
 
-> Không cần cài đặt, chạy 100% trên trình duyệt.
+Không cần cài đặt, chạy 100% trên trình duyệt.
 
-**Tính năng:**
-- 📈 Biểu đồ tần suất xuất hiện từng con số
-- 🔥 Top số "nóng" và số "lạnh"
-- 📅 Lịch sử kết quả theo ngày
-- 🔍 Kiểm tra bộ số của bạn có từng ra chưa
-- 📱 Giao diện responsive, hỗ trợ mobile
+**Tính năng dashboard:**
+
+| Tab | Mô tả |
+|-----|-------|
+| 📋 **Kết Quả** | Kỳ mới nhất + jackpot tích lũy trực tiếp, số người trúng từng giải |
+| 📊 **Phân Tích** | Tần suất xuất hiện, top số nóng/lạnh, streak liên tiếp, cặp số |
+| 🏆 **Giải Thưởng** | Cơ cấu giải, xác suất, jackpot live, người trúng kỳ gần nhất |
+| 🤖 **AI Bot** | Gợi ý bộ số theo phân tích thống kê |
+| 🔮 **Dự Đoán** | Mô phỏng xu hướng (nghiên cứu) |
+| 📅 **Lịch Sử** | Toàn bộ kết quả, lọc theo tháng/năm, tìm kiếm bộ số |
 
 ---
 
@@ -64,84 +68,140 @@ Truy cập trực tiếp tại: **[https://compal123.github.io/vietlot-ai/](http
 
 ```
 vietlot-ai/
-├── 📁 data/                     # Dữ liệu xổ số (JSONL)
-│   ├── power655.jsonl           # Power 6/55
-│   ├── power645.jsonl           # Mega 6/45
-│   ├── power535.jsonl           # Lotto 5/35
-│   ├── 3d.jsonl                 # Max3D
-│   ├── 3d_pro.jsonl             # Max3D Pro
-│   └── keno.jsonl               # Keno (~155,000+ kỳ)
+│
+├── 📁 data/                        # Dữ liệu xổ số (JSONL, mới nhất trước)
+│   ├── power655.jsonl              # Power 6/55     (~1,343 kỳ)
+│   ├── power645.jsonl              # Mega 6/45      (~1,311 kỳ)
+│   ├── power535.jsonl              # Lotto 5/35     (~634 kỳ)
+│   ├── 3d.jsonl                    # Max3D          (~1,076 kỳ)
+│   ├── 3d_pro.jsonl                # Max3D Pro      (~721 kỳ)
+│   ├── keno.jsonl                  # Keno           (~155,000 kỳ)
+│   └── jackpots.json               # Jackpot tích lũy (cập nhật mỗi 5 phút)
 │
 ├── 📁 scripts/
-│   ├── fetch_ketqua.py          # Scraper Power/Mega/Max3D (ketquadientoan.com)
-│   ├── fetch_keno_live.py       # Keno live feed (ketquadientoan.com, mỗi 5 phút)
-│   └── fetch_keno_vietlott.py   # Keno backfill theo ngày (vietlott.vn, local)
+│   ├── fetch_ketqua.py             # Scraper chính — Power/Max3D/Lotto (ketquadientoan.com)
+│   ├── fetch_keno_live.py          # Keno live (ketquadientoan.com, dùng trong GitHub Actions)
+│   ├── fetch_keno_vietlott.py      # Keno backfill theo ngày (vietlott.vn, chạy local)
+│   ├── fetch_jackpots.py           # Jackpot tích lũy (minhchinh.com)
+│   ├── fetch_data.py               # Scraper dự phòng — AjaxPro vietlott.vn (IP VN)
+│   └── bootstrap.py                # Tải lịch sử từ vietvudanh/vietlott-data (1 lần)
 │
 ├── 📁 .github/workflows/
-│   ├── update-data.yml          # Power/Max3D hàng tối
-│   ├── keno-live.yml            # Keno mỗi 5 phút (tự động)
-│   ├── lotto535-daily.yml       # Lotto 5/35 hàng ngày
-│   └── catchup.yml              # Bù dữ liệu (thủ công)
+│   ├── update-data.yml             # Power/Max3D — hàng ngày 19:05 VN
+│   ├── lotto535-daily.yml          # Lotto 5/35 + Jackpot — mỗi 5 phút
+│   ├── keno-live.yml               # Keno — mỗi 10 phút (06:00–22:00 VN)
+│   ├── pages.yml                   # Deploy GitHub Pages — on push + mỗi 5 phút
+│   ├── catchup.yml                 # Bù dữ liệu thiếu (thủ công)
+│   └── bootstrap.yml               # Bootstrap lịch sử (thủ công, 1 lần)
 │
-├── index.html                   # Dashboard web
-├── run_keno_local.bat           # Backfill Keno từ máy Windows
-└── requirements.txt             # Python dependencies
+├── index.html                      # Dashboard web (vanilla JS, không cần build)
+├── run_local.py                    # Chạy local: scrape + push GitHub
+├── run_local.bat                   # Wrapper Windows cho run_local.py
+├── run_keno_local.bat              # Backfill Keno từ máy Windows (IP VN)
+└── requirements.txt                # Python dependencies
 ```
 
 ---
 
-## 🤖 GitHub Actions — Tự động hóa
+## 🤖 GitHub Actions — Lịch chạy tự động
 
-| Workflow | Lịch chạy | Mục đích |
-|----------|-----------|---------|
-| `keno-live.yml` | **Mỗi 5 phút** | Keno — bắt kỳ mới trong vòng 5 phút |
-| `update-data.yml` | 18:25 VN hàng ngày | Power655, Mega645, Max3D, Max3D Pro |
-| `lotto535-daily.yml` | 20:15 & 04:15 UTC | Lotto 5/35 (2 kỳ/ngày) |
-| `catchup.yml` | Thủ công | Bù dữ liệu bị thiếu |
+| Workflow | Tần suất | Mục đích |
+|----------|---------|---------|
+| `lotto535-daily.yml` | **Mỗi 5 phút** | Lotto 5/35 (2 kỳ/ngày) + **Jackpot tích lũy** |
+| `keno-live.yml` | **Mỗi 10 phút** | Keno — bắt kỳ mới trong vòng 10 phút |
+| `update-data.yml` | **19:05 VN** hàng ngày | Power 6/55, Mega 6/45, Max3D, Max3D Pro + Keno backup |
+| `pages.yml` | On push + mỗi 5 phút | Deploy Dashboard lên GitHub Pages |
+| `catchup.yml` | **Thủ công** | Bù dữ liệu thiếu theo ngày/game tuỳ chọn |
+| `bootstrap.yml` | **Thủ công (1 lần)** | Tải dữ liệu lịch sử từ vietvudanh/vietlott-data |
 
 ---
 
 ## 📊 Định dạng dữ liệu
 
-Mỗi file JSONL gồm các dòng JSON, **sắp xếp theo ngày mới nhất trước**:
+Mỗi file JSONL gồm các dòng JSON, **sắp xếp theo ngày + kỳ mới nhất trước**:
 
 ```jsonc
-// Power 6/55, Mega 6/45, Lotto 5/35
-{"date": "2026-04-16", "id": "01500", "result": [3, 12, 25, 31, 42, 55]}
+// Power 6/55, Mega 6/45, Lotto 5/35 — kèm số người trúng từng giải
+{
+  "date": "2026-05-09",
+  "id": "01500",
+  "result": [3, 12, 25, 31, 42, 55],
+  "winners": { "Jackpot 1": 0, "Jackpot 2": 1, "Giải Ba": 42, "Giải Tư": 1820 }
+}
 
-// Keno (20 số từ 1-80)
-{"id": "0277767", "date": "2026-04-16", "time": "21:52", "result": [1, 2, 10, 17, 21, 32, 33, 36, 40, 41, 47, 53, 54, 60, 61, 67, 68, 71, 74, 76]}
+// Max3D / Max3D Pro — kết quả dạng object theo giải
+{
+  "date": "2026-05-11",
+  "id": "01078",
+  "result": {
+    "Giải Đặc biệt": ["139", "046"],
+    "Giải Nhất": ["669", "523", "747", "445"],
+    "Giải Nhì": ["206", "963", "384", "920", "031", "400"],
+    "Giải Ba": ["738", "904", "746", "821", "180", "896", "689", "849"]
+  },
+  "winners": { "Đặc biệt": 36, "Giải nhất": 79, "Giải nhì": 105, "Giải ba": 96 }
+}
 
-// Max3D (nhiều giải)
-{"date": "2026-04-14", "id": "00750", "result": {"Giải Đặc biệt": [123, 456], "Giải Nhất": [789, 012]}}
+// Keno — 20 số, có timestamp giờ quay
+{
+  "id": "0277767",
+  "date": "2026-05-11",
+  "time": "21:52",
+  "result": [1, 2, 10, 17, 21, 32, 33, 36, 40, 41, 47, 53, 54, 60, 61, 67, 68, 71, 74, 76]
+}
 ```
 
-| Trường | Kiểu | Mô tả |
-|--------|------|-------|
-| `date` | `string` | Ngày quay (YYYY-MM-DD) |
-| `id` | `string` | Mã kỳ quay |
-| `time` | `string` | Giờ quay (HH:MM) — Keno |
-| `result` | `array` hoặc `object` | Kết quả trúng thưởng |
+| Trường | Kiểu | Có trong |
+|--------|------|---------|
+| `date` | `YYYY-MM-DD` | Tất cả |
+| `id` | `string` (zero-padded) | Tất cả |
+| `time` | `HH:MM` | Keno |
+| `result` | `number[]` hoặc `object` | Tất cả |
+| `winners` | `object` (tên giải → số người) | Power/Max3D (từ 2025-10) |
 
 ---
 
-## 📈 Thống kê dữ liệu
+## 📈 Thống kê dữ liệu (05/2026)
 
 ```
-Tổng bản ghi: ~155,000+
-├── keno.jsonl        ~155,000+ kỳ   (từ 12/2022, tự động mỗi 5 phút)
-├── 3d.jsonl             ~1,500+ kỳ
-├── 3d_pro.jsonl         ~1,500+ kỳ
-├── power655.jsonl       ~1,000+ kỳ
-├── power645.jsonl       ~1,000+ kỳ
-└── power535.jsonl         ~500+ kỳ
+Tổng: ~160,000+ kỳ quay
+├── keno.jsonl        ~155,000 kỳ   (từ 12/2022 — cập nhật mỗi 10 phút)
+├── 3d.jsonl           ~1,076 kỳ    (từ 01/2019)
+├── 3d_pro.jsonl         ~721 kỳ    (từ 06/2020)
+├── power655.jsonl     ~1,343 kỳ    (từ 07/2017)
+├── power645.jsonl     ~1,311 kỳ    (từ 07/2017)
+└── power535.jsonl       ~634 kỳ    (từ 06/2025 — toàn bộ có winners)
+```
+
+---
+
+## 🛠️ Chạy local
+
+```bash
+# Cài dependencies
+pip install -r requirements.txt
+
+# Lấy 7 ngày gần nhất, tất cả game, rồi push GitHub
+python run_local.py
+
+# Chỉ lấy Lotto 5/35, 14 ngày
+python run_local.py power535 --days 14
+
+# Backfill dữ liệu thiếu từ ngày cụ thể
+python scripts/fetch_ketqua.py power655 --from 2025-01-01
+
+# Backfill Keno (cần IP Việt Nam)
+python scripts/fetch_keno_vietlott.py --days 30
+
+# Fetch jackpot tích lũy thủ công
+python scripts/fetch_jackpots.py
 ```
 
 ---
 
 ## 📄 Giấy phép
 
-Phát hành dưới giấy phép [MIT License](LICENSE).
+Phát hành dưới [MIT License](LICENSE).
 
 ---
 
