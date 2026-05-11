@@ -95,8 +95,8 @@ def load(fname):
     return db
 
 def save(fname, db):
-    # Sort: date DESC, rồi id ASC (kỳ nhỏ hơn trước trong cùng ngày)
-    rows = sorted(db.values(), key=lambda x: (x["date"], -int(x["id"])), reverse=True)
+    # Sort: date DESC, id DESC (kỳ lớn hơn = kỳ sau = đứng trên trong cùng ngày)
+    rows = sorted(db.values(), key=lambda x: (x["date"], x["id"]), reverse=True)
     (DATA / fname).write_text(
         "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
         encoding="utf-8",
