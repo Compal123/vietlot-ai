@@ -25,7 +25,6 @@ MAP_VIETVUDANH = [
     ("3d.jsonl",       "3d.jsonl"),
     ("3d_pro.jsonl",   "3d_pro.jsonl"),
     ("keno.jsonl",     "keno.jsonl"),
-    ("bingo18.jsonl",  "bingo18.jsonl"),
 ]
 
 # ── Nguồn 2: thanhnhu — cập nhật hàng ngày, data mới hơn ──

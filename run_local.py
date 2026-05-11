@@ -8,7 +8,7 @@ Chạy script này trên máy của bạn (IP Việt Nam) để:
 
 Cách dùng:
   python run_local.py                    → tất cả game
-  python run_local.py keno bingo18       → chỉ keno + bingo18
+  python run_local.py keno               → chỉ keno
   python run_local.py --pages 20         → tất cả game, nhiều trang hơn
 """
 import sys, pathlib, subprocess, time, json

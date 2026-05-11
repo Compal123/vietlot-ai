@@ -158,7 +158,33 @@ body::before{
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media(max-width:900px){.g3{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}.main{padding:16px}.header{padding:12px 16px}.header-right .stat-chip{display:none}}
+@media(max-width:640px){
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .main{padding:12px}
+  .header{padding:10px 14px;gap:8px}
+  .header-right .stat-chip{display:none}
+  .header-right{gap:6px}
+  .logo-title{font-size:16px}
+  .logo-icon{width:36px;height:36px;font-size:17px}
+  /* Sub-nav: scroll ngang thay vì wrap */
+  .sub-nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;gap:6px;-webkit-overflow-scrolling:touch}
+  .sub-nav::-webkit-scrollbar{display:none}
+  .stab{flex-shrink:0;padding:8px 14px;font-size:12.5px}
+  /* Balls nhỏ hơn trên mobile */
+  .ball{width:42px;height:42px;font-size:14px}
+  .mball{width:28px;height:28px;font-size:11px}
+  .ball.kball{width:32px;height:32px;font-size:12px}
+  /* Latest card gọn hơn */
+  .latest-card{padding:18px 16px}
+  .lc-date{font-size:20px}
+  /* History row: stack ngày và số trên mobile */
+  .hist-row{flex-direction:column;align-items:flex-start;gap:8px;padding:10px 14px}
+  .hdate{min-width:unset}
+  /* Stat cards */
+  .sc-val{font-size:22px}
+  /* Lottery nav đã scroll ngang sẵn */
+  .ltab{padding:11px 14px;font-size:13px}
+}
 
 /* ===== LATEST RESULT CARD ===== */
 .latest-card{
@@ -715,6 +741,8 @@ const S = {
   cache: {},
   loading: new Set(),
   histPage: 20,
+  filterYear: '',
+  filterMonth: '',
   botChart: null,
 };
 
@@ -743,7 +771,8 @@ async function loadData(key, forceRefresh = false) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const txt = await r.text();
     const rows = txt.trim().split('\n').filter(Boolean).map(l => JSON.parse(l));
-    rows.sort((a,b) => b.date.localeCompare(a.date));
+    // Sort: date DESC, id DESC (kỳ mới hơn / số lớn hơn đứng trước)
+    rows.sort((a,b) => b.date.localeCompare(a.date) || (b.id||'').localeCompare(a.id||''));
     S.cache[key] = rows;
     // Keno: check data freshness and warn if stale
     if (key === 'keno') _updateKenoFreshness(rows);
@@ -1085,29 +1114,76 @@ async function renderResults(){
     ${statCard2}${statCard3}
   </div>`;
 
-  /* History */
-  h+=`<div class="stitle"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-purple)"></i> Lịch Sử Kết Quả <span>(${rows.length} kỳ)</span></div>`;
-  h+='<div class="hist-list">';
-  hist.slice(0, S.histPage).forEach(item=>{
-    h+=`<div class="hist-row">
-      <div class="hdate">
-        <div class="hdate-main">${fmtDate(item.date)}</div>
-        <div class="hdate-sub">#${item.id} · ${dow(item.date)}</div>
-      </div>
-      ${renderHistNumbers(item,cfg)}
-    </div>`;
-  });
-  h+='</div>';
+  /* ── Bộ lọc tháng / năm ── */
+  const allDates = rows.map(r=>r.date);
+  const years  = [...new Set(allDates.map(d=>d.slice(0,4)))].sort((a,b)=>b-a);
+  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+  const curY   = S.filterYear  || '';
+  const curM   = S.filterMonth || '';
 
-  const remaining = hist.length - S.histPage;
-  if(remaining>0){
-    h+=`<button class="load-more" onclick="loadMoreHist()">
-      <i class="fa-solid fa-chevron-down"></i>
-      Tải thêm ${Math.min(20,remaining)} / còn ${remaining} kết quả
-    </button>`;
+  h+=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+    <div class="stitle" style="margin-bottom:0"><i class="fa-solid fa-clock-rotate-left" style="color:var(--accent-purple)"></i> Lịch Sử Kết Quả <span>(${rows.length} kỳ)</span></div>
+    <div style="display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;align-items:center">
+      <select id="filter-year" onchange="applyHistFilter()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer">
+        <option value="">Tất cả năm</option>
+        ${years.map(y=>`<option value="${y}" ${y===curY?'selected':''}>${y}</option>`).join('')}
+      </select>
+      <select id="filter-month" onchange="applyHistFilter()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer">
+        <option value="">Tất cả tháng</option>
+        ${months.map(m=>`<option value="${m}" ${m===curM?'selected':''}>${m}</option>`).join('')}
+      </select>
+      ${curY||curM?`<button onclick="clearHistFilter()" style="background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#ef4444;border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer">✕ Xóa lọc</button>`:''}
+    </div>
+  </div>`;
+
+  /* Filter rows */
+  const filtered = hist.filter(r=>{
+    if(curY && !r.date.startsWith(curY)) return false;
+    if(curM && r.date.slice(5,7) !== curM) return false;
+    return true;
+  });
+
+  if(filtered.length===0){
+    h+=`<div class="empty-state"><div class="empty-icon">🔍</div><p style="color:var(--text-secondary)">Không có kết quả trong khoảng thời gian này</p></div>`;
+  } else {
+    h+='<div class="hist-list">';
+    const pageRows = (curY||curM) ? filtered : filtered.slice(0, S.histPage);
+    pageRows.forEach(item=>{
+      h+=`<div class="hist-row">
+        <div class="hdate">
+          <div class="hdate-main">${fmtDate(item.date)}</div>
+          <div class="hdate-sub">#${item.id} · ${dow(item.date)}</div>
+        </div>
+        ${renderHistNumbers(item,cfg)}
+      </div>`;
+    });
+    h+='</div>';
+
+    if(!curY && !curM){
+      const remaining = filtered.length - S.histPage;
+      if(remaining>0){
+        h+=`<button class="load-more" onclick="loadMoreHist()">
+          <i class="fa-solid fa-chevron-down"></i>
+          Tải thêm ${Math.min(20,remaining)} / còn ${remaining} kết quả
+        </button>`;
+      }
+    } else {
+      h+=`<div style="text-align:center;padding:10px;font-size:12.5px;color:var(--text-muted)">Hiển thị ${filtered.length} kết quả</div>`;
+    }
   }
 
   el.innerHTML=h;
+}
+
+function applyHistFilter(){
+  S.filterYear  = document.getElementById('filter-year')?.value  || '';
+  S.filterMonth = document.getElementById('filter-month')?.value || '';
+  S.histPage = 20;
+  renderResults();
+}
+function clearHistFilter(){
+  S.filterYear=''; S.filterMonth=''; S.histPage=20;
+  renderResults();
 }
 
 function loadMoreHist(){ S.histPage+=20; renderResults(); }
@@ -1338,6 +1414,67 @@ function anlPairList(draws, ac, k, n){
       <span class="anl-pair-pct">${Math.round(cnt/totalD*100)}%</span>
     </div>`;
   }).join('');
+}
+
+/* ── Streak: hot streak (ra liên tiếp) & cold streak (vắng liên tiếp) ── */
+function anlRenderStreak(draws, ac){
+  const maxN = ac.isKeno ? ac.max : (ac.max || 55);
+  const TOP = ac.isKeno ? 12 : 8;
+
+  // Với mỗi số 1..maxN, tính:
+  //  hotStreak  = số kỳ liên tiếp GẦN NHẤT mà số đó xuất hiện (tính từ kỳ mới nhất về cũ)
+  //  coldStreak = số kỳ liên tiếp GẦN NHẤT mà số đó VẮNG mặt
+  const hot  = {}; // num → consecutive hits ending at latest draw
+  const cold = {}; // num → consecutive misses ending at latest draw
+
+  for(let n=1; n<=maxN; n++){
+    let h=0, c=0, foundHot=false, foundCold=false;
+    for(let i=0; i<draws.length; i++){
+      const nums = draws[i].nums || [];
+      const hit  = nums.includes(n);
+      if(!foundHot){
+        if(hit) h++;
+        else foundHot=true;
+      }
+      if(!foundCold){
+        if(!hit) c++;
+        else foundCold=true;
+      }
+      if(foundHot && foundCold) break;
+    }
+    hot[n]  = h;
+    cold[n] = c;
+  }
+
+  // Sort descending, take top
+  const hotList  = Object.entries(hot).sort((a,b)=>b[1]-a[1]).slice(0,TOP);
+  const coldList = Object.entries(cold).sort((a,b)=>b[1]-a[1]).slice(0,TOP);
+
+  function streakBall(num, streak, isHot){
+    const color = isHot
+      ? `hsl(${Math.max(0, 30 - streak*2)},100%,${Math.max(45,65-streak*3)}%)`
+      : `hsl(${200 + streak*3},${Math.min(100,50+streak*5)}%,${Math.max(45,65-streak*2)}%)`;
+    const glow  = isHot
+      ? `0 0 ${8+streak*3}px rgba(255,127,80,${Math.min(0.9,0.3+streak*0.1)})`
+      : `0 0 ${8+streak*3}px rgba(0,212,208,${Math.min(0.9,0.3+streak*0.1)})`;
+    return `<div class="anl-fb" title="${isHot?'Ra':'Vắng'} ${streak} kỳ liên tiếp">
+      <div class="anl-fball" style="background:${color};box-shadow:${glow};width:34px;height:34px;font-size:12px">${num}</div>
+      <div class="anl-fct" style="color:${isHot?'#ff7f50':'var(--accent-cyan)'}">×${streak}</div>
+    </div>`;
+  }
+
+  return `<div class="anl-two-col">
+    <div class="anl-col-card anl-hot-card">
+      <div class="anl-col-title" style="color:#ff7f50">🔥 Đang ra liên tiếp</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">Số kỳ liên tiếp gần nhất có mặt</div>
+      <div class="anl-fgrid" style="gap:8px">${hotList.map(([n,s])=>streakBall(n,s,true)).join('')}</div>
+    </div>
+    <div class="anl-col-card anl-cold-card">
+      <div class="anl-col-title" style="color:var(--accent-cyan)">❄️ Đang vắng liên tiếp</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">Số kỳ liên tiếp gần nhất vắng mặt</div>
+      <div class="anl-fgrid" style="gap:8px">${coldList.map(([n,s])=>streakBall(n,s,false)).join('')}</div>
+    </div>
+  </div>`;
 }
 
 function anlRenderPairs(draws, ac, n){
@@ -1780,6 +1917,15 @@ async function renderAnalysis(){
   const kenoNoteNdp   = ac.isKeno ? ` <span style="font-size:10px;color:var(--text-muted);font-weight:400">(${drawsForNdp.length} kỳ gần nhất)</span>` : '';
   // Reset pair chip default for Keno
   const pairDefault = ac.isKeno ? 15 : A.pairN;
+
+  h += `<div class="anl-card">
+    <div class="anl-head" onclick="toggleAnl(this)">
+      <div><div class="anl-htitle">⚡ STREAK — CÁC SỐ ĐANG "NÓNG" VÀ "LẠNH"</div>
+        <div class="anl-hsub">Số đang ra liên tiếp nhiều kỳ nhất · Số lâu chưa xuất hiện nhất</div></div>
+      <span class="anl-arrow">▶</span>
+    </div>
+    <div class="anl-body">${anlRenderStreak(draws, ac)}</div>
+  </div>`;
 
   h += `<div class="anl-card">
     <div class="anl-head" onclick="toggleAnl(this)">
@@ -2232,6 +2378,7 @@ function switchLottery(key){
   if(S.lottery===key) return;
   S.lottery=key;
   S.histPage=20;
+  S.filterYear=''; S.filterMonth='';
   document.querySelectorAll('.ltab').forEach(t=>t.classList.toggle('active',t.dataset.key===key));
   // Update keno freshness badge visibility on tab switch
   if (key === 'keno' && S.cache['keno'] && Array.isArray(S.cache['keno'])) {
@@ -2870,15 +3017,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
   }, 60 * 1000); // 1 phút
 
-  // Auto-refresh Keno mỗi 8 phút (Keno quay mỗi ~8 phút)
+  // Auto-refresh Keno mỗi 5 phút (Keno quay mỗi ~3-4 phút)
   setInterval(()=>{
-    const isKeno = S.lottery === 'keno';
-    const isActive = !document.hidden; // chỉ refresh khi tab đang mở
-    if (isKeno && isActive) {
+    if (S.lottery === 'keno' && !document.hidden) {
       delete S.cache['keno'];
-      renderAll();
+      renderActive();
     }
-  }, 8 * 60 * 1000); // 8 phút
+  }, 5 * 60 * 1000); // 5 phút
 });
 </script>
 </body>

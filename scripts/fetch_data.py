@@ -384,62 +384,6 @@ def scrape_keno(pages=3):
     print(f"    ✅ {total} tổng, +{new} mới")
     return new
 
-# ─── Bingo18 ──────────────────────────────────────────────────────────────────
-def scrape_bingo18(pages=3):
-    print("\n  ▶ bingo18.jsonl")
-    db = load("bingo18.jsonl")
-    new = 0
-
-    for pg in range(1, pages + 1):
-        body = {
-            "ORenderInfo": RENDER,
-            "GameId": "8",
-            "ProcessType": 0,
-            "PageIndex": pg,
-            "TotalRow": 999999,
-        }
-        html = get_html(post_api(
-            "Vietlott.PlugIn.WebParts.GameBingoCompareWebPart,Vietlott.PlugIn.WebParts.ashx",
-            body,
-        ))
-        if not html:
-            break
-
-        soup = BeautifulSoup(html, "lxml")
-        rows = soup.select("table tr")[1:]
-        if not rows:
-            break
-
-        added = 0
-        for tr in rows:
-            tds = tr.find_all("td")
-            if len(tds) < 2:
-                continue
-            try:
-                links = tds[0].find_all("a")
-                date_txt = links[0].get_text(strip=True) if links else tds[0].get_text(strip=True)
-                date = to_date(date_txt.split()[0])
-                did_txt = links[1].get_text(strip=True) if len(links) > 1 else tds[1].get_text(strip=True)
-                did = did_txt.zfill(5)
-                nums = [
-                    int(sp.get_text(strip=True))
-                    for sp in tr.find_all("span")
-                    if sp.get_text(strip=True).isdigit()
-                ]
-                if did and date and nums and did not in db:
-                    db[did] = {"date": date, "id": did, "result": nums}
-                    new += 1
-                    added += 1
-            except Exception as e:
-                print(f"    Row lỗi: {e}")
-
-        print(f"    Trang {pg}: {len(rows)} dòng, {added} mới")
-        time.sleep(0.5)
-
-    total = save("bingo18.jsonl", db)
-    print(f"    ✅ {total} tổng, +{new} mới")
-    return new
-
 # ─── Game registry ────────────────────────────────────────────────────────────
 def run_power655(pages=5):
     return scrape_power(
@@ -474,9 +418,6 @@ def run_max3dpro(pages=4):
 def run_keno(pages=2):
     return scrape_keno(pages=pages)
 
-def run_bingo18(pages=2):
-    return scrape_bingo18(pages=pages)
-
 GAMES = {
     "power655": run_power655,
     "power645": run_power645,
@@ -484,7 +425,6 @@ GAMES = {
     "max3d":    run_max3d,
     "max3dpro": run_max3dpro,
     "keno":     run_keno,
-    "bingo18":  run_bingo18,
 }
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
