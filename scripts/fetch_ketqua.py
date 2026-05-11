@@ -239,10 +239,14 @@ def _normalize_prize(text):
             return v
     return None
 
+def _parse_3d_winner_cell(text):
+    """Parse 'GiảiTên+Value:Count' → (prize_name, count). VD: 'Đặc biệt1Tr:34' → ('Đặc biệt', 34)"""
+    m = re.match(r"^(.+?)[\d.,]+(Tr|Tỷ|K|M|B)?:(\d+)", text.strip())
+    return (m.group(1).strip(), int(m.group(3))) if m else (None, None)
+
 def parse_3d(soup):
     results = []
 
-    # Tìm tất cả div.kyve (mỗi ngày có thể có 1 kết quả, nhưng page thường 1 kỳ)
     for kyve_div in soup.select("div.kyve"):
         text     = kyve_div.get_text(" ", strip=True)
         draw_id  = _extract_id(text)
@@ -250,7 +254,6 @@ def parse_3d(soup):
         if not draw_id or not draw_date:
             continue
 
-        # Tìm bảng kết quả tiếp theo
         table = kyve_div.find_next("table", class_=re.compile(r"tblMax3d|max3d", re.I))
         if not table:
             continue
@@ -260,14 +263,10 @@ def parse_3d(soup):
             tds = tr.find_all("td")
             if len(tds) < 2:
                 continue
-
-            # Tên giải (cột 1 — cột Max3D, không phải Max3D+)
             prize_text = tds[0].get_text(" ", strip=True)
             prize_name = _normalize_prize(prize_text)
             if not prize_name:
                 continue
-
-            # Số 3 chữ số từ cột giữa (index 1)
             num_td = tds[1]
             nums_3d = []
             for div in num_td.find_all("div"):
@@ -275,12 +274,66 @@ def parse_3d(soup):
                           if sp.get_text(strip=True).isdigit()]
                 if len(digits) == 3:
                     nums_3d.append("".join(digits))
-
             if nums_3d:
                 result[prize_name] = nums_3d
 
         if result:
             results.append({"date": draw_date, "id": draw_id, "result": result})
+
+    # ── Parse số người trúng ──────────────────────────────────────────────────
+    winner_map = {}
+
+    # Format A (trang max-3d): MAX 3D | SỐ QUAY THƯỞNG | MAX 3D+
+    # Cell col[0]: "PrizeName+Value:Count"  e.g. "Đặc biệt1Tr:34"
+    for t in soup.find_all("table"):
+        hdr = t.find("tr")
+        if not hdr or "MAX 3D" not in hdr.get_text():
+            continue
+        prev = t.find_previous("div", class_="kyve")
+        if not prev:
+            continue
+        did = _extract_id(prev.get_text())
+        if not did:
+            continue
+        winners = {}
+        for tr in t.find_all("tr")[1:]:
+            tds = tr.find_all("td")
+            if tds:
+                name, cnt = _parse_3d_winner_cell(tds[0].get_text(strip=True))
+                if name and cnt is not None:
+                    winners[name] = cnt
+        if winners:
+            winner_map[did] = winners
+
+    # Format B (trang max3d-pro): GIẢI | SỐ QUAY THƯỞNG | GIÁ TRỊ | SL
+    for t in soup.find_all("table"):
+        if "SL" not in t.get_text():
+            continue
+        hdr = t.find("tr")
+        if not hdr or "GIẢI" not in hdr.get_text():
+            continue
+        prev = t.find_previous("div", class_="kyve")
+        if not prev:
+            continue
+        did = _extract_id(prev.get_text())
+        if not did or did in winner_map:
+            continue
+        winners = {}
+        for tr in t.find_all("tr")[1:]:
+            tds = tr.find_all("td")
+            if len(tds) >= 4:
+                prize = tds[0].get_text(strip=True)
+                cnt_s = tds[3].get_text(strip=True).replace(".", "").replace(",", "")
+                if prize and cnt_s.lstrip("-").isdigit():
+                    winners[prize] = int(cnt_s)
+        if winners:
+            winner_map[did] = winners
+
+    # Gắn winners vào results
+    for row in results:
+        if row["id"] in winner_map:
+            row["winners"] = winner_map[row["id"]]
+
     return results
 
 PARSERS = {
