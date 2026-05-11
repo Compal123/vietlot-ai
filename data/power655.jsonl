@@ -5,97 +5,97 @@
 {"date": "2026-04-30", "id": "01339", "result": [9, 15, 21, 25, 29, 50, 16], "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 7, "Giải nhì": 608, "Giải ba": 14137}}
 {"date": "2026-04-28", "id": "01338", "result": [24, 25, 34, 51, 52, 53, 35], "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 6, "Giải nhì": 549, "Giải ba": 12744}}
 {"date": "2026-04-25", "id": "01337", "result": [4, 7, 10, 29, 41, 46, 43], "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 9, "Giải nhì": 628, "Giải ba": 14397}}
-{"date": "2026-04-23", "id": "01336", "result": [5, 16, 17, 22, 33, 53, 55]}
-{"date": "2026-04-21", "id": "01335", "result": [8, 30, 36, 39, 50, 53, 15]}
-{"date": "2026-04-18", "id": "01334", "result": [9, 19, 20, 28, 37, 39, 24]}
-{"date": "2026-04-16", "id": "01333", "result": [2, 7, 15, 22, 47, 52, 55]}
-{"date": "2026-04-14", "id": "01332", "result": [8, 16, 22, 35, 39, 47, 28]}
-{"date": "2026-04-11", "id": "01331", "result": [13, 26, 29, 38, 49, 53, 7]}
-{"date": "2026-04-09", "id": "01330", "result": [16, 18, 22, 29, 41, 53, 38]}
-{"date": "2026-04-07", "id": "01329", "result": [1, 13, 23, 31, 44, 53, 32]}
-{"date": "2026-04-04", "id": "01328", "result": [5, 7, 10, 23, 30, 54, 40], "process_time": "bootstrap"}
-{"date": "2026-04-02", "id": "01327", "result": [9, 21, 32, 34, 52, 53, 22], "process_time": "bootstrap"}
-{"date": "2026-03-31", "id": "01326", "result": [15, 16, 22, 38, 43, 48, 11], "process_time": "bootstrap"}
-{"date": "2026-03-28", "id": "01325", "result": [7, 13, 21, 30, 33, 42, 39], "process_time": "bootstrap"}
-{"date": "2026-03-26", "id": "01324", "result": [3, 9, 10, 34, 38, 44, 51], "process_time": "bootstrap"}
-{"date": "2026-03-24", "id": "01323", "result": [12, 19, 25, 26, 32, 45, 3], "process_time": "bootstrap"}
-{"date": "2026-03-21", "id": "01322", "result": [1, 6, 40, 43, 47, 53, 3], "process_time": "bootstrap"}
-{"date": "2026-03-19", "id": "01321", "result": [7, 9, 17, 31, 34, 36, 55], "process_time": "bootstrap"}
-{"date": "2026-03-17", "id": "01320", "result": [12, 26, 28, 43, 50, 54, 52], "process_time": "bootstrap"}
-{"date": "2026-03-14", "id": "01319", "result": [7, 16, 27, 29, 47, 52, 26], "process_time": "bootstrap"}
-{"date": "2026-03-12", "id": "01318", "result": [12, 28, 36, 40, 53, 55, 54], "process_time": "bootstrap"}
-{"date": "2026-03-10", "id": "01317", "result": [3, 26, 31, 39, 47, 54, 20], "process_time": "bootstrap"}
-{"date": "2026-03-07", "id": "01316", "result": [4, 32, 41, 45, 50, 52, 29], "process_time": "bootstrap"}
-{"date": "2026-03-05", "id": "01315", "result": [14, 16, 35, 38, 43, 51, 37], "process_time": "bootstrap"}
-{"date": "2026-03-03", "id": "01314", "result": [7, 13, 27, 29, 43, 50, 25], "process_time": "bootstrap"}
-{"date": "2026-02-28", "id": "01313", "result": [22, 25, 31, 44, 51, 54, 36], "process_time": "bootstrap"}
-{"date": "2026-02-26", "id": "01312", "result": [1, 7, 10, 21, 44, 51, 46], "process_time": "bootstrap"}
-{"date": "2026-02-24", "id": "01311", "result": [5, 8, 18, 30, 39, 54, 51], "process_time": "bootstrap"}
-{"date": "2026-02-21", "id": "01310", "result": [5, 7, 26, 30, 41, 45, 12], "process_time": "bootstrap"}
-{"date": "2026-02-19", "id": "01309", "result": [1, 27, 30, 43, 45, 46, 48], "process_time": "bootstrap"}
-{"date": "2026-02-14", "id": "01308", "result": [2, 13, 26, 32, 36, 42, 48], "process_time": "bootstrap"}
-{"date": "2026-02-12", "id": "01307", "result": [8, 17, 19, 31, 32, 46, 26], "process_time": "bootstrap"}
-{"date": "2026-02-10", "id": "01306", "result": [13, 21, 22, 26, 32, 55, 20], "process_time": "bootstrap"}
-{"date": "2026-02-07", "id": "01305", "result": [3, 5, 13, 15, 29, 46, 1], "process_time": "bootstrap"}
-{"date": "2026-02-05", "id": "01304", "result": [7, 13, 16, 25, 26, 55, 9], "process_time": "bootstrap"}
-{"date": "2026-02-03", "id": "01303", "result": [12, 15, 18, 22, 48, 53, 45], "process_time": "bootstrap"}
-{"date": "2026-01-31", "id": "01302", "result": [10, 11, 14, 17, 49, 53, 4], "process_time": "bootstrap"}
-{"date": "2026-01-29", "id": "01301", "result": [11, 15, 22, 32, 34, 54, 28], "process_time": "bootstrap"}
-{"date": "2026-01-27", "id": "01300", "result": [13, 22, 32, 42, 53, 54, 29], "process_time": "bootstrap"}
-{"date": "2026-01-24", "id": "01299", "result": [14, 24, 25, 30, 35, 53, 18], "process_time": "bootstrap"}
-{"date": "2026-01-22", "id": "01298", "result": [2, 20, 21, 29, 36, 50, 5], "process_time": "bootstrap"}
-{"date": "2026-01-20", "id": "01297", "result": [4, 20, 26, 28, 37, 41, 32], "process_time": "bootstrap"}
-{"date": "2026-01-17", "id": "01296", "result": [14, 21, 23, 25, 46, 48, 54], "process_time": "bootstrap"}
-{"date": "2026-01-15", "id": "01295", "result": [13, 21, 31, 34, 48, 55, 27], "process_time": "bootstrap"}
-{"date": "2026-01-13", "id": "01294", "result": [3, 12, 25, 51, 52, 55, 43], "process_time": "bootstrap"}
-{"date": "2026-01-10", "id": "01293", "result": [9, 16, 30, 33, 34, 38, 49], "process_time": "bootstrap"}
-{"date": "2026-01-08", "id": "01292", "result": [20, 22, 36, 43, 45, 50, 47], "process_time": "bootstrap"}
-{"date": "2026-01-06", "id": "01291", "result": [22, 28, 29, 30, 34, 47, 20], "process_time": "bootstrap"}
-{"date": "2026-01-03", "id": "01290", "result": [10, 16, 17, 23, 33, 36, 42], "process_time": "bootstrap"}
-{"date": "2026-01-01", "id": "01289", "result": [5, 16, 29, 33, 39, 42, 54], "process_time": "bootstrap"}
-{"date": "2025-12-30", "id": "01288", "result": [11, 30, 35, 41, 48, 55, 38], "process_time": "bootstrap"}
-{"date": "2025-12-27", "id": "01287", "result": [16, 21, 30, 37, 39, 40, 13], "process_time": "bootstrap"}
-{"date": "2025-12-25", "id": "01286", "result": [4, 6, 32, 37, 40, 48, 38], "process_time": "bootstrap"}
-{"date": "2025-12-23", "id": "01285", "result": [2, 10, 16, 25, 32, 38, 3], "process_time": "bootstrap"}
-{"date": "2025-12-20", "id": "01284", "result": [22, 32, 33, 35, 40, 41, 23], "process_time": "bootstrap"}
-{"date": "2025-12-18", "id": "01283", "result": [12, 14, 29, 30, 39, 55, 50], "process_time": "bootstrap"}
-{"date": "2025-12-16", "id": "01282", "result": [7, 36, 37, 38, 52, 55, 46], "process_time": "bootstrap"}
-{"date": "2025-12-13", "id": "01281", "result": [5, 8, 12, 18, 20, 38, 52], "process_time": "bootstrap"}
-{"date": "2025-12-11", "id": "01280", "result": [9, 13, 21, 45, 48, 55, 38], "process_time": "bootstrap"}
-{"date": "2025-12-09", "id": "01279", "result": [14, 21, 26, 27, 31, 43, 42], "process_time": "bootstrap"}
-{"date": "2025-12-06", "id": "01278", "result": [12, 26, 34, 37, 50, 52, 15], "process_time": "bootstrap"}
-{"date": "2025-12-04", "id": "01277", "result": [10, 29, 32, 33, 44, 53, 14], "process_time": "bootstrap"}
-{"date": "2025-12-02", "id": "01276", "result": [16, 20, 24, 36, 51, 54, 10], "process_time": "bootstrap"}
-{"date": "2025-11-29", "id": "01275", "result": [4, 20, 24, 27, 40, 48, 9], "process_time": "bootstrap"}
-{"date": "2025-11-27", "id": "01274", "result": [4, 5, 10, 11, 28, 35, 38], "process_time": "bootstrap"}
-{"date": "2025-11-25", "id": "01273", "result": [23, 31, 32, 42, 46, 48, 4], "process_time": "bootstrap"}
-{"date": "2025-11-22", "id": "01272", "result": [8, 10, 19, 29, 34, 46, 14], "process_time": "bootstrap"}
-{"date": "2025-11-20", "id": "01271", "result": [3, 12, 19, 20, 31, 42, 13], "process_time": "bootstrap"}
-{"date": "2025-11-18", "id": "01270", "result": [7, 12, 18, 22, 30, 49, 5], "process_time": "bootstrap"}
-{"date": "2025-11-15", "id": "01269", "result": [2, 30, 33, 35, 42, 54, 45], "process_time": "bootstrap"}
-{"date": "2025-11-13", "id": "01268", "result": [1, 15, 30, 38, 40, 43, 13], "process_time": "bootstrap"}
-{"date": "2025-11-11", "id": "01267", "result": [11, 20, 28, 41, 47, 54, 31], "process_time": "bootstrap"}
-{"date": "2025-11-08", "id": "01266", "result": [14, 16, 19, 22, 27, 44, 18], "process_time": "bootstrap"}
-{"date": "2025-11-06", "id": "01265", "result": [16, 20, 29, 33, 36, 49, 6], "process_time": "bootstrap"}
-{"date": "2025-11-04", "id": "01264", "result": [15, 27, 29, 31, 36, 43, 38], "process_time": "bootstrap"}
-{"date": "2025-11-01", "id": "01263", "result": [7, 11, 28, 29, 31, 33, 8], "process_time": "bootstrap"}
-{"date": "2025-10-30", "id": "01262", "result": [20, 23, 35, 41, 47, 55, 37], "process_time": "bootstrap"}
-{"date": "2025-10-28", "id": "01261", "result": [6, 8, 10, 22, 25, 54, 9], "process_time": "bootstrap"}
-{"date": "2025-10-25", "id": "01260", "result": [3, 5, 11, 13, 24, 27, 45], "process_time": "bootstrap"}
-{"date": "2025-10-23", "id": "01259", "result": [8, 10, 21, 48, 49, 50, 40], "process_time": "bootstrap"}
-{"date": "2025-10-21", "id": "01258", "result": [3, 11, 12, 14, 22, 40, 41], "process_time": "bootstrap"}
-{"date": "2025-10-18", "id": "01257", "result": [5, 16, 19, 21, 38, 43, 50], "process_time": "bootstrap"}
-{"date": "2025-10-16", "id": "01256", "result": [14, 15, 24, 26, 27, 45, 36], "process_time": "bootstrap"}
-{"date": "2025-10-14", "id": "01255", "result": [8, 9, 16, 26, 37, 55, 12], "process_time": "bootstrap"}
-{"date": "2025-10-11", "id": "01254", "result": [3, 7, 26, 43, 44, 46, 25], "process_time": "bootstrap"}
-{"date": "2025-10-09", "id": "01253", "result": [7, 11, 21, 22, 39, 42, 40], "process_time": "bootstrap"}
-{"date": "2025-10-07", "id": "01252", "result": [19, 22, 35, 37, 43, 45, 29], "process_time": "bootstrap"}
-{"date": "2025-10-04", "id": "01251", "result": [22, 33, 35, 36, 38, 40, 7], "process_time": "bootstrap"}
-{"date": "2025-10-02", "id": "01250", "result": [1, 2, 20, 24, 27, 42, 43], "process_time": "bootstrap"}
-{"date": "2025-09-30", "id": "01249", "result": [17, 23, 34, 39, 46, 52, 8], "process_time": "bootstrap"}
-{"date": "2025-09-27", "id": "01248", "result": [8, 13, 19, 24, 39, 46, 1], "process_time": "bootstrap"}
-{"date": "2025-09-25", "id": "01247", "result": [5, 17, 30, 31, 38, 53, 8], "process_time": "bootstrap"}
-{"date": "2025-09-23", "id": "01246", "result": [8, 18, 19, 34, 41, 46, 38], "process_time": "bootstrap"}
+{"date": "2026-04-23", "id": "01336", "result": [5, 16, 17, 22, 33, 53, 55], "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 15, "Giải nhì": 669, "Giải ba": 14037}}
+{"date": "2026-04-21", "id": "01335", "result": [8, 30, 36, 39, 50, 53, 15], "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 12, "Giải nhì": 618, "Giải ba": 12950}}
+{"date": "2026-04-18", "id": "01334", "result": [9, 19, 20, 28, 37, 39, 24], "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 22, "Giải nhì": 880, "Giải ba": 16580}}
+{"date": "2026-04-16", "id": "01333", "result": [2, 7, 15, 22, 47, 52, 55], "winners": {"Jackpot 1": 1, "Jackpot 2": 0, "Giải nhất": 19, "Giải nhì": 979, "Giải ba": 22169}}
+{"date": "2026-04-14", "id": "01332", "result": [8, 16, 22, 35, 39, 47, 28], "winners": {"Jackpot 1": 0, "Jackpot 2": 2, "Giải nhất": 23, "Giải nhì": 1218, "Giải ba": 25845}}
+{"date": "2026-04-11", "id": "01331", "result": [13, 26, 29, 38, 49, 53, 7], "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 5, "Giải nhì": 1004, "Giải ba": 19337}}
+{"date": "2026-04-09", "id": "01330", "result": [16, 18, 22, 29, 41, 53, 38], "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 8, "Giải nhì": 825, "Giải ba": 17710}}
+{"date": "2026-04-07", "id": "01329", "result": [1, 13, 23, 31, 44, 53, 32], "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 10, "Giải nhì": 864, "Giải ba": 18362}}
+{"date": "2026-04-04", "id": "01328", "result": [5, 7, 10, 23, 30, 54, 40], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 14, "Giải nhì": 956, "Giải ba": 20180}}
+{"date": "2026-04-02", "id": "01327", "result": [9, 21, 32, 34, 52, 53, 22], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 7, "Giải nhì": 734, "Giải ba": 15550}}
+{"date": "2026-03-31", "id": "01326", "result": [15, 16, 22, 38, 43, 48, 11], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 17, "Giải nhì": 884, "Giải ba": 20569}}
+{"date": "2026-03-28", "id": "01325", "result": [7, 13, 21, 30, 33, 42, 39], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 20, "Giải nhì": 981, "Giải ba": 19351}}
+{"date": "2026-03-26", "id": "01324", "result": [3, 9, 10, 34, 38, 44, 51], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 13, "Giải nhì": 874, "Giải ba": 19645}}
+{"date": "2026-03-24", "id": "01323", "result": [12, 19, 25, 26, 32, 45, 3], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 16, "Giải nhì": 1096, "Giải ba": 21600}}
+{"date": "2026-03-21", "id": "01322", "result": [1, 6, 40, 43, 47, 53, 3], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 12, "Giải nhì": 614, "Giải ba": 12732}}
+{"date": "2026-03-19", "id": "01321", "result": [7, 9, 17, 31, 34, 36, 55], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 18, "Giải nhì": 939, "Giải ba": 19049}}
+{"date": "2026-03-17", "id": "01320", "result": [12, 26, 28, 43, 50, 54, 52], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 14, "Giải nhì": 1023, "Giải ba": 19932}}
+{"date": "2026-03-14", "id": "01319", "result": [7, 16, 27, 29, 47, 52, 26], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 8, "Giải nhì": 807, "Giải ba": 17551}}
+{"date": "2026-03-12", "id": "01318", "result": [12, 28, 36, 40, 53, 55, 54], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 10, "Giải nhì": 674, "Giải ba": 15483}}
+{"date": "2026-03-10", "id": "01317", "result": [3, 26, 31, 39, 47, 54, 20], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 8, "Giải nhì": 730, "Giải ba": 16251}}
+{"date": "2026-03-07", "id": "01316", "result": [4, 32, 41, 45, 50, 52, 29], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 10, "Giải nhì": 476, "Giải ba": 11643}}
+{"date": "2026-03-05", "id": "01315", "result": [14, 16, 35, 38, 43, 51, 37], "process_time": "bootstrap", "winners": {"Jackpot 1": 1, "Jackpot 2": 0, "Giải nhất": 20, "Giải nhì": 1401, "Giải ba": 28653}}
+{"date": "2026-03-03", "id": "01314", "result": [7, 13, 27, 29, 43, 50, 25], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 26, "Giải nhì": 1449, "Giải ba": 30515}}
+{"date": "2026-02-28", "id": "01313", "result": [22, 25, 31, 44, 51, 54, 36], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 16, "Giải nhì": 894, "Giải ba": 20557}}
+{"date": "2026-02-26", "id": "01312", "result": [1, 7, 10, 21, 44, 51, 46], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 23, "Giải nhì": 1401, "Giải ba": 28904}}
+{"date": "2026-02-24", "id": "01311", "result": [5, 8, 18, 30, 39, 54, 51], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 28, "Giải nhì": 1427, "Giải ba": 30752}}
+{"date": "2026-02-21", "id": "01310", "result": [5, 7, 26, 30, 41, 45, 12], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 12, "Giải nhì": 1065, "Giải ba": 22171}}
+{"date": "2026-02-19", "id": "01309", "result": [1, 27, 30, 43, 45, 46, 48], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 11, "Giải nhì": 967, "Giải ba": 21010}}
+{"date": "2026-02-14", "id": "01308", "result": [2, 13, 26, 32, 36, 42, 48], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 19, "Giải nhì": 1135, "Giải ba": 22484}}
+{"date": "2026-02-12", "id": "01307", "result": [8, 17, 19, 31, 32, 46, 26], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 8, "Giải nhì": 893, "Giải ba": 20071}}
+{"date": "2026-02-10", "id": "01306", "result": [13, 21, 22, 26, 32, 55, 20], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 21, "Giải nhì": 1030, "Giải ba": 21076}}
+{"date": "2026-02-07", "id": "01305", "result": [3, 5, 13, 15, 29, 46, 1], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 18, "Giải nhì": 949, "Giải ba": 19331}}
+{"date": "2026-02-05", "id": "01304", "result": [7, 13, 16, 25, 26, 55, 9], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 9, "Giải nhì": 782, "Giải ba": 18822}}
+{"date": "2026-02-03", "id": "01303", "result": [12, 15, 18, 22, 48, 53, 45], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 6, "Giải nhì": 824, "Giải ba": 17503}}
+{"date": "2026-01-31", "id": "01302", "result": [10, 11, 14, 17, 49, 53, 4], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 12, "Giải nhì": 643, "Giải ba": 15643}}
+{"date": "2026-01-29", "id": "01301", "result": [11, 15, 22, 32, 34, 54, 28], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 16, "Giải nhì": 754, "Giải ba": 16231}}
+{"date": "2026-01-27", "id": "01300", "result": [13, 22, 32, 42, 53, 54, 29], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 8, "Giải nhì": 730, "Giải ba": 16035}}
+{"date": "2026-01-24", "id": "01299", "result": [14, 24, 25, 30, 35, 53, 18], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 12, "Giải nhì": 687, "Giải ba": 14610}}
+{"date": "2026-01-22", "id": "01298", "result": [2, 20, 21, 29, 36, 50, 5], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 10, "Giải nhì": 645, "Giải ba": 15087}}
+{"date": "2026-01-20", "id": "01297", "result": [4, 20, 26, 28, 37, 41, 32], "process_time": "bootstrap", "winners": {"Jackpot 1": 1, "Jackpot 2": 0, "Giải nhất": 32, "Giải nhì": 2622, "Giải ba": 56672}}
+{"date": "2026-01-17", "id": "01296", "result": [14, 21, 23, 25, 46, 48, 54], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 30, "Giải nhì": 1911, "Giải ba": 40478}}
+{"date": "2026-01-15", "id": "01295", "result": [13, 21, 31, 34, 48, 55, 27], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 61, "Giải nhì": 2583, "Giải ba": 46278}}
+{"date": "2026-01-13", "id": "01294", "result": [3, 12, 25, 51, 52, 55, 43], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 44, "Giải nhì": 2570, "Giải ba": 50180}}
+{"date": "2026-01-10", "id": "01293", "result": [9, 16, 30, 33, 34, 38, 49], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 33, "Giải nhì": 2445, "Giải ba": 46356}}
+{"date": "2026-01-08", "id": "01292", "result": [20, 22, 36, 43, 45, 50, 47], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 30, "Giải nhì": 1783, "Giải ba": 36089}}
+{"date": "2026-01-06", "id": "01291", "result": [22, 28, 29, 30, 34, 47, 20], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 23, "Giải nhì": 1722, "Giải ba": 38099}}
+{"date": "2026-01-03", "id": "01290", "result": [10, 16, 17, 23, 33, 36, 42], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 16, "Giải nhì": 1649, "Giải ba": 36419}}
+{"date": "2026-01-01", "id": "01289", "result": [5, 16, 29, 33, 39, 42, 54], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 27, "Giải nhì": 1775, "Giải ba": 35015}}
+{"date": "2025-12-30", "id": "01288", "result": [11, 30, 35, 41, 48, 55, 38], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 22, "Giải nhì": 1348, "Giải ba": 31333}}
+{"date": "2025-12-27", "id": "01287", "result": [16, 21, 30, 37, 39, 40, 13], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 23, "Giải nhì": 1390, "Giải ba": 29874}}
+{"date": "2025-12-25", "id": "01286", "result": [4, 6, 32, 37, 40, 48, 38], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 19, "Giải nhì": 1046, "Giải ba": 25921}}
+{"date": "2025-12-23", "id": "01285", "result": [2, 10, 16, 25, 32, 38, 3], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 223, "Giải nhì": 1767, "Giải ba": 34581}}
+{"date": "2025-12-20", "id": "01284", "result": [22, 32, 33, 35, 40, 41, 23], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 13, "Giải nhì": 1413, "Giải ba": 29106}}
+{"date": "2025-12-18", "id": "01283", "result": [12, 14, 29, 30, 39, 55, 50], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 31, "Giải nhì": 1196, "Giải ba": 27768}}
+{"date": "2025-12-16", "id": "01282", "result": [7, 36, 37, 38, 52, 55, 46], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 13, "Giải nhì": 1132, "Giải ba": 28098}}
+{"date": "2025-12-13", "id": "01281", "result": [5, 8, 12, 18, 20, 38, 52], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 48, "Giải nhì": 2140, "Giải ba": 36877}}
+{"date": "2025-12-11", "id": "01280", "result": [9, 13, 21, 45, 48, 55, 38], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 19, "Giải nhì": 1150, "Giải ba": 24802}}
+{"date": "2025-12-09", "id": "01279", "result": [14, 21, 26, 27, 31, 43, 42], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 37, "Giải nhì": 1380, "Giải ba": 28277}}
+{"date": "2025-12-06", "id": "01278", "result": [12, 26, 34, 37, 50, 52, 15], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 18, "Giải nhì": 1285, "Giải ba": 23556}}
+{"date": "2025-12-04", "id": "01277", "result": [10, 29, 32, 33, 44, 53, 14], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 9, "Giải nhì": 820, "Giải ba": 19274}}
+{"date": "2025-12-02", "id": "01276", "result": [16, 20, 24, 36, 51, 54, 10], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 17, "Giải nhì": 877, "Giải ba": 19908}}
+{"date": "2025-11-29", "id": "01275", "result": [4, 20, 24, 27, 40, 48, 9], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 7, "Giải nhì": 734, "Giải ba": 16978}}
+{"date": "2025-11-27", "id": "01274", "result": [4, 5, 10, 11, 28, 35, 38], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 25, "Giải nhì": 1233, "Giải ba": 22941}}
+{"date": "2025-11-25", "id": "01273", "result": [23, 31, 32, 42, 46, 48, 4], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 12, "Giải nhì": 731, "Giải ba": 17328}}
+{"date": "2025-11-22", "id": "01272", "result": [8, 10, 19, 29, 34, 46, 14], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 14, "Giải nhì": 1133, "Giải ba": 20907}}
+{"date": "2025-11-20", "id": "01271", "result": [3, 12, 19, 20, 31, 42, 13], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 13, "Giải nhì": 1139, "Giải ba": 20792}}
+{"date": "2025-11-18", "id": "01270", "result": [7, 12, 18, 22, 30, 49, 5], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 12, "Giải nhì": 907, "Giải ba": 20180}}
+{"date": "2025-11-15", "id": "01269", "result": [2, 30, 33, 35, 42, 54, 45], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 12, "Giải nhì": 640, "Giải ba": 15463}}
+{"date": "2025-11-13", "id": "01268", "result": [1, 15, 30, 38, 40, 43, 13], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 9, "Giải nhì": 715, "Giải ba": 15646}}
+{"date": "2025-11-11", "id": "01267", "result": [11, 20, 28, 41, 47, 54, 31], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 12, "Giải nhì": 769, "Giải ba": 17553}}
+{"date": "2025-11-08", "id": "01266", "result": [14, 16, 19, 22, 27, 44, 18], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 13, "Giải nhì": 855, "Giải ba": 17498}}
+{"date": "2025-11-06", "id": "01265", "result": [16, 20, 29, 33, 36, 49, 6], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 20, "Giải nhì": 866, "Giải ba": 14551}}
+{"date": "2025-11-04", "id": "01264", "result": [15, 27, 29, 31, 36, 43, 38], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 20, "Giải nhì": 1115, "Giải ba": 18346}}
+{"date": "2025-11-01", "id": "01263", "result": [7, 11, 28, 29, 31, 33, 8], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 16, "Giải nhì": 849, "Giải ba": 17154}}
+{"date": "2025-10-30", "id": "01262", "result": [20, 23, 35, 41, 47, 55, 37], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 5, "Giải nhì": 511, "Giải ba": 12595}}
+{"date": "2025-10-28", "id": "01261", "result": [6, 8, 10, 22, 25, 54, 9], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 8, "Giải nhì": 942, "Giải ba": 18404}}
+{"date": "2025-10-25", "id": "01260", "result": [3, 5, 11, 13, 24, 27, 45], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 14, "Giải nhì": 1036, "Giải ba": 17911}}
+{"date": "2025-10-23", "id": "01259", "result": [8, 10, 21, 48, 49, 50, 40], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 7, "Giải nhì": 504, "Giải ba": 10610}}
+{"date": "2025-10-21", "id": "01258", "result": [3, 11, 12, 14, 22, 40, 41], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 14, "Giải nhì": 947, "Giải ba": 16131}}
+{"date": "2025-10-18", "id": "01257", "result": [5, 16, 19, 21, 38, 43, 50], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 21, "Giải nhì": 754, "Giải ba": 13531}}
+{"date": "2025-10-16", "id": "01256", "result": [14, 15, 24, 26, 27, 45, 36], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 7, "Giải nhì": 550, "Giải ba": 11762}}
+{"date": "2025-10-14", "id": "01255", "result": [8, 9, 16, 26, 37, 55, 12], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 14, "Giải nhì": 642, "Giải ba": 13449}}
+{"date": "2025-10-11", "id": "01254", "result": [3, 7, 26, 43, 44, 46, 25], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 9, "Giải nhì": 445, "Giải ba": 10019}}
+{"date": "2025-10-09", "id": "01253", "result": [7, 11, 21, 22, 39, 42, 40], "process_time": "bootstrap", "winners": {"Jackpot 1": 1, "Jackpot 2": 0, "Giải nhất": 4, "Giải nhì": 761, "Giải ba": 14080}}
+{"date": "2025-10-07", "id": "01252", "result": [19, 22, 35, 37, 43, 45, 29], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 14, "Giải nhì": 750, "Giải ba": 14002}}
+{"date": "2025-10-04", "id": "01251", "result": [22, 33, 35, 36, 38, 40, 7], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 9, "Giải nhì": 559, "Giải ba": 11218}}
+{"date": "2025-10-02", "id": "01250", "result": [1, 2, 20, 24, 27, 42, 43], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 1, "Giải nhất": 10, "Giải nhì": 571, "Giải ba": 11630}}
+{"date": "2025-09-30", "id": "01249", "result": [17, 23, 34, 39, 46, 52, 8], "process_time": "bootstrap", "winners": {"Jackpot 1": 1, "Jackpot 2": 2, "Giải nhất": 39, "Giải nhì": 1792, "Giải ba": 33985}}
+{"date": "2025-09-27", "id": "01248", "result": [8, 13, 19, 24, 39, 46, 1], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 34, "Giải nhì": 1566, "Giải ba": 33153}}
+{"date": "2025-09-25", "id": "01247", "result": [5, 17, 30, 31, 38, 53, 8], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 16, "Giải nhì": 1276, "Giải ba": 28015}}
+{"date": "2025-09-23", "id": "01246", "result": [8, 18, 19, 34, 41, 46, 38], "process_time": "bootstrap", "winners": {"Jackpot 1": 0, "Jackpot 2": 0, "Giải nhất": 29, "Giải nhì": 1512, "Giải ba": 33235}}
 {"date": "2025-09-20", "id": "01245", "result": [8, 13, 14, 19, 36, 43, 30], "process_time": "bootstrap"}
 {"date": "2025-09-18", "id": "01244", "result": [2, 3, 8, 27, 38, 55, 20], "process_time": "bootstrap"}
 {"date": "2025-09-16", "id": "01243", "result": [17, 19, 28, 39, 43, 53, 33], "process_time": "bootstrap"}

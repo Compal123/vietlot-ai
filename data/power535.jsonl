@@ -15,570 +15,620 @@
 {"date": "2026-05-04", "id": "00620", "result": [3, 13, 17, 31, 35, 2], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 63, "Giải tư": 171, "Giải năm": 2501, "Giải KK": 15123}}
 {"date": "2026-05-04", "id": "00619", "result": [8, 16, 21, 28, 34, 6], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 54, "Giải tư": 129, "Giải năm": 1522, "Giải KK": 10854}}
 {"date": "2026-05-03", "id": "00618", "result": [6, 8, 14, 17, 20, 8], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 11, "Giải ba": 90, "Giải tư": 197, "Giải năm": 2053, "Giải KK": 16707}}
-{"date": "2026-05-03", "id": "00617", "result": [10, 14, 20, 25, 28, 12]}
-{"date": "2026-05-02", "id": "00616", "result": [1, 5, 10, 12, 15, 9]}
-{"date": "2026-05-02", "id": "00615", "result": [2, 7, 19, 23, 35, 6]}
-{"date": "2026-05-01", "id": "00614", "result": [6, 9, 19, 29, 34, 6]}
-{"date": "2026-05-01", "id": "00613", "result": [3, 11, 28, 29, 33, 3]}
-{"date": "2026-04-30", "id": "00612", "result": [9, 13, 20, 23, 31, 1]}
-{"date": "2026-04-30", "id": "00611", "result": [4, 5, 6, 17, 20, 6]}
-{"date": "2026-04-29", "id": "00610", "result": [16, 19, 21, 25, 26, 2]}
-{"date": "2026-04-29", "id": "00609", "result": [2, 17, 27, 29, 31, 1]}
-{"date": "2026-04-28", "id": "00608", "result": [4, 6, 15, 24, 35, 11]}
-{"date": "2026-04-28", "id": "00607", "result": [3, 9, 13, 30, 35, 1]}
-{"date": "2026-04-27", "id": "00606", "result": [9, 10, 23, 29, 35, 8]}
-{"date": "2026-04-27", "id": "00605", "result": [6, 17, 32, 34, 35, 4]}
-{"date": "2026-04-26", "id": "00604", "result": [9, 17, 22, 34, 35, 10]}
-{"date": "2026-04-26", "id": "00603", "result": [8, 12, 13, 16, 24, 9]}
-{"date": "2026-04-25", "id": "00602", "result": [4, 5, 6, 20, 33, 12]}
-{"date": "2026-04-25", "id": "00601", "result": [4, 17, 22, 24, 29, 1]}
-{"date": "2026-04-24", "id": "00600", "result": [8, 15, 21, 31, 35, 10]}
-{"date": "2026-04-24", "id": "00599", "result": [1, 5, 6, 14, 27, 5]}
-{"date": "2026-04-23", "id": "00598", "result": [1, 8, 16, 21, 34, 11]}
-{"date": "2026-04-23", "id": "00597", "result": [6, 7, 26, 30, 33, 5]}
-{"date": "2026-04-22", "id": "00596", "result": [6, 16, 17, 28, 31, 10]}
-{"date": "2026-04-22", "id": "00595", "result": [1, 2, 9, 17, 34, 1]}
-{"date": "2026-04-21", "id": "00594", "result": [4, 7, 18, 19, 25, 1]}
-{"date": "2026-04-21", "id": "00593", "result": [3, 12, 13, 30, 31, 1]}
-{"date": "2026-04-20", "id": "00592", "result": [2, 6, 15, 22, 28, 11]}
-{"date": "2026-04-20", "id": "00591", "result": [7, 10, 14, 16, 34, 1]}
-{"date": "2026-04-19", "id": "00590", "result": [3, 4, 5, 8, 20, 9]}
-{"date": "2026-04-19", "id": "00589", "result": [4, 10, 16, 17, 21, 8]}
-{"date": "2026-04-18", "id": "00588", "result": [3, 17, 20, 24, 35, 11]}
-{"date": "2026-04-18", "id": "00587", "result": [17, 19, 30, 32, 34, 2]}
-{"date": "2026-04-17", "id": "00586", "result": [3, 4, 9, 12, 18, 10]}
-{"date": "2026-04-17", "id": "00585", "result": [6, 10, 15, 19, 22, 5]}
-{"date": "2026-04-16", "id": "00584", "result": [1, 10, 15, 25, 27, 11]}
-{"date": "2026-04-16", "id": "00583", "result": [12, 14, 25, 30, 31, 6]}
-{"date": "2026-04-15", "id": "00582", "result": [4, 13, 18, 20, 26, 11]}
-{"date": "2026-04-15", "id": "00581", "result": [1, 15, 20, 32, 35, 8]}
-{"date": "2026-04-14", "id": "00580", "result": [5, 19, 25, 29, 31, 2]}
-{"date": "2026-04-14", "id": "00579", "result": [7, 11, 12, 14, 27, 11]}
-{"date": "2026-04-13", "id": "00578", "result": [10, 11, 12, 18, 34, 3]}
-{"date": "2026-04-13", "id": "00577", "result": [12, 15, 23, 26, 32, 8]}
-{"date": "2026-04-12", "id": "00576", "result": [11, 21, 22, 27, 34, 12]}
-{"date": "2026-04-12", "id": "00575", "result": [18, 23, 32, 33, 34, 2]}
-{"date": "2026-04-11", "id": "00574", "result": [3, 6, 8, 20, 35, 6]}
-{"date": "2026-04-11", "id": "00573", "result": [7, 13, 15, 19, 32, 9]}
-{"date": "2026-04-10", "id": "00572", "result": [7, 15, 19, 23, 24, 6]}
-{"date": "2026-04-10", "id": "00571", "result": [8, 17, 21, 31, 35, 5]}
-{"date": "2026-04-09", "id": "00570", "result": [8, 10, 11, 22, 30, 2]}
-{"date": "2026-04-09", "id": "00569", "result": [1, 7, 18, 33, 34, 1]}
-{"date": "2026-04-08", "id": "00568", "result": [19, 20, 21, 26, 31, 5]}
-{"date": "2026-04-08", "id": "00567", "result": [10, 16, 19, 22, 32, 12]}
-{"date": "2026-04-07", "id": "00566", "result": [1, 8, 12, 20, 28, 2]}
-{"date": "2026-04-07", "id": "00565", "result": [9, 18, 21, 26, 34, 4]}
-{"date": "2026-04-06", "id": "00564", "result": [11, 17, 22, 25, 28, 4]}
-{"date": "2026-04-06", "id": "00563", "result": [3, 13, 16, 33, 34, 4]}
-{"date": "2026-04-05", "id": "00562", "result": [13, 14, 25, 26, 29, 1]}
-{"date": "2026-04-05", "id": "00561", "result": [6, 10, 11, 18, 25, 7]}
-{"date": "2026-04-04", "id": "00560", "result": [3, 18, 19, 24, 27, 6]}
-{"date": "2026-04-04", "id": "00559", "result": [3, 9, 15, 19, 31, 1]}
-{"date": "2026-04-03", "id": "00558", "result": [18, 22, 28, 32, 35, 3]}
-{"date": "2026-04-03", "id": "00557", "result": [14, 18, 23, 25, 27, 1]}
-{"date": "2026-04-02", "id": "00556", "result": [15, 19, 20, 26, 29, 7]}
-{"date": "2026-04-02", "id": "00555", "result": [4, 6, 21, 25, 30, 5]}
-{"date": "2026-04-01", "id": "00554", "result": [12, 13, 18, 23, 24, 3]}
-{"date": "2026-04-01", "id": "00553", "result": [4, 14, 22, 31, 34, 7]}
-{"date": "2026-03-31", "id": "00552", "result": [2, 18, 28, 30, 35, 5]}
-{"date": "2026-03-31", "id": "00551", "result": [9, 15, 18, 20, 32, 2]}
-{"date": "2026-03-30", "id": "00550", "result": [9, 17, 18, 24, 27, 8], "process_time": "bootstrap"}
-{"date": "2026-03-30", "id": "00549", "result": [2, 3, 22, 24, 34, 8], "process_time": "bootstrap"}
-{"date": "2026-03-29", "id": "00548", "result": [9, 17, 22, 23, 29, 12], "process_time": "bootstrap"}
-{"date": "2026-03-29", "id": "00547", "result": [3, 7, 13, 19, 21, 11], "process_time": "bootstrap"}
-{"date": "2026-03-28", "id": "00546", "result": [1, 8, 14, 16, 28, 10], "process_time": "bootstrap"}
-{"date": "2026-03-28", "id": "00545", "result": [6, 7, 10, 12, 26, 3], "process_time": "bootstrap"}
-{"date": "2026-03-27", "id": "00544", "result": [1, 11, 30, 31, 32, 3], "process_time": "bootstrap"}
-{"date": "2026-03-27", "id": "00543", "result": [13, 21, 25, 27, 34, 10], "process_time": "bootstrap"}
-{"date": "2026-03-26", "id": "00542", "result": [15, 16, 26, 29, 30, 11], "process_time": "bootstrap"}
-{"date": "2026-03-26", "id": "00541", "result": [15, 23, 28, 30, 33, 8], "process_time": "bootstrap"}
-{"date": "2026-03-25", "id": "00540", "result": [1, 4, 8, 14, 26, 12], "process_time": "bootstrap"}
-{"date": "2026-03-25", "id": "00539", "result": [13, 19, 26, 29, 32, 7], "process_time": "bootstrap"}
-{"date": "2026-03-24", "id": "00538", "result": [8, 19, 23, 27, 32, 1], "process_time": "bootstrap"}
-{"date": "2026-03-24", "id": "00537", "result": [5, 18, 19, 26, 30, 9], "process_time": "bootstrap"}
-{"date": "2026-03-23", "id": "00536", "result": [2, 14, 17, 21, 27, 10], "process_time": "bootstrap"}
-{"date": "2026-03-23", "id": "00535", "result": [3, 4, 6, 14, 27, 2], "process_time": "bootstrap"}
-{"date": "2026-03-22", "id": "00534", "result": [4, 13, 14, 19, 33, 9], "process_time": "bootstrap"}
-{"date": "2026-03-22", "id": "00533", "result": [5, 8, 11, 12, 26, 6], "process_time": "bootstrap"}
-{"date": "2026-03-21", "id": "00532", "result": [7, 15, 19, 27, 32, 10], "process_time": "bootstrap"}
-{"date": "2026-03-21", "id": "00531", "result": [3, 6, 11, 13, 17, 3], "process_time": "bootstrap"}
-{"date": "2026-03-20", "id": "00530", "result": [5, 14, 17, 18, 20, 6], "process_time": "bootstrap"}
-{"date": "2026-03-20", "id": "00529", "result": [3, 14, 25, 28, 32, 2], "process_time": "bootstrap"}
-{"date": "2026-03-19", "id": "00528", "result": [3, 15, 26, 34, 35, 3], "process_time": "bootstrap"}
-{"date": "2026-03-19", "id": "00527", "result": [3, 7, 14, 21, 22, 8], "process_time": "bootstrap"}
-{"date": "2026-03-18", "id": "00526", "result": [9, 13, 14, 22, 29, 11], "process_time": "bootstrap"}
-{"date": "2026-03-18", "id": "00525", "result": [1, 5, 11, 29, 34, 6], "process_time": "bootstrap"}
-{"date": "2026-03-17", "id": "00524", "result": [12, 16, 18, 26, 29, 6], "process_time": "bootstrap"}
-{"date": "2026-03-17", "id": "00523", "result": [3, 9, 21, 33, 35, 2], "process_time": "bootstrap"}
-{"date": "2026-03-16", "id": "00522", "result": [2, 8, 10, 22, 23, 8], "process_time": "bootstrap"}
-{"date": "2026-03-16", "id": "00521", "result": [4, 13, 21, 28, 32, 11], "process_time": "bootstrap"}
-{"date": "2026-03-15", "id": "00520", "result": [3, 6, 28, 30, 35, 3], "process_time": "bootstrap"}
-{"date": "2026-03-15", "id": "00519", "result": [2, 9, 31, 32, 35, 2], "process_time": "bootstrap"}
-{"date": "2026-03-14", "id": "00518", "result": [6, 13, 19, 27, 31, 8], "process_time": "bootstrap"}
-{"date": "2026-03-14", "id": "00517", "result": [4, 5, 6, 24, 26, 8], "process_time": "bootstrap"}
-{"date": "2026-03-13", "id": "00516", "result": [1, 6, 14, 22, 30, 1], "process_time": "bootstrap"}
-{"date": "2026-03-13", "id": "00515", "result": [5, 16, 18, 20, 25, 5], "process_time": "bootstrap"}
-{"date": "2026-03-12", "id": "00514", "result": [5, 9, 20, 29, 30, 11], "process_time": "bootstrap"}
-{"date": "2026-03-12", "id": "00513", "result": [6, 8, 17, 20, 24, 10], "process_time": "bootstrap"}
-{"date": "2026-03-11", "id": "00512", "result": [2, 10, 29, 30, 32, 7], "process_time": "bootstrap"}
-{"date": "2026-03-11", "id": "00511", "result": [11, 16, 22, 26, 33, 9], "process_time": "bootstrap"}
-{"date": "2026-03-10", "id": "00510", "result": [2, 3, 4, 6, 20, 2], "process_time": "bootstrap"}
-{"date": "2026-03-10", "id": "00509", "result": [13, 19, 21, 24, 29, 10], "process_time": "bootstrap"}
-{"date": "2026-03-09", "id": "00508", "result": [7, 11, 25, 28, 30, 5], "process_time": "bootstrap"}
-{"date": "2026-03-09", "id": "00507", "result": [1, 13, 17, 29, 35, 2], "process_time": "bootstrap"}
-{"date": "2026-03-08", "id": "00506", "result": [20, 22, 25, 29, 31, 12], "process_time": "bootstrap"}
-{"date": "2026-03-08", "id": "00505", "result": [11, 23, 24, 26, 27, 2], "process_time": "bootstrap"}
-{"date": "2026-03-07", "id": "00504", "result": [3, 18, 23, 25, 32, 6], "process_time": "bootstrap"}
-{"date": "2026-03-07", "id": "00503", "result": [8, 12, 22, 25, 33, 9], "process_time": "bootstrap"}
-{"date": "2026-03-06", "id": "00502", "result": [3, 14, 21, 23, 24, 10], "process_time": "bootstrap"}
-{"date": "2026-03-06", "id": "00501", "result": [7, 9, 17, 21, 30, 3], "process_time": "bootstrap"}
-{"date": "2026-03-05", "id": "00500", "result": [4, 12, 15, 17, 32, 7], "process_time": "bootstrap"}
-{"date": "2026-03-05", "id": "00499", "result": [14, 15, 16, 17, 30, 2], "process_time": "bootstrap"}
-{"date": "2026-03-04", "id": "00498", "result": [1, 2, 9, 24, 29, 4], "process_time": "bootstrap"}
-{"date": "2026-03-04", "id": "00497", "result": [4, 10, 17, 22, 26, 9], "process_time": "bootstrap"}
-{"date": "2026-03-03", "id": "00496", "result": [3, 6, 17, 20, 30, 10], "process_time": "bootstrap"}
-{"date": "2026-03-03", "id": "00495", "result": [15, 16, 28, 31, 32, 10], "process_time": "bootstrap"}
-{"date": "2026-03-02", "id": "00494", "result": [1, 8, 14, 23, 35, 5], "process_time": "bootstrap"}
-{"date": "2026-03-02", "id": "00493", "result": [1, 7, 15, 34, 35, 12], "process_time": "bootstrap"}
-{"date": "2026-03-01", "id": "00492", "result": [5, 12, 19, 33, 35, 11], "process_time": "bootstrap"}
-{"date": "2026-03-01", "id": "00491", "result": [10, 13, 19, 27, 35, 12], "process_time": "bootstrap"}
-{"date": "2026-02-28", "id": "00490", "result": [3, 15, 16, 27, 35, 2], "process_time": "bootstrap"}
-{"date": "2026-02-28", "id": "00489", "result": [1, 3, 5, 8, 24, 12], "process_time": "bootstrap"}
-{"date": "2026-02-27", "id": "00488", "result": [12, 14, 18, 24, 26, 5], "process_time": "bootstrap"}
-{"date": "2026-02-27", "id": "00487", "result": [2, 13, 19, 25, 27, 1], "process_time": "bootstrap"}
-{"date": "2026-02-26", "id": "00486", "result": [8, 15, 23, 24, 26, 11], "process_time": "bootstrap"}
-{"date": "2026-02-26", "id": "00485", "result": [3, 14, 19, 27, 33, 10], "process_time": "bootstrap"}
-{"date": "2026-02-25", "id": "00484", "result": [5, 14, 15, 16, 29, 10], "process_time": "bootstrap"}
-{"date": "2026-02-25", "id": "00483", "result": [11, 16, 19, 21, 32, 10], "process_time": "bootstrap"}
-{"date": "2026-02-24", "id": "00482", "result": [8, 14, 18, 20, 26, 7], "process_time": "bootstrap"}
-{"date": "2026-02-24", "id": "00481", "result": [12, 14, 22, 23, 30, 9], "process_time": "bootstrap"}
-{"date": "2026-02-23", "id": "00480", "result": [7, 13, 16, 22, 35, 11], "process_time": "bootstrap"}
-{"date": "2026-02-23", "id": "00479", "result": [7, 10, 11, 18, 27, 6], "process_time": "bootstrap"}
-{"date": "2026-02-22", "id": "00478", "result": [2, 9, 12, 16, 31, 3], "process_time": "bootstrap"}
-{"date": "2026-02-22", "id": "00477", "result": [8, 9, 19, 29, 30, 4], "process_time": "bootstrap"}
-{"date": "2026-02-21", "id": "00476", "result": [2, 16, 17, 20, 31, 1], "process_time": "bootstrap"}
-{"date": "2026-02-21", "id": "00475", "result": [5, 8, 11, 13, 18, 2], "process_time": "bootstrap"}
-{"date": "2026-02-20", "id": "00474", "result": [1, 9, 18, 28, 33, 7], "process_time": "bootstrap"}
-{"date": "2026-02-20", "id": "00473", "result": [10, 12, 27, 30, 31, 12], "process_time": "bootstrap"}
-{"date": "2026-02-19", "id": "00472", "result": [9, 21, 23, 25, 29, 3], "process_time": "bootstrap"}
-{"date": "2026-02-19", "id": "00471", "result": [1, 13, 14, 19, 30, 1], "process_time": "bootstrap"}
-{"date": "2026-02-18", "id": "00470", "result": [9, 23, 27, 29, 33, 1], "process_time": "bootstrap"}
-{"date": "2026-02-18", "id": "00469", "result": [11, 17, 25, 30, 32, 6], "process_time": "bootstrap"}
-{"date": "2026-02-17", "id": "00468", "result": [13, 21, 28, 32, 35, 11], "process_time": "bootstrap"}
-{"date": "2026-02-17", "id": "00467", "result": [19, 21, 22, 23, 31, 4], "process_time": "bootstrap"}
-{"date": "2026-02-16", "id": "00466", "result": [4, 8, 19, 21, 30, 7], "process_time": "bootstrap"}
-{"date": "2026-02-16", "id": "00465", "result": [7, 18, 22, 27, 29, 4], "process_time": "bootstrap"}
-{"date": "2026-02-15", "id": "00464", "result": [1, 6, 8, 10, 22, 7], "process_time": "bootstrap"}
-{"date": "2026-02-15", "id": "00463", "result": [1, 3, 5, 10, 26, 9], "process_time": "bootstrap"}
-{"date": "2026-02-14", "id": "00462", "result": [4, 6, 8, 14, 25, 7], "process_time": "bootstrap"}
-{"date": "2026-02-14", "id": "00461", "result": [13, 20, 22, 32, 34, 12], "process_time": "bootstrap"}
-{"date": "2026-02-13", "id": "00460", "result": [10, 14, 16, 20, 32, 11], "process_time": "bootstrap"}
-{"date": "2026-02-13", "id": "00459", "result": [5, 11, 12, 29, 32, 4], "process_time": "bootstrap"}
-{"date": "2026-02-11", "id": "00456", "result": [4, 9, 16, 23, 28, 2], "process_time": "bootstrap"}
-{"date": "2026-02-11", "id": "00455", "result": [9, 20, 23, 26, 34, 10], "process_time": "bootstrap"}
-{"date": "2026-02-10", "id": "00454", "result": [7, 9, 12, 13, 22, 6], "process_time": "bootstrap"}
-{"date": "2026-02-10", "id": "00453", "result": [3, 18, 29, 30, 31, 9], "process_time": "bootstrap"}
-{"date": "2026-02-09", "id": "00452", "result": [18, 23, 24, 31, 33, 1], "process_time": "bootstrap"}
-{"date": "2026-02-09", "id": "00451", "result": [4, 9, 17, 18, 35, 7], "process_time": "bootstrap"}
-{"date": "2026-02-08", "id": "00450", "result": [7, 16, 17, 28, 30, 10], "process_time": "bootstrap"}
-{"date": "2026-02-08", "id": "00449", "result": [8, 9, 11, 16, 23, 9], "process_time": "bootstrap"}
-{"date": "2026-02-07", "id": "00448", "result": [3, 14, 17, 19, 35, 3], "process_time": "bootstrap"}
-{"date": "2026-02-07", "id": "00447", "result": [2, 3, 9, 10, 31, 12], "process_time": "bootstrap"}
-{"date": "2026-02-06", "id": "00446", "result": [1, 3, 4, 14, 29, 4], "process_time": "bootstrap"}
-{"date": "2026-02-06", "id": "00445", "result": [3, 5, 15, 18, 28, 3], "process_time": "bootstrap"}
-{"date": "2026-02-05", "id": "00444", "result": [4, 5, 15, 18, 32, 11], "process_time": "bootstrap"}
-{"date": "2026-02-05", "id": "00443", "result": [7, 10, 13, 16, 20, 9], "process_time": "bootstrap"}
-{"date": "2026-02-04", "id": "00442", "result": [17, 18, 21, 30, 34, 4], "process_time": "bootstrap"}
-{"date": "2026-02-04", "id": "00441", "result": [7, 14, 15, 27, 35, 3], "process_time": "bootstrap"}
-{"date": "2026-02-03", "id": "00440", "result": [5, 10, 11, 28, 29, 5], "process_time": "bootstrap"}
-{"date": "2026-02-03", "id": "00439", "result": [19, 23, 24, 32, 33, 10], "process_time": "bootstrap"}
-{"date": "2026-02-02", "id": "00438", "result": [1, 3, 5, 6, 11, 5], "process_time": "bootstrap"}
-{"date": "2026-02-02", "id": "00437", "result": [13, 14, 15, 19, 22, 3], "process_time": "bootstrap"}
-{"date": "2026-02-01", "id": "00436", "result": [1, 20, 24, 26, 35, 3], "process_time": "bootstrap"}
-{"date": "2026-02-01", "id": "00435", "result": [7, 15, 19, 22, 34, 9], "process_time": "bootstrap"}
-{"date": "2026-01-31", "id": "00434", "result": [11, 12, 16, 27, 29, 6], "process_time": "bootstrap"}
-{"date": "2026-01-31", "id": "00433", "result": [7, 14, 15, 26, 27, 9], "process_time": "bootstrap"}
-{"date": "2026-01-30", "id": "00432", "result": [5, 6, 9, 23, 32, 12], "process_time": "bootstrap"}
-{"date": "2026-01-30", "id": "00431", "result": [11, 19, 27, 29, 33, 5], "process_time": "bootstrap"}
-{"date": "2026-01-29", "id": "00430", "result": [1, 8, 9, 19, 22, 12], "process_time": "bootstrap"}
-{"date": "2026-01-29", "id": "00429", "result": [4, 11, 17, 26, 31, 11], "process_time": "bootstrap"}
-{"date": "2026-01-28", "id": "00428", "result": [6, 10, 16, 21, 30, 2], "process_time": "bootstrap"}
-{"date": "2026-01-28", "id": "00427", "result": [2, 20, 21, 24, 32, 1], "process_time": "bootstrap"}
-{"date": "2026-01-27", "id": "00426", "result": [4, 11, 25, 31, 34, 1], "process_time": "bootstrap"}
-{"date": "2026-01-27", "id": "00425", "result": [5, 8, 9, 14, 28, 2], "process_time": "bootstrap"}
-{"date": "2026-01-26", "id": "00424", "result": [9, 23, 29, 34, 35, 12], "process_time": "bootstrap"}
-{"date": "2026-01-26", "id": "00423", "result": [3, 18, 25, 29, 32, 8], "process_time": "bootstrap"}
-{"date": "2026-01-25", "id": "00422", "result": [1, 11, 15, 19, 31, 4], "process_time": "bootstrap"}
-{"date": "2026-01-25", "id": "00421", "result": [15, 18, 27, 32, 35, 11], "process_time": "bootstrap"}
-{"date": "2026-01-24", "id": "00420", "result": [2, 25, 26, 28, 34, 6], "process_time": "bootstrap"}
-{"date": "2026-01-24", "id": "00419", "result": [13, 15, 22, 27, 31, 10], "process_time": "bootstrap"}
-{"date": "2026-01-23", "id": "00418", "result": [5, 7, 10, 28, 29, 2], "process_time": "bootstrap"}
-{"date": "2026-01-23", "id": "00417", "result": [10, 13, 25, 31, 32, 1], "process_time": "bootstrap"}
-{"date": "2026-01-22", "id": "00416", "result": [7, 10, 12, 22, 23, 3], "process_time": "bootstrap"}
-{"date": "2026-01-22", "id": "00415", "result": [8, 17, 20, 27, 31, 12], "process_time": "bootstrap"}
-{"date": "2026-01-21", "id": "00414", "result": [1, 4, 7, 8, 33, 9], "process_time": "bootstrap"}
-{"date": "2026-01-21", "id": "00413", "result": [8, 16, 24, 29, 30, 5], "process_time": "bootstrap"}
-{"date": "2026-01-20", "id": "00412", "result": [14, 15, 18, 19, 33, 4], "process_time": "bootstrap"}
-{"date": "2026-01-20", "id": "00411", "result": [1, 15, 19, 21, 26, 2], "process_time": "bootstrap"}
-{"date": "2026-01-19", "id": "00410", "result": [7, 8, 10, 14, 35, 9], "process_time": "bootstrap"}
-{"date": "2026-01-19", "id": "00409", "result": [5, 13, 14, 19, 21, 10], "process_time": "bootstrap"}
-{"date": "2026-01-18", "id": "00408", "result": [2, 9, 14, 15, 22, 12], "process_time": "bootstrap"}
-{"date": "2026-01-18", "id": "00407", "result": [3, 13, 14, 20, 35, 12], "process_time": "bootstrap"}
-{"date": "2026-01-17", "id": "00406", "result": [1, 2, 13, 27, 31, 10], "process_time": "bootstrap"}
-{"date": "2026-01-17", "id": "00405", "result": [13, 18, 24, 29, 32, 1], "process_time": "bootstrap"}
-{"date": "2026-01-16", "id": "00404", "result": [2, 6, 10, 24, 29, 5], "process_time": "bootstrap"}
-{"date": "2026-01-16", "id": "00403", "result": [1, 3, 10, 26, 34, 3], "process_time": "bootstrap"}
-{"date": "2026-01-15", "id": "00402", "result": [3, 6, 15, 17, 23, 2], "process_time": "bootstrap"}
-{"date": "2026-01-15", "id": "00401", "result": [6, 9, 23, 24, 25, 7], "process_time": "bootstrap"}
-{"date": "2026-01-14", "id": "00400", "result": [2, 6, 8, 19, 29, 9], "process_time": "bootstrap"}
-{"date": "2026-01-14", "id": "00399", "result": [3, 4, 5, 19, 35, 8], "process_time": "bootstrap"}
-{"date": "2026-01-13", "id": "00398", "result": [3, 4, 6, 10, 27, 4], "process_time": "bootstrap"}
-{"date": "2026-01-13", "id": "00397", "result": [10, 15, 16, 18, 26, 9], "process_time": "bootstrap"}
-{"date": "2026-01-12", "id": "00396", "result": [4, 21, 25, 28, 33, 11], "process_time": "bootstrap"}
-{"date": "2026-01-12", "id": "00395", "result": [4, 14, 19, 22, 26, 7], "process_time": "bootstrap"}
-{"date": "2026-01-11", "id": "00394", "result": [2, 22, 23, 26, 29, 9], "process_time": "bootstrap"}
-{"date": "2026-01-11", "id": "00393", "result": [4, 6, 24, 25, 26, 7], "process_time": "bootstrap"}
-{"date": "2026-01-10", "id": "00392", "result": [2, 8, 17, 23, 28, 4], "process_time": "bootstrap"}
-{"date": "2026-01-10", "id": "00391", "result": [13, 14, 21, 26, 31, 10], "process_time": "bootstrap"}
-{"date": "2026-01-09", "id": "00390", "result": [5, 11, 14, 20, 32, 1], "process_time": "bootstrap"}
-{"date": "2026-01-09", "id": "00389", "result": [1, 25, 28, 32, 35, 12], "process_time": "bootstrap"}
-{"date": "2026-01-08", "id": "00388", "result": [6, 7, 10, 28, 35, 6], "process_time": "bootstrap"}
-{"date": "2026-01-08", "id": "00387", "result": [4, 9, 13, 25, 30, 6], "process_time": "bootstrap"}
-{"date": "2026-01-07", "id": "00386", "result": [1, 7, 14, 28, 29, 5], "process_time": "bootstrap"}
-{"date": "2026-01-07", "id": "00385", "result": [22, 27, 29, 33, 34, 3], "process_time": "bootstrap"}
-{"date": "2026-01-06", "id": "00384", "result": [4, 6, 12, 16, 31, 2], "process_time": "bootstrap"}
-{"date": "2026-01-06", "id": "00383", "result": [7, 25, 26, 27, 31, 5], "process_time": "bootstrap"}
-{"date": "2026-01-05", "id": "00382", "result": [1, 2, 6, 10, 17, 1], "process_time": "bootstrap"}
-{"date": "2026-01-05", "id": "00381", "result": [5, 13, 14, 19, 26, 9], "process_time": "bootstrap"}
-{"date": "2026-01-04", "id": "00380", "result": [13, 16, 26, 29, 34, 2], "process_time": "bootstrap"}
-{"date": "2026-01-04", "id": "00379", "result": [12, 14, 22, 25, 29, 1], "process_time": "bootstrap"}
-{"date": "2026-01-03", "id": "00378", "result": [2, 6, 24, 28, 34, 1], "process_time": "bootstrap"}
-{"date": "2026-01-03", "id": "00377", "result": [7, 11, 12, 22, 30, 5], "process_time": "bootstrap"}
-{"date": "2026-01-02", "id": "00376", "result": [3, 9, 10, 14, 25, 6], "process_time": "bootstrap"}
-{"date": "2026-01-02", "id": "00375", "result": [13, 17, 22, 23, 29, 8], "process_time": "bootstrap"}
-{"date": "2026-01-01", "id": "00374", "result": [2, 3, 20, 25, 30, 3], "process_time": "bootstrap"}
-{"date": "2026-01-01", "id": "00373", "result": [11, 17, 23, 26, 34, 12], "process_time": "bootstrap"}
-{"date": "2025-12-31", "id": "00372", "result": [3, 5, 11, 25, 30, 12], "process_time": "bootstrap"}
-{"date": "2025-12-31", "id": "00371", "result": [11, 21, 25, 28, 33, 3], "process_time": "bootstrap"}
-{"date": "2025-12-30", "id": "00370", "result": [7, 15, 23, 24, 33, 2], "process_time": "bootstrap"}
-{"date": "2025-12-30", "id": "00369", "result": [2, 13, 19, 23, 24, 11], "process_time": "bootstrap"}
-{"date": "2025-12-29", "id": "00368", "result": [3, 21, 22, 30, 33, 1], "process_time": "bootstrap"}
-{"date": "2025-12-29", "id": "00367", "result": [4, 6, 13, 16, 30, 10], "process_time": "bootstrap"}
-{"date": "2025-12-28", "id": "00366", "result": [2, 5, 7, 8, 21, 12], "process_time": "bootstrap"}
-{"date": "2025-12-28", "id": "00365", "result": [11, 14, 27, 30, 35, 9], "process_time": "bootstrap"}
-{"date": "2025-12-27", "id": "00364", "result": [4, 8, 14, 33, 35, 11], "process_time": "bootstrap"}
-{"date": "2025-12-27", "id": "00363", "result": [1, 2, 20, 24, 33, 10], "process_time": "bootstrap"}
-{"date": "2025-12-26", "id": "00362", "result": [11, 17, 19, 26, 33, 8], "process_time": "bootstrap"}
-{"date": "2025-12-26", "id": "00361", "result": [1, 2, 19, 21, 31, 3], "process_time": "bootstrap"}
-{"date": "2025-12-25", "id": "00360", "result": [2, 4, 14, 24, 34, 10], "process_time": "bootstrap"}
-{"date": "2025-12-25", "id": "00359", "result": [5, 12, 25, 28, 33, 8], "process_time": "bootstrap"}
-{"date": "2025-12-24", "id": "00358", "result": [19, 20, 27, 31, 34, 5], "process_time": "bootstrap"}
-{"date": "2025-12-24", "id": "00357", "result": [1, 2, 4, 10, 33, 3], "process_time": "bootstrap"}
-{"date": "2025-12-23", "id": "00356", "result": [22, 23, 26, 34, 35, 3], "process_time": "bootstrap"}
-{"date": "2025-12-23", "id": "00355", "result": [3, 23, 28, 32, 35, 9], "process_time": "bootstrap"}
-{"date": "2025-12-22", "id": "00354", "result": [13, 31, 32, 33, 35, 11], "process_time": "bootstrap"}
-{"date": "2025-12-22", "id": "00353", "result": [8, 12, 14, 24, 27, 9], "process_time": "bootstrap"}
-{"date": "2025-12-21", "id": "00352", "result": [6, 26, 27, 33, 34, 7], "process_time": "bootstrap"}
-{"date": "2025-12-21", "id": "00351", "result": [6, 16, 28, 33, 35, 8], "process_time": "bootstrap"}
-{"date": "2025-12-20", "id": "00350", "result": [11, 12, 13, 14, 19, 7], "process_time": "bootstrap"}
-{"date": "2025-12-20", "id": "00349", "result": [1, 7, 9, 16, 30, 11], "process_time": "bootstrap"}
-{"date": "2025-12-19", "id": "00348", "result": [3, 13, 15, 16, 23, 10], "process_time": "bootstrap"}
-{"date": "2025-12-19", "id": "00347", "result": [4, 5, 13, 29, 35, 5], "process_time": "bootstrap"}
-{"date": "2025-12-18", "id": "00346", "result": [2, 7, 22, 25, 31, 9], "process_time": "bootstrap"}
-{"date": "2025-12-18", "id": "00345", "result": [14, 15, 17, 27, 34, 8], "process_time": "bootstrap"}
-{"date": "2025-12-17", "id": "00344", "result": [7, 10, 17, 19, 22, 1], "process_time": "bootstrap"}
-{"date": "2025-12-17", "id": "00343", "result": [6, 23, 27, 28, 30, 6], "process_time": "bootstrap"}
-{"date": "2025-12-16", "id": "00342", "result": [7, 10, 26, 27, 35, 11], "process_time": "bootstrap"}
-{"date": "2025-12-16", "id": "00341", "result": [2, 3, 7, 16, 17, 10], "process_time": "bootstrap"}
-{"date": "2025-12-15", "id": "00340", "result": [20, 21, 24, 25, 28, 9], "process_time": "bootstrap"}
-{"date": "2025-12-15", "id": "00339", "result": [1, 2, 5, 12, 16, 9], "process_time": "bootstrap"}
-{"date": "2025-12-14", "id": "00338", "result": [8, 9, 11, 25, 26, 7], "process_time": "bootstrap"}
-{"date": "2025-12-14", "id": "00337", "result": [8, 13, 14, 27, 35, 6], "process_time": "bootstrap"}
-{"date": "2025-12-13", "id": "00336", "result": [5, 7, 15, 16, 18, 10], "process_time": "bootstrap"}
-{"date": "2025-12-13", "id": "00335", "result": [1, 11, 26, 29, 35, 10], "process_time": "bootstrap"}
-{"date": "2025-12-12", "id": "00334", "result": [1, 3, 7, 10, 28, 4], "process_time": "bootstrap"}
-{"date": "2025-12-12", "id": "00333", "result": [8, 25, 30, 33, 34, 11], "process_time": "bootstrap"}
-{"date": "2025-12-11", "id": "00332", "result": [3, 10, 16, 23, 29, 11], "process_time": "bootstrap"}
-{"date": "2025-12-11", "id": "00331", "result": [7, 8, 10, 12, 32, 2], "process_time": "bootstrap"}
-{"date": "2025-12-10", "id": "00330", "result": [1, 15, 26, 29, 33, 9], "process_time": "bootstrap"}
-{"date": "2025-12-10", "id": "00329", "result": [1, 24, 30, 34, 35, 3], "process_time": "bootstrap"}
-{"date": "2025-12-09", "id": "00328", "result": [2, 10, 23, 33, 35, 4], "process_time": "bootstrap"}
-{"date": "2025-12-09", "id": "00327", "result": [1, 8, 10, 13, 32, 3], "process_time": "bootstrap"}
-{"date": "2025-12-08", "id": "00326", "result": [2, 7, 28, 32, 35, 8], "process_time": "bootstrap"}
-{"date": "2025-12-08", "id": "00325", "result": [2, 3, 16, 23, 31, 12], "process_time": "bootstrap"}
-{"date": "2025-12-07", "id": "00324", "result": [4, 8, 11, 18, 35, 9], "process_time": "bootstrap"}
-{"date": "2025-12-07", "id": "00323", "result": [11, 17, 21, 23, 31, 2], "process_time": "bootstrap"}
-{"date": "2025-12-06", "id": "00322", "result": [1, 11, 13, 23, 25, 8], "process_time": "bootstrap"}
-{"date": "2025-12-06", "id": "00321", "result": [5, 7, 13, 22, 34, 11], "process_time": "bootstrap"}
-{"date": "2025-12-05", "id": "00320", "result": [3, 10, 11, 21, 30, 10], "process_time": "bootstrap"}
-{"date": "2025-12-05", "id": "00319", "result": [13, 18, 20, 28, 30, 3], "process_time": "bootstrap"}
-{"date": "2025-12-04", "id": "00318", "result": [3, 7, 12, 13, 21, 1], "process_time": "bootstrap"}
-{"date": "2025-12-04", "id": "00317", "result": [2, 7, 11, 20, 26, 10], "process_time": "bootstrap"}
-{"date": "2025-12-03", "id": "00316", "result": [9, 10, 27, 30, 31, 2], "process_time": "bootstrap"}
-{"date": "2025-12-03", "id": "00315", "result": [4, 8, 22, 24, 34, 5], "process_time": "bootstrap"}
-{"date": "2025-12-02", "id": "00314", "result": [9, 12, 14, 28, 35, 10], "process_time": "bootstrap"}
-{"date": "2025-12-02", "id": "00313", "result": [1, 2, 4, 14, 23, 7], "process_time": "bootstrap"}
-{"date": "2025-12-01", "id": "00312", "result": [9, 13, 19, 30, 33, 12], "process_time": "bootstrap"}
-{"date": "2025-12-01", "id": "00311", "result": [3, 16, 21, 29, 34, 12], "process_time": "bootstrap"}
-{"date": "2025-11-30", "id": "00310", "result": [9, 10, 11, 18, 25, 12], "process_time": "bootstrap"}
-{"date": "2025-11-30", "id": "00309", "result": [11, 19, 24, 27, 32, 4], "process_time": "bootstrap"}
-{"date": "2025-11-29", "id": "00308", "result": [8, 11, 17, 18, 28, 4], "process_time": "bootstrap"}
-{"date": "2025-11-29", "id": "00307", "result": [2, 12, 22, 30, 32, 9], "process_time": "bootstrap"}
-{"date": "2025-11-28", "id": "00306", "result": [18, 29, 30, 32, 35, 2], "process_time": "bootstrap"}
-{"date": "2025-11-28", "id": "00305", "result": [2, 18, 20, 30, 34, 9], "process_time": "bootstrap"}
-{"date": "2025-11-27", "id": "00304", "result": [1, 10, 16, 30, 34, 7], "process_time": "bootstrap"}
-{"date": "2025-11-27", "id": "00303", "result": [4, 8, 14, 20, 32, 1], "process_time": "bootstrap"}
-{"date": "2025-11-26", "id": "00302", "result": [2, 4, 18, 30, 34, 4], "process_time": "bootstrap"}
-{"date": "2025-11-26", "id": "00301", "result": [11, 14, 19, 21, 27, 8], "process_time": "bootstrap"}
-{"date": "2025-11-25", "id": "00300", "result": [11, 22, 28, 29, 31, 10], "process_time": "bootstrap"}
-{"date": "2025-11-25", "id": "00299", "result": [5, 12, 28, 31, 33, 7], "process_time": "bootstrap"}
-{"date": "2025-11-24", "id": "00298", "result": [5, 20, 24, 32, 33, 5], "process_time": "bootstrap"}
-{"date": "2025-11-24", "id": "00297", "result": [11, 12, 15, 28, 33, 6], "process_time": "bootstrap"}
-{"date": "2025-11-23", "id": "00296", "result": [14, 17, 22, 30, 32, 11], "process_time": "bootstrap"}
-{"date": "2025-11-23", "id": "00295", "result": [5, 19, 22, 34, 35, 12], "process_time": "bootstrap"}
-{"date": "2025-11-22", "id": "00294", "result": [7, 16, 23, 24, 27, 9], "process_time": "bootstrap"}
-{"date": "2025-11-22", "id": "00293", "result": [17, 23, 28, 30, 31, 2], "process_time": "bootstrap"}
-{"date": "2025-11-21", "id": "00292", "result": [5, 7, 11, 19, 23, 11], "process_time": "bootstrap"}
-{"date": "2025-11-21", "id": "00291", "result": [7, 8, 10, 24, 25, 8], "process_time": "bootstrap"}
-{"date": "2025-11-20", "id": "00290", "result": [1, 7, 15, 17, 23, 11], "process_time": "bootstrap"}
-{"date": "2025-11-20", "id": "00289", "result": [6, 14, 21, 24, 30, 5], "process_time": "bootstrap"}
-{"date": "2025-11-19", "id": "00288", "result": [12, 14, 20, 33, 34, 1], "process_time": "bootstrap"}
-{"date": "2025-11-19", "id": "00287", "result": [9, 20, 24, 26, 34, 12], "process_time": "bootstrap"}
-{"date": "2025-11-18", "id": "00286", "result": [8, 11, 17, 21, 29, 3], "process_time": "bootstrap"}
-{"date": "2025-11-18", "id": "00285", "result": [3, 17, 30, 33, 34, 8], "process_time": "bootstrap"}
-{"date": "2025-11-17", "id": "00284", "result": [7, 9, 23, 30, 34, 2], "process_time": "bootstrap"}
-{"date": "2025-11-17", "id": "00283", "result": [3, 13, 14, 18, 34, 2], "process_time": "bootstrap"}
-{"date": "2025-11-16", "id": "00282", "result": [1, 18, 20, 26, 30, 12], "process_time": "bootstrap"}
-{"date": "2025-11-16", "id": "00281", "result": [2, 15, 21, 22, 28, 7], "process_time": "bootstrap"}
-{"date": "2025-11-15", "id": "00280", "result": [8, 20, 21, 28, 29, 3], "process_time": "bootstrap"}
-{"date": "2025-11-15", "id": "00279", "result": [2, 15, 20, 22, 32, 10], "process_time": "bootstrap"}
-{"date": "2025-11-14", "id": "00278", "result": [8, 12, 14, 25, 35, 3], "process_time": "bootstrap"}
-{"date": "2025-11-14", "id": "00277", "result": [14, 19, 22, 26, 28, 7], "process_time": "bootstrap"}
-{"date": "2025-11-13", "id": "00276", "result": [3, 8, 17, 22, 30, 1], "process_time": "bootstrap"}
-{"date": "2025-11-13", "id": "00275", "result": [7, 9, 21, 27, 30, 4], "process_time": "bootstrap"}
-{"date": "2025-11-12", "id": "00274", "result": [7, 10, 11, 24, 26, 6], "process_time": "bootstrap"}
-{"date": "2025-11-12", "id": "00273", "result": [3, 11, 12, 28, 31, 12], "process_time": "bootstrap"}
-{"date": "2025-11-11", "id": "00272", "result": [5, 10, 11, 23, 29, 8], "process_time": "bootstrap"}
-{"date": "2025-11-11", "id": "00271", "result": [4, 6, 9, 23, 33, 12], "process_time": "bootstrap"}
-{"date": "2025-11-10", "id": "00270", "result": [5, 7, 10, 31, 35, 9], "process_time": "bootstrap"}
-{"date": "2025-11-10", "id": "00269", "result": [4, 9, 13, 24, 27, 12], "process_time": "bootstrap"}
-{"date": "2025-11-09", "id": "00268", "result": [7, 10, 11, 14, 29, 2], "process_time": "bootstrap"}
-{"date": "2025-11-09", "id": "00267", "result": [3, 5, 15, 21, 23, 10], "process_time": "bootstrap"}
-{"date": "2025-11-08", "id": "00266", "result": [6, 7, 20, 23, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-11-08", "id": "00265", "result": [5, 9, 13, 22, 34, 12], "process_time": "bootstrap"}
-{"date": "2025-11-07", "id": "00264", "result": [11, 26, 28, 32, 34, 4], "process_time": "bootstrap"}
-{"date": "2025-11-07", "id": "00263", "result": [2, 14, 15, 20, 33, 9], "process_time": "bootstrap"}
-{"date": "2025-11-06", "id": "00262", "result": [5, 6, 14, 18, 28, 11], "process_time": "bootstrap"}
-{"date": "2025-11-06", "id": "00261", "result": [3, 13, 14, 19, 28, 9], "process_time": "bootstrap"}
-{"date": "2025-11-05", "id": "00260", "result": [1, 4, 17, 18, 19, 5], "process_time": "bootstrap"}
-{"date": "2025-11-05", "id": "00259", "result": [6, 11, 25, 33, 35, 10], "process_time": "bootstrap"}
-{"date": "2025-11-04", "id": "00258", "result": [7, 20, 28, 29, 31, 6], "process_time": "bootstrap"}
-{"date": "2025-11-04", "id": "00257", "result": [6, 7, 8, 21, 34, 1], "process_time": "bootstrap"}
-{"date": "2025-11-03", "id": "00256", "result": [6, 25, 27, 32, 35, 3], "process_time": "bootstrap"}
-{"date": "2025-11-03", "id": "00255", "result": [4, 6, 11, 20, 33, 1], "process_time": "bootstrap"}
-{"date": "2025-11-02", "id": "00254", "result": [13, 29, 30, 32, 35, 4], "process_time": "bootstrap"}
-{"date": "2025-11-02", "id": "00253", "result": [4, 8, 14, 24, 32, 1], "process_time": "bootstrap"}
-{"date": "2025-11-01", "id": "00252", "result": [2, 4, 18, 26, 31, 11], "process_time": "bootstrap"}
-{"date": "2025-11-01", "id": "00251", "result": [6, 11, 14, 20, 30, 9], "process_time": "bootstrap"}
-{"date": "2025-10-31", "id": "00250", "result": [6, 14, 21, 34, 35, 5], "process_time": "bootstrap"}
-{"date": "2025-10-31", "id": "00249", "result": [5, 8, 15, 17, 18, 10], "process_time": "bootstrap"}
-{"date": "2025-10-30", "id": "00248", "result": [9, 11, 12, 24, 28, 7], "process_time": "bootstrap"}
-{"date": "2025-10-30", "id": "00247", "result": [11, 20, 23, 27, 34, 5], "process_time": "bootstrap"}
-{"date": "2025-10-29", "id": "00246", "result": [15, 18, 31, 34, 35, 3], "process_time": "bootstrap"}
-{"date": "2025-10-29", "id": "00245", "result": [1, 8, 17, 20, 24, 1], "process_time": "bootstrap"}
-{"date": "2025-10-28", "id": "00244", "result": [6, 7, 10, 19, 22, 12], "process_time": "bootstrap"}
-{"date": "2025-10-28", "id": "00243", "result": [10, 14, 28, 33, 34, 7], "process_time": "bootstrap"}
-{"date": "2025-10-27", "id": "00242", "result": [16, 17, 20, 24, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-10-27", "id": "00241", "result": [8, 9, 25, 26, 32, 6], "process_time": "bootstrap"}
-{"date": "2025-10-26", "id": "00240", "result": [4, 26, 27, 30, 34, 2], "process_time": "bootstrap"}
-{"date": "2025-10-26", "id": "00239", "result": [17, 22, 24, 31, 32, 1], "process_time": "bootstrap"}
-{"date": "2025-10-25", "id": "00238", "result": [12, 14, 25, 28, 31, 5], "process_time": "bootstrap"}
-{"date": "2025-10-25", "id": "00237", "result": [1, 10, 14, 19, 25, 4], "process_time": "bootstrap"}
-{"date": "2025-10-24", "id": "00236", "result": [5, 11, 21, 22, 33, 11], "process_time": "bootstrap"}
-{"date": "2025-10-24", "id": "00235", "result": [2, 4, 11, 15, 20, 6], "process_time": "bootstrap"}
-{"date": "2025-10-23", "id": "00234", "result": [3, 7, 24, 25, 34, 6], "process_time": "bootstrap"}
-{"date": "2025-10-23", "id": "00233", "result": [6, 10, 11, 12, 30, 4], "process_time": "bootstrap"}
-{"date": "2025-10-22", "id": "00232", "result": [6, 11, 15, 25, 26, 6], "process_time": "bootstrap"}
-{"date": "2025-10-22", "id": "00231", "result": [7, 12, 20, 32, 34, 7], "process_time": "bootstrap"}
-{"date": "2025-10-21", "id": "00230", "result": [3, 14, 20, 21, 23, 1], "process_time": "bootstrap"}
-{"date": "2025-10-21", "id": "00229", "result": [1, 14, 20, 31, 32, 3], "process_time": "bootstrap"}
-{"date": "2025-10-20", "id": "00228", "result": [2, 12, 21, 24, 35, 2], "process_time": "bootstrap"}
-{"date": "2025-10-20", "id": "00227", "result": [17, 19, 29, 31, 35, 11], "process_time": "bootstrap"}
-{"date": "2025-10-19", "id": "00226", "result": [2, 7, 22, 33, 34, 5], "process_time": "bootstrap"}
-{"date": "2025-10-19", "id": "00225", "result": [7, 12, 23, 30, 35, 4], "process_time": "bootstrap"}
-{"date": "2025-10-18", "id": "00224", "result": [2, 4, 16, 28, 30, 6], "process_time": "bootstrap"}
-{"date": "2025-10-18", "id": "00223", "result": [6, 8, 13, 24, 25, 3], "process_time": "bootstrap"}
-{"date": "2025-10-17", "id": "00222", "result": [20, 23, 25, 28, 34, 7], "process_time": "bootstrap"}
-{"date": "2025-10-17", "id": "00221", "result": [18, 25, 26, 34, 35, 7], "process_time": "bootstrap"}
-{"date": "2025-10-16", "id": "00220", "result": [10, 19, 21, 29, 32, 4], "process_time": "bootstrap"}
-{"date": "2025-10-16", "id": "00219", "result": [1, 9, 12, 20, 23, 1], "process_time": "bootstrap"}
-{"date": "2025-10-15", "id": "00218", "result": [2, 4, 21, 30, 34, 11], "process_time": "bootstrap"}
-{"date": "2025-10-15", "id": "00217", "result": [1, 4, 14, 15, 32, 8], "process_time": "bootstrap"}
-{"date": "2025-10-14", "id": "00216", "result": [1, 18, 21, 23, 26, 11], "process_time": "bootstrap"}
-{"date": "2025-10-14", "id": "00215", "result": [7, 12, 14, 20, 28, 4], "process_time": "bootstrap"}
-{"date": "2025-10-13", "id": "00214", "result": [16, 19, 25, 26, 32, 11], "process_time": "bootstrap"}
-{"date": "2025-10-13", "id": "00213", "result": [2, 17, 32, 33, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-10-12", "id": "00212", "result": [8, 15, 28, 33, 34, 9], "process_time": "bootstrap"}
-{"date": "2025-10-12", "id": "00211", "result": [8, 15, 22, 26, 28, 11], "process_time": "bootstrap"}
-{"date": "2025-10-11", "id": "00210", "result": [13, 16, 21, 22, 23, 4], "process_time": "bootstrap"}
-{"date": "2025-10-11", "id": "00209", "result": [2, 18, 19, 29, 32, 7], "process_time": "bootstrap"}
-{"date": "2025-10-10", "id": "00208", "result": [1, 5, 16, 22, 26, 4], "process_time": "bootstrap"}
-{"date": "2025-10-10", "id": "00207", "result": [3, 10, 13, 24, 31, 10], "process_time": "bootstrap"}
-{"date": "2025-09-15", "id": "00158", "result": [11, 16, 20, 27, 32, 2], "process_time": "bootstrap"}
-{"date": "2025-09-15", "id": "00157", "result": [1, 11, 16, 25, 29, 7], "process_time": "bootstrap"}
-{"date": "2025-09-14", "id": "00156", "result": [6, 10, 11, 12, 27, 4], "process_time": "bootstrap"}
-{"date": "2025-09-14", "id": "00155", "result": [1, 6, 7, 11, 31, 3], "process_time": "bootstrap"}
-{"date": "2025-09-13", "id": "00154", "result": [2, 6, 28, 29, 31, 12], "process_time": "bootstrap"}
-{"date": "2025-09-13", "id": "00153", "result": [3, 19, 26, 33, 34, 8], "process_time": "bootstrap"}
-{"date": "2025-09-12", "id": "00152", "result": [2, 6, 7, 24, 28, 1], "process_time": "bootstrap"}
-{"date": "2025-09-12", "id": "00151", "result": [15, 17, 19, 20, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-09-11", "id": "00150", "result": [13, 22, 25, 30, 31, 9], "process_time": "bootstrap"}
-{"date": "2025-09-11", "id": "00149", "result": [1, 6, 25, 28, 30, 2], "process_time": "bootstrap"}
-{"date": "2025-09-10", "id": "00148", "result": [4, 13, 16, 23, 29, 11], "process_time": "bootstrap"}
-{"date": "2025-09-10", "id": "00147", "result": [6, 13, 14, 23, 29, 6], "process_time": "bootstrap"}
-{"date": "2025-09-09", "id": "00146", "result": [11, 15, 19, 27, 33, 1], "process_time": "bootstrap"}
-{"date": "2025-09-09", "id": "00145", "result": [3, 4, 21, 26, 33, 5], "process_time": "bootstrap"}
-{"date": "2025-09-08", "id": "00144", "result": [17, 18, 19, 22, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-09-08", "id": "00143", "result": [11, 14, 19, 21, 25, 2], "process_time": "bootstrap"}
-{"date": "2025-09-07", "id": "00142", "result": [21, 25, 26, 29, 30, 9], "process_time": "bootstrap"}
-{"date": "2025-09-07", "id": "00141", "result": [1, 3, 10, 14, 15, 7], "process_time": "bootstrap"}
-{"date": "2025-09-06", "id": "00140", "result": [5, 7, 29, 32, 33, 12], "process_time": "bootstrap"}
-{"date": "2025-09-06", "id": "00139", "result": [7, 11, 13, 27, 34, 4], "process_time": "bootstrap"}
-{"date": "2025-09-05", "id": "00138", "result": [6, 15, 17, 20, 30, 10], "process_time": "bootstrap"}
-{"date": "2025-09-05", "id": "00137", "result": [1, 4, 20, 23, 35, 11], "process_time": "bootstrap"}
-{"date": "2025-09-04", "id": "00136", "result": [4, 5, 27, 28, 30, 5], "process_time": "bootstrap"}
-{"date": "2025-09-04", "id": "00135", "result": [12, 17, 23, 26, 29, 12], "process_time": "bootstrap"}
-{"date": "2025-09-03", "id": "00134", "result": [1, 5, 10, 21, 30, 3], "process_time": "bootstrap"}
-{"date": "2025-09-03", "id": "00133", "result": [1, 6, 9, 17, 26, 4], "process_time": "bootstrap"}
-{"date": "2025-09-02", "id": "00132", "result": [5, 9, 12, 32, 35, 1], "process_time": "bootstrap"}
-{"date": "2025-09-02", "id": "00131", "result": [1, 10, 12, 22, 31, 2], "process_time": "bootstrap"}
-{"date": "2025-09-01", "id": "00130", "result": [5, 7, 10, 21, 30, 7], "process_time": "bootstrap"}
-{"date": "2025-09-01", "id": "00129", "result": [9, 22, 24, 30, 35, 7], "process_time": "bootstrap"}
-{"date": "2025-08-31", "id": "00128", "result": [2, 10, 22, 23, 31, 12], "process_time": "bootstrap"}
-{"date": "2025-08-31", "id": "00127", "result": [1, 8, 19, 21, 30, 11], "process_time": "bootstrap"}
-{"date": "2025-08-30", "id": "00126", "result": [4, 6, 14, 15, 20, 9], "process_time": "bootstrap"}
-{"date": "2025-08-30", "id": "00125", "result": [7, 11, 18, 20, 27, 10], "process_time": "bootstrap"}
-{"date": "2025-08-29", "id": "00124", "result": [9, 12, 13, 19, 25, 8], "process_time": "bootstrap"}
-{"date": "2025-08-29", "id": "00123", "result": [8, 10, 21, 27, 31, 5], "process_time": "bootstrap"}
-{"date": "2025-08-28", "id": "00122", "result": [1, 4, 17, 18, 28, 5], "process_time": "bootstrap"}
-{"date": "2025-08-28", "id": "00121", "result": [3, 18, 19, 23, 30, 7], "process_time": "bootstrap"}
-{"date": "2025-08-27", "id": "00120", "result": [2, 9, 10, 24, 30, 5], "process_time": "bootstrap"}
-{"date": "2025-08-27", "id": "00119", "result": [7, 11, 17, 22, 35, 8], "process_time": "bootstrap"}
-{"date": "2025-08-26", "id": "00118", "result": [7, 11, 26, 34, 35, 9], "process_time": "bootstrap"}
-{"date": "2025-08-26", "id": "00117", "result": [13, 20, 25, 27, 30, 11], "process_time": "bootstrap"}
-{"date": "2025-08-25", "id": "00116", "result": [2, 15, 19, 25, 34, 6], "process_time": "bootstrap"}
-{"date": "2025-08-25", "id": "00115", "result": [1, 7, 14, 25, 26, 1], "process_time": "bootstrap"}
-{"date": "2025-08-24", "id": "00114", "result": [4, 12, 25, 29, 34, 12], "process_time": "bootstrap"}
-{"date": "2025-08-24", "id": "00113", "result": [8, 9, 21, 23, 30, 12], "process_time": "bootstrap"}
-{"date": "2025-08-23", "id": "00112", "result": [6, 11, 16, 17, 29, 7], "process_time": "bootstrap"}
-{"date": "2025-08-23", "id": "00111", "result": [4, 13, 14, 26, 30, 8], "process_time": "bootstrap"}
-{"date": "2025-08-22", "id": "00110", "result": [16, 20, 23, 28, 31, 2], "process_time": "bootstrap"}
-{"date": "2025-08-22", "id": "00109", "result": [8, 9, 32, 33, 34, 2], "process_time": "bootstrap"}
-{"date": "2025-08-21", "id": "00108", "result": [9, 13, 18, 24, 29, 2], "process_time": "bootstrap"}
-{"date": "2025-08-21", "id": "00107", "result": [2, 4, 13, 15, 26, 1], "process_time": "bootstrap"}
-{"date": "2025-08-20", "id": "00106", "result": [3, 6, 18, 25, 35, 12], "process_time": "bootstrap"}
-{"date": "2025-08-20", "id": "00105", "result": [5, 10, 15, 24, 25, 7], "process_time": "bootstrap"}
-{"date": "2025-08-19", "id": "00104", "result": [14, 20, 22, 28, 32, 6], "process_time": "bootstrap"}
-{"date": "2025-08-19", "id": "00103", "result": [3, 10, 24, 30, 33, 4], "process_time": "bootstrap"}
-{"date": "2025-08-18", "id": "00102", "result": [5, 10, 15, 20, 28, 12], "process_time": "bootstrap"}
-{"date": "2025-08-18", "id": "00101", "result": [1, 4, 17, 33, 34, 6], "process_time": "bootstrap"}
-{"date": "2025-08-17", "id": "00100", "result": [1, 5, 12, 27, 30, 3], "process_time": "bootstrap"}
-{"date": "2025-08-17", "id": "00099", "result": [15, 20, 23, 27, 30, 4], "process_time": "bootstrap"}
-{"date": "2025-08-16", "id": "00098", "result": [3, 18, 20, 26, 30, 2], "process_time": "bootstrap"}
-{"date": "2025-08-16", "id": "00097", "result": [8, 21, 24, 33, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-08-15", "id": "00096", "result": [3, 9, 20, 26, 33, 4], "process_time": "bootstrap"}
-{"date": "2025-08-15", "id": "00095", "result": [5, 6, 27, 33, 34, 8], "process_time": "bootstrap"}
-{"date": "2025-08-14", "id": "00094", "result": [3, 4, 11, 29, 30, 3], "process_time": "bootstrap"}
-{"date": "2025-08-14", "id": "00093", "result": [11, 19, 22, 27, 35, 10], "process_time": "bootstrap"}
-{"date": "2025-08-13", "id": "00092", "result": [13, 18, 23, 26, 27, 12], "process_time": "bootstrap"}
-{"date": "2025-08-13", "id": "00091", "result": [20, 22, 25, 28, 32, 1], "process_time": "bootstrap"}
-{"date": "2025-08-12", "id": "00090", "result": [1, 8, 10, 27, 29, 11], "process_time": "bootstrap"}
-{"date": "2025-08-12", "id": "00089", "result": [8, 17, 24, 25, 33, 5], "process_time": "bootstrap"}
-{"date": "2025-08-11", "id": "00088", "result": [3, 4, 10, 13, 32, 1], "process_time": "bootstrap"}
-{"date": "2025-08-11", "id": "00087", "result": [2, 9, 11, 17, 23, 3], "process_time": "bootstrap"}
-{"date": "2025-08-10", "id": "00086", "result": [22, 24, 28, 31, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-08-10", "id": "00085", "result": [8, 16, 18, 28, 34, 7], "process_time": "bootstrap"}
-{"date": "2025-08-09", "id": "00084", "result": [9, 16, 17, 26, 32, 12], "process_time": "bootstrap"}
-{"date": "2025-08-09", "id": "00083", "result": [2, 15, 20, 24, 28, 10], "process_time": "bootstrap"}
-{"date": "2025-08-08", "id": "00082", "result": [1, 9, 15, 16, 20, 11], "process_time": "bootstrap"}
-{"date": "2025-08-08", "id": "00081", "result": [2, 15, 22, 30, 33, 6], "process_time": "bootstrap"}
-{"date": "2025-08-07", "id": "00080", "result": [6, 12, 18, 23, 25, 11], "process_time": "bootstrap"}
-{"date": "2025-08-07", "id": "00079", "result": [1, 18, 27, 29, 30, 7], "process_time": "bootstrap"}
-{"date": "2025-08-06", "id": "00078", "result": [7, 10, 15, 16, 29, 9], "process_time": "bootstrap"}
-{"date": "2025-08-06", "id": "00077", "result": [12, 25, 31, 32, 35, 4], "process_time": "bootstrap"}
-{"date": "2025-08-05", "id": "00076", "result": [5, 8, 10, 13, 32, 10], "process_time": "bootstrap"}
-{"date": "2025-08-05", "id": "00075", "result": [8, 20, 24, 30, 34, 1], "process_time": "bootstrap"}
-{"date": "2025-08-04", "id": "00074", "result": [5, 13, 23, 25, 33, 11], "process_time": "bootstrap"}
-{"date": "2025-08-04", "id": "00073", "result": [5, 20, 25, 30, 32, 10], "process_time": "bootstrap"}
-{"date": "2025-08-03", "id": "00072", "result": [7, 14, 15, 29, 34, 9], "process_time": "bootstrap"}
-{"date": "2025-08-03", "id": "00071", "result": [1, 6, 8, 23, 25, 12], "process_time": "bootstrap"}
-{"date": "2025-08-02", "id": "00070", "result": [1, 12, 18, 20, 25, 10], "process_time": "bootstrap"}
-{"date": "2025-08-02", "id": "00069", "result": [1, 3, 7, 10, 25, 11], "process_time": "bootstrap"}
-{"date": "2025-08-01", "id": "00068", "result": [9, 12, 22, 26, 31, 11], "process_time": "bootstrap"}
-{"date": "2025-08-01", "id": "00067", "result": [12, 14, 16, 22, 23, 9], "process_time": "bootstrap"}
-{"date": "2025-07-31", "id": "00066", "result": [3, 6, 22, 31, 33, 2], "process_time": "bootstrap"}
-{"date": "2025-07-31", "id": "00065", "result": [3, 10, 24, 26, 34, 6], "process_time": "bootstrap"}
-{"date": "2025-07-30", "id": "00064", "result": [13, 21, 26, 27, 32, 3], "process_time": "bootstrap"}
-{"date": "2025-07-30", "id": "00063", "result": [4, 9, 10, 18, 19, 2], "process_time": "bootstrap"}
-{"date": "2025-07-29", "id": "00062", "result": [20, 21, 29, 31, 33, 3], "process_time": "bootstrap"}
-{"date": "2025-07-29", "id": "00061", "result": [1, 5, 16, 28, 29, 8], "process_time": "bootstrap"}
-{"date": "2025-07-28", "id": "00060", "result": [15, 19, 25, 32, 33, 5], "process_time": "bootstrap"}
-{"date": "2025-07-28", "id": "00059", "result": [1, 3, 28, 32, 33, 11], "process_time": "bootstrap"}
-{"date": "2025-07-27", "id": "00058", "result": [10, 24, 28, 30, 32, 1], "process_time": "bootstrap"}
-{"date": "2025-07-27", "id": "00057", "result": [1, 14, 19, 25, 27, 8], "process_time": "bootstrap"}
-{"date": "2025-07-26", "id": "00056", "result": [3, 6, 11, 27, 33, 6], "process_time": "bootstrap"}
-{"date": "2025-07-26", "id": "00055", "result": [1, 7, 12, 16, 23, 8], "process_time": "bootstrap"}
-{"date": "2025-07-25", "id": "00054", "result": [16, 18, 19, 23, 25, 11], "process_time": "bootstrap"}
-{"date": "2025-07-25", "id": "00053", "result": [9, 10, 19, 22, 24, 7], "process_time": "bootstrap"}
-{"date": "2025-07-24", "id": "00052", "result": [9, 10, 11, 30, 35, 1], "process_time": "bootstrap"}
-{"date": "2025-07-24", "id": "00051", "result": [7, 8, 18, 22, 33, 7], "process_time": "bootstrap"}
-{"date": "2025-07-23", "id": "00050", "result": [17, 18, 27, 29, 33, 8], "process_time": "bootstrap"}
-{"date": "2025-07-23", "id": "00049", "result": [3, 21, 28, 33, 34, 5], "process_time": "bootstrap"}
-{"date": "2025-07-22", "id": "00048", "result": [7, 10, 26, 28, 33, 2], "process_time": "bootstrap"}
-{"date": "2025-07-22", "id": "00047", "result": [3, 14, 16, 21, 25, 5], "process_time": "bootstrap"}
-{"date": "2025-07-21", "id": "00046", "result": [2, 16, 18, 22, 30, 5], "process_time": "bootstrap"}
-{"date": "2025-07-21", "id": "00045", "result": [8, 20, 24, 27, 28, 3], "process_time": "bootstrap"}
-{"date": "2025-07-20", "id": "00044", "result": [21, 28, 31, 34, 35, 1], "process_time": "bootstrap"}
-{"date": "2025-07-20", "id": "00043", "result": [9, 14, 28, 33, 35, 10], "process_time": "bootstrap"}
-{"date": "2025-07-19", "id": "00042", "result": [4, 16, 24, 26, 31, 11], "process_time": "bootstrap"}
-{"date": "2025-07-19", "id": "00041", "result": [5, 19, 20, 21, 30, 11], "process_time": "bootstrap"}
-{"date": "2025-07-18", "id": "00040", "result": [5, 11, 16, 27, 34, 9], "process_time": "bootstrap"}
-{"date": "2025-07-18", "id": "00039", "result": [2, 10, 12, 16, 34, 2], "process_time": "bootstrap"}
-{"date": "2025-07-17", "id": "00038", "result": [7, 11, 17, 18, 25, 1], "process_time": "bootstrap"}
-{"date": "2025-07-17", "id": "00037", "result": [1, 4, 8, 18, 29, 7], "process_time": "bootstrap"}
-{"date": "2025-07-16", "id": "00036", "result": [2, 10, 20, 34, 35, 2], "process_time": "bootstrap"}
-{"date": "2025-07-16", "id": "00035", "result": [7, 11, 13, 17, 25, 9], "process_time": "bootstrap"}
-{"date": "2025-07-15", "id": "00034", "result": [9, 12, 22, 31, 35, 2], "process_time": "bootstrap"}
-{"date": "2025-07-15", "id": "00033", "result": [3, 7, 12, 19, 26, 6], "process_time": "bootstrap"}
-{"date": "2025-07-14", "id": "00032", "result": [7, 8, 22, 23, 28, 5], "process_time": "bootstrap"}
-{"date": "2025-07-14", "id": "00031", "result": [2, 3, 12, 14, 22, 3], "process_time": "bootstrap"}
-{"date": "2025-07-13", "id": "00030", "result": [12, 14, 19, 27, 34, 8], "process_time": "bootstrap"}
-{"date": "2025-07-13", "id": "00029", "result": [13, 15, 19, 22, 27, 10], "process_time": "bootstrap"}
-{"date": "2025-07-12", "id": "00028", "result": [5, 11, 16, 20, 34, 6], "process_time": "bootstrap"}
-{"date": "2025-07-12", "id": "00027", "result": [5, 14, 26, 31, 35, 7], "process_time": "bootstrap"}
-{"date": "2025-07-11", "id": "00026", "result": [1, 5, 8, 20, 24, 8], "process_time": "bootstrap"}
-{"date": "2025-07-11", "id": "00025", "result": [8, 11, 17, 18, 20, 1], "process_time": "bootstrap"}
-{"date": "2025-07-10", "id": "00024", "result": [9, 24, 29, 32, 35, 8], "process_time": "bootstrap"}
-{"date": "2025-07-10", "id": "00023", "result": [11, 17, 24, 28, 30, 5], "process_time": "bootstrap"}
-{"date": "2025-07-09", "id": "00022", "result": [2, 7, 9, 28, 31, 12], "process_time": "bootstrap"}
-{"date": "2025-07-09", "id": "00021", "result": [1, 2, 12, 25, 31, 12], "process_time": "bootstrap"}
-{"date": "2025-07-08", "id": "00020", "result": [2, 6, 20, 26, 32, 12], "process_time": "bootstrap"}
-{"date": "2025-07-08", "id": "00019", "result": [14, 15, 17, 28, 31, 8], "process_time": "bootstrap"}
-{"date": "2025-07-07", "id": "00018", "result": [6, 7, 10, 22, 34, 8], "process_time": "bootstrap"}
-{"date": "2025-07-07", "id": "00017", "result": [1, 8, 14, 19, 23, 6], "process_time": "bootstrap"}
-{"date": "2025-07-06", "id": "00016", "result": [6, 7, 13, 28, 29, 7], "process_time": "bootstrap"}
-{"date": "2025-07-06", "id": "00015", "result": [3, 11, 12, 27, 32, 10], "process_time": "bootstrap"}
-{"date": "2025-07-05", "id": "00014", "result": [3, 13, 19, 25, 29, 7], "process_time": "bootstrap"}
-{"date": "2025-07-05", "id": "00013", "result": [5, 14, 15, 23, 34, 5], "process_time": "bootstrap"}
-{"date": "2025-07-04", "id": "00012", "result": [3, 18, 20, 29, 34, 3], "process_time": "bootstrap"}
-{"date": "2025-07-04", "id": "00011", "result": [1, 3, 7, 10, 24, 8], "process_time": "bootstrap"}
-{"date": "2025-07-03", "id": "00010", "result": [10, 23, 24, 30, 33, 6], "process_time": "bootstrap"}
-{"date": "2025-07-03", "id": "00009", "result": [28, 32, 33, 34, 35, 8], "process_time": "bootstrap"}
-{"date": "2025-07-02", "id": "00008", "result": [9, 11, 27, 29, 35, 9], "process_time": "bootstrap"}
-{"date": "2025-07-02", "id": "00007", "result": [13, 20, 23, 27, 35, 1], "process_time": "bootstrap"}
-{"date": "2025-07-01", "id": "00006", "result": [5, 18, 20, 30, 34, 7], "process_time": "bootstrap"}
+{"date": "2026-05-03", "id": "00617", "result": [10, 14, 20, 25, 28, 12], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 57, "Giải tư": 127, "Giải năm": 1733, "Giải KK": 8762}}
+{"date": "2026-05-02", "id": "00616", "result": [1, 5, 10, 12, 15, 9], "winners": {"Độc đắc": 0, "Giải nhất": 5, "Giải nhì": 12, "Giải ba": 83, "Giải tư": 210, "Giải năm": 2099, "Giải KK": 15723}}
+{"date": "2026-05-02", "id": "00615", "result": [2, 7, 19, 23, 35, 6], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 51, "Giải tư": 114, "Giải năm": 1398, "Giải KK": 8384}}
+{"date": "2026-05-01", "id": "00614", "result": [6, 9, 19, 29, 34, 6], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 13, "Giải ba": 92, "Giải tư": 200, "Giải năm": 2085, "Giải KK": 12450}}
+{"date": "2026-05-01", "id": "00613", "result": [3, 11, 28, 29, 33, 3], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 50, "Giải tư": 213, "Giải năm": 1576, "Giải KK": 10769}}
+{"date": "2026-04-30", "id": "00612", "result": [9, 13, 20, 23, 31, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 62, "Giải tư": 106, "Giải năm": 1861, "Giải KK": 8458}}
+{"date": "2026-04-30", "id": "00611", "result": [4, 5, 6, 17, 20, 6], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 71, "Giải tư": 143, "Giải năm": 1541, "Giải KK": 9842}}
+{"date": "2026-04-29", "id": "00610", "result": [16, 19, 21, 25, 26, 2], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 67, "Giải tư": 134, "Giải năm": 1983, "Giải KK": 10903}}
+{"date": "2026-04-29", "id": "00609", "result": [2, 17, 27, 29, 31, 1], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 26, "Giải tư": 89, "Giải năm": 1168, "Giải KK": 6049}}
+{"date": "2026-04-28", "id": "00608", "result": [4, 6, 15, 24, 35, 11], "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 37, "Giải ba": 50, "Giải tư": 143, "Giải năm": 1510, "Giải KK": 11076}}
+{"date": "2026-04-28", "id": "00607", "result": [3, 9, 13, 30, 35, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 29, "Giải tư": 75, "Giải năm": 1224, "Giải KK": 6653}}
+{"date": "2026-04-27", "id": "00606", "result": [9, 10, 23, 29, 35, 8], "winners": {"Độc đắc": 1, "Giải nhất": 4, "Giải nhì": 68, "Giải ba": 807, "Giải tư": 2484, "Giải năm": 25227, "Giải KK": 208958}}
+{"date": "2026-04-27", "id": "00605", "result": [6, 17, 32, 34, 35, 4], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 107, "Giải tư": 299, "Giải năm": 3689, "Giải KK": 29602}}
+{"date": "2026-04-26", "id": "00604", "result": [9, 17, 22, 34, 35, 10], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 9, "Giải ba": 99, "Giải tư": 379, "Giải năm": 3606, "Giải KK": 27682}}
+{"date": "2026-04-26", "id": "00603", "result": [8, 12, 13, 16, 24, 9], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 9, "Giải ba": 80, "Giải tư": 232, "Giải năm": 2496, "Giải KK": 17122}}
+{"date": "2026-04-25", "id": "00602", "result": [4, 5, 6, 20, 33, 12], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 79, "Giải tư": 213, "Giải năm": 2471, "Giải KK": 16581}}
+{"date": "2026-04-25", "id": "00601", "result": [4, 17, 22, 24, 29, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 64, "Giải tư": 94, "Giải năm": 1889, "Giải KK": 8870}}
+{"date": "2026-04-24", "id": "00600", "result": [8, 15, 21, 31, 35, 10], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 60, "Giải tư": 211, "Giải năm": 2057, "Giải KK": 17163}}
+{"date": "2026-04-24", "id": "00599", "result": [1, 5, 6, 14, 27, 5], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 44, "Giải tư": 101, "Giải năm": 1637, "Giải KK": 11864}}
+{"date": "2026-04-23", "id": "00598", "result": [1, 8, 16, 21, 34, 11], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 9, "Giải ba": 54, "Giải tư": 173, "Giải năm": 1889, "Giải KK": 15179}}
+{"date": "2026-04-23", "id": "00597", "result": [6, 7, 26, 30, 33, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 44, "Giải tư": 138, "Giải năm": 1530, "Giải KK": 10776}}
+{"date": "2026-04-22", "id": "00596", "result": [6, 16, 17, 28, 31, 10], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 81, "Giải tư": 282, "Giải năm": 2278, "Giải KK": 15981}}
+{"date": "2026-04-22", "id": "00595", "result": [1, 2, 9, 17, 34, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 54, "Giải tư": 87, "Giải năm": 1603, "Giải KK": 6517}}
+{"date": "2026-04-21", "id": "00594", "result": [4, 7, 18, 19, 25, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 104, "Giải tư": 146, "Giải năm": 2822, "Giải KK": 9529}}
+{"date": "2026-04-21", "id": "00593", "result": [3, 12, 13, 30, 31, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 61, "Giải tư": 99, "Giải năm": 1663, "Giải KK": 6959}}
+{"date": "2026-04-20", "id": "00592", "result": [2, 6, 15, 22, 28, 11], "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 6, "Giải ba": 92, "Giải tư": 224, "Giải năm": 2645, "Giải KK": 15500}}
+{"date": "2026-04-20", "id": "00591", "result": [7, 10, 14, 16, 34, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 82, "Giải tư": 107, "Giải năm": 1649, "Giải KK": 7737}}
+{"date": "2026-04-19", "id": "00590", "result": [3, 4, 5, 8, 20, 9], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 87, "Giải tư": 234, "Giải năm": 2076, "Giải KK": 16836}}
+{"date": "2026-04-19", "id": "00589", "result": [4, 10, 16, 17, 21, 8], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 36, "Giải tư": 148, "Giải năm": 1292, "Giải KK": 11125}}
+{"date": "2026-04-18", "id": "00588", "result": [3, 17, 20, 24, 35, 11], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 53, "Giải tư": 124, "Giải năm": 1921, "Giải KK": 11060}}
+{"date": "2026-04-18", "id": "00587", "result": [17, 19, 30, 32, 34, 2], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 38, "Giải tư": 107, "Giải năm": 1257, "Giải KK": 8370}}
+{"date": "2026-04-17", "id": "00586", "result": [3, 4, 9, 12, 18, 10], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 78, "Giải tư": 200, "Giải năm": 2046, "Giải KK": 14721}}
+{"date": "2026-04-17", "id": "00585", "result": [6, 10, 15, 19, 22, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 48, "Giải tư": 210, "Giải năm": 1717, "Giải KK": 12033}}
+{"date": "2026-04-16", "id": "00584", "result": [1, 10, 15, 25, 27, 11], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 63, "Giải ba": 783, "Giải tư": 1832, "Giải năm": 24243, "Giải KK": 157245}}
+{"date": "2026-04-16", "id": "00583", "result": [12, 14, 25, 30, 31, 6], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 17, "Giải ba": 141, "Giải tư": 392, "Giải năm": 4007, "Giải KK": 26431}}
+{"date": "2026-04-15", "id": "00582", "result": [4, 13, 18, 20, 26, 11], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 12, "Giải ba": 159, "Giải tư": 350, "Giải năm": 3968, "Giải KK": 23472}}
+{"date": "2026-04-15", "id": "00581", "result": [1, 15, 20, 32, 35, 8], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 6, "Giải ba": 56, "Giải tư": 216, "Giải năm": 1889, "Giải KK": 17382}}
+{"date": "2026-04-14", "id": "00580", "result": [5, 19, 25, 29, 31, 2], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 120, "Giải tư": 222, "Giải năm": 3727, "Giải KK": 15869}}
+{"date": "2026-04-14", "id": "00579", "result": [7, 11, 12, 14, 27, 11], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 64, "Giải tư": 205, "Giải năm": 2060, "Giải KK": 14346}}
+{"date": "2026-04-13", "id": "00578", "result": [10, 11, 12, 18, 34, 3], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 88, "Giải tư": 244, "Giải năm": 2730, "Giải KK": 19190}}
+{"date": "2026-04-13", "id": "00577", "result": [12, 15, 23, 26, 32, 8], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 74, "Giải tư": 228, "Giải năm": 1867, "Giải KK": 14560}}
+{"date": "2026-04-12", "id": "00576", "result": [11, 21, 22, 27, 34, 12], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 71, "Giải tư": 190, "Giải năm": 2244, "Giải KK": 13614}}
+{"date": "2026-04-12", "id": "00575", "result": [18, 23, 32, 33, 34, 2], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 40, "Giải tư": 111, "Giải năm": 1720, "Giải KK": 9313}}
+{"date": "2026-04-11", "id": "00574", "result": [3, 6, 8, 20, 35, 6], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 82, "Giải tư": 175, "Giải năm": 1845, "Giải KK": 13312}}
+{"date": "2026-04-11", "id": "00573", "result": [7, 13, 15, 19, 32, 9], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 53, "Giải tư": 177, "Giải năm": 1570, "Giải KK": 14122}}
+{"date": "2026-04-10", "id": "00572", "result": [7, 15, 19, 23, 24, 6], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 83, "Giải tư": 192, "Giải năm": 2396, "Giải KK": 13987}}
+{"date": "2026-04-10", "id": "00571", "result": [8, 17, 21, 31, 35, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 48, "Giải tư": 138, "Giải năm": 1299, "Giải KK": 9782}}
+{"date": "2026-04-09", "id": "00570", "result": [8, 10, 11, 22, 30, 2], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 77, "Giải tư": 151, "Giải năm": 2107, "Giải KK": 10792}}
+{"date": "2026-04-09", "id": "00569", "result": [1, 7, 18, 33, 34, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 35, "Giải tư": 80, "Giải năm": 1293, "Giải KK": 6558}}
+{"date": "2026-04-08", "id": "00568", "result": [19, 20, 21, 26, 31, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 57, "Giải tư": 206, "Giải năm": 1853, "Giải KK": 13204}}
+{"date": "2026-04-08", "id": "00567", "result": [10, 16, 19, 22, 32, 12], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 65, "Giải tư": 105, "Giải năm": 1439, "Giải KK": 8437}}
+{"date": "2026-04-07", "id": "00566", "result": [1, 8, 12, 20, 28, 2], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 60, "Giải tư": 168, "Giải năm": 1946, "Giải KK": 10688}}
+{"date": "2026-04-07", "id": "00565", "result": [9, 18, 21, 26, 34, 4], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 65, "Giải tư": 91, "Giải năm": 1370, "Giải KK": 6940}}
+{"date": "2026-04-06", "id": "00564", "result": [11, 17, 22, 25, 28, 4], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 106, "Giải tư": 171, "Giải năm": 2170, "Giải KK": 13376}}
+{"date": "2026-04-06", "id": "00563", "result": [3, 13, 16, 33, 34, 4], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 61, "Giải tư": 159, "Giải năm": 1379, "Giải KK": 12002}}
+{"date": "2026-04-05", "id": "00562", "result": [13, 14, 25, 26, 29, 1], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 2, "Giải ba": 64, "Giải tư": 99, "Giải năm": 1866, "Giải KK": 7326}}
+{"date": "2026-04-05", "id": "00561", "result": [6, 10, 11, 18, 25, 7], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 56, "Giải tư": 142, "Giải năm": 1356, "Giải KK": 8367}}
+{"date": "2026-04-04", "id": "00560", "result": [3, 18, 19, 24, 27, 6], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 49, "Giải tư": 177, "Giải năm": 1712, "Giải KK": 11171}}
+{"date": "2026-04-04", "id": "00559", "result": [3, 9, 15, 19, 31, 1], "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 59, "Giải tư": 84, "Giải năm": 1701, "Giải KK": 6221}}
+{"date": "2026-04-03", "id": "00558", "result": [18, 22, 28, 32, 35, 3], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 5, "Giải ba": 110, "Giải tư": 198, "Giải năm": 2181, "Giải KK": 13565}}
+{"date": "2026-04-03", "id": "00557", "result": [14, 18, 23, 25, 27, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 81, "Giải tư": 100, "Giải năm": 1778, "Giải KK": 6834}}
+{"date": "2026-04-02", "id": "00556", "result": [15, 19, 20, 26, 29, 7], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 91, "Giải tư": 197, "Giải năm": 2526, "Giải KK": 15681}}
+{"date": "2026-04-02", "id": "00555", "result": [4, 6, 21, 25, 30, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 43, "Giải tư": 116, "Giải năm": 1001, "Giải KK": 7364}}
+{"date": "2026-04-01", "id": "00554", "result": [12, 13, 18, 23, 24, 3], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 72, "Giải tư": 209, "Giải năm": 2337, "Giải KK": 12399}}
+{"date": "2026-04-01", "id": "00553", "result": [4, 14, 22, 31, 34, 7], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 77, "Giải tư": 153, "Giải năm": 1404, "Giải KK": 11472}}
+{"date": "2026-03-31", "id": "00552", "result": [2, 18, 28, 30, 35, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 54, "Giải tư": 193, "Giải năm": 1699, "Giải KK": 15405}}
+{"date": "2026-03-31", "id": "00551", "result": [9, 15, 18, 20, 32, 2], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 33, "Giải tư": 132, "Giải năm": 1370, "Giải KK": 8209}}
+{"date": "2026-03-30", "id": "00550", "result": [9, 17, 18, 24, 27, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 86, "Giải tư": 231, "Giải năm": 2550, "Giải KK": 14780}}
+{"date": "2026-03-30", "id": "00549", "result": [2, 3, 22, 24, 34, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 43, "Giải tư": 152, "Giải năm": 1312, "Giải KK": 11728}}
+{"date": "2026-03-29", "id": "00548", "result": [9, 17, 22, 23, 29, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 88, "Giải tư": 139, "Giải năm": 2036, "Giải KK": 10165}}
+{"date": "2026-03-29", "id": "00547", "result": [3, 7, 13, 19, 21, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 77, "Giải tư": 156, "Giải năm": 1756, "Giải KK": 9962}}
+{"date": "2026-03-28", "id": "00546", "result": [1, 8, 14, 16, 28, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 5, "Giải nhì": 59, "Giải ba": 817, "Giải tư": 2013, "Giải năm": 24093, "Giải KK": 171626}}
+{"date": "2026-03-28", "id": "00545", "result": [6, 7, 10, 12, 26, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 11, "Giải ba": 156, "Giải tư": 296, "Giải năm": 4239, "Giải KK": 19948}}
+{"date": "2026-03-27", "id": "00544", "result": [1, 11, 30, 31, 32, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 94, "Giải tư": 262, "Giải năm": 2778, "Giải KK": 22721}}
+{"date": "2026-03-27", "id": "00543", "result": [13, 21, 25, 27, 34, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 83, "Giải tư": 214, "Giải năm": 2311, "Giải KK": 15023}}
+{"date": "2026-03-26", "id": "00542", "result": [15, 16, 26, 29, 30, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 9, "Giải ba": 90, "Giải tư": 220, "Giải năm": 2523, "Giải KK": 18368}}
+{"date": "2026-03-26", "id": "00541", "result": [15, 23, 28, 30, 33, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 71, "Giải tư": 218, "Giải năm": 1701, "Giải KK": 15074}}
+{"date": "2026-03-25", "id": "00540", "result": [1, 4, 8, 14, 26, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 65, "Giải tư": 254, "Giải năm": 2049, "Giải KK": 15840}}
+{"date": "2026-03-25", "id": "00539", "result": [13, 19, 26, 29, 32, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 67, "Giải tư": 183, "Giải năm": 1690, "Giải KK": 14285}}
+{"date": "2026-03-24", "id": "00538", "result": [8, 19, 23, 27, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 137, "Giải tư": 167, "Giải năm": 2918, "Giải KK": 10873}}
+{"date": "2026-03-24", "id": "00537", "result": [5, 18, 19, 26, 30, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 63, "Giải tư": 163, "Giải năm": 1830, "Giải KK": 11634}}
+{"date": "2026-03-23", "id": "00536", "result": [2, 14, 17, 21, 27, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 106, "Giải tư": 241, "Giải năm": 2599, "Giải KK": 17174}}
+{"date": "2026-03-23", "id": "00535", "result": [3, 4, 6, 14, 27, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 57, "Giải tư": 152, "Giải năm": 1641, "Giải KK": 10268}}
+{"date": "2026-03-22", "id": "00534", "result": [4, 13, 14, 19, 33, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 86, "Giải tư": 305, "Giải năm": 2098, "Giải KK": 17689}}
+{"date": "2026-03-22", "id": "00533", "result": [5, 8, 11, 12, 26, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 70, "Giải tư": 169, "Giải năm": 1876, "Giải KK": 10037}}
+{"date": "2026-03-21", "id": "00532", "result": [7, 15, 19, 27, 32, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 102, "Giải tư": 225, "Giải năm": 2338, "Giải KK": 13692}}
+{"date": "2026-03-21", "id": "00531", "result": [3, 6, 11, 13, 17, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 46, "Giải tư": 137, "Giải năm": 1479, "Giải KK": 8581}}
+{"date": "2026-03-20", "id": "00530", "result": [5, 14, 17, 18, 20, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 7, "Giải ba": 67, "Giải tư": 155, "Giải năm": 1983, "Giải KK": 13641}}
+{"date": "2026-03-20", "id": "00529", "result": [3, 14, 25, 28, 32, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 51, "Giải tư": 98, "Giải năm": 1487, "Giải KK": 8658}}
+{"date": "2026-03-19", "id": "00528", "result": [3, 15, 26, 34, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 49, "Giải tư": 168, "Giải năm": 1818, "Giải KK": 13061}}
+{"date": "2026-03-19", "id": "00527", "result": [3, 7, 14, 21, 22, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 48, "Giải tư": 129, "Giải năm": 1448, "Giải KK": 10758}}
+{"date": "2026-03-18", "id": "00526", "result": [9, 13, 14, 22, 29, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 49, "Giải tư": 161, "Giải năm": 1787, "Giải KK": 11772}}
+{"date": "2026-03-18", "id": "00525", "result": [1, 5, 11, 29, 34, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 33, "Giải tư": 116, "Giải năm": 1217, "Giải KK": 8752}}
+{"date": "2026-03-17", "id": "00524", "result": [12, 16, 18, 26, 29, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 12, "Giải ba": 108, "Giải tư": 367, "Giải năm": 3101, "Giải KK": 20160}}
+{"date": "2026-03-17", "id": "00523", "result": [3, 9, 21, 33, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 14, "Giải ba": 115, "Giải tư": 292, "Giải năm": 4148, "Giải KK": 23573}}
+{"date": "2026-03-16", "id": "00522", "result": [2, 8, 10, 22, 23, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 122, "Giải tư": 435, "Giải năm": 4284, "Giải KK": 31862}}
+{"date": "2026-03-16", "id": "00521", "result": [4, 13, 21, 28, 32, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 75, "Giải tư": 245, "Giải năm": 2391, "Giải KK": 16937}}
+{"date": "2026-03-15", "id": "00520", "result": [3, 6, 28, 30, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 69, "Giải tư": 301, "Giải năm": 2466, "Giải KK": 21330}}
+{"date": "2026-03-15", "id": "00519", "result": [2, 9, 31, 32, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 5, "Giải ba": 46, "Giải tư": 154, "Giải năm": 1765, "Giải KK": 10911}}
+{"date": "2026-03-14", "id": "00518", "result": [6, 13, 19, 27, 31, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 15, "Giải ba": 102, "Giải tư": 302, "Giải năm": 2811, "Giải KK": 18852}}
+{"date": "2026-03-14", "id": "00517", "result": [4, 5, 6, 24, 26, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 54, "Giải tư": 199, "Giải năm": 1692, "Giải KK": 20245}}
+{"date": "2026-03-13", "id": "00516", "result": [1, 6, 14, 22, 30, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 66, "Giải tư": 139, "Giải năm": 2189, "Giải KK": 13439}}
+{"date": "2026-03-13", "id": "00515", "result": [5, 16, 18, 20, 25, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 69, "Giải tư": 205, "Giải năm": 2049, "Giải KK": 12957}}
+{"date": "2026-03-12", "id": "00514", "result": [5, 9, 20, 29, 30, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 91, "Giải tư": 276, "Giải năm": 2690, "Giải KK": 18745}}
+{"date": "2026-03-12", "id": "00513", "result": [6, 8, 17, 20, 24, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 72, "Giải tư": 226, "Giải năm": 2066, "Giải KK": 12943}}
+{"date": "2026-03-11", "id": "00512", "result": [2, 10, 29, 30, 32, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 78, "Giải tư": 242, "Giải năm": 2165, "Giải KK": 20112}}
+{"date": "2026-03-11", "id": "00511", "result": [11, 16, 22, 26, 33, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 11, "Giải ba": 67, "Giải tư": 209, "Giải năm": 1920, "Giải KK": 13102}}
+{"date": "2026-03-10", "id": "00510", "result": [2, 3, 4, 6, 20, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 99, "Giải tư": 181, "Giải năm": 2506, "Giải KK": 12992}}
+{"date": "2026-03-10", "id": "00509", "result": [13, 19, 21, 24, 29, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 68, "Giải tư": 155, "Giải năm": 1751, "Giải KK": 12379}}
+{"date": "2026-03-09", "id": "00508", "result": [7, 11, 25, 28, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 108, "Giải tư": 268, "Giải năm": 3061, "Giải KK": 20858}}
+{"date": "2026-03-09", "id": "00507", "result": [1, 13, 17, 29, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 48, "Giải tư": 96, "Giải năm": 1483, "Giải KK": 9552}}
+{"date": "2026-03-08", "id": "00506", "result": [20, 22, 25, 29, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 51, "Giải tư": 156, "Giải năm": 2116, "Giải KK": 13139}}
+{"date": "2026-03-08", "id": "00505", "result": [11, 23, 24, 26, 27, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 48, "Giải tư": 94, "Giải năm": 1661, "Giải KK": 8562}}
+{"date": "2026-03-07", "id": "00504", "result": [3, 18, 23, 25, 32, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 97, "Giải tư": 223, "Giải năm": 2294, "Giải KK": 15599}}
+{"date": "2026-03-07", "id": "00503", "result": [8, 12, 22, 25, 33, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 55, "Giải tư": 189, "Giải năm": 1648, "Giải KK": 12065}}
+{"date": "2026-03-06", "id": "00502", "result": [3, 14, 21, 23, 24, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 71, "Giải tư": 192, "Giải năm": 2133, "Giải KK": 13648}}
+{"date": "2026-03-06", "id": "00501", "result": [7, 9, 17, 21, 30, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 54, "Giải tư": 179, "Giải năm": 1654, "Giải KK": 11079}}
+{"date": "2026-03-05", "id": "00500", "result": [4, 12, 15, 17, 32, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 65, "Giải tư": 245, "Giải năm": 1992, "Giải KK": 15846}}
+{"date": "2026-03-05", "id": "00499", "result": [14, 15, 16, 17, 30, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 43, "Giải tư": 105, "Giải năm": 1284, "Giải KK": 7695}}
+{"date": "2026-03-04", "id": "00498", "result": [1, 2, 9, 24, 29, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 67, "Giải tư": 163, "Giải năm": 2053, "Giải KK": 12693}}
+{"date": "2026-03-04", "id": "00497", "result": [4, 10, 17, 22, 26, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 49, "Giải tư": 172, "Giải năm": 1401, "Giải KK": 10854}}
+{"date": "2026-03-03", "id": "00496", "result": [3, 6, 17, 20, 30, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 67, "Giải tư": 143, "Giải năm": 2106, "Giải KK": 10856}}
+{"date": "2026-03-03", "id": "00495", "result": [15, 16, 28, 31, 32, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 37, "Giải tư": 130, "Giải năm": 1433, "Giải KK": 9569}}
+{"date": "2026-03-02", "id": "00494", "result": [1, 8, 14, 23, 35, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 73, "Giải tư": 167, "Giải năm": 1910, "Giải KK": 15523}}
+{"date": "2026-03-02", "id": "00493", "result": [1, 7, 15, 34, 35, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 30, "Giải tư": 120, "Giải năm": 1458, "Giải KK": 10065}}
+{"date": "2026-03-01", "id": "00492", "result": [5, 12, 19, 33, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 5, "Giải nhì": 102, "Giải ba": 1180, "Giải tư": 2109, "Giải năm": 25653, "Giải KK": 174333}}
+{"date": "2026-03-01", "id": "00491", "result": [10, 13, 19, 27, 35, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 139, "Giải tư": 274, "Giải năm": 4338, "Giải KK": 22191}}
+{"date": "2026-02-28", "id": "00490", "result": [3, 15, 16, 27, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 145, "Giải tư": 400, "Giải năm": 4830, "Giải KK": 32307}}
+{"date": "2026-02-28", "id": "00489", "result": [1, 3, 5, 8, 24, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 14, "Giải ba": 75, "Giải tư": 248, "Giải năm": 2267, "Giải KK": 16106}}
+{"date": "2026-02-27", "id": "00488", "result": [12, 14, 18, 24, 26, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 22, "Giải ba": 115, "Giải tư": 362, "Giải năm": 3673, "Giải KK": 23415}}
+{"date": "2026-02-27", "id": "00487", "result": [2, 13, 19, 25, 27, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 93, "Giải tư": 138, "Giải năm": 2568, "Giải KK": 11297}}
+{"date": "2026-02-26", "id": "00486", "result": [8, 15, 23, 24, 26, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 17, "Giải ba": 144, "Giải tư": 314, "Giải năm": 3614, "Giải KK": 20590}}
+{"date": "2026-02-26", "id": "00485", "result": [3, 14, 19, 27, 33, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 86, "Giải tư": 203, "Giải năm": 2397, "Giải KK": 15787}}
+{"date": "2026-02-25", "id": "00484", "result": [5, 14, 15, 16, 29, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 84, "Giải tư": 220, "Giải năm": 2563, "Giải KK": 16746}}
+{"date": "2026-02-25", "id": "00483", "result": [11, 16, 19, 21, 32, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 71, "Giải tư": 193, "Giải năm": 2229, "Giải KK": 14067}}
+{"date": "2026-02-24", "id": "00482", "result": [8, 14, 18, 20, 26, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 108, "Giải tư": 335, "Giải năm": 2984, "Giải KK": 19638}}
+{"date": "2026-02-24", "id": "00481", "result": [12, 14, 22, 23, 30, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 67, "Giải tư": 218, "Giải năm": 1815, "Giải KK": 15747}}
+{"date": "2026-02-23", "id": "00480", "result": [7, 13, 16, 22, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 114, "Giải tư": 255, "Giải năm": 2843, "Giải KK": 20781}}
+{"date": "2026-02-23", "id": "00479", "result": [7, 10, 11, 18, 27, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 11, "Giải ba": 91, "Giải tư": 306, "Giải năm": 2720, "Giải KK": 16448}}
+{"date": "2026-02-22", "id": "00478", "result": [2, 9, 12, 16, 31, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 14, "Giải ba": 67, "Giải tư": 234, "Giải năm": 2559, "Giải KK": 15847}}
+{"date": "2026-02-22", "id": "00477", "result": [8, 9, 19, 29, 30, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 11, "Giải ba": 93, "Giải tư": 158, "Giải năm": 2104, "Giải KK": 10901}}
+{"date": "2026-02-21", "id": "00476", "result": [2, 16, 17, 20, 31, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 68, "Giải tư": 146, "Giải năm": 2278, "Giải KK": 11027}}
+{"date": "2026-02-21", "id": "00475", "result": [5, 8, 11, 13, 18, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 53, "Giải tư": 161, "Giải năm": 1773, "Giải KK": 10483}}
+{"date": "2026-02-20", "id": "00474", "result": [1, 9, 18, 28, 33, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 112, "Giải tư": 216, "Giải năm": 2265, "Giải KK": 16302}}
+{"date": "2026-02-20", "id": "00473", "result": [10, 12, 27, 30, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 43, "Giải tư": 133, "Giải năm": 1895, "Giải KK": 10393}}
+{"date": "2026-02-19", "id": "00472", "result": [9, 21, 23, 25, 29, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 78, "Giải tư": 203, "Giải năm": 2117, "Giải KK": 14887}}
+{"date": "2026-02-19", "id": "00471", "result": [1, 13, 14, 19, 30, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 32, "Giải tư": 95, "Giải năm": 1413, "Giải KK": 7278}}
+{"date": "2026-02-18", "id": "00470", "result": [9, 23, 27, 29, 33, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 96, "Giải tư": 159, "Giải năm": 2384, "Giải KK": 10718}}
+{"date": "2026-02-18", "id": "00469", "result": [11, 17, 25, 30, 32, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 46, "Giải tư": 159, "Giải năm": 1714, "Giải KK": 11695}}
+{"date": "2026-02-17", "id": "00468", "result": [13, 21, 28, 32, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 117, "Giải tư": 241, "Giải năm": 2704, "Giải KK": 19037}}
+{"date": "2026-02-17", "id": "00467", "result": [19, 21, 22, 23, 31, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 76, "Giải tư": 185, "Giải năm": 1951, "Giải KK": 12801}}
+{"date": "2026-02-16", "id": "00466", "result": [4, 8, 19, 21, 30, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 118, "Giải tư": 273, "Giải năm": 3652, "Giải KK": 21359}}
+{"date": "2026-02-16", "id": "00465", "result": [7, 18, 22, 27, 29, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 6, "Giải ba": 65, "Giải tư": 227, "Giải năm": 2360, "Giải KK": 14002}}
+{"date": "2026-02-15", "id": "00464", "result": [1, 6, 8, 10, 22, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 90, "Giải tư": 221, "Giải năm": 2331, "Giải KK": 15870}}
+{"date": "2026-02-15", "id": "00463", "result": [1, 3, 5, 10, 26, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 73, "Giải tư": 233, "Giải năm": 2169, "Giải KK": 17087}}
+{"date": "2026-02-14", "id": "00462", "result": [4, 6, 8, 14, 25, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 5, "Giải nhì": 91, "Giải ba": 896, "Giải tư": 3115, "Giải năm": 26722, "Giải KK": 212788}}
+{"date": "2026-02-14", "id": "00461", "result": [13, 20, 22, 32, 34, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 122, "Giải tư": 375, "Giải năm": 4348, "Giải KK": 33550}}
+{"date": "2026-02-13", "id": "00460", "result": [10, 14, 16, 20, 32, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 15, "Giải ba": 213, "Giải tư": 528, "Giải năm": 5867, "Giải KK": 40079}}
+{"date": "2026-02-13", "id": "00459", "result": [5, 11, 12, 29, 32, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 4, "Giải ba": 99, "Giải tư": 257, "Giải năm": 2946, "Giải KK": 17847}}
+{"date": "2026-02-12", "id": "00458", "result": [2, 11, 15, 17, 29, 5], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 74, "Giải tư": 390, "Giải năm": 2983, "Giải KK": 26579}}
+{"date": "2026-02-12", "id": "00457", "result": [6, 10, 11, 26, 29, 3], "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 5, "Giải ba": 122, "Giải tư": 215, "Giải năm": 2560, "Giải KK": 15647}}
+{"date": "2026-02-11", "id": "00456", "result": [4, 9, 16, 23, 28, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 109, "Giải tư": 266, "Giải năm": 3051, "Giải KK": 18644}}
+{"date": "2026-02-11", "id": "00455", "result": [9, 20, 23, 26, 34, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 99, "Giải tư": 194, "Giải năm": 2316, "Giải KK": 12851}}
+{"date": "2026-02-10", "id": "00454", "result": [7, 9, 12, 13, 22, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 102, "Giải tư": 319, "Giải năm": 2984, "Giải KK": 22132}}
+{"date": "2026-02-10", "id": "00453", "result": [3, 18, 29, 30, 31, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 52, "Giải tư": 181, "Giải năm": 1690, "Giải KK": 14210}}
+{"date": "2026-02-09", "id": "00452", "result": [18, 23, 24, 31, 33, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 96, "Giải tư": 212, "Giải năm": 3019, "Giải KK": 15207}}
+{"date": "2026-02-09", "id": "00451", "result": [4, 9, 17, 18, 35, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 70, "Giải tư": 247, "Giải năm": 1713, "Giải KK": 19680}}
+{"date": "2026-02-08", "id": "00450", "result": [7, 16, 17, 28, 30, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 12, "Giải ba": 89, "Giải tư": 218, "Giải năm": 2558, "Giải KK": 16176}}
+{"date": "2026-02-08", "id": "00449", "result": [8, 9, 11, 16, 23, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 65, "Giải tư": 181, "Giải năm": 2043, "Giải KK": 12823}}
+{"date": "2026-02-07", "id": "00448", "result": [3, 14, 17, 19, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 65, "Giải tư": 184, "Giải năm": 2179, "Giải KK": 13674}}
+{"date": "2026-02-07", "id": "00447", "result": [2, 3, 9, 10, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 45, "Giải tư": 134, "Giải năm": 1768, "Giải KK": 9872}}
+{"date": "2026-02-06", "id": "00446", "result": [1, 3, 4, 14, 29, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 58, "Giải tư": 181, "Giải năm": 1931, "Giải KK": 14869}}
+{"date": "2026-02-06", "id": "00445", "result": [3, 5, 15, 18, 28, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 53, "Giải tư": 132, "Giải năm": 1609, "Giải KK": 10391}}
+{"date": "2026-02-05", "id": "00444", "result": [4, 5, 15, 18, 32, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 77, "Giải tư": 258, "Giải năm": 2343, "Giải KK": 16201}}
+{"date": "2026-02-05", "id": "00443", "result": [7, 10, 13, 16, 20, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 41, "Giải tư": 158, "Giải năm": 1681, "Giải KK": 12606}}
+{"date": "2026-02-04", "id": "00442", "result": [17, 18, 21, 30, 34, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 120, "Giải tư": 257, "Giải năm": 2791, "Giải KK": 15234}}
+{"date": "2026-02-04", "id": "00441", "result": [7, 14, 15, 27, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 77, "Giải tư": 143, "Giải năm": 1834, "Giải KK": 9885}}
+{"date": "2026-02-03", "id": "00440", "result": [5, 10, 11, 28, 29, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 77, "Giải tư": 207, "Giải năm": 2273, "Giải KK": 13891}}
+{"date": "2026-02-03", "id": "00439", "result": [19, 23, 24, 32, 33, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 60, "Giải tư": 187, "Giải năm": 1712, "Giải KK": 11052}}
+{"date": "2026-02-02", "id": "00438", "result": [1, 3, 5, 6, 11, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 5, "Giải ba": 84, "Giải tư": 186, "Giải năm": 2303, "Giải KK": 17469}}
+{"date": "2026-02-02", "id": "00437", "result": [13, 14, 15, 19, 22, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 53, "Giải tư": 116, "Giải năm": 1442, "Giải KK": 8447}}
+{"date": "2026-02-01", "id": "00436", "result": [1, 20, 24, 26, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 17, "Giải ba": 56, "Giải tư": 184, "Giải năm": 1727, "Giải KK": 13149}}
+{"date": "2026-02-01", "id": "00435", "result": [7, 15, 19, 22, 34, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 49, "Giải tư": 109, "Giải năm": 1352, "Giải KK": 9363}}
+{"date": "2026-01-31", "id": "00434", "result": [11, 12, 16, 27, 29, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 62, "Giải tư": 187, "Giải năm": 1831, "Giải KK": 13617}}
+{"date": "2026-01-31", "id": "00433", "result": [7, 14, 15, 26, 27, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 64, "Giải tư": 176, "Giải năm": 1507, "Giải KK": 11426}}
+{"date": "2026-01-30", "id": "00432", "result": [5, 6, 9, 23, 32, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 61, "Giải tư": 150, "Giải năm": 2172, "Giải KK": 10953}}
+{"date": "2026-01-30", "id": "00431", "result": [11, 19, 27, 29, 33, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 66, "Giải tư": 238, "Giải năm": 2342, "Giải KK": 16028}}
+{"date": "2026-01-29", "id": "00430", "result": [1, 8, 9, 19, 22, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 69, "Giải ba": 737, "Giải tư": 2083, "Giải năm": 22823, "Giải KK": 135664}}
+{"date": "2026-01-29", "id": "00429", "result": [4, 11, 17, 26, 31, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 11, "Giải ba": 124, "Giải tư": 319, "Giải năm": 3740, "Giải KK": 21970}}
+{"date": "2026-01-28", "id": "00428", "result": [6, 10, 16, 21, 30, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 10, "Giải ba": 138, "Giải tư": 246, "Giải năm": 3784, "Giải KK": 19005}}
+{"date": "2026-01-28", "id": "00427", "result": [2, 20, 21, 24, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 86, "Giải tư": 102, "Giải năm": 2263, "Giải KK": 9127}}
+{"date": "2026-01-27", "id": "00426", "result": [4, 11, 25, 31, 34, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 101, "Giải tư": 186, "Giải năm": 2779, "Giải KK": 13217}}
+{"date": "2026-01-27", "id": "00425", "result": [5, 8, 9, 14, 28, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 75, "Giải tư": 153, "Giải năm": 1949, "Giải KK": 9951}}
+{"date": "2026-01-26", "id": "00424", "result": [9, 23, 29, 34, 35, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 77, "Giải tư": 198, "Giải năm": 2558, "Giải KK": 15916}}
+{"date": "2026-01-26", "id": "00423", "result": [3, 18, 25, 29, 32, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 50, "Giải tư": 199, "Giải năm": 1605, "Giải KK": 16940}}
+{"date": "2026-01-25", "id": "00422", "result": [1, 11, 15, 19, 31, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 59, "Giải tư": 142, "Giải năm": 1856, "Giải KK": 13315}}
+{"date": "2026-01-25", "id": "00421", "result": [15, 18, 27, 32, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 48, "Giải tư": 149, "Giải năm": 1472, "Giải KK": 12895}}
+{"date": "2026-01-24", "id": "00420", "result": [2, 25, 26, 28, 34, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 68, "Giải tư": 265, "Giải năm": 2108, "Giải KK": 16666}}
+{"date": "2026-01-24", "id": "00419", "result": [13, 15, 22, 27, 31, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 49, "Giải tư": 135, "Giải năm": 1419, "Giải KK": 8841}}
+{"date": "2026-01-23", "id": "00418", "result": [5, 7, 10, 28, 29, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 67, "Giải tư": 148, "Giải năm": 2137, "Giải KK": 11439}}
+{"date": "2026-01-23", "id": "00417", "result": [10, 13, 25, 31, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 43, "Giải tư": 95, "Giải năm": 1406, "Giải KK": 7166}}
+{"date": "2026-01-22", "id": "00416", "result": [7, 10, 12, 22, 23, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 96, "Giải tư": 202, "Giải năm": 2393, "Giải KK": 13515}}
+{"date": "2026-01-22", "id": "00415", "result": [8, 17, 20, 27, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 49, "Giải tư": 93, "Giải năm": 1542, "Giải KK": 8149}}
+{"date": "2026-01-21", "id": "00414", "result": [1, 4, 7, 8, 33, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 12, "Giải ba": 57, "Giải tư": 171, "Giải năm": 1671, "Giải KK": 14283}}
+{"date": "2026-01-21", "id": "00413", "result": [8, 16, 24, 29, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 53, "Giải tư": 132, "Giải năm": 1518, "Giải KK": 10617}}
+{"date": "2026-01-20", "id": "00412", "result": [14, 15, 18, 19, 33, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 59, "Giải tư": 136, "Giải năm": 1839, "Giải KK": 13149}}
+{"date": "2026-01-20", "id": "00411", "result": [1, 15, 19, 21, 26, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 37, "Giải tư": 102, "Giải năm": 1300, "Giải KK": 8088}}
+{"date": "2026-01-19", "id": "00410", "result": [7, 8, 10, 14, 35, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 54, "Giải tư": 211, "Giải năm": 2287, "Giải KK": 17836}}
+{"date": "2026-01-19", "id": "00409", "result": [5, 13, 14, 19, 21, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 63, "Giải tư": 128, "Giải năm": 1538, "Giải KK": 9654}}
+{"date": "2026-01-18", "id": "00408", "result": [2, 9, 14, 15, 22, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 52, "Giải tư": 138, "Giải năm": 1691, "Giải KK": 9662}}
+{"date": "2026-01-18", "id": "00407", "result": [3, 13, 14, 20, 35, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 29, "Giải tư": 96, "Giải năm": 984, "Giải KK": 8301}}
+{"date": "2026-01-17", "id": "00406", "result": [1, 2, 13, 27, 31, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 30, "Giải tư": 102, "Giải năm": 1319, "Giải KK": 12397}}
+{"date": "2026-01-17", "id": "00405", "result": [13, 18, 24, 29, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 42, "Giải tư": 72, "Giải năm": 1155, "Giải KK": 5922}}
+{"date": "2026-01-16", "id": "00404", "result": [2, 6, 10, 24, 29, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 55, "Giải tư": 169, "Giải năm": 1640, "Giải KK": 14001}}
+{"date": "2026-01-16", "id": "00403", "result": [1, 3, 10, 26, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 41, "Giải tư": 109, "Giải năm": 1223, "Giải KK": 8535}}
+{"date": "2026-01-15", "id": "00402", "result": [3, 6, 15, 17, 23, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 43, "Giải tư": 146, "Giải năm": 1502, "Giải KK": 9773}}
+{"date": "2026-01-15", "id": "00401", "result": [6, 9, 23, 24, 25, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 1, "Giải ba": 38, "Giải tư": 126, "Giải năm": 1092, "Giải KK": 8821}}
+{"date": "2026-01-14", "id": "00400", "result": [2, 6, 8, 19, 29, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 60, "Giải tư": 185, "Giải năm": 1805, "Giải KK": 12529}}
+{"date": "2026-01-14", "id": "00399", "result": [3, 4, 5, 19, 35, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 45, "Giải tư": 119, "Giải năm": 1035, "Giải KK": 11895}}
+{"date": "2026-01-13", "id": "00398", "result": [3, 4, 6, 10, 27, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 37, "Giải tư": 151, "Giải năm": 1595, "Giải KK": 11067}}
+{"date": "2026-01-13", "id": "00397", "result": [10, 15, 16, 18, 26, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 45, "Giải tư": 127, "Giải năm": 1398, "Giải KK": 9383}}
+{"date": "2026-01-12", "id": "00396", "result": [4, 21, 25, 28, 33, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 71, "Giải tư": 202, "Giải năm": 1809, "Giải KK": 15967}}
+{"date": "2026-01-12", "id": "00395", "result": [4, 14, 19, 22, 26, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 36, "Giải tư": 116, "Giải năm": 1166, "Giải KK": 9310}}
+{"date": "2026-01-11", "id": "00394", "result": [2, 22, 23, 26, 29, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 50, "Giải tư": 160, "Giải năm": 1420, "Giải KK": 13198}}
+{"date": "2026-01-11", "id": "00393", "result": [4, 6, 24, 25, 26, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 32, "Giải tư": 133, "Giải năm": 1165, "Giải KK": 12731}}
+{"date": "2026-01-10", "id": "00392", "result": [2, 8, 17, 23, 28, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 4, "Giải nhì": 116, "Giải ba": 812, "Giải tư": 2479, "Giải năm": 23065, "Giải KK": 148267}}
+{"date": "2026-01-10", "id": "00391", "result": [13, 14, 21, 26, 31, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 15, "Giải ba": 101, "Giải tư": 328, "Giải năm": 3229, "Giải KK": 23543}}
+{"date": "2026-01-09", "id": "00390", "result": [5, 11, 14, 20, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 110, "Giải tư": 222, "Giải năm": 3534, "Giải KK": 16536}}
+{"date": "2026-01-09", "id": "00389", "result": [1, 25, 28, 32, 35, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 40, "Giải tư": 133, "Giải năm": 1586, "Giải KK": 12341}}
+{"date": "2026-01-08", "id": "00388", "result": [6, 7, 10, 28, 35, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 100, "Giải tư": 224, "Giải năm": 2566, "Giải KK": 16004}}
+{"date": "2026-01-08", "id": "00387", "result": [4, 9, 13, 25, 30, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 71, "Giải tư": 181, "Giải năm": 1671, "Giải KK": 12053}}
+{"date": "2026-01-07", "id": "00386", "result": [1, 7, 14, 28, 29, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 9, "Giải ba": 86, "Giải tư": 213, "Giải năm": 2386, "Giải KK": 15306}}
+{"date": "2026-01-07", "id": "00385", "result": [22, 27, 29, 33, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 64, "Giải tư": 145, "Giải năm": 1745, "Giải KK": 10116}}
+{"date": "2026-01-06", "id": "00384", "result": [4, 6, 12, 16, 31, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 7, "Giải ba": 77, "Giải tư": 207, "Giải năm": 2175, "Giải KK": 12388}}
+{"date": "2026-01-06", "id": "00383", "result": [7, 25, 26, 27, 31, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 53, "Giải tư": 150, "Giải năm": 1619, "Giải KK": 10114}}
+{"date": "2026-01-05", "id": "00382", "result": [1, 2, 6, 10, 17, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 3, "Giải ba": 67, "Giải tư": 133, "Giải năm": 2332, "Giải KK": 11458}}
+{"date": "2026-01-05", "id": "00381", "result": [5, 13, 14, 19, 26, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 51, "Giải tư": 179, "Giải năm": 1569, "Giải KK": 12896}}
+{"date": "2026-01-04", "id": "00380", "result": [13, 16, 26, 29, 34, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 81, "Giải tư": 186, "Giải năm": 2085, "Giải KK": 12693}}
+{"date": "2026-01-04", "id": "00379", "result": [12, 14, 22, 25, 29, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 44, "Giải tư": 78, "Giải năm": 1396, "Giải KK": 5919}}
+{"date": "2026-01-03", "id": "00378", "result": [2, 6, 24, 28, 34, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 66, "Giải tư": 104, "Giải năm": 1888, "Giải KK": 9820}}
+{"date": "2026-01-03", "id": "00377", "result": [7, 11, 12, 22, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 53, "Giải tư": 155, "Giải năm": 1436, "Giải KK": 9892}}
+{"date": "2026-01-02", "id": "00376", "result": [3, 9, 10, 14, 25, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 62, "Giải tư": 224, "Giải năm": 2148, "Giải KK": 15627}}
+{"date": "2026-01-02", "id": "00375", "result": [13, 17, 22, 23, 29, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 47, "Giải tư": 137, "Giải năm": 1348, "Giải KK": 11386}}
+{"date": "2026-01-01", "id": "00374", "result": [2, 3, 20, 25, 30, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 80, "Giải tư": 174, "Giải năm": 1975, "Giải KK": 10859}}
+{"date": "2026-01-01", "id": "00373", "result": [11, 17, 23, 26, 34, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 52, "Giải tư": 86, "Giải năm": 1501, "Giải KK": 6917}}
+{"date": "2025-12-31", "id": "00372", "result": [3, 5, 11, 25, 30, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 73, "Giải tư": 148, "Giải năm": 2147, "Giải KK": 12354}}
+{"date": "2025-12-31", "id": "00371", "result": [11, 21, 25, 28, 33, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 40, "Giải tư": 124, "Giải năm": 1562, "Giải KK": 8551}}
+{"date": "2025-12-30", "id": "00370", "result": [7, 15, 23, 24, 33, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 73, "Giải tư": 144, "Giải năm": 1844, "Giải KK": 12202}}
+{"date": "2025-12-30", "id": "00369", "result": [2, 13, 19, 23, 24, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 39, "Giải tư": 102, "Giải năm": 1265, "Giải KK": 8532}}
+{"date": "2025-12-29", "id": "00368", "result": [3, 21, 22, 30, 33, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 81, "Giải tư": 105, "Giải năm": 1902, "Giải KK": 10437}}
+{"date": "2025-12-29", "id": "00367", "result": [4, 6, 13, 16, 30, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 46, "Giải tư": 106, "Giải năm": 1118, "Giải KK": 8906}}
+{"date": "2025-12-28", "id": "00366", "result": [2, 5, 7, 8, 21, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 48, "Giải tư": 173, "Giải năm": 1456, "Giải KK": 10858}}
+{"date": "2025-12-28", "id": "00365", "result": [11, 14, 27, 30, 35, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 32, "Giải tư": 161, "Giải năm": 1258, "Giải KK": 11308}}
+{"date": "2025-12-27", "id": "00364", "result": [4, 8, 14, 33, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 63, "Giải tư": 163, "Giải năm": 1620, "Giải KK": 13403}}
+{"date": "2025-12-27", "id": "00363", "result": [1, 2, 20, 24, 33, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 34, "Giải tư": 102, "Giải năm": 1044, "Giải KK": 8536}}
+{"date": "2025-12-26", "id": "00362", "result": [11, 17, 19, 26, 33, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 80, "Giải tư": 241, "Giải năm": 2324, "Giải KK": 15246}}
+{"date": "2025-12-26", "id": "00361", "result": [1, 2, 19, 21, 31, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 30, "Giải tư": 110, "Giải năm": 1124, "Giải KK": 8619}}
+{"date": "2025-12-25", "id": "00360", "result": [2, 4, 14, 24, 34, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 96, "Giải tư": 162, "Giải năm": 1748, "Giải KK": 13015}}
+{"date": "2025-12-25", "id": "00359", "result": [5, 12, 25, 28, 33, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 78, "Giải tư": 185, "Giải năm": 1708, "Giải KK": 10786}}
+{"date": "2025-12-24", "id": "00358", "result": [19, 20, 27, 31, 34, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 46, "Giải tư": 229, "Giải năm": 1988, "Giải KK": 14139}}
+{"date": "2025-12-24", "id": "00357", "result": [1, 2, 4, 10, 33, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 35, "Giải tư": 72, "Giải năm": 1159, "Giải KK": 7774}}
+{"date": "2025-12-23", "id": "00356", "result": [22, 23, 26, 34, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 53, "Giải tư": 127, "Giải năm": 1618, "Giải KK": 12281}}
+{"date": "2025-12-23", "id": "00355", "result": [3, 23, 28, 32, 35, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 44, "Giải tư": 108, "Giải năm": 1272, "Giải KK": 9318}}
+{"date": "2025-12-22", "id": "00354", "result": [13, 31, 32, 33, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 18, "Giải ba": 121, "Giải tư": 193, "Giải năm": 2187, "Giải KK": 14334}}
+{"date": "2025-12-22", "id": "00353", "result": [8, 12, 14, 24, 27, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 54, "Giải tư": 167, "Giải năm": 1434, "Giải KK": 10946}}
+{"date": "2025-12-21", "id": "00352", "result": [6, 26, 27, 33, 34, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 51, "Giải tư": 139, "Giải năm": 1614, "Giải KK": 11237}}
+{"date": "2025-12-21", "id": "00351", "result": [6, 16, 28, 33, 35, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 44, "Giải tư": 128, "Giải năm": 998, "Giải KK": 9031}}
+{"date": "2025-12-20", "id": "00350", "result": [11, 12, 13, 14, 19, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 2, "Giải nhì": 26, "Giải ba": 83, "Giải tư": 260, "Giải năm": 1829, "Giải KK": 14537}}
+{"date": "2025-12-20", "id": "00349", "result": [1, 7, 9, 16, 30, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 38, "Giải tư": 145, "Giải năm": 1238, "Giải KK": 10686}}
+{"date": "2025-12-19", "id": "00348", "result": [3, 13, 15, 16, 23, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 56, "Giải tư": 189, "Giải năm": 1899, "Giải KK": 12373}}
+{"date": "2025-12-19", "id": "00347", "result": [4, 5, 13, 29, 35, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 40, "Giải tư": 153, "Giải năm": 1221, "Giải KK": 10896}}
+{"date": "2025-12-18", "id": "00346", "result": [2, 7, 22, 25, 31, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 61, "Giải tư": 163, "Giải năm": 1684, "Giải KK": 12766}}
+{"date": "2025-12-18", "id": "00345", "result": [14, 15, 17, 27, 34, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 40, "Giải tư": 156, "Giải năm": 1208, "Giải KK": 10604}}
+{"date": "2025-12-17", "id": "00344", "result": [7, 10, 17, 19, 22, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 85, "Giải tư": 140, "Giải năm": 2051, "Giải KK": 9339}}
+{"date": "2025-12-17", "id": "00343", "result": [6, 23, 27, 28, 30, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 35, "Giải tư": 109, "Giải năm": 1395, "Giải KK": 9265}}
+{"date": "2025-12-16", "id": "00342", "result": [7, 10, 26, 27, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 4, "Giải nhì": 11, "Giải ba": 55, "Giải tư": 148, "Giải năm": 1770, "Giải KK": 11985}}
+{"date": "2025-12-16", "id": "00341", "result": [2, 3, 7, 16, 17, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 49, "Giải tư": 167, "Giải năm": 1785, "Giải KK": 12700}}
+{"date": "2025-12-15", "id": "00340", "result": [20, 21, 24, 25, 28, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 10, "Giải nhì": 64, "Giải ba": 828, "Giải tư": 1796, "Giải năm": 23762, "Giải KK": 137155}}
+{"date": "2025-12-15", "id": "00339", "result": [1, 2, 5, 12, 16, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 11, "Giải ba": 93, "Giải tư": 284, "Giải năm": 3147, "Giải KK": 27841}}
+{"date": "2025-12-14", "id": "00338", "result": [8, 9, 11, 25, 26, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 130, "Giải tư": 359, "Giải năm": 3647, "Giải KK": 27024}}
+{"date": "2025-12-14", "id": "00337", "result": [8, 13, 14, 27, 35, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 16, "Giải ba": 51, "Giải tư": 280, "Giải năm": 1933, "Giải KK": 16351}}
+{"date": "2025-12-13", "id": "00336", "result": [5, 7, 15, 16, 18, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 96, "Giải tư": 202, "Giải năm": 2715, "Giải KK": 14706}}
+{"date": "2025-12-13", "id": "00335", "result": [1, 11, 26, 29, 35, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 58, "Giải tư": 115, "Giải năm": 1484, "Giải KK": 10785}}
+{"date": "2025-12-12", "id": "00334", "result": [1, 3, 7, 10, 28, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 89, "Giải tư": 198, "Giải năm": 2574, "Giải KK": 15673}}
+{"date": "2025-12-12", "id": "00333", "result": [8, 25, 30, 33, 34, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 66, "Giải tư": 151, "Giải năm": 1997, "Giải KK": 10544}}
+{"date": "2025-12-11", "id": "00332", "result": [3, 10, 16, 23, 29, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 69, "Giải tư": 218, "Giải năm": 2336, "Giải KK": 17357}}
+{"date": "2025-12-11", "id": "00331", "result": [7, 8, 10, 12, 32, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 72, "Giải tư": 120, "Giải năm": 1906, "Giải KK": 9711}}
+{"date": "2025-12-10", "id": "00330", "result": [1, 15, 26, 29, 33, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 72, "Giải tư": 175, "Giải năm": 2055, "Giải KK": 16668}}
+{"date": "2025-12-10", "id": "00329", "result": [1, 24, 30, 34, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 35, "Giải tư": 116, "Giải năm": 1316, "Giải KK": 9424}}
+{"date": "2025-12-09", "id": "00328", "result": [2, 10, 23, 33, 35, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 52, "Giải tư": 172, "Giải năm": 1927, "Giải KK": 14397}}
+{"date": "2025-12-09", "id": "00327", "result": [1, 8, 10, 13, 32, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 32, "Giải tư": 153, "Giải năm": 1281, "Giải KK": 10578}}
+{"date": "2025-12-08", "id": "00326", "result": [2, 7, 28, 32, 35, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 44, "Giải tư": 259, "Giải năm": 2260, "Giải KK": 19642}}
+{"date": "2025-12-08", "id": "00325", "result": [2, 3, 16, 23, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 53, "Giải tư": 145, "Giải năm": 1413, "Giải KK": 11294}}
+{"date": "2025-12-07", "id": "00324", "result": [4, 8, 11, 18, 35, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 16, "Giải ba": 59, "Giải tư": 219, "Giải năm": 1979, "Giải KK": 16709}}
+{"date": "2025-12-07", "id": "00323", "result": [11, 17, 21, 23, 31, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 14, "Giải ba": 60, "Giải tư": 182, "Giải năm": 1443, "Giải KK": 8414}}
+{"date": "2025-12-06", "id": "00322", "result": [1, 11, 13, 23, 25, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 64, "Giải tư": 245, "Giải năm": 1789, "Giải KK": 17756}}
+{"date": "2025-12-06", "id": "00321", "result": [5, 7, 13, 22, 34, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 50, "Giải tư": 120, "Giải năm": 1366, "Giải KK": 9676}}
+{"date": "2025-12-05", "id": "00320", "result": [3, 10, 11, 21, 30, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 65, "Giải tư": 203, "Giải năm": 2160, "Giải KK": 12713}}
+{"date": "2025-12-05", "id": "00319", "result": [13, 18, 20, 28, 30, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 42, "Giải tư": 178, "Giải năm": 1389, "Giải KK": 11582}}
+{"date": "2025-12-04", "id": "00318", "result": [3, 7, 12, 13, 21, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 6, "Giải ba": 79, "Giải tư": 137, "Giải năm": 2104, "Giải KK": 9877}}
+{"date": "2025-12-04", "id": "00317", "result": [2, 7, 11, 20, 26, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 35, "Giải tư": 134, "Giải năm": 1643, "Giải KK": 8324}}
+{"date": "2025-12-03", "id": "00316", "result": [9, 10, 27, 30, 31, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 59, "Giải tư": 193, "Giải năm": 2143, "Giải KK": 11917}}
+{"date": "2025-12-03", "id": "00315", "result": [4, 8, 22, 24, 34, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 44, "Giải tư": 159, "Giải năm": 1485, "Giải KK": 10695}}
+{"date": "2025-12-02", "id": "00314", "result": [9, 12, 14, 28, 35, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 67, "Giải tư": 168, "Giải năm": 2037, "Giải KK": 13078}}
+{"date": "2025-12-02", "id": "00313", "result": [1, 2, 4, 14, 23, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 27, "Giải tư": 118, "Giải năm": 1060, "Giải KK": 10686}}
+{"date": "2025-12-01", "id": "00312", "result": [9, 13, 19, 30, 33, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 1, "Giải ba": 89, "Giải tư": 140, "Giải năm": 2381, "Giải KK": 11032}}
+{"date": "2025-12-01", "id": "00311", "result": [3, 16, 21, 29, 34, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 60, "Giải tư": 103, "Giải năm": 1378, "Giải KK": 7340}}
+{"date": "2025-11-30", "id": "00310", "result": [9, 10, 11, 18, 25, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 79, "Giải tư": 166, "Giải năm": 2397, "Giải KK": 11048}}
+{"date": "2025-11-30", "id": "00309", "result": [11, 19, 24, 27, 32, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 60, "Giải tư": 109, "Giải năm": 1669, "Giải KK": 7280}}
+{"date": "2025-11-29", "id": "00308", "result": [8, 11, 17, 18, 28, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 6, "Giải ba": 86, "Giải tư": 144, "Giải năm": 1975, "Giải KK": 10435}}
+{"date": "2025-11-29", "id": "00307", "result": [2, 12, 22, 30, 32, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 45, "Giải tư": 110, "Giải năm": 1061, "Giải KK": 7443}}
+{"date": "2025-11-28", "id": "00306", "result": [18, 29, 30, 32, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 34, "Giải tư": 92, "Giải năm": 1225, "Giải KK": 9105}}
+{"date": "2025-11-28", "id": "00305", "result": [2, 18, 20, 30, 34, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 46, "Giải tư": 112, "Giải năm": 1151, "Giải KK": 9657}}
+{"date": "2025-11-27", "id": "00304", "result": [1, 10, 16, 30, 34, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 47, "Giải tư": 159, "Giải năm": 1417, "Giải KK": 12704}}
+{"date": "2025-11-27", "id": "00303", "result": [4, 8, 14, 20, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 49, "Giải tư": 93, "Giải năm": 1174, "Giải KK": 6265}}
+{"date": "2025-11-26", "id": "00302", "result": [2, 4, 18, 30, 34, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 60, "Giải tư": 153, "Giải năm": 1439, "Giải KK": 11290}}
+{"date": "2025-11-26", "id": "00301", "result": [11, 14, 19, 21, 27, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 56, "Giải tư": 191, "Giải năm": 1354, "Giải KK": 11411}}
+{"date": "2025-11-25", "id": "00300", "result": [11, 22, 28, 29, 31, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 49, "Giải tư": 191, "Giải năm": 1867, "Giải KK": 14126}}
+{"date": "2025-11-25", "id": "00299", "result": [5, 12, 28, 31, 33, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 35, "Giải tư": 133, "Giải năm": 1256, "Giải KK": 12302}}
+{"date": "2025-11-24", "id": "00298", "result": [5, 20, 24, 32, 33, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 75, "Giải tư": 219, "Giải năm": 2390, "Giải KK": 16119}}
+{"date": "2025-11-24", "id": "00297", "result": [11, 12, 15, 28, 33, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 75, "Giải tư": 185, "Giải năm": 1677, "Giải KK": 11297}}
+{"date": "2025-11-23", "id": "00296", "result": [14, 17, 22, 30, 32, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 53, "Giải tư": 121, "Giải năm": 1533, "Giải KK": 10880}}
+{"date": "2025-11-23", "id": "00295", "result": [5, 19, 22, 34, 35, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 42, "Giải tư": 104, "Giải năm": 1209, "Giải KK": 6652}}
+{"date": "2025-11-22", "id": "00294", "result": [7, 16, 23, 24, 27, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 54, "Giải tư": 187, "Giải năm": 1654, "Giải KK": 14114}}
+{"date": "2025-11-22", "id": "00293", "result": [17, 23, 28, 30, 31, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 37, "Giải tư": 80, "Giải năm": 1038, "Giải KK": 7002}}
+{"date": "2025-11-21", "id": "00292", "result": [5, 7, 11, 19, 23, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 66, "Giải tư": 148, "Giải năm": 2112, "Giải KK": 10945}}
+{"date": "2025-11-21", "id": "00291", "result": [7, 8, 10, 24, 25, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 50, "Giải tư": 204, "Giải năm": 1677, "Giải KK": 11872}}
+{"date": "2025-11-20", "id": "00290", "result": [1, 7, 15, 17, 23, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 42, "Giải ba": 596, "Giải tư": 1703, "Giải năm": 18312, "Giải KK": 138801}}
+{"date": "2025-11-20", "id": "00289", "result": [6, 14, 21, 24, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 85, "Giải tư": 244, "Giải năm": 2846, "Giải KK": 24627}}
+{"date": "2025-11-19", "id": "00288", "result": [12, 14, 20, 33, 34, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 111, "Giải tư": 205, "Giải năm": 3079, "Giải KK": 15009}}
+{"date": "2025-11-19", "id": "00287", "result": [9, 20, 24, 26, 34, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 73, "Giải tư": 156, "Giải năm": 1865, "Giải KK": 9793}}
+{"date": "2025-11-18", "id": "00286", "result": [8, 11, 17, 21, 29, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 86, "Giải tư": 258, "Giải năm": 2538, "Giải KK": 15921}}
+{"date": "2025-11-18", "id": "00285", "result": [3, 17, 30, 33, 34, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 48, "Giải tư": 189, "Giải năm": 1583, "Giải KK": 13783}}
+{"date": "2025-11-17", "id": "00284", "result": [7, 9, 23, 30, 34, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 103, "Giải tư": 190, "Giải năm": 2829, "Giải KK": 14281}}
+{"date": "2025-11-17", "id": "00283", "result": [3, 13, 14, 18, 34, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 50, "Giải tư": 112, "Giải năm": 1612, "Giải KK": 11165}}
+{"date": "2025-11-16", "id": "00282", "result": [1, 18, 20, 26, 30, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 50, "Giải tư": 140, "Giải năm": 1921, "Giải KK": 11331}}
+{"date": "2025-11-16", "id": "00281", "result": [2, 15, 21, 22, 28, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 37, "Giải tư": 109, "Giải năm": 1288, "Giải KK": 11008}}
+{"date": "2025-11-15", "id": "00280", "result": [8, 20, 21, 28, 29, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 56, "Giải tư": 159, "Giải năm": 1899, "Giải KK": 11825}}
+{"date": "2025-11-15", "id": "00279", "result": [2, 15, 20, 22, 32, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 62, "Giải tư": 182, "Giải năm": 1519, "Giải KK": 9839}}
+{"date": "2025-11-14", "id": "00278", "result": [8, 12, 14, 25, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 88, "Giải tư": 205, "Giải năm": 2138, "Giải KK": 13334}}
+{"date": "2025-11-14", "id": "00277", "result": [14, 19, 22, 26, 28, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 63, "Giải tư": 176, "Giải năm": 1522, "Giải KK": 13117}}
+{"date": "2025-11-13", "id": "00276", "result": [3, 8, 17, 22, 30, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 78, "Giải tư": 138, "Giải năm": 1991, "Giải KK": 9997}}
+{"date": "2025-11-13", "id": "00275", "result": [7, 9, 21, 27, 30, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 58, "Giải tư": 128, "Giải năm": 1438, "Giải KK": 8854}}
+{"date": "2025-11-12", "id": "00274", "result": [7, 10, 11, 24, 26, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 18, "Giải ba": 68, "Giải tư": 242, "Giải năm": 2097, "Giải KK": 14762}}
+{"date": "2025-11-12", "id": "00273", "result": [3, 11, 12, 28, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 48, "Giải tư": 98, "Giải năm": 1533, "Giải KK": 6668}}
+{"date": "2025-11-11", "id": "00272", "result": [5, 10, 11, 23, 29, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 76, "Giải tư": 238, "Giải năm": 1993, "Giải KK": 19440}}
+{"date": "2025-11-11", "id": "00271", "result": [4, 6, 9, 23, 33, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 58, "Giải tư": 91, "Giải năm": 1429, "Giải KK": 6228}}
+{"date": "2025-11-10", "id": "00270", "result": [5, 7, 10, 31, 35, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 58, "Giải tư": 180, "Giải năm": 2029, "Giải KK": 16797}}
+{"date": "2025-11-10", "id": "00269", "result": [4, 9, 13, 24, 27, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 4, "Giải ba": 72, "Giải tư": 88, "Giải năm": 1575, "Giải KK": 6660}}
+{"date": "2025-11-09", "id": "00268", "result": [7, 10, 11, 14, 29, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 72, "Giải tư": 157, "Giải năm": 1670, "Giải KK": 10290}}
+{"date": "2025-11-09", "id": "00267", "result": [3, 5, 15, 21, 23, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 43, "Giải tư": 110, "Giải năm": 1314, "Giải KK": 9089}}
+{"date": "2025-11-08", "id": "00266", "result": [6, 7, 20, 23, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 5, "Giải nhì": 79, "Giải ba": 690, "Giải tư": 1938, "Giải năm": 22034, "Giải KK": 143359}}
+{"date": "2025-11-08", "id": "00265", "result": [5, 9, 13, 22, 34, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 160, "Giải tư": 309, "Giải năm": 3770, "Giải KK": 23364}}
+{"date": "2025-11-07", "id": "00264", "result": [11, 26, 28, 32, 34, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 26, "Giải ba": 170, "Giải tư": 402, "Giải năm": 5036, "Giải KK": 30372}}
+{"date": "2025-11-07", "id": "00263", "result": [2, 14, 15, 20, 33, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 68, "Giải tư": 179, "Giải năm": 2229, "Giải KK": 14934}}
+{"date": "2025-11-06", "id": "00262", "result": [5, 6, 14, 18, 28, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 85, "Giải tư": 281, "Giải năm": 2769, "Giải KK": 20182}}
+{"date": "2025-11-06", "id": "00261", "result": [3, 13, 14, 19, 28, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 69, "Giải tư": 222, "Giải năm": 1768, "Giải KK": 15520}}
+{"date": "2025-11-05", "id": "00260", "result": [1, 4, 17, 18, 19, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 62, "Giải tư": 224, "Giải năm": 2149, "Giải KK": 19180}}
+{"date": "2025-11-05", "id": "00259", "result": [6, 11, 25, 33, 35, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 71, "Giải tư": 144, "Giải năm": 1826, "Giải KK": 10576}}
+{"date": "2025-11-04", "id": "00258", "result": [7, 20, 28, 29, 31, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 80, "Giải tư": 228, "Giải năm": 2328, "Giải KK": 18656}}
+{"date": "2025-11-04", "id": "00257", "result": [6, 7, 8, 21, 34, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 45, "Giải tư": 99, "Giải năm": 1814, "Giải KK": 7420}}
+{"date": "2025-11-03", "id": "00256", "result": [6, 25, 27, 32, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 65, "Giải tư": 203, "Giải năm": 2349, "Giải KK": 18948}}
+{"date": "2025-11-03", "id": "00255", "result": [4, 6, 11, 20, 33, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 61, "Giải tư": 110, "Giải năm": 1791, "Giải KK": 7118}}
+{"date": "2025-11-02", "id": "00254", "result": [13, 29, 30, 32, 35, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 55, "Giải tư": 159, "Giải năm": 1856, "Giải KK": 14872}}
+{"date": "2025-11-02", "id": "00253", "result": [4, 8, 14, 24, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 57, "Giải tư": 95, "Giải năm": 1533, "Giải KK": 6756}}
+{"date": "2025-11-01", "id": "00252", "result": [2, 4, 18, 26, 31, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 54, "Giải tư": 184, "Giải năm": 1902, "Giải KK": 15413}}
+{"date": "2025-11-01", "id": "00251", "result": [6, 11, 14, 20, 30, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 51, "Giải tư": 174, "Giải năm": 1403, "Giải KK": 12846}}
+{"date": "2025-10-31", "id": "00250", "result": [6, 14, 21, 34, 35, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 55, "Giải tư": 161, "Giải năm": 2003, "Giải KK": 14614}}
+{"date": "2025-10-31", "id": "00249", "result": [5, 8, 15, 17, 18, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 55, "Giải tư": 145, "Giải năm": 1734, "Giải KK": 10748}}
+{"date": "2025-10-30", "id": "00248", "result": [9, 11, 12, 24, 28, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 82, "Giải tư": 282, "Giải năm": 2639, "Giải KK": 17751}}
+{"date": "2025-10-30", "id": "00247", "result": [11, 20, 23, 27, 34, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 67, "Giải tư": 213, "Giải năm": 1642, "Giải KK": 11486}}
+{"date": "2025-10-29", "id": "00246", "result": [15, 18, 31, 34, 35, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 68, "Giải tư": 179, "Giải năm": 2281, "Giải KK": 13550}}
+{"date": "2025-10-29", "id": "00245", "result": [1, 8, 17, 20, 24, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 65, "Giải tư": 103, "Giải năm": 1784, "Giải KK": 7635}}
+{"date": "2025-10-28", "id": "00244", "result": [6, 7, 10, 19, 22, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 90, "Giải tư": 218, "Giải năm": 2674, "Giải KK": 13626}}
+{"date": "2025-10-28", "id": "00243", "result": [10, 14, 28, 33, 34, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 49, "Giải tư": 217, "Giải năm": 1514, "Giải KK": 12477}}
+{"date": "2025-10-27", "id": "00242", "result": [16, 17, 20, 24, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 76, "Giải tư": 168, "Giải năm": 2612, "Giải KK": 15586}}
+{"date": "2025-10-27", "id": "00241", "result": [8, 9, 25, 26, 32, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 64, "Giải tư": 191, "Giải năm": 1726, "Giải KK": 11246}}
+{"date": "2025-10-26", "id": "00240", "result": [4, 26, 27, 30, 34, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 70, "Giải tư": 167, "Giải năm": 1915, "Giải KK": 11537}}
+{"date": "2025-10-26", "id": "00239", "result": [17, 22, 24, 31, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 39, "Giải tư": 82, "Giải năm": 1370, "Giải KK": 6328}}
+{"date": "2025-10-25", "id": "00238", "result": [12, 14, 25, 28, 31, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 60, "Giải tư": 178, "Giải năm": 1943, "Giải KK": 13836}}
+{"date": "2025-10-25", "id": "00237", "result": [1, 10, 14, 19, 25, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 0, "Giải ba": 45, "Giải tư": 92, "Giải năm": 1485, "Giải KK": 7936}}
+{"date": "2025-10-24", "id": "00236", "result": [5, 11, 21, 22, 33, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 9, "Giải ba": 76, "Giải tư": 199, "Giải năm": 2032, "Giải KK": 13263}}
+{"date": "2025-10-24", "id": "00235", "result": [2, 4, 11, 15, 20, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 1, "Giải ba": 47, "Giải tư": 122, "Giải năm": 1325, "Giải KK": 8360}}
+{"date": "2025-10-23", "id": "00234", "result": [3, 7, 24, 25, 34, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 63, "Giải tư": 197, "Giải năm": 1912, "Giải KK": 12922}}
+{"date": "2025-10-23", "id": "00233", "result": [6, 10, 11, 12, 30, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 2, "Giải ba": 54, "Giải tư": 126, "Giải năm": 1406, "Giải KK": 8845}}
+{"date": "2025-10-22", "id": "00232", "result": [6, 11, 15, 25, 26, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 34, "Giải ba": 181, "Giải tư": 472, "Giải năm": 5306, "Giải KK": 33023}}
+{"date": "2025-10-22", "id": "00231", "result": [7, 12, 20, 32, 34, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 89, "Giải tư": 245, "Giải năm": 2501, "Giải KK": 19048}}
+{"date": "2025-10-21", "id": "00230", "result": [3, 14, 20, 21, 23, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 6, "Giải ba": 103, "Giải tư": 194, "Giải năm": 2976, "Giải KK": 14617}}
+{"date": "2025-10-21", "id": "00229", "result": [1, 14, 20, 31, 32, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 56, "Giải tư": 135, "Giải năm": 1621, "Giải KK": 11593}}
+{"date": "2025-10-20", "id": "00228", "result": [2, 12, 21, 24, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 72, "Giải tư": 236, "Giải năm": 2428, "Giải KK": 18746}}
+{"date": "2025-10-20", "id": "00227", "result": [17, 19, 29, 31, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 48, "Giải tư": 139, "Giải năm": 1656, "Giải KK": 10756}}
+{"date": "2025-10-19", "id": "00226", "result": [2, 7, 22, 33, 34, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 64, "Giải tư": 166, "Giải năm": 1603, "Giải KK": 13129}}
+{"date": "2025-10-19", "id": "00225", "result": [7, 12, 23, 30, 35, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 51, "Giải tư": 99, "Giải năm": 1417, "Giải KK": 8894}}
+{"date": "2025-10-18", "id": "00224", "result": [2, 4, 16, 28, 30, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 75, "Giải tư": 202, "Giải năm": 1952, "Giải KK": 15077}}
+{"date": "2025-10-18", "id": "00223", "result": [6, 8, 13, 24, 25, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 1, "Giải ba": 73, "Giải tư": 131, "Giải năm": 1665, "Giải KK": 9512}}
+{"date": "2025-10-17", "id": "00222", "result": [20, 23, 25, 28, 34, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 8, "Giải ba": 95, "Giải tư": 243, "Giải năm": 2102, "Giải KK": 13419}}
+{"date": "2025-10-17", "id": "00221", "result": [18, 25, 26, 34, 35, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 35, "Giải tư": 165, "Giải năm": 1487, "Giải KK": 12488}}
+{"date": "2025-10-16", "id": "00220", "result": [10, 19, 21, 29, 32, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 77, "Giải tư": 189, "Giải năm": 2278, "Giải KK": 12755}}
+{"date": "2025-10-16", "id": "00219", "result": [1, 9, 12, 20, 23, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 41, "Giải tư": 133, "Giải năm": 1567, "Giải KK": 8392}}
+{"date": "2025-10-15", "id": "00218", "result": [2, 4, 21, 30, 34, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 32, "Giải tư": 143, "Giải năm": 1545, "Giải KK": 11494}}
+{"date": "2025-10-15", "id": "00217", "result": [1, 4, 14, 15, 32, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 47, "Giải tư": 147, "Giải năm": 1235, "Giải KK": 13145}}
+{"date": "2025-10-14", "id": "00216", "result": [1, 18, 21, 23, 26, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 49, "Giải tư": 127, "Giải năm": 1714, "Giải KK": 12084}}
+{"date": "2025-10-14", "id": "00215", "result": [7, 12, 14, 20, 28, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 68, "Giải tư": 134, "Giải năm": 1722, "Giải KK": 8397}}
+{"date": "2025-10-13", "id": "00214", "result": [16, 19, 25, 26, 32, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 14, "Giải ba": 94, "Giải tư": 193, "Giải năm": 2493, "Giải KK": 13544}}
+{"date": "2025-10-13", "id": "00213", "result": [2, 17, 32, 33, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 0, "Giải ba": 57, "Giải tư": 148, "Giải năm": 1514, "Giải KK": 10131}}
+{"date": "2025-10-12", "id": "00212", "result": [8, 15, 28, 33, 34, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 72, "Giải tư": 219, "Giải năm": 1912, "Giải KK": 17051}}
+{"date": "2025-10-12", "id": "00211", "result": [8, 15, 22, 26, 28, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 43, "Giải tư": 109, "Giải năm": 1230, "Giải KK": 7437}}
+{"date": "2025-10-11", "id": "00210", "result": [13, 16, 21, 22, 23, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 47, "Giải tư": 147, "Giải năm": 1592, "Giải KK": 10317}}
+{"date": "2025-10-11", "id": "00209", "result": [2, 18, 19, 29, 32, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 69, "Giải tư": 194, "Giải năm": 1886, "Giải KK": 14073}}
+{"date": "2025-10-10", "id": "00208", "result": [1, 5, 16, 22, 26, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 64, "Giải tư": 157, "Giải năm": 1917, "Giải KK": 14745}}
+{"date": "2025-10-10", "id": "00207", "result": [3, 10, 13, 24, 31, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 75, "Giải tư": 167, "Giải năm": 1703, "Giải KK": 12064}}
+{"date": "2025-10-09", "id": "00206", "result": [3, 7, 10, 13, 14, 8], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 11, "Giải ba": 61, "Giải tư": 236, "Giải năm": 2252, "Giải KK": 18959}}
+{"date": "2025-10-09", "id": "00205", "result": [7, 21, 24, 25, 28, 3], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 37, "Giải tư": 167, "Giải năm": 1610, "Giải KK": 10748}}
+{"date": "2025-10-08", "id": "00204", "result": [10, 13, 28, 31, 34, 12], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 60, "Giải tư": 151, "Giải năm": 2034, "Giải KK": 10733}}
+{"date": "2025-10-08", "id": "00203", "result": [1, 7, 8, 28, 34, 11], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 49, "Giải tư": 124, "Giải năm": 1432, "Giải KK": 9634}}
+{"date": "2025-10-07", "id": "00202", "result": [3, 13, 19, 23, 25, 12], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 2, "Giải ba": 102, "Giải tư": 183, "Giải năm": 2821, "Giải KK": 11896}}
+{"date": "2025-10-07", "id": "00201", "result": [2, 16, 17, 30, 33, 7], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 48, "Giải tư": 157, "Giải năm": 1353, "Giải KK": 14431}}
+{"date": "2025-10-06", "id": "00200", "result": [7, 18, 22, 23, 33, 10], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 88, "Giải tư": 207, "Giải năm": 2701, "Giải KK": 16858}}
+{"date": "2025-10-06", "id": "00199", "result": [3, 4, 9, 11, 21, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 51, "Giải tư": 162, "Giải năm": 1730, "Giải KK": 11948}}
+{"date": "2025-10-05", "id": "00198", "result": [17, 18, 20, 21, 34, 12], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 65, "Giải tư": 146, "Giải năm": 1978, "Giải KK": 10347}}
+{"date": "2025-10-05", "id": "00197", "result": [8, 9, 22, 32, 33, 12], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 52, "Giải tư": 115, "Giải năm": 1430, "Giải KK": 8584}}
+{"date": "2025-10-04", "id": "00196", "result": [2, 11, 20, 26, 28, 4], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 53, "Giải tư": 170, "Giải năm": 1880, "Giải KK": 13215}}
+{"date": "2025-10-04", "id": "00195", "result": [21, 23, 26, 27, 28, 6], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 34, "Giải tư": 150, "Giải năm": 1360, "Giải KK": 10015}}
+{"date": "2025-10-03", "id": "00194", "result": [1, 11, 22, 31, 33, 10], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 58, "Giải tư": 190, "Giải năm": 1677, "Giải KK": 12630}}
+{"date": "2025-10-03", "id": "00193", "result": [6, 7, 8, 10, 33, 1], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 47, "Giải tư": 106, "Giải năm": 1690, "Giải KK": 7992}}
+{"date": "2025-10-02", "id": "00192", "result": [8, 9, 14, 27, 35, 11], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 45, "Giải ba": 663, "Giải tư": 1563, "Giải năm": 20736, "Giải KK": 135834}}
+{"date": "2025-10-02", "id": "00191", "result": [19, 22, 26, 27, 33, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 136, "Giải tư": 294, "Giải năm": 3876, "Giải KK": 25733}}
+{"date": "2025-10-01", "id": "00190", "result": [6, 24, 27, 33, 34, 8], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 18, "Giải ba": 143, "Giải tư": 398, "Giải năm": 4731, "Giải KK": 31024}}
+{"date": "2025-10-01", "id": "00189", "result": [2, 9, 14, 15, 35, 8], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 53, "Giải tư": 234, "Giải năm": 2183, "Giải KK": 18722}}
+{"date": "2025-09-30", "id": "00188", "result": [13, 16, 19, 20, 31, 11], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 112, "Giải tư": 231, "Giải năm": 2871, "Giải KK": 15555}}
+{"date": "2025-09-30", "id": "00187", "result": [3, 5, 8, 23, 29, 1], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 51, "Giải tư": 126, "Giải năm": 1967, "Giải KK": 9033}}
+{"date": "2025-09-29", "id": "00186", "result": [15, 18, 21, 27, 33, 6], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 76, "Giải tư": 251, "Giải năm": 2847, "Giải KK": 19378}}
+{"date": "2025-09-29", "id": "00185", "result": [6, 15, 17, 23, 25, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 70, "Giải tư": 173, "Giải năm": 1833, "Giải KK": 11820}}
+{"date": "2025-09-28", "id": "00184", "result": [10, 31, 33, 34, 35, 10], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 52, "Giải tư": 140, "Giải năm": 1757, "Giải KK": 15111}}
+{"date": "2025-09-28", "id": "00183", "result": [4, 7, 10, 15, 30, 7], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 48, "Giải tư": 165, "Giải năm": 1668, "Giải KK": 10499}}
+{"date": "2025-09-27", "id": "00182", "result": [3, 9, 21, 22, 25, 11], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 76, "Giải tư": 183, "Giải năm": 2116, "Giải KK": 15057}}
+{"date": "2025-09-27", "id": "00181", "result": [6, 18, 19, 21, 23, 7], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 40, "Giải tư": 133, "Giải năm": 1553, "Giải KK": 10324}}
+{"date": "2025-09-26", "id": "00180", "result": [10, 21, 28, 31, 33, 7], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 62, "Giải tư": 184, "Giải năm": 1792, "Giải KK": 17288}}
+{"date": "2025-09-26", "id": "00179", "result": [10, 12, 15, 17, 22, 8], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 58, "Giải tư": 139, "Giải năm": 1602, "Giải KK": 10679}}
+{"date": "2025-09-25", "id": "00178", "result": [5, 14, 21, 22, 27, 8], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 72, "Giải tư": 222, "Giải năm": 1861, "Giải KK": 16099}}
+{"date": "2025-09-25", "id": "00177", "result": [1, 3, 14, 22, 28, 6], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 40, "Giải tư": 109, "Giải năm": 1267, "Giải KK": 10325}}
+{"date": "2025-09-24", "id": "00176", "result": [3, 12, 13, 19, 28, 2], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 69, "Giải tư": 152, "Giải năm": 2337, "Giải KK": 10897}}
+{"date": "2025-09-24", "id": "00175", "result": [8, 11, 15, 18, 28, 2], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 60, "Giải tư": 112, "Giải năm": 1901, "Giải KK": 8627}}
+{"date": "2025-09-23", "id": "00174", "result": [9, 16, 17, 20, 24, 8], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 70, "Giải tư": 282, "Giải năm": 2062, "Giải KK": 17382}}
+{"date": "2025-09-23", "id": "00173", "result": [1, 2, 3, 10, 11, 4], "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 3, "Giải ba": 56, "Giải tư": 95, "Giải năm": 1347, "Giải KK": 8732}}
+{"date": "2025-09-22", "id": "00172", "result": [6, 9, 20, 25, 31, 7], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 17, "Giải ba": 112, "Giải tư": 306, "Giải năm": 2938, "Giải KK": 18210}}
+{"date": "2025-09-22", "id": "00171", "result": [5, 15, 26, 30, 34, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 63, "Giải tư": 175, "Giải năm": 1694, "Giải KK": 9783}}
+{"date": "2025-09-21", "id": "00170", "result": [3, 12, 20, 21, 29, 5], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 89, "Giải tư": 246, "Giải năm": 1963, "Giải KK": 16487}}
+{"date": "2025-09-21", "id": "00169", "result": [5, 13, 15, 22, 23, 4], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 44, "Giải tư": 157, "Giải năm": 1659, "Giải KK": 9508}}
+{"date": "2025-09-20", "id": "00168", "result": [3, 4, 8, 18, 31, 7], "winners": {"Độc đắc": 0, "Giải nhất": 5, "Giải nhì": 55, "Giải ba": 448, "Giải tư": 1620, "Giải năm": 14671, "Giải KK": 135225}}
+{"date": "2025-09-20", "id": "00167", "result": [3, 14, 20, 23, 35, 6], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 96, "Giải tư": 273, "Giải năm": 2925, "Giải KK": 22160}}
+{"date": "2025-09-19", "id": "00166", "result": [11, 18, 20, 24, 25, 8], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 21, "Giải ba": 136, "Giải tư": 404, "Giải năm": 3672, "Giải KK": 22200}}
+{"date": "2025-09-19", "id": "00165", "result": [10, 27, 29, 30, 34, 10], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 56, "Giải tư": 181, "Giải năm": 2110, "Giải KK": 15648}}
+{"date": "2025-09-18", "id": "00164", "result": [8, 10, 14, 23, 25, 4], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 107, "Giải tư": 252, "Giải năm": 2947, "Giải KK": 17001}}
+{"date": "2025-09-18", "id": "00163", "result": [11, 13, 15, 17, 30, 6], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 52, "Giải tư": 186, "Giải năm": 1872, "Giải KK": 13554}}
+{"date": "2025-09-17", "id": "00162", "result": [1, 13, 14, 15, 21, 8], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 52, "Giải tư": 214, "Giải năm": 1894, "Giải KK": 19716}}
+{"date": "2025-09-17", "id": "00161", "result": [1, 12, 14, 19, 20, 7], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 51, "Giải tư": 143, "Giải năm": 1570, "Giải KK": 11715}}
+{"date": "2025-09-16", "id": "00160", "result": [3, 10, 13, 22, 28, 3], "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 83, "Giải tư": 171, "Giải năm": 2378, "Giải KK": 14496}}
+{"date": "2025-09-16", "id": "00159", "result": [8, 14, 16, 19, 29, 7], "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 56, "Giải tư": 169, "Giải năm": 1705, "Giải KK": 11867}}
+{"date": "2025-09-15", "id": "00158", "result": [11, 16, 20, 27, 32, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 102, "Giải tư": 221, "Giải năm": 2667, "Giải KK": 16560}}
+{"date": "2025-09-15", "id": "00157", "result": [1, 11, 16, 25, 29, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 3, "Giải ba": 75, "Giải tư": 148, "Giải năm": 1607, "Giải KK": 16623}}
+{"date": "2025-09-14", "id": "00156", "result": [6, 10, 11, 12, 27, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 93, "Giải tư": 217, "Giải năm": 2410, "Giải KK": 15294}}
+{"date": "2025-09-14", "id": "00155", "result": [1, 6, 7, 11, 31, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 37, "Giải tư": 106, "Giải năm": 1335, "Giải KK": 9363}}
+{"date": "2025-09-13", "id": "00154", "result": [2, 6, 28, 29, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 56, "Giải tư": 145, "Giải năm": 1759, "Giải KK": 12266}}
+{"date": "2025-09-13", "id": "00153", "result": [3, 19, 26, 33, 34, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 67, "Giải tư": 185, "Giải năm": 1591, "Giải KK": 14773}}
+{"date": "2025-09-12", "id": "00152", "result": [2, 6, 7, 24, 28, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 71, "Giải tư": 135, "Giải năm": 2134, "Giải KK": 9277}}
+{"date": "2025-09-12", "id": "00151", "result": [15, 17, 19, 20, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 46, "Giải tư": 133, "Giải năm": 1662, "Giải KK": 9645}}
+{"date": "2025-09-11", "id": "00150", "result": [13, 22, 25, 30, 31, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 6, "Giải ba": 70, "Giải tư": 216, "Giải năm": 1917, "Giải KK": 16616}}
+{"date": "2025-09-11", "id": "00149", "result": [1, 6, 25, 28, 30, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 38, "Giải tư": 105, "Giải năm": 1519, "Giải KK": 8518}}
+{"date": "2025-09-10", "id": "00148", "result": [4, 13, 16, 23, 29, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 5, "Giải ba": 60, "Giải tư": 144, "Giải năm": 1821, "Giải KK": 13197}}
+{"date": "2025-09-10", "id": "00147", "result": [6, 13, 14, 23, 29, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 55, "Giải tư": 234, "Giải năm": 1705, "Giải KK": 15488}}
+{"date": "2025-09-09", "id": "00146", "result": [11, 15, 19, 27, 33, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 35, "Giải ba": 671, "Giải tư": 1277, "Giải năm": 20041, "Giải KK": 95793}}
+{"date": "2025-09-09", "id": "00145", "result": [3, 4, 21, 26, 33, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 21, "Giải ba": 124, "Giải tư": 444, "Giải năm": 3893, "Giải KK": 32241}}
+{"date": "2025-09-08", "id": "00144", "result": [17, 18, 19, 22, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 21, "Giải ba": 185, "Giải tư": 561, "Giải năm": 5849, "Giải KK": 39065}}
+{"date": "2025-09-08", "id": "00143", "result": [11, 14, 19, 21, 25, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 104, "Giải tư": 256, "Giải năm": 2547, "Giải KK": 15895}}
+{"date": "2025-09-07", "id": "00142", "result": [21, 25, 26, 29, 30, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 72, "Giải tư": 285, "Giải năm": 2496, "Giải KK": 23907}}
+{"date": "2025-09-07", "id": "00141", "result": [1, 3, 10, 14, 15, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 59, "Giải tư": 182, "Giải năm": 1903, "Giải KK": 16652}}
+{"date": "2025-09-06", "id": "00140", "result": [5, 7, 29, 32, 33, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 72, "Giải tư": 147, "Giải năm": 2536, "Giải KK": 13711}}
+{"date": "2025-09-06", "id": "00139", "result": [7, 11, 13, 27, 34, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 86, "Giải tư": 192, "Giải năm": 2168, "Giải KK": 10600}}
+{"date": "2025-09-05", "id": "00138", "result": [6, 15, 17, 20, 30, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 14, "Giải ba": 76, "Giải tư": 281, "Giải năm": 2359, "Giải KK": 17091}}
+{"date": "2025-09-05", "id": "00137", "result": [1, 4, 20, 23, 35, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 34, "Giải tư": 108, "Giải năm": 1253, "Giải KK": 10858}}
+{"date": "2025-09-04", "id": "00136", "result": [4, 5, 27, 28, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 66, "Giải tư": 223, "Giải năm": 2086, "Giải KK": 17463}}
+{"date": "2025-09-04", "id": "00135", "result": [12, 17, 23, 26, 29, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 58, "Giải tư": 127, "Giải năm": 1893, "Giải KK": 9448}}
+{"date": "2025-09-03", "id": "00134", "result": [1, 5, 10, 21, 30, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 96, "Giải tư": 221, "Giải năm": 2143, "Giải KK": 18402}}
+{"date": "2025-09-03", "id": "00133", "result": [1, 6, 9, 17, 26, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 57, "Giải tư": 139, "Giải năm": 1576, "Giải KK": 10812}}
+{"date": "2025-09-02", "id": "00132", "result": [5, 9, 12, 32, 35, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 64, "Giải tư": 121, "Giải năm": 2279, "Giải KK": 10084}}
+{"date": "2025-09-02", "id": "00131", "result": [1, 10, 12, 22, 31, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 36, "Giải tư": 106, "Giải năm": 1357, "Giải KK": 11143}}
+{"date": "2025-09-01", "id": "00130", "result": [5, 7, 10, 21, 30, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 85, "Giải tư": 233, "Giải năm": 2492, "Giải KK": 16454}}
+{"date": "2025-09-01", "id": "00129", "result": [9, 22, 24, 30, 35, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 71, "Giải tư": 176, "Giải năm": 1702, "Giải KK": 12613}}
+{"date": "2025-08-31", "id": "00128", "result": [2, 10, 22, 23, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 67, "Giải tư": 168, "Giải năm": 2032, "Giải KK": 12349}}
+{"date": "2025-08-31", "id": "00127", "result": [1, 8, 19, 21, 30, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 29, "Giải tư": 166, "Giải năm": 1433, "Giải KK": 10609}}
+{"date": "2025-08-30", "id": "00126", "result": [4, 6, 14, 15, 20, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 63, "Giải tư": 179, "Giải năm": 1917, "Giải KK": 16035}}
+{"date": "2025-08-30", "id": "00125", "result": [7, 11, 18, 20, 27, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 61, "Giải tư": 158, "Giải năm": 1699, "Giải KK": 11777}}
+{"date": "2025-08-29", "id": "00124", "result": [9, 12, 13, 19, 25, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 1, "Giải nhì": 32, "Giải ba": 321, "Giải tư": 919, "Giải năm": 8528, "Giải KK": 53863}}
+{"date": "2025-08-29", "id": "00123", "result": [8, 10, 21, 27, 31, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 88, "Giải tư": 233, "Giải năm": 2726, "Giải KK": 16693}}
+{"date": "2025-08-28", "id": "00122", "result": [1, 4, 17, 18, 28, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 97, "Giải tư": 214, "Giải năm": 2426, "Giải KK": 20016}}
+{"date": "2025-08-28", "id": "00121", "result": [3, 18, 19, 23, 30, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 57, "Giải tư": 251, "Giải năm": 2168, "Giải KK": 16258}}
+{"date": "2025-08-27", "id": "00120", "result": [2, 9, 10, 24, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 102, "Giải tư": 282, "Giải năm": 2950, "Giải KK": 21852}}
+{"date": "2025-08-27", "id": "00119", "result": [7, 11, 17, 22, 35, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 43, "Giải tư": 158, "Giải năm": 1774, "Giải KK": 16164}}
+{"date": "2025-08-26", "id": "00118", "result": [7, 11, 26, 34, 35, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 73, "Giải tư": 313, "Giải năm": 2675, "Giải KK": 23601}}
+{"date": "2025-08-26", "id": "00117", "result": [13, 20, 25, 27, 30, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 85, "Giải tư": 165, "Giải năm": 2151, "Giải KK": 12169}}
+{"date": "2025-08-25", "id": "00116", "result": [2, 15, 19, 25, 34, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 12, "Giải ba": 104, "Giải tư": 288, "Giải năm": 3326, "Giải KK": 21694}}
+{"date": "2025-08-25", "id": "00115", "result": [1, 7, 14, 25, 26, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 62, "Giải tư": 139, "Giải năm": 1790, "Giải KK": 9750}}
+{"date": "2025-08-24", "id": "00114", "result": [4, 12, 25, 29, 34, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 81, "Giải tư": 171, "Giải năm": 2763, "Giải KK": 12538}}
+{"date": "2025-08-24", "id": "00113", "result": [8, 9, 21, 23, 30, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 55, "Giải tư": 152, "Giải năm": 1753, "Giải KK": 9562}}
+{"date": "2025-08-23", "id": "00112", "result": [6, 11, 16, 17, 29, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 79, "Giải tư": 274, "Giải năm": 2630, "Giải KK": 20557}}
+{"date": "2025-08-23", "id": "00111", "result": [4, 13, 14, 26, 30, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 53, "Giải tư": 189, "Giải năm": 1764, "Giải KK": 16503}}
+{"date": "2025-08-22", "id": "00110", "result": [16, 20, 23, 28, 31, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 100, "Giải tư": 184, "Giải năm": 2883, "Giải KK": 12872}}
+{"date": "2025-08-22", "id": "00109", "result": [8, 9, 32, 33, 34, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 54, "Giải tư": 133, "Giải năm": 1951, "Giải KK": 9714}}
+{"date": "2025-08-21", "id": "00108", "result": [9, 13, 18, 24, 29, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 102, "Giải tư": 199, "Giải năm": 2607, "Giải KK": 15009}}
+{"date": "2025-08-21", "id": "00107", "result": [2, 4, 13, 15, 26, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 62, "Giải tư": 102, "Giải năm": 1633, "Giải KK": 9089}}
+{"date": "2025-08-20", "id": "00106", "result": [3, 6, 18, 25, 35, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 8, "Giải ba": 89, "Giải tư": 163, "Giải năm": 2673, "Giải KK": 12812}}
+{"date": "2025-08-20", "id": "00105", "result": [5, 10, 15, 24, 25, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 15, "Giải ba": 120, "Giải tư": 221, "Giải năm": 2092, "Giải KK": 14940}}
+{"date": "2025-08-19", "id": "00104", "result": [14, 20, 22, 28, 32, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 6, "Giải ba": 113, "Giải tư": 242, "Giải năm": 2406, "Giải KK": 16137}}
+{"date": "2025-08-19", "id": "00103", "result": [3, 10, 24, 30, 33, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 71, "Giải tư": 156, "Giải năm": 1735, "Giải KK": 9506}}
+{"date": "2025-08-18", "id": "00102", "result": [5, 10, 15, 20, 28, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 1, "Giải nhì": 16, "Giải ba": 169, "Giải tư": 214, "Giải năm": 3438, "Giải KK": 16635}}
+{"date": "2025-08-18", "id": "00101", "result": [1, 4, 17, 33, 34, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 5, "Giải ba": 43, "Giải tư": 157, "Giải năm": 1463, "Giải KK": 15326}}
+{"date": "2025-08-17", "id": "00100", "result": [1, 5, 12, 27, 30, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 74, "Giải tư": 149, "Giải năm": 2225, "Giải KK": 15070}}
+{"date": "2025-08-17", "id": "00099", "result": [15, 20, 23, 27, 30, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 71, "Giải tư": 138, "Giải năm": 1777, "Giải KK": 10077}}
+{"date": "2025-08-16", "id": "00098", "result": [3, 18, 20, 26, 30, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 106, "Giải tư": 232, "Giải năm": 2615, "Giải KK": 14901}}
+{"date": "2025-08-16", "id": "00097", "result": [8, 21, 24, 33, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 50, "Giải tư": 206, "Giải năm": 2018, "Giải KK": 12280}}
+{"date": "2025-08-15", "id": "00096", "result": [3, 9, 20, 26, 33, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 52, "Giải ba": 481, "Giải tư": 1403, "Giải năm": 14978, "Giải KK": 101133}}
+{"date": "2025-08-15", "id": "00095", "result": [5, 6, 27, 33, 34, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 15, "Giải ba": 112, "Giải tư": 478, "Giải năm": 3566, "Giải KK": 37102}}
+{"date": "2025-08-14", "id": "00094", "result": [3, 4, 11, 29, 30, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 105, "Giải tư": 267, "Giải năm": 3125, "Giải KK": 22792}}
+{"date": "2025-08-14", "id": "00093", "result": [11, 19, 22, 27, 35, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 109, "Giải tư": 267, "Giải năm": 2473, "Giải KK": 18407}}
+{"date": "2025-08-13", "id": "00092", "result": [13, 18, 23, 26, 27, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 192, "Giải tư": 255, "Giải năm": 3828, "Giải KK": 17188}}
+{"date": "2025-08-13", "id": "00091", "result": [20, 22, 25, 28, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 78, "Giải tư": 119, "Giải năm": 2489, "Giải KK": 10021}}
+{"date": "2025-08-12", "id": "00090", "result": [1, 8, 10, 27, 29, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 84, "Giải tư": 222, "Giải năm": 2594, "Giải KK": 18745}}
+{"date": "2025-08-12", "id": "00089", "result": [8, 17, 24, 25, 33, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 93, "Giải tư": 265, "Giải năm": 2363, "Giải KK": 17117}}
+{"date": "2025-08-11", "id": "00088", "result": [3, 4, 10, 13, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 88, "Giải tư": 219, "Giải năm": 3197, "Giải KK": 16034}}
+{"date": "2025-08-11", "id": "00087", "result": [2, 9, 11, 17, 23, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 95, "Giải tư": 162, "Giải năm": 2581, "Giải KK": 12500}}
+{"date": "2025-08-10", "id": "00086", "result": [22, 24, 28, 31, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 102, "Giải tư": 233, "Giải năm": 2498, "Giải KK": 18665}}
+{"date": "2025-08-10", "id": "00085", "result": [8, 16, 18, 28, 34, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 114, "Giải tư": 249, "Giải năm": 2415, "Giải KK": 15874}}
+{"date": "2025-08-09", "id": "00084", "result": [9, 16, 17, 26, 32, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 9, "Giải ba": 114, "Giải tư": 256, "Giải năm": 3306, "Giải KK": 17172}}
+{"date": "2025-08-09", "id": "00083", "result": [2, 15, 20, 24, 28, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 70, "Giải tư": 197, "Giải năm": 2062, "Giải KK": 15030}}
+{"date": "2025-08-08", "id": "00082", "result": [1, 9, 15, 16, 20, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 96, "Giải tư": 208, "Giải năm": 2798, "Giải KK": 17897}}
+{"date": "2025-08-08", "id": "00081", "result": [2, 15, 22, 30, 33, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 59, "Giải tư": 221, "Giải năm": 2144, "Giải KK": 16854}}
+{"date": "2025-08-07", "id": "00080", "result": [6, 12, 18, 23, 25, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 19, "Giải ba": 167, "Giải tư": 331, "Giải năm": 3871, "Giải KK": 18885}}
+{"date": "2025-08-07", "id": "00079", "result": [1, 18, 27, 29, 30, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 72, "Giải tư": 213, "Giải năm": 1773, "Giải KK": 17950}}
+{"date": "2025-08-06", "id": "00078", "result": [7, 10, 15, 16, 29, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 13, "Giải ba": 97, "Giải tư": 376, "Giải năm": 2858, "Giải KK": 21873}}
+{"date": "2025-08-06", "id": "00077", "result": [12, 25, 31, 32, 35, 4], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 80, "Giải tư": 183, "Giải năm": 2133, "Giải KK": 15239}}
+{"date": "2025-08-05", "id": "00076", "result": [5, 8, 10, 13, 32, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 11, "Giải ba": 99, "Giải tư": 278, "Giải năm": 2981, "Giải KK": 17366}}
+{"date": "2025-08-05", "id": "00075", "result": [8, 20, 24, 30, 34, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 4, "Giải ba": 75, "Giải tư": 125, "Giải năm": 2073, "Giải KK": 9811}}
+{"date": "2025-08-04", "id": "00074", "result": [5, 13, 23, 25, 33, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 108, "Giải tư": 294, "Giải năm": 3162, "Giải KK": 17914}}
+{"date": "2025-08-04", "id": "00073", "result": [5, 20, 25, 30, 32, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 2, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 78, "Giải tư": 160, "Giải năm": 2169, "Giải KK": 12808}}
+{"date": "2025-08-03", "id": "00072", "result": [7, 14, 15, 29, 34, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 18, "Giải ba": 89, "Giải tư": 246, "Giải năm": 2519, "Giải KK": 18315}}
+{"date": "2025-08-03", "id": "00071", "result": [1, 6, 8, 23, 25, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 12, "Giải ba": 56, "Giải tư": 169, "Giải năm": 1860, "Giải KK": 12607}}
+{"date": "2025-08-02", "id": "00070", "result": [1, 12, 18, 20, 25, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 9, "Giải nhì": 57, "Giải ba": 619, "Giải tư": 1763, "Giải năm": 16797, "Giải KK": 113257}}
+{"date": "2025-08-02", "id": "00069", "result": [1, 3, 7, 10, 25, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 13, "Giải ba": 185, "Giải tư": 366, "Giải năm": 4770, "Giải KK": 25981}}
+{"date": "2025-08-01", "id": "00068", "result": [9, 12, 22, 26, 31, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 5, "Giải ba": 166, "Giải tư": 328, "Giải năm": 4261, "Giải KK": 27279}}
+{"date": "2025-08-01", "id": "00067", "result": [12, 14, 16, 22, 23, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 15, "Giải ba": 107, "Giải tư": 307, "Giải năm": 2968, "Giải KK": 22498}}
+{"date": "2025-07-31", "id": "00066", "result": [3, 6, 22, 31, 33, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 8, "Giải ba": 97, "Giải tư": 256, "Giải năm": 3527, "Giải KK": 19222}}
+{"date": "2025-07-31", "id": "00065", "result": [3, 10, 24, 26, 34, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 14, "Giải ba": 77, "Giải tư": 356, "Giải năm": 2555, "Giải KK": 18269}}
+{"date": "2025-07-30", "id": "00064", "result": [13, 21, 26, 27, 32, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 92, "Giải tư": 213, "Giải năm": 2911, "Giải KK": 16791}}
+{"date": "2025-07-30", "id": "00063", "result": [4, 9, 10, 18, 19, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 11, "Giải ba": 120, "Giải tư": 224, "Giải năm": 3017, "Giải KK": 14469}}
+{"date": "2025-07-29", "id": "00062", "result": [20, 21, 29, 31, 33, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 71, "Giải tư": 277, "Giải năm": 2905, "Giải KK": 21113}}
+{"date": "2025-07-29", "id": "00061", "result": [1, 5, 16, 28, 29, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 45, "Giải tư": 281, "Giải năm": 2215, "Giải KK": 21592}}
+{"date": "2025-07-28", "id": "00060", "result": [15, 19, 25, 32, 33, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 14, "Giải ba": 98, "Giải tư": 418, "Giải năm": 3488, "Giải KK": 27086}}
+{"date": "2025-07-28", "id": "00059", "result": [1, 3, 28, 32, 33, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 45, "Giải tư": 152, "Giải năm": 1980, "Giải KK": 14184}}
+{"date": "2025-07-27", "id": "00058", "result": [10, 24, 28, 30, 32, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 105, "Giải tư": 198, "Giải năm": 3340, "Giải KK": 14992}}
+{"date": "2025-07-27", "id": "00057", "result": [1, 14, 19, 25, 27, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 70, "Giải tư": 270, "Giải năm": 2255, "Giải KK": 18730}}
+{"date": "2025-07-26", "id": "00056", "result": [3, 6, 11, 27, 33, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 120, "Giải tư": 393, "Giải năm": 3470, "Giải KK": 25533}}
+{"date": "2025-07-26", "id": "00055", "result": [1, 7, 12, 16, 23, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 87, "Giải tư": 262, "Giải năm": 2488, "Giải KK": 21187}}
+{"date": "2025-07-25", "id": "00054", "result": [16, 18, 19, 23, 25, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 10, "Giải nhì": 38, "Giải ba": 650, "Giải tư": 1239, "Giải năm": 16836, "Giải KK": 90169}}
+{"date": "2025-07-25", "id": "00053", "result": [9, 10, 19, 22, 24, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 23, "Giải ba": 185, "Giải tư": 564, "Giải năm": 5707, "Giải KK": 38273}}
+{"date": "2025-07-24", "id": "00052", "result": [9, 10, 11, 30, 35, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 10, "Giải ba": 178, "Giải tư": 322, "Giải năm": 4893, "Giải KK": 22844}}
+{"date": "2025-07-24", "id": "00051", "result": [7, 8, 18, 22, 33, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 15, "Giải ba": 93, "Giải tư": 344, "Giải năm": 2936, "Giải KK": 23461}}
+{"date": "2025-07-23", "id": "00050", "result": [17, 18, 27, 29, 33, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 94, "Giải tư": 378, "Giải năm": 3354, "Giải KK": 32510}}
+{"date": "2025-07-23", "id": "00049", "result": [3, 21, 28, 33, 34, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 57, "Giải tư": 176, "Giải năm": 2326, "Giải KK": 16748}}
+{"date": "2025-07-22", "id": "00048", "result": [7, 10, 26, 28, 33, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 12, "Giải ba": 149, "Giải tư": 296, "Giải năm": 3905, "Giải KK": 20093}}
+{"date": "2025-07-22", "id": "00047", "result": [3, 14, 16, 21, 25, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 88, "Giải tư": 198, "Giải năm": 2424, "Giải KK": 15042}}
+{"date": "2025-07-21", "id": "00046", "result": [2, 16, 18, 22, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 109, "Giải tư": 305, "Giải năm": 3257, "Giải KK": 26371}}
+{"date": "2025-07-21", "id": "00045", "result": [8, 20, 24, 27, 28, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 69, "Giải tư": 212, "Giải năm": 2577, "Giải KK": 15452}}
+{"date": "2025-07-20", "id": "00044", "result": [21, 28, 31, 34, 35, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 2, "Giải ba": 80, "Giải tư": 162, "Giải năm": 2393, "Giải KK": 13675}}
+{"date": "2025-07-20", "id": "00043", "result": [9, 14, 28, 33, 35, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 117, "Giải tư": 200, "Giải năm": 2784, "Giải KK": 14630}}
+{"date": "2025-07-19", "id": "00042", "result": [4, 16, 24, 26, 31, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 122, "Giải tư": 191, "Giải năm": 2825, "Giải KK": 15456}}
+{"date": "2025-07-19", "id": "00041", "result": [5, 19, 20, 21, 30, 11], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 73, "Giải tư": 267, "Giải năm": 2537, "Giải KK": 16794}}
+{"date": "2025-07-18", "id": "00040", "result": [5, 11, 16, 27, 34, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 14, "Giải ba": 145, "Giải tư": 363, "Giải năm": 3367, "Giải KK": 25148}}
+{"date": "2025-07-18", "id": "00039", "result": [2, 10, 12, 16, 34, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 11, "Giải ba": 92, "Giải tư": 264, "Giải năm": 3277, "Giải KK": 16733}}
+{"date": "2025-07-17", "id": "00038", "result": [7, 11, 17, 18, 25, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 24, "Giải ba": 474, "Giải tư": 732, "Giải năm": 11337, "Giải KK": 42528}}
+{"date": "2025-07-17", "id": "00037", "result": [1, 4, 8, 18, 29, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 15, "Giải ba": 155, "Giải tư": 428, "Giải năm": 4444, "Giải KK": 36651}}
+{"date": "2025-07-16", "id": "00036", "result": [2, 10, 20, 34, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 12, "Giải ba": 116, "Giải tư": 261, "Giải năm": 3516, "Giải KK": 20356}}
+{"date": "2025-07-16", "id": "00035", "result": [7, 11, 13, 17, 25, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 17, "Giải ba": 125, "Giải tư": 513, "Giải năm": 3609, "Giải KK": 25420}}
+{"date": "2025-07-15", "id": "00034", "result": [9, 12, 22, 31, 35, 2], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 107, "Giải tư": 249, "Giải năm": 3306, "Giải KK": 19050}}
+{"date": "2025-07-15", "id": "00033", "result": [3, 7, 12, 19, 26, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 15, "Giải ba": 102, "Giải tư": 276, "Giải năm": 2638, "Giải KK": 18024}}
+{"date": "2025-07-14", "id": "00032", "result": [7, 8, 22, 23, 28, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 12, "Giải ba": 117, "Giải tư": 396, "Giải năm": 3603, "Giải KK": 25652}}
+{"date": "2025-07-14", "id": "00031", "result": [2, 3, 12, 14, 22, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 3, "Giải ba": 65, "Giải tư": 223, "Giải năm": 2439, "Giải KK": 15225}}
+{"date": "2025-07-13", "id": "00030", "result": [12, 14, 19, 27, 34, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 3, "Giải nhì": 22, "Giải ba": 110, "Giải tư": 386, "Giải năm": 3034, "Giải KK": 25985}}
+{"date": "2025-07-13", "id": "00029", "result": [13, 15, 19, 22, 27, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 85, "Giải tư": 228, "Giải năm": 2646, "Giải KK": 14272}}
+{"date": "2025-07-12", "id": "00028", "result": [5, 11, 16, 20, 34, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 10, "Giải ba": 85, "Giải tư": 264, "Giải năm": 2360, "Giải KK": 17797}}
+{"date": "2025-07-12", "id": "00027", "result": [5, 14, 26, 31, 35, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 51, "Giải tư": 210, "Giải năm": 1752, "Giải KK": 16867}}
+{"date": "2025-07-11", "id": "00026", "result": [1, 5, 8, 20, 24, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 2, "Giải ba": 94, "Giải tư": 253, "Giải năm": 2733, "Giải KK": 24517}}
+{"date": "2025-07-11", "id": "00025", "result": [8, 11, 17, 18, 20, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 94, "Giải tư": 171, "Giải năm": 2718, "Giải KK": 9724}}
+{"date": "2025-07-10", "id": "00024", "result": [9, 24, 29, 32, 35, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 76, "Giải tư": 258, "Giải năm": 2568, "Giải KK": 21221}}
+{"date": "2025-07-10", "id": "00023", "result": [11, 17, 24, 28, 30, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 4, "Giải ba": 66, "Giải tư": 172, "Giải năm": 1980, "Giải KK": 14525}}
+{"date": "2025-07-09", "id": "00022", "result": [2, 7, 9, 28, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 77, "Giải tư": 192, "Giải năm": 2745, "Giải KK": 13600}}
+{"date": "2025-07-09", "id": "00021", "result": [1, 2, 12, 25, 31, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 2, "Giải nhì": 8, "Giải ba": 65, "Giải tư": 159, "Giải năm": 1876, "Giải KK": 11463}}
+{"date": "2025-07-08", "id": "00020", "result": [2, 6, 20, 26, 32, 12], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 3, "Giải ba": 109, "Giải tư": 238, "Giải năm": 2870, "Giải KK": 15970}}
+{"date": "2025-07-08", "id": "00019", "result": [14, 15, 17, 28, 31, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 68, "Giải tư": 200, "Giải năm": 2153, "Giải KK": 15717}}
+{"date": "2025-07-07", "id": "00018", "result": [6, 7, 10, 22, 34, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 7, "Giải ba": 85, "Giải tư": 363, "Giải năm": 3190, "Giải KK": 26306}}
+{"date": "2025-07-07", "id": "00017", "result": [1, 8, 14, 19, 23, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 6, "Giải ba": 64, "Giải tư": 209, "Giải năm": 2157, "Giải KK": 16518}}
+{"date": "2025-07-06", "id": "00016", "result": [6, 7, 13, 28, 29, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 94, "Giải tư": 255, "Giải năm": 2703, "Giải KK": 18339}}
+{"date": "2025-07-06", "id": "00015", "result": [3, 11, 12, 27, 32, 10], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 6, "Giải ba": 67, "Giải tư": 158, "Giải năm": 2064, "Giải KK": 11323}}
+{"date": "2025-07-05", "id": "00014", "result": [3, 13, 19, 25, 29, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 1, "Giải ba": 82, "Giải tư": 317, "Giải năm": 2466, "Giải KK": 20244}}
+{"date": "2025-07-05", "id": "00013", "result": [5, 14, 15, 23, 34, 5], "process_time": "bootstrap", "winners": {"Độc đắc": 1, "Giải nhất": 2, "Giải nhì": 13, "Giải ba": 77, "Giải tư": 230, "Giải năm": 2028, "Giải KK": 15251}}
+{"date": "2025-07-04", "id": "00012", "result": [3, 18, 20, 29, 34, 3], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 9, "Giải ba": 95, "Giải tư": 212, "Giải năm": 2723, "Giải KK": 19673}}
+{"date": "2025-07-04", "id": "00011", "result": [1, 3, 7, 10, 24, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 71, "Giải tư": 167, "Giải năm": 2050, "Giải KK": 15560}}
+{"date": "2025-07-03", "id": "00010", "result": [10, 23, 24, 30, 33, 6], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 7, "Giải ba": 60, "Giải tư": 279, "Giải năm": 2484, "Giải KK": 21519}}
+{"date": "2025-07-03", "id": "00009", "result": [28, 32, 33, 34, 35, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 74, "Giải tư": 149, "Giải năm": 1547, "Giải KK": 16332}}
+{"date": "2025-07-02", "id": "00008", "result": [9, 11, 27, 29, 35, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 8, "Giải ba": 104, "Giải tư": 273, "Giải năm": 2940, "Giải KK": 20984}}
+{"date": "2025-07-02", "id": "00007", "result": [13, 20, 23, 27, 35, 1], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 4, "Giải ba": 60, "Giải tư": 121, "Giải năm": 2088, "Giải KK": 9865}}
+{"date": "2025-07-01", "id": "00006", "result": [5, 18, 20, 30, 34, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 9, "Giải ba": 79, "Giải tư": 228, "Giải năm": 2517, "Giải KK": 17677}}
 {"date": "2025-07-01", "id": "00005", "result": [1, 18, 25, 27, 33, 5], "process_time": "bootstrap"}
-{"date": "2025-06-30", "id": "00004", "result": [1, 12, 13, 27, 28, 7], "process_time": "bootstrap"}
-{"date": "2025-06-30", "id": "00003", "result": [2, 8, 16, 23, 24, 9], "process_time": "bootstrap"}
-{"date": "2025-06-29", "id": "00002", "result": [6, 12, 14, 18, 25, 8], "process_time": "bootstrap"}
-{"date": "2025-06-29", "id": "00001", "result": [7, 9, 10, 16, 19, 9], "process_time": "bootstrap"}
+{"date": "2025-06-30", "id": "00004", "result": [1, 12, 13, 27, 28, 7], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 10, "Giải ba": 108, "Giải tư": 380, "Giải năm": 3158, "Giải KK": 27453}}
+{"date": "2025-06-30", "id": "00003", "result": [2, 8, 16, 23, 24, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 8, "Giải ba": 67, "Giải tư": 137, "Giải năm": 1589, "Giải KK": 10859}}
+{"date": "2025-06-29", "id": "00002", "result": [6, 12, 14, 18, 25, 8], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 1, "Giải nhì": 13, "Giải ba": 135, "Giải tư": 445, "Giải năm": 3799, "Giải KK": 25564}}
+{"date": "2025-06-29", "id": "00001", "result": [7, 9, 10, 16, 19, 9], "process_time": "bootstrap", "winners": {"Độc đắc": 0, "Giải nhất": 0, "Giải nhì": 13, "Giải ba": 118, "Giải tư": 285, "Giải năm": 2921, "Giải KK": 19563}}
