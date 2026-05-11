@@ -54,8 +54,9 @@ jobs:
         run: python scripts/fetch_keno_live.py
         continue-on-error: true
 
-      - name: 💰 Fetch Jackpot tích lũy
+      - name: 💰 Fetch Jackpot tích lũy (backup — chủ yếu do lotto535 workflow lo)
         run: python scripts/fetch_jackpots.py
+        continue-on-error: true
 
       - name: 📝 Commit & Push
         run: |
