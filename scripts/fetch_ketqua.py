@@ -158,7 +158,37 @@ def _extract_date(text):
 #       <span class="ball ball_power2">07</span>   ← power ball
 #     </div>
 #   </div>
+def _parse_winner_tables(soup):
+    """Trả về dict: draw_id → {prize_name: winner_count}"""
+    wmap = {}
+    for t in soup.find_all("table"):
+        if "SL" not in t.get_text():
+            continue
+        prev_box = t.find_previous("div", class_="box_kqxsdt")
+        if not prev_box:
+            continue
+        title_el = prev_box.select_one("div.title_tt")
+        if not title_el or "Kỳ vé" not in title_el.get_text():
+            continue
+        draw_id = _extract_id(title_el.get_text())
+        if not draw_id:
+            continue
+        winners = {}
+        for tr in t.find_all("tr")[1:]:        # bỏ header
+            tds = tr.find_all("td")
+            if len(tds) < 3:
+                continue
+            prize = tds[0].get_text(strip=True)
+            cnt_s = tds[2].get_text(strip=True).replace(".", "").replace(",", "")
+            if not prize or not cnt_s.lstrip("-").isdigit():
+                continue
+            winners[prize] = int(cnt_s)
+        if winners:
+            wmap[draw_id] = winners
+    return wmap
+
 def parse_power(soup):
+    winner_map = _parse_winner_tables(soup)
     results = []
     for box in soup.select("div.box_kqxsdt"):
         title = box.select_one("div.title_tt")
@@ -176,7 +206,10 @@ def parse_power(soup):
         if not nums:
             continue
 
-        results.append({"date": draw_date, "id": draw_id, "result": nums})
+        row = {"date": draw_date, "id": draw_id, "result": nums}
+        if draw_id in winner_map:
+            row["winners"] = winner_map[draw_id]
+        results.append(row)
     return results
 
 # ─── Parser: Max3D / Max3D Pro ────────────────────────────────────────────────
@@ -292,14 +325,20 @@ def scrape_game(game_key, from_date=None, days_back=None):
 
         draws = parser(soup)
         added = 0
+        updated = 0
         for row in draws:
             if row["id"] not in db:
                 db[row["id"]] = row
                 new   += 1
                 added += 1
+            elif "winners" in row and "winners" not in db[row["id"]]:
+                # Bổ sung dữ liệu người trúng vào kỳ đã có
+                db[row["id"]]["winners"] = row["winners"]
+                updated += 1
 
-        if added:
-            print(f"    {d.strftime('%Y-%m-%d')} +{added} kỳ mới")
+        if added or updated:
+            note = f"+{added} mới" + (f", +{updated} cập nhật winners" if updated else "")
+            print(f"    {d.strftime('%Y-%m-%d')} {note}")
 
         d += timedelta(days=1)
 

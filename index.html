@@ -1010,6 +1010,26 @@ function getCold(rows, cfg, n=5){
 /* ─────────────────────────────────────────
    RENDER: RESULTS
 ───────────────────────────────────────── */
+function renderWinnerSummary(winners){
+  if(!winners || !Object.keys(winners).length) return '';
+  const entries = Object.entries(winners);
+  const chips = entries.map(([prize, count])=>{
+    const isZero = count === 0;
+    const isJP   = prize.toLowerCase().includes('jackpot') || prize.toLowerCase().includes('độc đắc');
+    const col    = isJP && !isZero ? '#ffcc44' : isZero ? 'var(--text-muted)' : '#22c55e';
+    const bg     = isJP && !isZero ? 'rgba(255,204,68,.12)' : isZero ? 'rgba(255,255,255,.04)' : 'rgba(34,197,94,.1)';
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 11px;
+      background:${bg};border-radius:10px;min-width:60px">
+      <span style="font-size:17px;font-weight:900;color:${col}">${count.toLocaleString('vi-VN')}</span>
+      <span style="font-size:10px;color:var(--text-muted);white-space:nowrap">${prize}</span>
+    </div>`;
+  }).join('');
+  return `<div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07)">
+    <div style="font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:.8px;margin-bottom:8px">👥 SỐ NGƯỜI TRÚNG KỲ NÀY</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">${chips}</div>
+  </div>`;
+}
+
 async function renderResults(){
   const el = document.getElementById('results-content');
   el.innerHTML = '<div class="loading"><div class="spinner"></div><p>Đang tải dữ liệu...</p></div>';
@@ -1071,6 +1091,7 @@ async function renderResults(){
     </div>
     ${renderLatestNumbers(latest,cfg)}
     ${jpBanner}
+    ${latest.winners ? renderWinnerSummary(latest.winners) : ''}
   </div>`;
 
   /* Stat cards */
@@ -1969,6 +1990,18 @@ async function renderPrizes(){
   const pz  = PRIZES[S.lottery] || [];
   const isKeno = S.lottery === 'keno';
 
+  // Load latest draw winners
+  const rows = await loadData(S.lottery);
+  const latestWinners = (rows && rows[0] && rows[0].winners) || null;
+  // Normalize để match: "Giải nhì" ↔ "Giải Nhì" v.v.
+  function lookupWinner(prizeName){
+    if(!latestWinners) return null;
+    const key = Object.keys(latestWinners).find(k=>
+      k.toLowerCase().replace(/\s+/g,'') === prizeName.toLowerCase().replace(/\s+/g,'')
+    );
+    return key !== undefined ? latestWinners[key] : null;
+  }
+
   // Load jackpot live values
   const jpData = await loadJackpots();
   const jpGame = jpData ? (jpData[S.lottery] || {}) : {};
@@ -2014,6 +2047,9 @@ async function renderPrizes(){
     </div>` : '';
 
   // Prize table rows — jackpot rows get special styling
+  const hasWinners = latestWinners && !isKeno;
+  const latestId   = rows && rows[0] ? rows[0].id : '';
+  const latestDate = rows && rows[0] ? fmtDate(rows[0].date) : '';
   function prizeRow(p){
     const valStyle = p.jackpot
       ? 'color:#ffcc44;font-weight:800'
@@ -2022,10 +2058,19 @@ async function renderPrizes(){
       ? `<span style="display:block;font-size:15px;color:#ffcc44;font-weight:800">🔥 ${p.liveVal}</span>
          <span style="font-size:11px;color:var(--text-muted)">tối thiểu ${p.val}</span>`
       : (p.jackpot ? `🔥 ${p.val} <span style="font-size:10px;opacity:.7">(tích lũy)</span>` : p.val);
+    const wCount = lookupWinner(p.name);
+    const wCell  = hasWinners
+      ? `<td style="text-align:center;font-weight:800;font-size:14px;color:${
+          wCount===null ? 'var(--text-muted)' :
+          wCount===0   ? '#ef4444' :
+          p.jackpot    ? '#ffcc44' : '#22c55e'
+        }">${wCount===null ? '—' : wCount===0 ? '<span style="color:#ef4444">0</span>' : wCount.toLocaleString('vi-VN')}</td>`
+      : '';
     return `<tr ${p.jackpot?'style="background:rgba(255,204,68,.04)"':''}>
       <td><span class="pbadge ${p.badge}">${p.name}</span></td>
       <td style="color:var(--text-primary)">${p.cond}</td>
       <td style="${valStyle}">${live}</td>
+      ${wCell}
       <td style="color:var(--text-muted);font-size:12.5px">${p.prob}</td>
     </tr>`;
   }
@@ -2063,7 +2108,7 @@ async function renderPrizes(){
 
   const tableHeaders = isKeno
     ? '<th>Mức chọn</th><th colspan="2">Giải thưởng</th><th></th>'
-    : '<th>Giải</th><th>Điều Kiện Trúng</th><th>Giá Trị</th><th>Xác Suất</th>';
+    : `<th>Giải</th><th>Điều Kiện Trúng</th><th>Giá Trị</th>${hasWinners?`<th style="text-align:center">Người trúng <span style="font-size:10px;color:var(--text-muted);font-weight:400">kỳ #${latestId} (${latestDate})</span></th>`:''}<th>Xác Suất</th>`;
 
   let h=`<div class="card" style="margin-bottom:20px">
     <div class="card-title">${cfg.icon} ${cfg.name} — Cơ Cấu Giải Thưởng</div>
