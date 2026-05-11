@@ -1225,7 +1225,7 @@ function getACFG(key){
   const specMaxMap  = { power535: 12 };
   return {
     key, name:c.name, color:c.color, max:c.max,
-    pick: c.main || 20,
+    pick: c.main || (c.type === 'obj' ? 5 : 20),
     hasSpec: (c.special||0) > 0,
     specMax: specMaxMap[key] ?? c.max,
     specName: specNames[key] || '',
@@ -2613,12 +2613,16 @@ function predMatchTag(count,total,label){
 
 /* ── Single history entry card ── */
 function predRenderHistEntry(e,ac){
-  const pick=(e.strategies.ai||[]).length;
+  const pick=(e.strategies.ai||[]).length || (ac.isMax3d ? 5 : ac.pick);
   const dt=new Date(e.savedAt);
   const dtStr=dt.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'});
+  // Entry cũ Max3D (trước khi có fix): strategies.ai rỗng → hiện thông báo
+  const isLegacyEmpty = ac.isMax3d && !(e.strategies.ai||[]).length;
   // AI predicted balls — với Max3D: highlight nếu xuất hiện ở bất kỳ giải nào
   const resMatchSet=e._res?new Set(e._res.allNums||e._res.nums):new Set();
-  const aiBalls=(e.strategies.ai||[]).map(n=>anlBall(n,resMatchSet.has(n)?'#00d4d0':'#4e9fff',24)).join('');
+  const aiBalls=isLegacyEmpty
+    ? `<div style="font-size:11px;color:var(--text-muted);font-style:italic;padding:4px 0">Dự đoán cũ — chưa lưu số. Xoá và tải lại để cập nhật.</div>`
+    : (e.strategies.ai||[]).map(n=>anlBall(n,resMatchSet.has(n)?'#00d4d0':'#4e9fff',24)).join('');
   // Result section
   let resHTML=`<div style="color:var(--text-muted);font-size:12px;font-style:italic;padding:6px 0">⏳ Chưa có kỳ quay tiếp theo</div>`;
   let statsHTML='';
@@ -2672,7 +2676,7 @@ function predRenderHistory(lottery){
 
   const enriched=entries.map(predEnrichEntry);
   const withRes=enriched.filter(e=>e._m);
-  const pick=(enriched[0]?.strategies?.ai||[]).length||ac.pick;
+  const pick=(enriched[0]?.strategies?.ai||[]).length||(ac.isMax3d?5:ac.pick);
   const avgM=key=>withRes.length?
     (withRes.reduce((s,e)=>s+(e._m[key]||0),0)/withRes.length).toFixed(1):'—';
 
