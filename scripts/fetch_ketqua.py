@@ -95,7 +95,8 @@ def load(fname):
     return db
 
 def save(fname, db):
-    rows = sorted(db.values(), key=lambda x: x["date"], reverse=True)
+    # Sort: date DESC, rồi id ASC (kỳ nhỏ hơn trước trong cùng ngày)
+    rows = sorted(db.values(), key=lambda x: (x["date"], -int(x["id"])), reverse=True)
     (DATA / fname).write_text(
         "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n",
         encoding="utf-8",
@@ -264,7 +265,8 @@ def scrape_game(game_key, from_date=None, days_back=None):
     dd     = cfg["draw_days"]
 
     db    = load(fname)
-    start = from_date or (get_last_date(fname) + timedelta(days=1))
+    # Luôn re-check từ ngày cuối (không +1) để bắt kỳ 2 cùng ngày bị bỏ sót
+    start = from_date or get_last_date(fname)
     end   = date.today()
 
     if days_back:

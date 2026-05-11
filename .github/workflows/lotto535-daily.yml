@@ -1,15 +1,17 @@
-name: 🎯 Lotto 5/35 (2 kỳ mỗi ngày)
+name: 🎯 Lotto 5/35 (mỗi 5 phút)
 
-# Lotto 5/35 quay 2 lần/ngày:
-#   Kỳ chiều : 13:00 VN → chạy lúc 13:05 VN (06:05 UTC)
-#   Kỳ tối   : 21:00 VN → chạy lúc 21:05 VN (14:05 UTC)
-# → Tự động thử lại ngay tối đa 3 lần nếu chưa có kết quả
+# 5/35 quay 2 lần/ngày: 13:00 VN và 21:00 VN
+# → Chạy mỗi 5 phút, tự pick up kết quả ngay khi có
+# → concurrency đảm bảo không có 2 job chạy cùng lúc
 
 on:
   schedule:
-    - cron: '5 6 * * *'    # 13:05 VN — kỳ chiều
-    - cron: '5 14 * * *'   # 21:05 VN — kỳ tối
+    - cron: '*/5 * * * *'
   workflow_dispatch:
+
+concurrency:
+  group: lotto535-live
+  cancel-in-progress: true
 
 jobs:
   lotto535:
@@ -19,6 +21,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - uses: actions/setup-python@v5
         with:
@@ -26,34 +30,21 @@ jobs:
 
       - run: pip install -q -r requirements.txt
 
-      - name: 🎯 Fetch Lotto 5/35 (tự động thử lại tối đa 3 lần)
-        run: |
-          FOUND=0
-          for attempt in 1 2 3; do
-            echo "🔄 Lần thử $attempt/3..."
-            python scripts/fetch_ketqua.py power535
-            git add data/power535.jsonl 2>/dev/null || true
-            if ! git diff --staged --quiet; then
-              echo "✅ Có dữ liệu mới ở lần thử $attempt"
-              FOUND=1
-              break
-            fi
-            git restore --staged data/ 2>/dev/null || git reset HEAD data/ 2>/dev/null || true
-            if [ $attempt -lt 3 ]; then
-              echo "⏳ Chưa có kết quả, thử lại sau 30s..."
-              sleep 30
-            fi
-          done
-          echo "FOUND=$FOUND" >> $GITHUB_ENV
+      - name: 🎯 Fetch Lotto 5/35
+        run: python scripts/fetch_ketqua.py power535
 
       - name: 📝 Commit & Push
         run: |
-          if [ "$FOUND" = "1" ]; then
-            git config user.name  "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git commit -m "lotto535: $(date +'%Y-%m-%d %H:%M UTC')"
-            git pull --rebase origin main
-            git push
-          else
-            echo "⏭ Không có dữ liệu mới sau 3 lần thử"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/power535.jsonl
+          if git diff --staged --quiet; then
+            echo "⏭ Không có dữ liệu mới"
+            exit 0
           fi
+          git commit -m "lotto535: $(date +'%Y-%m-%d %H:%M UTC')"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && break
+            echo "⚠️ Push lần $i thất bại, thử lại..."
+            sleep 5
+          done
