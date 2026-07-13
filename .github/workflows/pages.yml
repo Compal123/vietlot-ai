@@ -35,6 +35,15 @@ jobs:
           sparse-checkout: |
             index.html
             data
+            scripts
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 🧬 Build API (JSON tĩnh + phân tích, chỉ dùng stdlib)
+        run: python scripts/build_api.py
 
       - name: ⚙️ Configure Pages
         uses: actions/configure-pages@v5

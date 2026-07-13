@@ -116,6 +116,35 @@ vietlot-ai/
 
 ---
 
+## 🔌 API (cho AI & lập trình viên)
+
+Toàn bộ kết quả và phân tích được xuất ra **API JSON tĩnh**, sinh tự động mỗi lần deploy (`scripts/build_api.py`). **Không cần API key, không giới hạn, CORS mở** — bất kỳ ứng dụng hay AI nào cũng GET được.
+
+**Base URL:** `https://compal123.github.io/vietlot-ai/api/`
+
+| Endpoint | Mô tả |
+|----------|-------|
+| [`/api/index.json`](https://compal123.github.io/vietlot-ai/api/index.json) | Danh mục toàn bộ game & endpoint (**đọc trước**) |
+| [`/api/llms.txt`](https://compal123.github.io/vietlot-ai/api/llms.txt) | Hướng dẫn dạng text cho AI agent |
+| [`/api/openapi.json`](https://compal123.github.io/vietlot-ai/api/openapi.json) | OpenAPI 3.1 spec (nạp vào tool/GPT/agent) |
+| [`/api/jackpots.json`](https://compal123.github.io/vietlot-ai/api/jackpots.json) | Jackpot tích lũy hiện tại |
+| `/api/{game}/latest.json` | Kết quả kỳ quay mới nhất |
+| `/api/{game}/results.json` | 100 kỳ gần nhất |
+| `/api/{game}/stats.json` | Phân tích: nóng/lạnh, số gan, cặp số, tổng, chẵn/lẻ |
+| `/data/{game}.jsonl` | Toàn bộ lịch sử (JSONL) |
+
+`{game}` ∈ `power655`, `power645`, `power535`, `keno`, `3d`, `3d_pro`.
+
+```bash
+# Ví dụ: lấy kỳ Power 6/55 mới nhất
+curl https://compal123.github.io/vietlot-ai/api/power655/latest.json
+
+# Số nóng / lạnh / gan của Mega 6/45
+curl https://compal123.github.io/vietlot-ai/api/power645/stats.json
+```
+
+> ⚠️ **Lưu ý:** Đây là dữ liệu thống kê tham khảo. Xổ số hoàn toàn ngẫu nhiên — số "nóng/lạnh/gan" **không** có giá trị dự đoán kết quả tương lai.
+
 ## 📊 Định dạng dữ liệu
 
 Mỗi file JSONL gồm các dòng JSON, **sắp xếp theo ngày + kỳ mới nhất trước**:

@@ -1,0 +1,9 @@
+# API JSON tĩnh — sinh tự động khi deploy (scripts/build_api.py), không commit
+/api/
+
+# Python
+__pycache__/
+*.pyc
+
+# Secrets
+.github_token
