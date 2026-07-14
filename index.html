@@ -1044,10 +1044,20 @@ function nextDrawInfo(lottery, latestDate){
   }
   return null;
 }
-/* Dựng HTML dãy bóng AI dự đoán cho kỳ tới (dùng chung engine của tab AI Dự Đoán) */
+/* Dựng HTML dãy bóng AI dự đoán cho kỳ tới.
+   Ưu tiên dự đoán CÔNG KHAI đã khoá (để đồng nhất với tab AI Dự Đoán),
+   nếu chưa có thì tính live tại chỗ. */
 function resultsAIPicksHTML(rows){
   try{
     const ac=getACFG(S.lottery);
+    const pub=(_pubPredCache&&_pubPredCache[S.lottery])||[];
+    const locked=pub.find(r=>!r.result && r.mode==='live' && r.picks && r.picks.ai && r.picks.ai.length);
+    if(locked){
+      const specHTML=locked.spec
+        ? `<span style="font-size:12px;color:var(--text-muted);margin:0 2px">+</span>${anlBall(locked.spec,'#ffcc44',26,true)}`
+        : '';
+      return locked.picks.ai.map(n=>anlBall(n,'#00d4d0',26)).join('')+specHTML;
+    }
     const adapted=anlAdaptRows(rows,ac).filter(Boolean);
     if(adapted.length<10) return '';
     if(!ac.isMax3d){
@@ -1133,6 +1143,7 @@ async function renderResults(){
   </div>`;
 
   /* ── Kỳ quay tiếp theo + AI dự đoán ── */
+  await loadPubPredictions();   // để dùng đúng dãy số công khai đã khoá
   const nd = nextDrawInfo(S.lottery, latest.date);
   if(nd){
     const aiPicks = resultsAIPicksHTML(rows);
