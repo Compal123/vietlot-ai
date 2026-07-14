@@ -559,12 +559,6 @@ body::before{
     <div class="stat-chip">Kỳ mới nhất: <b id="hdr-date">--</b></div>
     <div class="stat-chip" id="chip-fetch-time" style="display:none">Tải lúc: <b id="hdr-fetch-time">--</b></div>
     <span id="keno-live-badge" class="stat-chip" style="display:none;color:#4effa3;gap:5px"></span>
-    <a href="api/index.json" target="_blank" rel="noopener" title="API JSON cho AI & lập trình viên — không cần key" style="
-      background:rgba(124,111,247,.14);border:1.5px solid rgba(124,111,247,.4);
-      color:#a99cff;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;
-      cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;text-decoration:none">
-      🔌 API
-    </a>
     <button id="btn-refresh" onclick="refreshData()" title="Làm mới dữ liệu" style="
       background:rgba(78,255,163,.12);border:1.5px solid rgba(78,255,163,.35);
       color:#4effa3;border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;
@@ -592,7 +586,6 @@ body::before{
     <div class="stab active" data-sub="results"  onclick="switchSub('results')"><i class="fa-solid fa-trophy"></i> Kết Quả</div>
     <div class="stab"        data-sub="analysis" onclick="switchSub('analysis')"><i class="fa-solid fa-chart-line"></i> Phân Tích</div>
     <div class="stab"        data-sub="prizes"   onclick="switchSub('prizes')"><i class="fa-solid fa-medal"></i> Cơ Cấu Giải Thưởng</div>
-    <div class="stab"        data-sub="aibot"    onclick="switchSub('aibot')"><i class="fa-solid fa-robot"></i> AI Bot</div>
     <div class="stab"        data-sub="predict"  onclick="switchSub('predict')"><i class="fa-solid fa-brain"></i> AI Dự Đoán</div>
   </div>
 
@@ -613,13 +606,6 @@ body::before{
   <!-- PRIZES -->
   <div class="tpanel" id="tp-prizes">
     <div id="prizes-content"></div>
-  </div>
-
-  <!-- AI BOT -->
-  <div class="tpanel" id="tp-aibot">
-    <div id="aibot-content">
-      <div class="loading"><div class="spinner"></div><p>Đang chờ dữ liệu...</p></div>
-    </div>
   </div>
 
   <!-- AI PREDICT -->
@@ -1036,6 +1022,52 @@ function renderWinnerSummary(winners){
   </div>`;
 }
 
+/* ── Lịch quay theo thứ trong tuần (0=CN … 6=T7) ── */
+const DRAW_DOW = {
+  power655:[2,4,6],  // Thứ 3, 5, 7
+  power645:[0,3,5],  // Thứ 4, 6, CN
+  power535:[1,3,5],  // Thứ 2, 4, 6
+  max3d:[1,3,5],     // Thứ 2, 4, 6
+  max3dpro:[2,4,6],  // Thứ 3, 5, 7
+};
+/* Trả kỳ quay kế tiếp sau ngày kết quả mới nhất */
+function nextDrawInfo(lottery, latestDate){
+  if(lottery==='keno') return {keno:true};
+  const days=DRAW_DOW[lottery]; if(!days) return null;
+  const base=latestDate?new Date(latestDate+'T00:00:00'):new Date();
+  for(let i=1;i<=8;i++){
+    const d=new Date(base); d.setDate(d.getDate()+i);
+    if(days.includes(d.getDay())){
+      const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), da=String(d.getDate()).padStart(2,'0');
+      return {dateStr:`${y}-${m}-${da}`};
+    }
+  }
+  return null;
+}
+/* Dựng HTML dãy bóng AI dự đoán cho kỳ tới (dùng chung engine của tab AI Dự Đoán) */
+function resultsAIPicksHTML(rows){
+  try{
+    const ac=getACFG(S.lottery);
+    const adapted=anlAdaptRows(rows,ac).filter(Boolean);
+    if(adapted.length<10) return '';
+    if(!ac.isMax3d){
+      const {sc,specSc}=predComputeScores(adapted,ac);
+      const PICK=ac.isKeno?10:ac.pick;
+      const aiNums=predPickTop(sc,ac.max,PICK,'ai');
+      let specHTML='';
+      if(ac.hasSpec&&specSc){
+        const s=Array.from({length:ac.specMax},(_,i)=>i+1).sort((a,b)=>specSc[b].ai-specSc[a].ai)[0];
+        specHTML=`<span style="font-size:12px;color:var(--text-muted);margin:0 2px">+</span>${anlBall(s,'#ffcc44',26,true)}`;
+      }
+      return aiNums.map(n=>anlBall(n,'#00d4d0',26)).join('')+specHTML;
+    }
+    const freq={};
+    adapted.forEach(d=>[...(d.db||[]),...(d.nhat||[]),...(d.nhi||[]),...(d.ba||[])].forEach(n=>{freq[n]=(freq[n]||0)+1;}));
+    const top5=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([n])=>n);
+    return top5.map(n=>`<span style="background:rgba(0,212,208,.15);border:1px solid rgba(0,212,208,.35);border-radius:8px;padding:5px 12px;font-family:monospace;font-weight:800;font-size:15px;color:#00d4d0">${n}</span>`).join('');
+  }catch(e){ return ''; }
+}
+
 async function renderResults(){
   const el = document.getElementById('results-content');
   el.innerHTML = '<div class="loading"><div class="spinner"></div><p>Đang tải dữ liệu...</p></div>';
@@ -1099,6 +1131,31 @@ async function renderResults(){
     ${jpBanner}
     ${latest.winners ? renderWinnerSummary(latest.winners) : ''}
   </div>`;
+
+  /* ── Kỳ quay tiếp theo + AI dự đoán ── */
+  const nd = nextDrawInfo(S.lottery, latest.date);
+  if(nd){
+    const aiPicks = resultsAIPicksHTML(rows);
+    const whenHTML = nd.keno
+      ? `<div style="font-size:15px;font-weight:800;color:var(--accent-green)">Liên tục hôm nay</div>
+         <div style="font-size:12px;color:var(--text-muted)">Mỗi ~10 phút · 06:00–21:55</div>`
+      : `<div style="font-size:15px;font-weight:800;color:#fff">${dow(nd.dateStr)}, ${fmtDate(nd.dateStr)}</div>
+         <div style="font-size:12px;color:var(--text-muted)">Kỳ quay dự kiến kế tiếp</div>`;
+    h+=`<div class="latest-card" style="margin-top:16px;background:linear-gradient(135deg,rgba(0,212,208,.08),rgba(124,111,247,.06));border:1.5px solid rgba(0,212,208,.28)">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:${aiPicks?'14px':'0'}">
+        <div style="font-size:30px">📅</div>
+        <div style="flex:1;min-width:160px">
+          <div style="font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--accent-cyan);margin-bottom:2px">⏭️ KỲ QUAY TIẾP THEO</div>
+          ${whenHTML}
+        </div>
+      </div>
+      ${aiPicks?`<div style="padding:14px;background:var(--bg-surface);border-radius:12px">
+        <div style="font-size:12px;font-weight:800;color:var(--text-muted);letter-spacing:.5px;margin-bottom:10px">🤖 AI GỢI Ý CHO KỲ NÀY</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center">${aiPicks}</div>
+        <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px;font-style:italic">Chỉ mang tính tham khảo — xổ số hoàn toàn ngẫu nhiên. Xem chi tiết ở tab <b style="color:var(--accent-purple)">AI Dự Đoán</b>.</div>
+      </div>`:''}
+    </div>`;
+  }
 
   /* Stat cards */
   let statCard2, statCard3;
@@ -2575,11 +2632,27 @@ function predEnrichEntry(entry){
   const rows=S.cache[entry.lottery];
   if(!rows||!Array.isArray(rows)) return entry;
   const ac=getACFG(entry.lottery);
-  // Tìm kỳ đầu tiên sau kỳ dự đoán (so sánh ID hoặc date)
-  const lastId=parseInt(entry.lastDrawId||'0');
-  const resultRow = lastId>0
-    ? rows.find(r=>parseInt(r.id||'0')>lastId)
-    : rows.find(r=>r.date>entry.lastDrawDate);
+  // Kỳ kết quả = kỳ quay NGAY SAU kỳ đã dự đoán.
+  // rows sắp xếp mới→cũ, nên kỳ kế tiếp nằm NGAY TRƯỚC kỳ dự đoán trong mảng.
+  let resultRow=null;
+  const idx=rows.findIndex(r=>String(r.id)===String(entry.lastDrawId));
+  if(idx>0){
+    resultRow=rows[idx-1];               // kỳ liền sau (mới hơn đúng 1 kỳ)
+  }else if(idx===-1){
+    // Fallback (không khớp id): chọn kỳ có id/ngày NHỎ NHẤT nhưng lớn hơn kỳ dự đoán
+    const lastId=parseInt(entry.lastDrawId||'0');
+    if(lastId>0){
+      for(const r of rows){
+        const rid=parseInt(r.id||'0');
+        if(rid>lastId && (!resultRow || rid<parseInt(resultRow.id||'0'))) resultRow=r;
+      }
+    }else{
+      for(const r of rows){
+        if(r.date>entry.lastDrawDate && (!resultRow || r.date<resultRow.date)) resultRow=r;
+      }
+    }
+  }
+  // idx===0 → kỳ dự đoán vẫn là kỳ mới nhất → chưa có kỳ kế tiếp
   if(!resultRow) return entry;
 
   // Max3D / Max3D Pro: result là object
@@ -2964,8 +3037,6 @@ function predRenderNum(draws, ac){
     ${predStratCard('Tương Quan','🔗','corr','#a29bfe','Số có xu hướng xuất hiện sau bộ số của kỳ vừa rồi',corrNums,sc,'corr')}
   </div>
 
-  ${predHeatmap(sc, MAX, aiNums)}
-
   <div class="card" style="margin-top:20px">
     <div class="card-title">📋 Lịch Sử & So Sánh Kết Quả</div>
     <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px">
@@ -3095,7 +3166,6 @@ function renderActive(){
     case 'results':  renderResults();  break;
     case 'analysis': renderAnalysis(); break;
     case 'prizes':   renderPrizes();   break;
-    case 'aibot':    renderAIBot();    break;
     case 'predict':  renderPredict();  break;
   }
 }
