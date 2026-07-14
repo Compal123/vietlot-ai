@@ -543,7 +543,10 @@ body::before{
 .anl-ptag-ba{background:rgba(255,127,80,.2);color:var(--accent-orange)}
 
 /* ── Bài Viết ── */
-.art-list{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.art-list-head{font-size:12px;font-weight:800;color:var(--text-muted);letter-spacing:.4px;margin-bottom:8px}
+.art-list{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.art-more{width:100%;background:var(--bg-card2);border:1px solid var(--border);color:var(--accent-purple);border-radius:10px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer;margin-bottom:16px;transition:.15s}
+.art-more:hover{border-color:var(--accent-purple);background:rgba(124,111,247,.08)}
 .art-item{background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;padding:13px 16px;cursor:pointer;transition:.15s;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .art-item:hover{border-color:var(--accent-purple);transform:translateX(2px)}
 .art-item.active{border-color:var(--accent-purple);background:rgba(124,111,247,.08)}
@@ -3331,11 +3334,15 @@ function mdToHtml(md){
 }
 
 function selectArticle(id){ S._artSel=id; renderArticles(); }
+function expandArticleList(){ S._artExpanded=true; renderArticles(); }
+function collapseArticleList(){ S._artExpanded=false; renderArticles(); }
 
 async function renderArticles(){
   const el=document.getElementById('articles-content');
   if(!el) return;
   const ac=getACFG(S.lottery);
+  // Đổi loại xổ số → reset trạng thái "xem thêm" (đặt trước mọi return sớm)
+  if(S._artExpandGame!==S.lottery){ S._artExpandGame=S.lottery; S._artExpanded=false; }
 
   if(S.lottery==='keno'){
     el.innerHTML=`<div class="empty-state"><div class="empty-icon">📰</div>
@@ -3366,14 +3373,27 @@ async function renderArticles(){
     <span style="color:var(--text-secondary)"><b style="color:var(--accent-purple)">Bài viết phân tích tự động</b> — AI tổng hợp dữ liệu thống kê (số nóng/lạnh, streak, cặp số, dự đoán AI) rồi viết bài sau mỗi kỳ quay mới. Chỉ mang tính tham khảo, giải trí.</span>
   </div>`;
 
-  const list = recs.length>1 ? `<div class="art-list">`+recs.map(r=>{
-    const on=String(r.based_on_id)===String(sel.based_on_id);
-    return `<div class="art-item ${on?'active':''}" onclick="selectArticle('${String(r.based_on_id).replace(/'/g,'')}')">
-      <div><div class="art-item-title">${escHtml(r.title||'Bài phân tích '+ac.name)}</div>
-        <div class="art-item-meta">Kỳ #${escHtml(r.based_on_id)}${r.based_on_date?' · '+fmtDate(r.based_on_date):''}</div></div>
-      <span class="art-chev">${on?'●':'▸'}</span>
-    </div>`;
-  }).join('')+`</div>` : '';
+  const LIST_LIMIT=8;
+  let list='';
+  if(recs.length>1){
+    const collapsed = !S._artExpanded && recs.length>LIST_LIMIT;
+    const shown = collapsed ? recs.slice(0,LIST_LIMIT) : recs;
+    const rows = shown.map(r=>{
+      const on=String(r.based_on_id)===String(sel.based_on_id);
+      return `<div class="art-item ${on?'active':''}" onclick="selectArticle('${String(r.based_on_id).replace(/'/g,'')}')">
+        <div><div class="art-item-title">${escHtml(r.title||'Bài phân tích '+ac.name)}</div>
+          <div class="art-item-meta">Kỳ #${escHtml(r.based_on_id)}${r.based_on_date?' · '+fmtDate(r.based_on_date):''}</div></div>
+        <span class="art-chev">${on?'●':'▸'}</span>
+      </div>`;
+    }).join('');
+    let moreBtn='';
+    if(recs.length>LIST_LIMIT){
+      moreBtn = collapsed
+        ? `<button class="art-more" onclick="expandArticleList()">▾ Xem thêm ${recs.length-LIST_LIMIT} bài cũ hơn</button>`
+        : `<button class="art-more" onclick="collapseArticleList()">▴ Thu gọn danh sách</button>`;
+    }
+    list = `<div class="art-list-head">📚 ${recs.length} bài viết</div><div class="art-list">${rows}</div>${moreBtn}`;
+  }
 
   const created=sel.created_at?new Date(sel.created_at).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
   const card=`<div class="art-card">
