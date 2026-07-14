@@ -541,6 +541,32 @@ body::before{
 .anl-ptag-nhat{background:rgba(0,212,208,.2);color:var(--accent-cyan)}
 .anl-ptag-nhi{background:rgba(78,255,163,.2);color:var(--accent-green)}
 .anl-ptag-ba{background:rgba(255,127,80,.2);color:var(--accent-orange)}
+
+/* ── Bài Viết ── */
+.art-list{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.art-item{background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;padding:13px 16px;cursor:pointer;transition:.15s;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.art-item:hover{border-color:var(--accent-purple);transform:translateX(2px)}
+.art-item.active{border-color:var(--accent-purple);background:rgba(124,111,247,.08)}
+.art-item-title{font-size:13.5px;font-weight:700;color:var(--text-primary);line-height:1.45}
+.art-item-meta{font-size:11px;color:var(--text-muted);margin-top:3px;white-space:nowrap}
+.art-item .art-chev{color:var(--accent-purple);font-size:12px;flex-shrink:0}
+.art-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px 26px;margin-bottom:16px}
+.art-head-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12px;color:var(--text-muted);margin-bottom:6px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.art-badge{font-size:10.5px;font-weight:800;color:var(--accent-cyan);background:rgba(0,212,208,.1);border:1px solid rgba(0,212,208,.35);border-radius:20px;padding:2px 10px}
+.art-body{font-size:14.5px;line-height:1.85;color:var(--text-secondary)}
+.art-body h1{font-size:22px;font-weight:800;color:var(--text-primary);line-height:1.35;margin:18px 0 14px;background:linear-gradient(120deg,#fff 20%,var(--accent-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.art-body h2{font-size:17.5px;font-weight:800;color:var(--accent-purple);margin:26px 0 10px;padding-left:11px;border-left:3px solid var(--accent-purple)}
+.art-body h3{font-size:15px;font-weight:700;color:var(--text-primary);margin:18px 0 8px}
+.art-body p{margin:0 0 13px}
+.art-body ul,.art-body ol{margin:0 0 14px;padding-left:24px}
+.art-body li{margin-bottom:6px}
+.art-body strong,.art-body b{color:var(--text-primary);font-weight:800}
+.art-body em{color:var(--accent-cyan);font-style:normal}
+.art-body blockquote{border-left:3px solid var(--border-h);padding:6px 14px;margin:0 0 14px;color:var(--text-muted);font-style:italic;background:var(--bg-card2);border-radius:0 8px 8px 0}
+.art-body code{background:var(--bg-card2);padding:1px 6px;border-radius:5px;font-size:13px;color:var(--accent-cyan)}
+.art-body hr{border:0;border-top:1px solid var(--border);margin:18px 0}
+.art-body a{color:var(--accent-cyan);text-decoration:underline}
+@media(max-width:640px){.art-card{padding:18px 16px}.art-body{font-size:14px}.art-body h1{font-size:19px}.art-body h2{font-size:16px}}
 </style>
 </head>
 <body>
@@ -587,6 +613,7 @@ body::before{
     <div class="stab"        data-sub="analysis" onclick="switchSub('analysis')"><i class="fa-solid fa-chart-line"></i> Phân Tích</div>
     <div class="stab"        data-sub="prizes"   onclick="switchSub('prizes')"><i class="fa-solid fa-medal"></i> Cơ Cấu Giải Thưởng</div>
     <div class="stab"        data-sub="predict"  onclick="switchSub('predict')"><i class="fa-solid fa-brain"></i> AI Dự Đoán</div>
+    <div class="stab"        data-sub="articles" onclick="switchSub('articles')"><i class="fa-solid fa-newspaper"></i> Bài Viết</div>
   </div>
 
   <!-- RESULTS -->
@@ -612,6 +639,13 @@ body::before{
   <div class="tpanel" id="tp-predict">
     <div id="predict-content">
       <div class="loading"><div class="spinner"></div><p>Đang phân tích dữ liệu...</p></div>
+    </div>
+  </div>
+
+  <!-- ARTICLES -->
+  <div class="tpanel" id="tp-articles">
+    <div id="articles-content">
+      <div class="loading"><div class="spinner"></div><p>Đang tải bài viết...</p></div>
     </div>
   </div>
 
@@ -3246,6 +3280,115 @@ function renderPubHistory(game,ac){
   return bar+pending.map(r=>pubPredCard(r,ac)).join('')+settled.slice(0,40).map(r=>pubPredCard(r,ac)).join('');
 }
 
+/* ═══ Bài Viết (đọc data/articles.jsonl — sinh bởi scripts/build_articles.py) ═══ */
+let _articlesCache=null;
+async function loadArticles(){
+  if(_articlesCache) return _articlesCache;
+  const map={};
+  try{
+    const res=await fetch(RAW+'articles.jsonl?t='+Date.now());
+    if(res.ok){
+      for(const line of (await res.text()).split('\n')){
+        const s=line.trim(); if(!s) continue;
+        try{ const r=JSON.parse(s); (map[r.game]=map[r.game]||[]).push(r); }catch{}
+      }
+    }
+  }catch(e){}
+  _articlesCache=map; return map;
+}
+
+function escHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* Markdown inline → HTML (đã escape an toàn) */
+function mdInline(s){
+  s=escHtml(s);
+  s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/__([^_]+)__/g,'<strong>$1</strong>');
+  s=s.replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>');
+  s=s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  return s;
+}
+
+/* Markdown block → HTML (subset: heading, list, quote, hr, đoạn văn) */
+function mdToHtml(md){
+  const lines=String(md||'').replace(/\r\n/g,'\n').split('\n');
+  let html=''; const para=[]; let i=0;
+  const flush=()=>{ if(para.length){ html+='<p>'+mdInline(para.join(' '))+'</p>'; para.length=0; } };
+  while(i<lines.length){
+    const t=lines[i].trim();
+    if(!t){ flush(); i++; continue; }
+    if(/^(-{3,}|\*{3,}|_{3,})$/.test(t)){ flush(); html+='<hr>'; i++; continue; }
+    const hm=t.match(/^(#{1,6})\s+(.*)$/);
+    if(hm){ flush(); const lv=hm[1].length; html+=`<h${lv}>${mdInline(hm[2])}</h${lv}>`; i++; continue; }
+    if(/^>\s?/.test(t)){ flush(); const buf=[]; while(i<lines.length&&/^>\s?/.test(lines[i].trim())){ buf.push(lines[i].trim().replace(/^>\s?/,'')); i++; } html+='<blockquote>'+mdInline(buf.join(' '))+'</blockquote>'; continue; }
+    if(/^[-*•]\s+/.test(t)){ flush(); html+='<ul>'; while(i<lines.length&&/^[-*•]\s+/.test(lines[i].trim())){ html+='<li>'+mdInline(lines[i].trim().replace(/^[-*•]\s+/,''))+'</li>'; i++; } html+='</ul>'; continue; }
+    if(/^\d+[.)]\s+/.test(t)){ flush(); html+='<ol>'; while(i<lines.length&&/^\d+[.)]\s+/.test(lines[i].trim())){ html+='<li>'+mdInline(lines[i].trim().replace(/^\d+[.)]\s+/,''))+'</li>'; i++; } html+='</ol>'; continue; }
+    para.push(t); i++;
+  }
+  flush();
+  return html;
+}
+
+function selectArticle(id){ S._artSel=id; renderArticles(); }
+
+async function renderArticles(){
+  const el=document.getElementById('articles-content');
+  if(!el) return;
+  const ac=getACFG(S.lottery);
+
+  if(S.lottery==='keno'){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">📰</div>
+      <h3 style="color:var(--text-primary)">Keno chưa có bài viết</h3>
+      <p style="color:var(--text-secondary)">Keno quay quá dày (mỗi ~8 phút) nên không tạo bài phân tích riêng.<br>Hãy chọn Power 6/55, Mega 6/45, Lotto 5/35, Max3D hoặc Max3D Pro.</p></div>`;
+    return;
+  }
+
+  el.innerHTML='<div class="loading"><div class="spinner"></div><p>Đang tải bài viết...</p></div>';
+  const map=await loadArticles();
+  const recs=(map[S.lottery]||[]).slice();
+  if(!recs.length){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">✍️</div>
+      <h3 style="color:var(--text-primary)">Chưa có bài viết</h3>
+      <p style="color:var(--text-secondary)">Hệ thống tự viết bài phân tích mới <b>sau mỗi kỳ quay</b>.<br>Quay lại sau kỳ tới nhé!</p></div>`;
+    return;
+  }
+  recs.sort((a,b)=>String(b.based_on_id).localeCompare(String(a.based_on_id)));
+  let idx=recs.findIndex(r=>String(r.based_on_id)===String(S._artSel));
+  if(idx<0) idx=0;
+  const sel=recs[idx];
+  S._artSel=sel.based_on_id;
+
+  const banner=`<div style="background:rgba(124,111,247,.06);border:1px solid rgba(124,111,247,.25);
+    border-radius:10px;padding:9px 14px;margin-bottom:14px;font-size:12.5px;line-height:1.55;
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+    <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent-purple)"></i>
+    <span style="color:var(--text-secondary)"><b style="color:var(--accent-purple)">Bài viết phân tích tự động</b> — AI tổng hợp dữ liệu thống kê (số nóng/lạnh, streak, cặp số, dự đoán AI) rồi viết bài sau mỗi kỳ quay mới. Chỉ mang tính tham khảo, giải trí.</span>
+  </div>`;
+
+  const list = recs.length>1 ? `<div class="art-list">`+recs.map(r=>{
+    const on=String(r.based_on_id)===String(sel.based_on_id);
+    return `<div class="art-item ${on?'active':''}" onclick="selectArticle('${String(r.based_on_id).replace(/'/g,'')}')">
+      <div><div class="art-item-title">${escHtml(r.title||'Bài phân tích '+ac.name)}</div>
+        <div class="art-item-meta">Kỳ #${escHtml(r.based_on_id)}${r.based_on_date?' · '+fmtDate(r.based_on_date):''}</div></div>
+      <span class="art-chev">${on?'●':'▸'}</span>
+    </div>`;
+  }).join('')+`</div>` : '';
+
+  const created=sel.created_at?new Date(sel.created_at).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+  const card=`<div class="art-card">
+    <div class="art-head-meta">
+      <span class="art-badge">📊 ${ac.name}</span>
+      <span>Kỳ #${escHtml(sel.based_on_id)}${sel.based_on_date?' · '+fmtDate(sel.based_on_date):''}</span>
+      ${created?`<span>🕐 ${created}</span>`:''}
+      <span style="margin-left:auto;color:var(--accent-purple)">✨ Gemini AI</span>
+    </div>
+    <div class="art-body">${mdToHtml(sel.content||'')}</div>
+  </div>`;
+
+  el.innerHTML=banner+list+card;
+}
+
 function switchSub(sub){
   S.sub=sub;
   document.querySelectorAll('.stab').forEach(t=>t.classList.toggle('active',t.dataset.sub===sub));
@@ -3259,6 +3402,7 @@ function renderActive(){
     case 'analysis': renderAnalysis(); break;
     case 'prizes':   renderPrizes();   break;
     case 'predict':  renderPredict();  break;
+    case 'articles': renderArticles(); break;
   }
 }
 

@@ -37,11 +37,21 @@ jobs:
         run: python scripts/fetch_jackpots.py
         continue-on-error: true
 
+      - name: 🔮 Cập nhật dự đoán công khai
+        run: python scripts/build_predictions.py
+        continue-on-error: true
+
+      - name: ✍️ Tạo bài viết phân tích bằng Gemini (chỉ khi có kỳ mới)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/build_articles.py
+        continue-on-error: true
+
       - name: 📝 Commit & Push
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/power535.jsonl data/jackpots.json
+          git add data/power535.jsonl data/jackpots.json data/predictions.jsonl data/articles.jsonl
           if git diff --staged --quiet; then
             echo "⏭ Không có dữ liệu mới"
             exit 0

@@ -59,7 +59,8 @@ Không cần cài đặt, chạy 100% trên trình duyệt.
 | 📊 **Phân Tích** | Tần suất xuất hiện, top số nóng/lạnh, streak liên tiếp, cặp số |
 | 🏆 **Giải Thưởng** | Cơ cấu giải, xác suất, jackpot live, người trúng kỳ gần nhất |
 | 🤖 **AI Bot** | Gợi ý bộ số theo phân tích thống kê |
-| 🔮 **Dự Đoán** | Mô phỏng xu hướng (nghiên cứu) |
+| 🔮 **AI Dự Đoán** | Dự đoán công khai minh bạch + độ chính xác backtest |
+| 📰 **Bài Viết** | Bài phân tích chuyên sâu do AI (Gemini) tự viết sau mỗi kỳ quay — tổng hợp số nóng/lạnh, streak, cặp số, dự đoán |
 | 📅 **Lịch Sử** | Toàn bộ kết quả, lọc theo tháng/năm, tìm kiếm bộ số |
 
 ---
@@ -76,7 +77,9 @@ vietlot-ai/
 │   ├── 3d.jsonl                    # Max3D          (~1,076 kỳ)
 │   ├── 3d_pro.jsonl                # Max3D Pro      (~721 kỳ)
 │   ├── keno.jsonl                  # Keno           (~155,000 kỳ)
-│   └── jackpots.json               # Jackpot tích lũy (cập nhật mỗi 5 phút)
+│   ├── jackpots.json               # Jackpot tích lũy (cập nhật mỗi 5 phút)
+│   ├── predictions.jsonl           # Dự đoán AI công khai (có mốc thời gian)
+│   └── articles.jsonl              # Bài viết phân tích do Gemini sinh (mỗi kỳ mới)
 │
 ├── 📁 scripts/
 │   ├── fetch_ketqua.py             # Scraper chính — Power/Max3D/Lotto (ketquadientoan.com)
@@ -84,6 +87,8 @@ vietlot-ai/
 │   ├── fetch_keno_vietlott.py      # Keno backfill theo ngày (vietlott.vn, chạy local)
 │   ├── fetch_jackpots.py           # Jackpot tích lũy (minhchinh.com)
 │   ├── fetch_data.py               # Scraper dự phòng — AjaxPro vietlott.vn (IP VN)
+│   ├── build_predictions.py        # Sinh dự đoán công khai (minh bạch, chống sửa)
+│   ├── build_articles.py           # Sinh bài viết phân tích bằng Gemini (khi có kỳ mới)
 │   └── bootstrap.py                # Tải lịch sử từ vietvudanh/vietlott-data (1 lần)
 │
 ├── 📁 .github/workflows/
@@ -113,6 +118,20 @@ vietlot-ai/
 | `pages.yml` | On push + mỗi 5 phút | Deploy Dashboard lên GitHub Pages |
 | `catchup.yml` | **Thủ công** | Bù dữ liệu thiếu theo ngày/game tuỳ chọn |
 | `bootstrap.yml` | **Thủ công (1 lần)** | Tải dữ liệu lịch sử từ vietvudanh/vietlott-data |
+
+---
+
+## 📰 Bài Viết AI (Gemini) — thiết lập
+
+Tab **Bài Viết** tự sinh một bài phân tích chuyên sâu cho mỗi loại (trừ Keno) **mỗi khi có kỳ quay mới**. Script `scripts/build_articles.py` gom dữ liệu thống kê (số nóng/lạnh, streak, cặp số, dự đoán AI) rồi gọi **Google Gemini** viết bài, lưu vào `data/articles.jsonl`. Chỉ sinh bài khi xuất hiện kỳ mới (đã có bài cho kỳ đó → bỏ qua, không tốn quota).
+
+**Cần 1 secret** để workflow gọi được Gemini:
+
+1. Vào **Settings → Secrets and variables → Actions → New repository secret**
+2. Tên: `GEMINI_API_KEY` — Giá trị: API key Gemini của bạn (lấy free tại [aistudio.google.com](https://aistudio.google.com/apikey))
+3. (Tuỳ chọn) đổi model qua secret/variable `GEMINI_MODEL` — mặc định `gemini-2.5-flash`
+
+> Không có secret → bước tạo bài tự bỏ qua êm, các workflow khác vẫn chạy bình thường. Key **chỉ nằm trong secret**, không lộ ra frontend.
 
 ---
 
