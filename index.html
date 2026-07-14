@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VietLot AI 🎰 — Phân Tích Xổ Số Thông Minh</title>
+<title>VietLot AI 🎰 — Phân Tích &amp; Dự Đoán Xổ Số Vietlott</title>
+<meta name="description" content="Thống kê &amp; phân tích kết quả xổ số Vietlott (Power 6/55, Mega 6/45, Lotto 5/35, Max3D) — số nóng/lạnh, cặp số, dự đoán AI. Cập nhật tự động sau mỗi kỳ quay.">
+<link rel="canonical" href="https://compal123.github.io/vietlot-ai/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VietLot AI — Phân Tích &amp; Dự Đoán Xổ Số Vietlott">
+<meta property="og:description" content="Thống kê, phân tích và dự đoán kết quả xổ số Vietlott — cập nhật tự động sau mỗi kỳ quay. Xem bài dự đoán tại /du-doan/.">
+<meta property="og:url" content="https://compal123.github.io/vietlot-ai/">
+<meta property="og:site_name" content="VietLot AI">
+<meta property="og:locale" content="vi_VN">
+<meta name="twitter:card" content="summary">
+<link rel="sitemap" type="application/xml" href="https://compal123.github.io/vietlot-ai/sitemap.xml">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -3396,12 +3406,18 @@ async function renderArticles(){
   }
 
   const created=sel.created_at?new Date(sel.created_at).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+  // Link tới trang tĩnh SEO tương ứng (bài mới nhất → /du-doan/{slug}/, cũ → ky-{id}.html)
+  const SEO_SLUG={power655:'power-6-55',power645:'mega-6-45',power535:'lotto-5-35',max3d:'max-3d',max3dpro:'max-3d-pro'};
+  const siteBase=RAW.replace(/data\/$/,'');
+  const slug=SEO_SLUG[S.lottery];
+  const permalink=slug?(idx===0?`${siteBase}du-doan/${slug}/`:`${siteBase}du-doan/${slug}/ky-${escHtml(sel.based_on_id)}.html`):'';
   const card=`<div class="art-card">
     <div class="art-head-meta">
       <span class="art-badge">📊 ${ac.name}</span>
       <span>Kỳ #${escHtml(sel.based_on_id)}${sel.based_on_date?' · '+fmtDate(sel.based_on_date):''}</span>
       ${created?`<span>🕐 ${created}</span>`:''}
       <span style="margin-left:auto;color:var(--accent-purple)">✨ Gemini AI</span>
+      ${permalink?`<a href="${permalink}" target="_blank" rel="noopener" style="color:var(--accent-cyan);text-decoration:none;font-weight:700" title="Mở trang riêng để chia sẻ / cho Google index"><i class="fa-solid fa-link" style="font-size:11px"></i> Trang riêng</a>`:''}
     </div>
     <div class="art-body">${mdToHtml(sel.content||'')}</div>
   </div>`;

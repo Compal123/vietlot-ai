@@ -89,6 +89,7 @@ vietlot-ai/
 │   ├── fetch_data.py               # Scraper dự phòng — AjaxPro vietlott.vn (IP VN)
 │   ├── build_predictions.py        # Sinh dự đoán công khai (minh bạch, chống sửa)
 │   ├── build_articles.py           # Sinh bài viết phân tích bằng Gemini (khi có kỳ mới)
+│   ├── build_seo.py                # Sinh trang tĩnh SEO + sitemap (lúc deploy, cho Google)
 │   └── bootstrap.py                # Tải lịch sử từ vietvudanh/vietlott-data (1 lần)
 │
 ├── 📁 .github/workflows/
@@ -132,6 +133,25 @@ Tab **Bài Viết** tự sinh một bài phân tích chuyên sâu cho mỗi lo�
 3. (Tuỳ chọn) đổi model qua secret/variable `GEMINI_MODEL` — mặc định `gemini-2.5-flash`
 
 > Không có secret → bước tạo bài tự bỏ qua êm, các workflow khác vẫn chạy bình thường. Key **chỉ nằm trong secret**, không lộ ra frontend.
+
+---
+
+## 🔎 SEO — trang tĩnh cho Google
+
+Dashboard là SPA (nội dung do JS vẽ trong tab) nên Googlebot gần như không đọc được bài viết. Để khắc phục, `scripts/build_seo.py` sinh **trang HTML tĩnh** cho mỗi bài (chạy lúc deploy trong `pages.yml`, không commit — như `/api/`):
+
+| URL | Nội dung |
+|-----|---------|
+| `/du-doan/` | Trang tổng "Dự đoán xổ số Vietlott hôm nay" |
+| `/du-doan/power-6-55/` (mega-6-45, lotto-5-35, max-3d, max-3d-pro) | Bài **mới nhất** của loại — URL "hôm nay", tự cập nhật mỗi kỳ |
+| `/du-doan/{slug}/ky-{id}.html` | Bài lưu trữ từng kỳ cũ (URL cố định) |
+| `/sitemap.xml`, `/robots.txt` | Giúp Google tìm & crawl |
+
+Mỗi trang có `<title>`/`meta description`/**Open Graph**/**JSON-LD Article** riêng + **toàn văn bài trong HTML** → đủ điều kiện được index.
+
+**👉 Việc quan trọng nhất để được index nhanh:** đăng ký site trên **[Google Search Console](https://search.google.com/search-console)** (xác minh quyền sở hữu) rồi **Submit sitemap**: `https://compal123.github.io/vietlot-ai/sitemap.xml`.
+
+> ⚠️ Lưu ý github.io: `robots.txt` chuẩn phải ở gốc host (`compal123.github.io/robots.txt`) — repo project không kiểm soát được gốc đó, nên **cách chắc ăn là submit sitemap trực tiếp qua Search Console**. Một **tên miền riêng** (vd `dudoanxoso.com`) sẽ giúp cả robots.txt lẫn xếp hạng tốt hơn nhiều.
 
 ---
 

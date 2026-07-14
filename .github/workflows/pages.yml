@@ -45,6 +45,9 @@ jobs:
       - name: 🧬 Build API (JSON tĩnh + phân tích, chỉ dùng stdlib)
         run: python scripts/build_api.py
 
+      - name: 🔎 Build trang SEO tĩnh (du-doan/ + sitemap.xml + robots.txt)
+        run: python scripts/build_seo.py
+
       - name: ⚙️ Configure Pages
         uses: actions/configure-pages@v5
 

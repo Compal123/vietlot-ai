@@ -1,6 +1,11 @@
 # API JSON tĩnh — sinh tự động khi deploy (scripts/build_api.py), không commit
 /api/
 
+# Trang SEO tĩnh — sinh tự động khi deploy (scripts/build_seo.py), không commit
+/du-doan/
+/sitemap.xml
+/robots.txt
+
 # Python
 __pycache__/
 *.pyc
