@@ -131,6 +131,7 @@ Toàn bộ kết quả và phân tích được xuất ra **API JSON tĩnh**, si
 | `/api/{game}/latest.json` | Kết quả kỳ quay mới nhất |
 | `/api/{game}/results.json` | 100 kỳ gần nhất |
 | `/api/{game}/stats.json` | Phân tích: nóng/lạnh, số gan, cặp số, tổng, chẵn/lẻ |
+| `/api/{game}/predictions.json` | Dự đoán AI công khai + độ chính xác (có mốc thời gian, chống sửa) |
 | `/data/{game}.jsonl` | Toàn bộ lịch sử (JSONL) |
 
 `{game}` ∈ `power655`, `power645`, `power535`, `keno`, `3d`, `3d_pro`.

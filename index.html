@@ -2943,11 +2943,6 @@ function predAIMainCard(nums, sc, ac, specNums, specSc){
     </div>
     ${specHTML}
     <div class="pred-warn">⚠️ Đây là gợi ý dựa trên phân tích thống kê — không đảm bảo trúng thưởng. Xổ số là hoàn toàn ngẫu nhiên. Hãy chơi có trách nhiệm!</div>
-    <button id="pred-save-btn" onclick="predSaveAll()"
-      style="width:100%;margin-top:10px;padding:10px 0;background:rgba(0,212,208,.1);border:1px solid rgba(0,212,208,.35);
-        border-radius:10px;color:var(--accent-cyan);font-weight:800;font-size:13px;cursor:pointer;letter-spacing:.3px">
-      💾 Lưu dự đoán này vào lịch sử
-    </button>
   </div>`;
 }
 
@@ -3138,20 +3133,102 @@ async function renderPredict(){
     return;
   }
 
-  const banner=`<div style="background:rgba(78,255,163,.06);border:1px solid rgba(78,255,163,.22);
-    border-radius:10px;padding:8px 14px;margin-bottom:14px;font-size:12.5px;
+  const banner=`<div style="background:rgba(0,212,208,.06);border:1px solid rgba(0,212,208,.25);
+    border-radius:10px;padding:9px 14px;margin-bottom:14px;font-size:12.5px;line-height:1.55;
     display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-    <i class="fa-solid fa-robot" style="color:var(--accent-green)"></i>
-    <span id="pred-autosave-status" style="color:var(--text-muted)">⏳ Đang tự động lưu tất cả loại xổ số...</span>
-    <button onclick="predAutoSaveAll('pred-autosave-status')"
-      style="margin-left:auto;background:none;border:1px solid rgba(78,255,163,.3);border-radius:6px;
-      color:var(--accent-green);font-size:11px;padding:3px 10px;cursor:pointer">🔄 Làm mới</button>
+    <i class="fa-solid fa-shield-halved" style="color:var(--accent-cyan)"></i>
+    <span style="color:var(--text-secondary)"><b style="color:var(--accent-cyan)">Dự đoán công khai &amp; minh bạch</b> — mỗi kỳ được lưu lên GitHub kèm mốc thời gian <b>trước khi quay</b>, không thể sửa lén. Mọi thiết bị xem chung một lịch sử.</span>
   </div>`;
 
   el.innerHTML=banner+(ac.isMax3d?predRenderMax3d(adapted,ac):predRenderNum(adapted,ac));
 
-  // Tự động lưu tất cả loại xổ số ở background
-  predAutoSaveAll('pred-autosave-status');
+  // Nạp lịch sử dự đoán CÔNG KHAI (từ data/predictions.jsonl) → thay localStorage
+  const histEl=document.getElementById('pred-history');
+  if(histEl){
+    histEl.innerHTML='<div style="text-align:center;padding:24px;color:var(--text-muted)"><div class="spinner" style="margin:0 auto 10px"></div>Đang tải lịch sử công khai…</div>';
+    await loadPubPredictions();
+    histEl.innerHTML=renderPubHistory(S.lottery, ac);
+  }
+}
+
+/* ═══ Dự đoán công khai (đọc data/predictions.jsonl) ═══ */
+let _pubPredCache=null;
+async function loadPubPredictions(){
+  if(_pubPredCache) return _pubPredCache;
+  const map={};
+  try{
+    const res=await fetch(RAW+'predictions.jsonl?t='+Date.now());
+    if(res.ok){
+      for(const line of (await res.text()).split('\n')){
+        const s=line.trim(); if(!s) continue;
+        try{ const r=JSON.parse(s); (map[r.game]=map[r.game]||[]).push(r); }catch{}
+      }
+    }
+  }catch(e){}
+  _pubPredCache=map; return map;
+}
+
+function pubMatchTags(m,pick,isMax3d){
+  if(!m) return '';
+  const t=[predMatchTag(m.ai,pick,'🤖 AI')];
+  if(!isMax3d){
+    t.push(predMatchTag(m.hot,pick,'🔥 Nóng'));
+    t.push(predMatchTag(m.cold,pick,'❄️ Nguội'));
+    t.push(predMatchTag(m.corr,pick,'🔗 T.Quan'));
+  }
+  if(m.spec!==null&&m.spec!==undefined)
+    t.push(`<span style="font-size:11px;background:rgba(255,204,68,.1);border:1px solid rgba(255,204,68,.4);border-radius:6px;padding:2px 7px;color:#ffcc44;font-weight:700">Số phụ: ${m.spec?'✅':'❌'}</span>`);
+  return `<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">${t.join('')}</div>`;
+}
+
+function pubPredCard(r,ac){
+  const isMax3d=ac.isMax3d;
+  const picks=r.picks?.ai||[];
+  const pick=picks.length||(isMax3d?5:ac.pick);
+  const resSet=r.result?new Set(r.result.allNums||r.result.nums||[]):new Set();
+  const aiBalls=picks.map(n=>anlBall(n,resSet.has(n)?'#00d4d0':'#4e9fff',24)).join('');
+  const live=!r.result;
+  let resHTML=`<div style="color:var(--text-muted);font-size:12px;font-style:italic;padding:6px 0">⏳ Chờ kết quả kỳ tới</div>`;
+  if(r.result){
+    const aiSet=new Set(picks);
+    const rb=(r.result.nums||[]).map(n=>anlBall(n,aiSet.has(n)?'#00d4d0':'rgba(255,255,255,.15)',24)).join('');
+    resHTML=`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:5px">${rb}</div>
+      <div style="font-size:11px;color:var(--text-muted)">Kỳ #${r.result.id} — ${fmtDate(r.result.date)}</div>`;
+  }
+  const badge=live
+    ? `<span style="font-size:10px;font-weight:800;color:#4effa3;background:rgba(78,255,163,.12);border:1px solid rgba(78,255,163,.35);border-radius:20px;padding:2px 9px">● KỲ TỚI · đã khoá${r.created_at?' '+new Date(r.created_at).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):''}</span>`
+    : `<span style="font-size:10px;color:var(--text-muted)">${r.mode==='backtest'?'kiểm thử quá khứ':'đã lưu'} · dựa kỳ #${r.based_on_id}</span>`;
+  return `<div style="background:var(--bg-card2);border-radius:12px;padding:14px 16px;border:1px solid ${live?'rgba(78,255,163,.3)':'var(--border)'};margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <span style="font-size:12px;font-weight:800;color:${ac.color}">${ac.name}</span>${badge}
+      ${r.spec?`<span style="font-size:11px;color:#ffcc44">(${ac.specName||'Số phụ'}: ${r.spec<10?'0'+r.spec:r.spec})</span>`:''}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
+      <div><div style="font-size:10px;font-weight:800;color:var(--text-muted);letter-spacing:.5px;margin-bottom:6px">🤖 AI DỰ ĐOÁN</div>
+        <div style="display:flex;flex-wrap:wrap;gap:3px">${aiBalls}</div></div>
+      <div><div style="font-size:10px;font-weight:800;color:var(--text-muted);letter-spacing:.5px;margin-bottom:6px">📊 KẾT QUẢ THỰC</div>${resHTML}</div>
+    </div>
+    ${pubMatchTags(r.matched,pick,isMax3d)}
+  </div>`;
+}
+
+function renderPubHistory(game,ac){
+  const recs=(_pubPredCache&&_pubPredCache[game])||[];
+  if(!recs.length) return `<div style="text-align:center;padding:26px 20px;color:var(--text-muted)">
+    <div style="font-size:34px;margin-bottom:8px">🌐</div>
+    <p style="font-size:13px;line-height:1.7">Chưa có dữ liệu dự đoán công khai.<br>Hệ thống sẽ tự tạo sau kỳ quay tiếp theo.</p></div>`;
+  recs.sort((a,b)=>String(b.based_on_id).localeCompare(String(a.based_on_id)));
+  const pending=recs.filter(r=>!r.result);
+  const settled=recs.filter(r=>r.matched);
+  const pick=(settled[0]?.picks?.ai||recs[0]?.picks?.ai||[]).length||(ac.isMax3d?5:ac.pick);
+  const avg=k=>settled.length?(settled.reduce((s,r)=>s+(r.matched[k]||0),0)/settled.length).toFixed(2):'—';
+  const bar=settled.length?`<div style="display:flex;flex-wrap:wrap;gap:8px;padding:10px 14px;background:var(--bg-surface);border-radius:10px;margin-bottom:14px;font-size:12px;align-items:center">
+    <span style="font-weight:700;color:var(--text-muted)">📊 Độ chính xác ${settled.length} kỳ:</span>
+    <span style="color:#4e9fff">🤖 AI <b>${avg('ai')}/${pick}</b></span>
+    ${!ac.isMax3d?`<span style="color:#ff4757">🔥 <b>${avg('hot')}</b></span><span style="color:#74b9ff">❄️ <b>${avg('cold')}</b></span><span style="color:#a29bfe">🔗 <b>${avg('corr')}</b></span>`:''}
+    <span style="color:var(--text-muted);font-style:italic;font-size:11px">(≈ ngẫu nhiên — minh bạch, không hứa trúng)</span>
+  </div>`:'';
+  return bar+pending.map(r=>pubPredCard(r,ac)).join('')+settled.slice(0,40).map(r=>pubPredCard(r,ac)).join('');
 }
 
 function switchSub(sub){

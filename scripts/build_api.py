@@ -269,6 +269,7 @@ def build():
                 "latest": f"{API_BASE}/{key}/latest.json",
                 "results": f"{API_BASE}/{key}/results.json",
                 "stats": f"{API_BASE}/{key}/stats.json",
+                "predictions": f"{API_BASE}/{key}/predictions.json",
                 "full_history_jsonl": f"{SITE}/data/{key}.jsonl",
             },
         })
@@ -278,6 +279,9 @@ def build():
     if jp_path.exists():
         jp = json.loads(jp_path.read_text(encoding="utf-8"))
         write_json(API / "jackpots.json", jp)
+
+    # predictions (dự đoán công khai + độ chính xác)
+    build_predictions_api()
 
     # index.json — danh mục chính
     index = {
@@ -308,6 +312,54 @@ def build():
     build_openapi(catalog)
     build_llms_txt(index, catalog)
     print("✅ Done.")
+
+
+def build_predictions_api():
+    """Đọc data/predictions.jsonl → api/{game}/predictions.json + tính độ chính xác."""
+    path = DATA / "predictions.jsonl"
+    if not path.exists():
+        return
+    recs = []
+    with path.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    recs.append(json.loads(line))
+                except json.JSONDecodeError:
+                    pass
+    by_game = {}
+    for r in recs:
+        by_game.setdefault(r.get("game"), []).append(r)
+
+    for game, lst in by_game.items():
+        lst.sort(key=lambda p: str(p.get("based_on_id", "")), reverse=True)
+        settled = [p for p in lst if p.get("matched")]
+        pending = [p for p in lst if not p.get("result")]
+        n = len(settled)
+        acc = None
+        if n:
+            def avg(k):
+                return round(sum(p["matched"].get(k, 0) or 0 for p in settled) / n, 3)
+            pick = len(settled[0]["picks"].get("ai", [])) or None
+            acc = {
+                "settled_count": n,
+                "picks_per_draw": pick,
+                "avg_match": {"ai": avg("ai"), "hot": avg("hot"),
+                              "cold": avg("cold"), "corr": avg("corr")},
+                "note": ("Số trúng trung bình mỗi kỳ. Xổ số ngẫu nhiên — các mức này "
+                         "thường xấp xỉ kỳ vọng ngẫu nhiên, KHÔNG chứng minh dự đoán được."),
+            }
+        write_json(API / game / "predictions.json", {
+            "game": game,
+            "description": ("Dự đoán AI công khai. Bản 'live' được commit TRƯỚC kỳ quay "
+                            "(lịch sử git = bằng chứng thời gian). Bản 'backtest' tính lại "
+                            "trên dữ liệu quá khứ, chỉ dùng kỳ cũ hơn (không nhìn trộm)."),
+            "accuracy": acc,
+            "pending": pending,
+            "history": settled,
+            "generated_at": now_iso(),
+        })
 
 
 def build_openapi(catalog):
@@ -345,6 +397,12 @@ def build_openapi(catalog):
             "/{game}/stats.json": {"get": {
                 "operationId": "getStats",
                 "summary": "Phân tích thống kê (nóng/lạnh/gan/cặp/tổng...)",
+                "parameters": [{"name": "game", "in": "path", "required": True,
+                                "schema": {"type": "string", "enum": game_ids}}],
+                "responses": {"200": {"description": "OK"}}}},
+            "/{game}/predictions.json": {"get": {
+                "operationId": "getPredictions",
+                "summary": "Dự đoán AI công khai + độ chính xác (backtest & live)",
                 "parameters": [{"name": "game", "in": "path", "required": True,
                                 "schema": {"type": "string", "enum": game_ids}}],
                 "responses": {"200": {"description": "OK"}}}},
