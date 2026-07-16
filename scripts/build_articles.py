@@ -67,6 +67,9 @@ DRAW_WEEKDAYS = {
     "max3d":    {0, 2, 4},          # Thứ 2, 4, 6
     "max3dpro": {1, 3, 5},          # Thứ 3, 5, 7
 }
+# Số kỳ quay mỗi ngày — Lotto 5/35 quay 2 kỳ/ngày: nếu kỳ vừa quay chưa phải
+# kỳ cuối trong ngày thì kỳ kế tiếp vẫn CÙNG NGÀY, không phải hôm sau.
+DRAWS_PER_DAY = {"power535": 2}
 VN_MONTHS = None  # (không dùng — giữ chỗ)
 
 
@@ -442,7 +445,12 @@ def build():
             print(f"  ⏭ {game}: đã có bài (v{SCHEMA_VERSION}) cho kỳ #{latest_id}")
             continue
 
-        draw_date = next_draw_date_str(draws[0]["date"], game) or fmt_ddmmyyyy(draws[0]["date"])
+        per_day = DRAWS_PER_DAY.get(game, 1)
+        drawn_today = sum(1 for d in draws if d["date"] == draws[0]["date"])
+        if per_day > 1 and drawn_today < per_day:
+            draw_date = fmt_ddmmyyyy(draws[0]["date"])
+        else:
+            draw_date = next_draw_date_str(draws[0]["date"], game) or fmt_ddmmyyyy(draws[0]["date"])
         title = f"Dự đoán kết quả {ac['name']} ngày {draw_date}"
         stats = (compute_stats_max3d(draws, ac) if ac.get("isMax3d") else compute_stats_num(draws, ac))
         pred = latest_prediction(game)
