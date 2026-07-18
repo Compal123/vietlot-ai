@@ -34,6 +34,7 @@ jobs:
         with:
           sparse-checkout: |
             index.html
+            google5ee7d9c80e9ec75f.html
             data
             scripts
 
