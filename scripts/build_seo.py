@@ -197,6 +197,7 @@ def render_page(title, description, canonical, body_inner, jsonld=None, og_type=
 <div class="wrap">
 {body_inner}
 </div>
+<script data-goatcounter="https://cvcagv.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>"""
 
