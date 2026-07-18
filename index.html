@@ -3430,6 +3430,10 @@ function switchSub(sub){
   document.querySelectorAll('.stab').forEach(t=>t.classList.toggle('active',t.dataset.sub===sub));
   document.querySelectorAll('.tpanel').forEach(el=>el.classList.toggle('active',el.id==='tp-'+sub));
   renderActive();
+  // Đếm lượt xem tab trên GoatCounter (dashboard là SPA nên phải gửi thủ công)
+  if(window.goatcounter&&window.goatcounter.count){
+    window.goatcounter.count({path:'/vietlot-ai/tab/'+S.lottery+'/'+sub,title:'Tab '+sub+' ('+S.lottery+')'});
+  }
 }
 
 function renderActive(){
@@ -3463,5 +3467,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }, 5 * 60 * 1000); // 5 phút
 });
 </script>
+<script data-goatcounter="https://cvcagv.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
